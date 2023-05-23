@@ -1,43 +1,167 @@
-import Image from 'next/image'
-import Head from 'next/head'
-import {BsFillMoonStarsFill} from 'react-icons/bs'
-import {AiFillLinkedin} from 'react-icons/ai'
+"use client";
+import Image from "next/image";
+import Head from "next/head";
+import {
+  BsFillMoonFill,
+  BsFillBrightnessHighFill,
+  BsBorderLeft,
+} from "react-icons/bs";
+import { AiFillLinkedin, AiFillGithub } from "react-icons/ai";
+import { Document, Page, pdfjs } from "react-pdf";
+// import resume from "../../public/resume/Resume.pdf";
+import photo from "../../public/pictures/user-002.jpeg";
+import design from "../../public/others/design.png";
+import code from "../../public/others/code.png";
+import consulting from "../../public/others/consulting.png";
+import web1 from "../../public/pictures/rental.png";
+import web2 from "../../public/pictures/weather.png";
+import { useState } from "react";
 
 export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
+  const toggle = () => {
+    setDarkMode(!darkMode);
+  };
   return (
-    <div>
+    <div className={darkMode ? "dark" : ""}>
       <Head>
         <title>Luis Lozoya Portfolio Page</title>
-        <meta name='description' content='Portfolio Page'></meta>
-        <link rel='icon' href='/favicon.cio'></link>
+        <meta name="description" content="Portfolio Page"></meta>
+        <link rel="icon" href="/favicon.cio"></link>
       </Head>
-      <main>
-        <section className='bg-gray-800 h-screen'>
-          <nav className='p-10 mb-12 flex justify-between'>
-            <h1 className='text-xl font-burtons uppercase'>Portfolio Page</h1>
-            <ul className='flex items-center'>
-              <li>
-                <BsFillMoonStarsFill className='cursor-pointer text-2xl'/>
-              </li>
-              <li>
-                <a className='bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8' href="#">Resume</a>
-              </li>
-            </ul>
+
+      <main className="bg-white px-10 md:px-20 lg:px-40 dark:bg-gray-900">
+        {/* Section 1 - Description, Resume, Picture */}
+        <section>
+          <nav className="p-10 mb-12 flex justify-between">
+            <button onClick={toggle}>
+              {darkMode ? (
+                <BsFillBrightnessHighFill className="text-white" width={20} />
+              ) : (
+                <BsFillMoonFill />
+              )}
+            </button>
+            <div className="flex items-center">
+              <a className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8">
+                Resume
+              </a>
+            </div>
           </nav>
-          <div className='text-center p-10'>
-            <h2 className='text-5xl py-2 text-teal-600 font-medium'>Luis Lozoya</h2>
-            <h3 className='text-2xl py-2'>Developer and designer.</h3>
-            <p className='text-md py-5 leading-8'>I am a Full Stack Developer, with experience in front and back end.
-              I am originally from Spain where I graduated in 2012 with a bachelor's degree
-              in Architectural Engineering. After years of experience in construction and design,
-              I enrolled JRS Coding School where I graduated in 2020 as a Software Developer.
+          <div className="text-center p-10">
+            <h2 className="text-4xl text-teal-600 font-medium md:text-5xl">
+              Luis Lozoya
+            </h2>
+            <h3 className="text-3xl pt-5 md:text-5xl dark:text-white">
+              Full Stack Developer
+            </h3>
+            <p className="text-md pt-2 leading-8 md:text-xl max-w-xl mx-auto dark:text-white">
+              React | Angular | NextJS | NestJS
             </p>
           </div>
-          <div className='text-5xl flex justify-center gap-16 py-3 text-gray-600'>
-            <AiFillLinkedin />
+          <div className="text-3xl flex justify-center gap-6 text-gray-600">
+            <AiFillLinkedin className="dark:text-white" />
+            <AiFillGithub className="dark:text-white" />
+          </div>
+          <div className="relative mx-auto bg-gradient-to-b from-teal-500 rounded-full w-28 h-28 mt-10 overflow-hidden md:h-30 md:w-30">
+            <Image src={photo} alt="" />
           </div>
         </section>
+        {/* End of Section 1 - Description, Resume, Picture */}
+
+        {/* Section 2 - Services */}
+        <section>
+          <div className="text-center">
+            <h3 className="text-3xl pt-20 dark:text-white">Skills</h3>
+            <p className="text-md py-5 leading-8 dark:text-white">
+              Some of my skills
+            </p>
+          </div>
+          <div className="shadow-lg p-10 rounded-xl my-10 dark:bg-white">
+            <div className="grid grid-cols-3 gap-4 content-normal">
+              <div className="text-center">
+                <Image
+                  className="relative mx-auto"
+                  src={design}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+                <h3 className="text-base font-medium pt-8 pb-2 text-teal-600 md:text-lg">
+                  Front End
+                </h3>
+                <div className="border-2 border-teal-900 mb-3"></div>
+                <p className="text-gray-800 py-1">JavaScript</p>
+                <p className="text-gray-800 py-1">TypeScript</p>
+                <p className="text-gray-800 py-1">React</p>
+                <p className="text-gray-800 py-1">Angular</p>
+              </div>
+              {/* <div className="border border-teal-900 mx-10"></div> */}
+              <div className="text-center">
+                <Image
+                  className="relative mx-auto"
+                  src={code}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+                <h3 className="text-base font-medium pt-8 pb-2 text-teal-600 md:text-lg">
+                  Back End
+                </h3>
+                <div className="border-2 border-teal-900 mb-3"></div>
+                <p className="text-gray-800 py-1">NodeJS</p>
+                <p className="text-gray-800 py-1">NextJS</p>
+                <p className="text-gray-800 py-1">NestJS</p>
+                <p className="text-gray-800 py-1">Express</p>
+                <p className="text-gray-800 py-1">MongoDB</p>
+                <p className="text-gray-800 py-1">CosmosDB</p>
+                <p className="text-gray-800 py-1">MySQL</p>
+              </div>
+              {/* <div className="border border-teal-900 mx-10"></div> */}
+              <div className="text-center">
+                <Image
+                  className="relative mx-auto"
+                  src={consulting}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+                <h3 className="text-base font-medium pt-8 pb-2 text-teal-600 md:text-lg">
+                  Other Tools
+                </h3>
+                <div className="border-2 border-teal-900 mb-3"></div>
+                <p className="text-gray-800 py-1">Rest API</p>
+                <p className="text-gray-800 py-1">Tailwind</p>
+                <p className="text-gray-800 py-1">Boostrap</p>
+                <p className="text-gray-800 py-1">Azure</p>
+                <p className="text-gray-800 py-1">AWS</p>
+                <p className="text-gray-800 py-1">Linux</p>
+                <p className="text-gray-800 py-1">Github</p>
+                <p className="text-gray-800 py-1">Git</p>
+                <p className="text-gray-800 py-1">Cypress Testing</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* End of Section 2 - Services */}
+        {/* Section 3 - Portfolio */}
+        <section>
+          <div className="text-center">
+            <h3 className="text-3xl pt-12 dark:text-white">Portfolio</h3>
+            <p className="text-md py-5 leading-8 dark:text-white">
+              Some of the projects that I have worked on
+            </p>
+          </div>
+          <div className="flex flex-col gap-10 py-10 lg:flex-row lg:flex-wrap">
+            <div className="basis-1/3 flex-1">
+              <Image src={web1} className="rounded-lg object-cover" alt="" />
+            </div>
+            <div className="basis-1/3 flex-1">
+              <Image src={web2} className="rounded-lg object-cover" alt="" />
+            </div>
+          </div>
+        </section>
+        {/* End of Section 3 - Portfolio */}
       </main>
     </div>
-  )
+  );
 }
