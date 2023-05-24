@@ -44,9 +44,9 @@ export default function Home() {
               )}
             </button>
             <div className="flex items-center">
-              <a className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8">
+              <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8">
                 Resume
-              </a>
+              </button>
             </div>
           </nav>
           <div className="text-center p-10">
@@ -157,29 +157,53 @@ export default function Home() {
             <div className="py-3">
               <Image
                 src={web1}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
                 alt=""
+                onClick={() =>
+                  window.open(
+                    `https://javierlozo.github.io/Rental-App/`,
+                    "_blank"
+                  )
+                }
               />
             </div>
             <div className="py-3">
               <Image
                 src={web2}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
                 alt=""
+                onClick={() =>
+                  window.open(
+                    `https://javierlozo.github.io/WeatherCheck-API/`,
+                    "_blank"
+                  )
+                }
               />
             </div>
             <div className="py-3">
               <Image
                 src={web3}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
                 alt=""
+                onClick={() =>
+                  window.open(
+                    `https://javierlozo.github.io/WeatherCheck-API/`,
+                    "_blank"
+                  )
+                }
               />
             </div>
             <div className="py-3">
               <Image
                 src={web4}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
                 alt=""
+                onClick={() =>
+                  window.open(
+                    `https://javierlozo.github.io/portfolio/`,
+                    "_blank"
+                  )
+                }
               />
             </div>
           </div>
