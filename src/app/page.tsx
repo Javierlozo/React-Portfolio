@@ -10,11 +10,13 @@ import { AiFillLinkedin, AiFillGithub } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 // import resume from "../../public/resume/Resume.pdf";
 import photo from "../../public/pictures/user-002.jpeg";
-import design from "../../public/others/design.png";
-import code from "../../public/others/code.png";
-import consulting from "../../public/others/consulting.png";
+import design from "../../public/others/react-js-4642758.png";
+import code from "../../public/others/4521476.png";
+import consulting from "../../public/others/web-development-5171264-4316413.png";
 import web1 from "../../public/pictures/rental.png";
 import web2 from "../../public/pictures/weather.png";
+import web3 from "../../public/pictures/localhost_8501_.png";
+import web4 from "../../public/pictures/Screenshot (117).png";
 import { useState } from "react";
 
 export default function Home() {
@@ -76,7 +78,7 @@ export default function Home() {
               Some of my skills
             </p>
           </div>
-          <div className="shadow-lg p-10 rounded-xl my-10 dark:bg-white">
+          <div className="bg-gray-200 shadow-lg p-10 rounded-xl my-10 dark:bg-white">
             <div className="grid grid-cols-3 gap-4 content-normal">
               <div className="text-center">
                 <Image
@@ -126,7 +128,7 @@ export default function Home() {
                   height={100}
                 />
                 <h3 className="text-base font-medium pt-8 pb-2 text-teal-600 md:text-lg">
-                  Other Tools
+                  Tools
                 </h3>
                 <div className="border-2 border-teal-900 mb-3"></div>
                 <p className="text-gray-800 py-1">Rest API</p>
@@ -151,12 +153,34 @@ export default function Home() {
               Some of the projects that I have worked on
             </p>
           </div>
-          <div className="flex flex-col gap-10 py-10 lg:flex-row lg:flex-wrap">
-            <div className="basis-1/3 flex-1">
-              <Image src={web1} className="rounded-lg object-cover" alt="" />
+          <div className="grid sm:grid-cols-2 gap-4 place-items-center">
+            <div className="py-3">
+              <Image
+                src={web1}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                alt=""
+              />
             </div>
-            <div className="basis-1/3 flex-1">
-              <Image src={web2} className="rounded-lg object-cover" alt="" />
+            <div className="py-3">
+              <Image
+                src={web2}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                alt=""
+              />
+            </div>
+            <div className="py-3">
+              <Image
+                src={web3}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                alt=""
+              />
+            </div>
+            <div className="py-3">
+              <Image
+                src={web4}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                alt=""
+              />
             </div>
           </div>
         </section>
