@@ -29,7 +29,10 @@ export default function Home() {
       <Head>
         <title>Luis Lozoya Portfolio Page</title>
         <meta name="description" content="Portfolio Page"></meta>
-        <link rel="icon" href="/favicon.cio"></link>
+        <link
+          rel="icon"
+          href={require("../../public/pictures/favicon-32x32.png")}
+        ></link>
       </Head>
 
       <main className="bg-white px-10 md:px-20 lg:px-40 dark:bg-gray-900">
@@ -44,8 +47,13 @@ export default function Home() {
               )}
             </button>
             <div className="flex items-center">
-              <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8">
-                Resume
+              <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50">
+                <a
+                // href={require("../../public/resume/Resume.pdf")}
+                // download="myFile"
+                >
+                  Resume
+                </a>
               </button>
             </div>
           </nav>
@@ -53,7 +61,7 @@ export default function Home() {
             <h2 className="text-4xl text-teal-600 font-medium md:text-5xl">
               Luis Lozoya
             </h2>
-            <h3 className="text-3xl pt-5 md:text-5xl dark:text-white">
+            <h3 className="text-2xl pt-5 sm:text-3xl md:text-5xl dark:text-white">
               Full Stack Developer
             </h3>
             <p className="text-md pt-2 leading-8 md:text-xl max-w-xl mx-auto dark:text-white">
@@ -61,8 +69,21 @@ export default function Home() {
             </p>
           </div>
           <div className="text-3xl flex justify-center gap-6 text-gray-600">
-            <AiFillLinkedin className="dark:text-white" />
-            <AiFillGithub className="dark:text-white" />
+            <AiFillLinkedin
+              className="dark:text-white hover:opacity-50 cursor-pointer"
+              onClick={() =>
+                window.open(
+                  `https://www.linkedin.com/in/luisjlozoya/`,
+                  "_blank"
+                )
+              }
+            />
+            <AiFillGithub
+              className="dark:text-white hover:opacity-50 cursor-pointer"
+              onClick={() =>
+                window.open(`https://github.com/Javierlozo`, "_blank")
+              }
+            />
           </div>
           <div className="relative mx-auto bg-gradient-to-b from-teal-500 rounded-full w-28 h-28 mt-10 overflow-hidden md:h-30 md:w-30">
             <Image src={photo} alt="" />
@@ -157,7 +178,7 @@ export default function Home() {
             <div className="py-3">
               <Image
                 src={web1}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
                 alt=""
                 onClick={() =>
                   window.open(
@@ -170,7 +191,7 @@ export default function Home() {
             <div className="py-3">
               <Image
                 src={web2}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
                 alt=""
                 onClick={() =>
                   window.open(
@@ -183,7 +204,7 @@ export default function Home() {
             <div className="py-3">
               <Image
                 src={web3}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
                 alt=""
                 onClick={() =>
                   window.open(
@@ -196,7 +217,7 @@ export default function Home() {
             <div className="py-3">
               <Image
                 src={web4}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
                 alt=""
                 onClick={() =>
                   window.open(
