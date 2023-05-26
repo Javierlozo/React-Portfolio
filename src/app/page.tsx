@@ -24,10 +24,7 @@ export default function Home() {
       <Head>
         <title>Luis Lozoya Portfolio Page</title>
         <meta name="description" content="Portfolio Page"></meta>
-        <link
-          rel="icon"
-          href={require("../../public/pictures/favicon-32x32.png")}
-        ></link>
+        <link rel="icon" href="/favicon.cio"></link>
       </Head>
 
       <main className="bg-white px-10 md:px-20 lg:px-40 dark:bg-gray-900">
@@ -183,6 +180,7 @@ export default function Home() {
               <Image
                 src={web2}
                 className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
+                title="An application to check the weather in different cities in the world. It was created with React and using a REST API to get all the information for the weather."
                 alt=""
                 onClick={() =>
                   window.open(
