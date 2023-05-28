@@ -201,10 +201,7 @@ export default function Home() {
                 className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
                 alt=""
                 onClick={() =>
-                  window.open(
-                    `https://javierlozo.github.io/WeatherCheck-API/`,
-                    "_blank"
-                  )
+                  window.open(`https://langchain-autogpt.vercel.app/`, "_blank")
                 }
               />
             </div>
