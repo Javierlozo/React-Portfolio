@@ -9,10 +9,10 @@ import code from "../../public/others/4521476.png";
 import consulting from "../../public/others/web-development-5171264-4316413.png";
 import web1 from "../../public/pictures/rental.png";
 import web2 from "../../public/pictures/weather.png";
-import web3 from "../../public/pictures/localhost_8501_.png";
+import web3 from "../../public/pictures/langchain.png";
 import web4 from "../../public/pictures/Screenshot (117).png";
 import { useState } from "react";
-import resume from "../../public/pictures/picture1.jpg";
+import resume from "../../public/resume/Resume.jpg";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -39,7 +39,12 @@ export default function Home() {
               )}
             </button>
             <div className="flex items-center">
-              <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50">
+              <button
+                className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50"
+                // onClick={() =>
+                //   window.open("../../public/resume/Resume.jpg", "_blank")
+                // }
+              >
                 <a download={resume}>Resume</a>
               </button>
             </div>
