@@ -13,6 +13,7 @@ import web3 from "../../public/pictures/langchain.png";
 import web4 from "../../public/pictures/Screenshot (117).png";
 import { useState } from "react";
 import resume from "../../public/resume/Resume.jpg";
+import "./styles/page_styles.css";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -185,7 +186,6 @@ export default function Home() {
               <Image
                 src={web2}
                 className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
-                title="An application to check the weather in different cities in the world. It was created with React and using a REST API to get all the information for the weather."
                 alt=""
                 onClick={() =>
                   window.open(
