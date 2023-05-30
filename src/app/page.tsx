@@ -12,7 +12,7 @@ import web2 from "../../public/pictures/weather.png";
 import web3 from "../../public/pictures/langchain.png";
 import web4 from "../../public/pictures/Screenshot (117).png";
 import { useState } from "react";
-import resume from "../../public/resume/Resume.jpg";
+import Resume from "../../public/resume/Resume.pdf";
 import "./styles/page_styles.css";
 
 export default function Home() {
@@ -40,13 +40,24 @@ export default function Home() {
               )}
             </button>
             <div className="flex items-center">
-              <button
-                className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50"
-                // onClick={() =>
-                //   window.open("../../public/resume/Resume.jpg", "_blank")
-                // }
-              >
-                <a download={resume}>Resume</a>
+              <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50">
+                <a href={Resume} className="btn btn--download">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    style={{
+                      fill: "rgba(0, 0, 0, 1)",
+                      transform: "",
+                      msFilter: "",
+                    }}
+                  >
+                    <path d="M12 16L16 11 13 11 13 4 11 4 11 11 8 11z" />
+                    <path d="M20,18H4v-7H2v7c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2v-7h-2V18z" />
+                  </svg>
+                  Download CV
+                </a>
               </button>
             </div>
           </nav>
