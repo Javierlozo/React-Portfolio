@@ -40,8 +40,15 @@ export default function Home() {
               )}
             </button>
             <div className="flex items-center">
-              {/* <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50">
-              </button> */}
+              <button
+                className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50"
+                onClick={() =>
+                  window.open(
+                    `https://github.com/Javierlozo/React-Portfolio/blob/main/Resume.pdf`,
+                    "_blank"
+                  )
+                }
+              ></button>
             </div>
           </nav>
           <div className="text-center p-10">
