@@ -48,7 +48,9 @@ export default function Home() {
                     "_blank"
                   )
                 }
-              ></button>
+              >
+                Resume
+              </button>
             </div>
           </nav>
           <div className="text-center p-10">
