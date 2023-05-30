@@ -40,25 +40,8 @@ export default function Home() {
               )}
             </button>
             <div className="flex items-center">
-              <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50">
-                <a href={Resume} className="btn btn--download">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    style={{
-                      fill: "rgba(0, 0, 0, 1)",
-                      transform: "",
-                      msFilter: "",
-                    }}
-                  >
-                    <path d="M12 16L16 11 13 11 13 4 11 4 11 11 8 11z" />
-                    <path d="M20,18H4v-7H2v7c0,1.103,0.897,2,2,2h16c1.103,0,2-0.897,2-2v-7h-2V18z" />
-                  </svg>
-                  Download CV
-                </a>
-              </button>
+              {/* <button className="btn--download bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md ml-8 hover:opacity-50">
+              </button> */}
             </div>
           </nav>
           <div className="text-center p-10">
@@ -209,11 +192,8 @@ export default function Home() {
             <div className="py-3">
               <Image
                 src={web3}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
                 alt=""
-                onClick={() =>
-                  window.open(`https://langchain-autogpt.vercel.app/`, "_blank")
-                }
               />
             </div>
             <div className="py-3">
