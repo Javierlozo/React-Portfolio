@@ -2,7 +2,8 @@
 import Image from "next/image";
 import Head from "next/head";
 import { BsFillMoonFill, BsFillBrightnessHighFill } from "react-icons/bs";
-import { AiFillLinkedin, AiFillGithub } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai";
+import { FaLinkedinIn } from "react-icons/fa";
 import photo from "../../public/pictures/user-002.jpeg";
 import design from "../../public/others/react-js-4642758.png";
 import code from "../../public/others/4521476.png";
@@ -12,6 +13,8 @@ import web2 from "../../public/pictures/weather.png";
 import web3 from "../../public/pictures/langchain.png";
 import web4 from "../../public/pictures/Screenshot (117).png";
 import certification1 from "../../public/certifications/System Adm.png";
+import certification2 from "../../public/certifications/THM-LJHNPB9YI3.png";
+import certification3 from "../../public/certifications/THM-TGJRJ0ZZXT.png";
 import { useState } from "react";
 import "./styles/page_styles.css";
 
@@ -65,7 +68,7 @@ export default function Home() {
             </p>
           </div>
           <div className="text-3xl flex justify-center gap-6 text-gray-600">
-            <AiFillLinkedin
+            <FaLinkedinIn
               className="dark:text-white hover:opacity-50 cursor-pointer"
               onClick={() =>
                 window.open(
@@ -81,7 +84,7 @@ export default function Home() {
               }
             />
           </div>
-          <div className="relative mx-auto bg-gradient-to-b from-teal-500 rounded-full w-28 h-28 mt-10 overflow-hidden md:h-30 md:w-30">
+          <div className="relative mx-auto rounded-full w-28 h-28 mt-10 overflow-hidden md:h-30 md:w-30 mb-28">
             <Image src={photo} alt="" />
           </div>
         </section>
@@ -89,8 +92,9 @@ export default function Home() {
 
         {/* Section 2 - Services */}
         <section>
+          <hr />
           <div className="text-center">
-            <h3 className="text-3xl pt-20 dark:text-white">Skills</h3>
+            <h3 className="text-3xl pt-7 dark:text-white">Skills</h3>
             <p className="text-md py-5 leading-8 dark:text-white">
               Some of my skills
             </p>
@@ -165,13 +169,14 @@ export default function Home() {
         {/* End of Section 2 - Services */}
         {/* Section 3 - Portfolio */}
         <section>
+          <hr />
           <div className="text-center">
-            <h3 className="text-3xl pt-12 dark:text-white">Portfolio</h3>
+            <h3 className="text-3xl pt-7 dark:text-white">Portfolio</h3>
             <p className="text-md py-5 leading-8 dark:text-white">
               Some of the projects that I have worked on
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4 place-items-center">
+          <div className="grid sm:grid-cols-2 gap-4 place-items-center pb-7">
             <div className="py-3">
               <Image
                 src={web1}
@@ -223,17 +228,18 @@ export default function Home() {
         {/* End of Section 3 - Portfolio */}
         {/* Section 4 - Certifications */}
         <section>
+          <hr />
           <div className="text-center">
-            <h3 className="text-3xl pt-12 dark:text-white">Certifications</h3>
+            <h3 className="text-3xl pt-7 dark:text-white">Certifications</h3>
             <p className="text-md py-5 leading-8 dark:text-white">
               Some of the certifications that I have obtained
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4 place-items-center">
+          <div className="grid sm:grid-cols-3 gap-4 place-items-center pb-7">
             <div className="py-3">
               <Image
                 src={certification1}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
+                className="rounded-2xl w-80 hover:opacity-50 cursor-pointer"
                 alt=""
                 onClick={() =>
                   window.open(
@@ -243,9 +249,58 @@ export default function Home() {
                 }
               />
             </div>
+            <div className="py-3">
+              <Image
+                src={certification2}
+                className="rounded-2xl w-96 h-64 hover:opacity-50 cursor-pointer"
+                alt=""
+                onClick={() =>
+                  window.open(
+                    `https://github.com/Javierlozo/React-Portfolio/blob/main/THM-LJHNPB9YI3.png`,
+                    "_blank"
+                  )
+                }
+              />
+            </div>
+            <div className="py-3">
+              <Image
+                src={certification3}
+                className="rounded-2xl w-96 h-64 hover:opacity-50 cursor-pointer"
+                alt=""
+                onClick={() =>
+                  window.open(
+                    `https://github.com/Javierlozo/React-Portfolio/blob/main/THM-TGJRJ0ZZXT.png`,
+                    "_blank"
+                  )
+                }
+              />
+            </div>
           </div>
         </section>
         {/* End of Section 4 - Certifications */}
+        <section>
+          <hr />
+          <div className="pt-7 text-3xl flex justify-center gap-3 text-gray-600">
+            <FaLinkedinIn
+              className="dark:text-white hover:opacity-50 cursor-pointer"
+              onClick={() =>
+                window.open(
+                  `https://www.linkedin.com/in/luisjlozoya/`,
+                  "_blank"
+                )
+              }
+            />
+            <AiFillGithub
+              className="dark:text-white hover:opacity-50 cursor-pointer"
+              onClick={() =>
+                window.open(`https://github.com/Javierlozo`, "_blank")
+              }
+            />
+          </div>
+          <div className="pt-3 pb-5 flex justify-center leading-8 dark:text-white">
+            Design by Luis Lozoya
+          </div>
+        </section>
       </main>
     </div>
   );
