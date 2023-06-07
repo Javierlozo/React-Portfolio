@@ -11,8 +11,8 @@ import web1 from "../../public/pictures/rental.png";
 import web2 from "../../public/pictures/weather.png";
 import web3 from "../../public/pictures/langchain.png";
 import web4 from "../../public/pictures/Screenshot (117).png";
+import certification1 from "../../public/certifications/System Adm.png";
 import { useState } from "react";
-import Resume from "../../public/resume/Resume.pdf";
 import "./styles/page_styles.css";
 
 export default function Home() {
@@ -221,6 +221,64 @@ export default function Home() {
           </div>
         </section>
         {/* End of Section 3 - Portfolio */}
+        {/* Section 4 - Certifications */}
+        <section>
+          <div className="text-center">
+            <h3 className="text-3xl pt-12 dark:text-white">Certifications</h3>
+            <p className="text-md py-5 leading-8 dark:text-white">
+              Some of the certifications that I have obtained
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 place-items-center">
+            <div className="py-3">
+              <Image
+                src={certification1}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
+                alt=""
+                onClick={() =>
+                  window.open(
+                    `https://javierlozo.github.io/Rental-App/`,
+                    "_blank"
+                  )
+                }
+              />
+            </div>
+            <div className="py-3">
+              <Image
+                src={web2}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
+                alt=""
+                onClick={() =>
+                  window.open(
+                    `https://javierlozo.github.io/WeatherCheck-API/`,
+                    "_blank"
+                  )
+                }
+              />
+            </div>
+            <div className="py-3">
+              <Image
+                src={web3}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                alt=""
+              />
+            </div>
+            <div className="py-3">
+              <Image
+                src={web4}
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
+                alt=""
+                onClick={() =>
+                  window.open(
+                    `https://javierlozo.github.io/portfolio/`,
+                    "_blank"
+                  )
+                }
+              />
+            </div>
+          </div>
+        </section>
+        {/* End of Section 4 - Certifications */}
       </main>
     </div>
   );
