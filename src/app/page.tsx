@@ -237,40 +237,7 @@ export default function Home() {
                 alt=""
                 onClick={() =>
                   window.open(
-                    `https://javierlozo.github.io/Rental-App/`,
-                    "_blank"
-                  )
-                }
-              />
-            </div>
-            <div className="py-3">
-              <Image
-                src={web2}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
-                alt=""
-                onClick={() =>
-                  window.open(
-                    `https://javierlozo.github.io/WeatherCheck-API/`,
-                    "_blank"
-                  )
-                }
-              />
-            </div>
-            <div className="py-3">
-              <Image
-                src={web3}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
-                alt=""
-              />
-            </div>
-            <div className="py-3">
-              <Image
-                src={web4}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
-                alt=""
-                onClick={() =>
-                  window.open(
-                    `https://javierlozo.github.io/portfolio/`,
+                    `https://github.com/Javierlozo/React-Portfolio/blob/main/System%20Adm%203p.pdf`,
                     "_blank"
                   )
                 }
