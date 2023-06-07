@@ -109,14 +109,14 @@ export default function Home() {
                   width={100}
                   height={100}
                 />
-                <h3 className="text-base font-medium pt-8 pb-2 text-teal-600 md:text-lg">
+                <h3 className="text-sm font-medium pt-8 pb-2 text-teal-600 md:text-lg">
                   Front End
                 </h3>
                 <div className="border-2 border-teal-900 mb-3"></div>
-                <p className="text-gray-800 py-1">JavaScript</p>
-                <p className="text-gray-800 py-1">TypeScript</p>
-                <p className="text-gray-800 py-1">React</p>
-                <p className="text-gray-800 py-1">Angular</p>
+                <p className="text-gray-800 py-1 text-sm">JavaScript</p>
+                <p className="text-gray-800 py-1 text-sm">TypeScript</p>
+                <p className="text-gray-800 py-1 text-sm">React</p>
+                <p className="text-gray-800 py-1 text-sm">Angular</p>
               </div>
               {/* <div className="border border-teal-900 mx-10"></div> */}
               <div className="text-center">
@@ -127,17 +127,17 @@ export default function Home() {
                   width={100}
                   height={100}
                 />
-                <h3 className="text-base font-medium pt-8 pb-2 text-teal-600 md:text-lg">
+                <h3 className="text-sm font-medium pt-8 pb-2 text-teal-600 md:text-lg">
                   Back End
                 </h3>
                 <div className="border-2 border-teal-900 mb-3"></div>
-                <p className="text-gray-800 py-1">NodeJS</p>
-                <p className="text-gray-800 py-1">NextJS</p>
-                <p className="text-gray-800 py-1">NestJS</p>
-                <p className="text-gray-800 py-1">Express</p>
-                <p className="text-gray-800 py-1">MongoDB</p>
-                <p className="text-gray-800 py-1">CosmosDB</p>
-                <p className="text-gray-800 py-1">MySQL</p>
+                <p className="text-gray-800 py-1 text-sm">NodeJS</p>
+                <p className="text-gray-800 py-1 text-sm">NextJS</p>
+                <p className="text-gray-800 py-1 text-sm">NestJS</p>
+                <p className="text-gray-800 py-1 text-sm">Express</p>
+                <p className="text-gray-800 py-1 text-sm">MongoDB</p>
+                <p className="text-gray-800 py-1 text-sm">CosmosDB</p>
+                <p className="text-gray-800 py-1 text-sm">MySQL</p>
               </div>
               {/* <div className="border border-teal-900 mx-10"></div> */}
               <div className="text-center">
@@ -148,20 +148,20 @@ export default function Home() {
                   width={100}
                   height={100}
                 />
-                <h3 className="text-base font-medium pt-8 pb-2 text-teal-600 md:text-lg">
+                <h3 className="text-sm font-medium pt-8 pb-2 text-teal-600 md:text-lg">
                   Tools
                 </h3>
                 <div className="border-2 border-teal-900 mb-3"></div>
-                <p className="text-gray-800 py-1">Github</p>
-                <p className="text-gray-800 py-1">Git</p>
-                <p className="text-gray-800 py-1">Figma Design</p>
-                <p className="text-gray-800 py-1">Rest API</p>
-                <p className="text-gray-800 py-1">Tailwind</p>
-                <p className="text-gray-800 py-1">Boostrap</p>
-                <p className="text-gray-800 py-1">Azure</p>
-                <p className="text-gray-800 py-1">AWS</p>
-                <p className="text-gray-800 py-1">Linux</p>
-                <p className="text-gray-800 py-1">Cypress Testing</p>
+                <p className="text-gray-800 py-1 text-sm">Github</p>
+                <p className="text-gray-800 py-1 text-sm">Git</p>
+                <p className="text-gray-800 py-1 text-sm">Figma</p>
+                <p className="text-gray-800 py-1 text-sm">Rest API</p>
+                <p className="text-gray-800 py-1 text-sm">Tailwind</p>
+                <p className="text-gray-800 py-1 text-sm">Boostrap</p>
+                <p className="text-gray-800 py-1 text-sm">Azure</p>
+                <p className="text-gray-800 py-1 text-sm">AWS</p>
+                <p className="text-gray-800 py-1 text-sm">Linux</p>
+                <p className="text-gray-800 py-1 text-sm">Cypress</p>
               </div>
             </div>
           </div>
