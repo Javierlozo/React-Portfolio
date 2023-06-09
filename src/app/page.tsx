@@ -8,6 +8,7 @@ import photo from "../../public/pictures/user-002.jpeg";
 import design from "../../public/others/react-js-4642758.png";
 import code from "../../public/others/4521476.png";
 import consulting from "../../public/others/web-development-5171264-4316413.png";
+import cyber from "../../public/others/4159897.png";
 import web1 from "../../public/pictures/rental.png";
 import web2 from "../../public/pictures/weather.png";
 import web3 from "../../public/pictures/langchain.png";
@@ -19,7 +20,7 @@ import { useState } from "react";
 import "./styles/page_styles.css";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const toggle = () => {
     setDarkMode(!darkMode);
   };
@@ -94,13 +95,13 @@ export default function Home() {
         <section>
           <hr />
           <div className="text-center">
-            <h3 className="text-3xl pt-7 dark:text-white">Skills</h3>
+            <h3 className="text-3xl pt-7 dark:text-white">Skills & Tools</h3>
             <p className="text-md py-5 leading-8 dark:text-white">
-              Some of my skills
+              Some of my skills and tools
             </p>
           </div>
           <div className="bg-gray-200 shadow-lg p-10 rounded-xl my-10 dark:bg-white">
-            <div className="grid grid-cols-3 gap-4 content-normal">
+            <div className="grid grid-cols-4 gap-4 content-normal">
               <div className="text-center">
                 <Image
                   className="relative mx-auto"
@@ -117,6 +118,7 @@ export default function Home() {
                 <p className="text-gray-800 py-1 text-sm">TypeScript</p>
                 <p className="text-gray-800 py-1 text-sm">React</p>
                 <p className="text-gray-800 py-1 text-sm">Angular</p>
+                <p className="text-gray-800 py-1 text-sm">Python</p>
               </div>
               {/* <div className="border border-teal-900 mx-10"></div> */}
               <div className="text-center">
@@ -163,6 +165,32 @@ export default function Home() {
                 <p className="text-gray-800 py-1 text-sm">Linux</p>
                 <p className="text-gray-800 py-1 text-sm">Cypress</p>
               </div>
+              <div className="text-center">
+                <Image
+                  className="relative mx-auto"
+                  src={cyber}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+                <h3 className="text-sm font-medium pt-8 pb-2 text-teal-600 md:text-lg">
+                  Cyber
+                </h3>
+                <div className="border-2 border-teal-900 mb-3"></div>
+                <p className="text-gray-800 py-1 text-sm">Metasploit</p>
+                <p className="text-gray-800 py-1 text-sm">Burp Suite</p>
+                <p className="text-gray-800 py-1 text-sm">BeEF</p>
+                <p className="text-gray-800 py-1 text-sm">Nikto</p>
+                <p className="text-gray-800 py-1 text-sm">WMAP</p>
+                <p className="text-gray-800 py-1 text-sm">John the Ripper</p>
+                <p className="text-gray-800 py-1 text-sm">Nmap/Zenmap</p>
+                <p className="text-gray-800 py-1 text-sm">Masscan</p>
+                <p className="text-gray-800 py-1 text-sm">Wireshark</p>
+                <p className="text-gray-800 py-1 text-sm">tcpdump</p>
+                <p className="text-gray-800 py-1 text-sm">OpenVAS</p>
+                <p className="text-gray-800 py-1 text-sm">ICMP</p>
+                <p className="text-gray-800 py-1 text-sm">Shodan</p>
+              </div>
             </div>
           </div>
         </section>
@@ -206,8 +234,14 @@ export default function Home() {
             <div className="py-3">
               <Image
                 src={web3}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96"
+                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
                 alt=""
+                onClick={() =>
+                  window.open(
+                    `https://github.com/Javierlozo/langchain-autogpt/blob/master/langchain.py`,
+                    "_blank"
+                  )
+                }
               />
             </div>
             <div className="py-3">
@@ -297,8 +331,8 @@ export default function Home() {
               }
             />
           </div>
-          <div className="pt-3 pb-5 flex justify-center leading-8 dark:text-white">
-            Design by Luis Lozoya
+          <div className="text-sm pt-3 pb-5 flex justify-center leading-8 dark:text-white">
+            Developed and Designed by Luis Lozoya
           </div>
         </section>
       </main>
