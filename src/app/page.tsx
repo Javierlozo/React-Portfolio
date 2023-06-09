@@ -101,7 +101,7 @@ export default function Home() {
             </p>
           </div>
           <div className="bg-gray-200 shadow-lg p-10 rounded-xl my-10 dark:bg-white">
-            <div className="grid grid-cols-4 gap-4 content-normal">
+            <div className="grid grid-cols-2 gap-4 content-normal lg:grid-cols-4">
               <div className="text-center">
                 <Image
                   className="relative mx-auto"
