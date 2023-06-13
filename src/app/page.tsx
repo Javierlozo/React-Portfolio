@@ -17,7 +17,6 @@ import certification1 from "../../public/certifications/System Adm.png";
 import certification2 from "../../public/certifications/THM-LJHNPB9YI3.png";
 import certification3 from "../../public/certifications/THM-TGJRJ0ZZXT.png";
 import { useState } from "react";
-import "./styles/page_styles.css";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
@@ -200,62 +199,195 @@ export default function Home() {
           <hr />
           <div className="text-center">
             <h3 className="text-3xl pt-7 dark:text-white">Portfolio</h3>
-            <p className="text-md py-5 leading-8 dark:text-white">
+            <div className="text-md pt-5 dark:text-white">
               Some of the projects that I have worked on
-            </p>
+            </div>
+            <div className="text-sm pb-5 dark:text-white">
+              (Hover over any project to learn more)
+            </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-4 place-items-center pb-7">
-            <div className="py-3">
-              <Image
-                src={web1}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
-                alt=""
-                onClick={() =>
-                  window.open(
-                    `https://javierlozo.github.io/Rental-App/`,
-                    "_blank"
-                  )
-                }
-              />
+            <div className="group">
+              <div className="relative overflow-hidden">
+                <div className="text-white px-3 rounded-2xl absolute h-full w-full bg-black/90 place-items-center text-center opacity-0 group-hover:bottom-0 group-hover:opacity-100 group-hover:rounded-br-2xl">
+                  <div className="mt-20 text-2xl">Rental App</div>
+                  <div className="pt-5">
+                    A sport equipment rental application in Charleston, SC area.
+                  </div>
+                  <div className="pt-5 place-items-center">
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      React
+                    </span>
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      Node.js
+                    </span>
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      AWS
+                    </span>
+                  </div>
+                  <div className="pt-5">
+                    <button
+                      className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1 rounded-md hover:opacity-70 mr-4"
+                      onClick={() =>
+                        window.open(
+                          `https://javierlozo.github.io/Rental-App/`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      LIVE
+                    </button>
+                    <button
+                      className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1 rounded-md hover:opacity-70"
+                      onClick={() =>
+                        window.open(
+                          `https://github.com/Javierlozo/Rental-App`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      CODE
+                    </button>
+                  </div>
+                </div>
+                <Image
+                  src={web1}
+                  className="image rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 cursor-pointer"
+                  alt=""
+                />
+              </div>
             </div>
-            <div className="py-3">
-              <Image
-                src={web2}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
-                alt=""
-                onClick={() =>
-                  window.open(
-                    `https://javierlozo.github.io/WeatherCheck-API/`,
-                    "_blank"
-                  )
-                }
-              />
+            <div className="group">
+              <div className="relative overflow-hidden">
+                <div className="text-white px-3 rounded-2xl absolute h-full w-full bg-black/90 place-items-center text-center opacity-0 group-hover:bottom-0 group-hover:opacity-100 group-hover:rounded-br-2xl">
+                  <div className="mt-20 text-2xl">Weather App</div>
+                  <div className="pt-5">
+                    A application to check the weather in different cities in
+                    the world.
+                  </div>
+                  <div className="pt-5 place-items-center">
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      React
+                    </span>
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      REST API
+                    </span>
+                  </div>
+                  <div className="pt-5">
+                    <button
+                      className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1 rounded-md hover:opacity-70 mr-4"
+                      onClick={() =>
+                        window.open(
+                          `https://javierlozo.github.io/WeatherCheck-API/`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      LIVE
+                    </button>
+                    <button
+                      className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1 rounded-md hover:opacity-70"
+                      onClick={() =>
+                        window.open(
+                          `https://github.com/Javierlozo/WeatherCheck-API`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      CODE
+                    </button>
+                  </div>
+                </div>
+                <Image
+                  src={web2}
+                  className="image rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 cursor-pointer"
+                  alt=""
+                />
+              </div>
             </div>
-            <div className="py-3">
-              <Image
-                src={web3}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
-                alt=""
-                onClick={() =>
-                  window.open(
-                    `https://github.com/Javierlozo/langchain-autogpt/blob/master/langchain.py`,
-                    "_blank"
-                  )
-                }
-              />
+            <div className="group">
+              <div className="relative overflow-hidden">
+                <div className="text-white px-3 rounded-2xl absolute h-full w-full bg-black/90 place-items-center text-center opacity-0 group-hover:bottom-0 group-hover:opacity-100 group-hover:rounded-br-2xl">
+                  <div className="mt-20 text-2xl">Youtube GPT Creator</div>
+                  <div className="pt-5">An AutoGPT App.</div>
+                  <div className="pt-5 place-items-center">
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      Python
+                    </span>
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      LangChain
+                    </span>
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      Streamlit
+                    </span>
+                  </div>
+                  <div className="pt-5">
+                    <button
+                      className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1 rounded-md hover:opacity-70"
+                      onClick={() =>
+                        window.open(
+                          `https://github.com/Javierlozo/langchain-autogpt`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      CODE
+                    </button>
+                  </div>
+                </div>
+                <Image
+                  src={web3}
+                  className="image rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 cursor-pointer"
+                  alt=""
+                />
+              </div>
             </div>
-            <div className="py-3">
-              <Image
-                src={web4}
-                className="rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 hover:opacity-50 cursor-pointer"
-                alt=""
-                onClick={() =>
-                  window.open(
-                    `https://javierlozo.github.io/portfolio/`,
-                    "_blank"
-                  )
-                }
-              />
+            <div className="group">
+              <div className="relative overflow-hidden">
+                <div className="text-white px-3 rounded-2xl absolute h-full w-full bg-black/90 place-items-center text-center opacity-0 group-hover:bottom-0 group-hover:opacity-100 group-hover:rounded-br-2xl">
+                  <div className="mt-20 text-2xl">Old Portfolio Page</div>
+                  <div className="pt-5">
+                    Showcase of my projects and skills.
+                  </div>
+                  <div className="pt-5 place-items-center">
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      React
+                    </span>
+                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
+                      Node.js
+                    </span>
+                  </div>
+                  <div className="pt-5">
+                    <button
+                      className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1 rounded-md hover:opacity-70 mr-4"
+                      onClick={() =>
+                        window.open(
+                          `https://javierlozo.github.io/portfolio/`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      LIVE
+                    </button>
+                    <button
+                      className="bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1 rounded-md hover:opacity-70"
+                      onClick={() =>
+                        window.open(
+                          `https://github.com/Javierlozo/portfolio`,
+                          "_blank"
+                        )
+                      }
+                    >
+                      CODE
+                    </button>
+                  </div>
+                </div>
+                <Image
+                  src={web4}
+                  className="image rounded-2xl w-60 md:w-64 lg:w-72 xl:w-96 cursor-pointer"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         </section>
