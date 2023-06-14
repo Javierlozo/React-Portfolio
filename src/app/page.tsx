@@ -262,7 +262,7 @@ export default function Home() {
                 <div className="text-white px-3 rounded-2xl absolute h-full w-full bg-black/90 place-items-center text-center opacity-0 group-hover:bottom-0 group-hover:opacity-100 group-hover:rounded-br-2xl">
                   <div className="mt-20 text-2xl">Weather App</div>
                   <div className="pt-5">
-                    A application to check the weather in different cities in
+                    An application to check the weather in different cities in
                     the world.
                   </div>
                   <div className="pt-5 place-items-center">
@@ -316,9 +316,6 @@ export default function Home() {
                     </span>
                     <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
                       LangChain
-                    </span>
-                    <span className="bg-white text-black text-xs font-medium mr-2 px-3 py-1 rounded-2xl">
-                      Streamlit
                     </span>
                   </div>
                   <div className="pt-5">
