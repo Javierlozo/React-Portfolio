@@ -202,8 +202,10 @@ export default function Home() {
             <div className="text-md pt-5 dark:text-white">
               Some of the projects that I have worked on
             </div>
-            <div className="text-sm pb-5 dark:text-white">
-              (Hover over any project to learn more)
+            <div className="text-sm pb-7 dark:text-white">
+              (Hover over any project to learn more, this portfolio page was
+              also built with React, NextJS, TailwindCSS, and deployed on
+              Vercel)
             </div>
           </div>
           <div className="grid sm:grid-cols-2 gap-4 place-items-center pb-7">
