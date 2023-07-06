@@ -4,7 +4,7 @@ import Head from "next/head";
 import { BsFillMoonFill, BsFillBrightnessHighFill } from "react-icons/bs";
 import { AiFillGithub } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
-import photo from "../../public/pictures/user-002.jpeg";
+import photo from "../../public/pictures/Photo.jpg";
 import design from "../../public/others/react-js-4642758.png";
 import code from "../../public/others/4521476.png";
 import consulting from "../../public/others/web-development-5171264-4316413.png";
@@ -84,7 +84,7 @@ export default function Home() {
               }
             />
           </div>
-          <div className="relative mx-auto rounded-full w-28 h-28 mt-10 overflow-hidden md:h-30 md:w-30 mb-28">
+          <div className="relative mx-auto rounded-full w-36 h-36 mt-10 overflow-hidden md:h-30 md:w-30 mb-28">
             <Image src={photo} alt="" />
           </div>
         </section>
