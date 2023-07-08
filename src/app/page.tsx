@@ -4,7 +4,7 @@ import Head from "next/head";
 import { BsFillMoonFill, BsFillBrightnessHighFill } from "react-icons/bs";
 import { AiFillGithub } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
-import photo from "../../public/pictures/Photo.jpg";
+import photo from "../../public/pictures/Photo1.jpg";
 import design from "../../public/others/react-js-4642758.png";
 import code from "../../public/others/4521476.png";
 import consulting from "../../public/others/web-development-5171264-4316413.png";
