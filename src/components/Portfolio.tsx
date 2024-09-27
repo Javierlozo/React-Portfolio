@@ -27,6 +27,14 @@ export default function Portfolio() {
 
   const projects: Project[] = [
     {
+      id: 3,
+      title: "Youtube GPT Creator",
+      description: "An AutoGPT App.",
+      techStack: ["Python", "LangChain"],
+      image: web3,
+      codeLink: "https://github.com/Javierlozo/langchain-autogpt",
+    },
+    {
       id: 1,
       title: "Rental App",
       description:
@@ -44,14 +52,6 @@ export default function Portfolio() {
       image: web2,
       liveLink: "https://javierlozo.github.io/WeatherCheck-API/",
       codeLink: "https://github.com/Javierlozo/WeatherCheck-API",
-    },
-    {
-      id: 3,
-      title: "Youtube GPT Creator",
-      description: "An AutoGPT App.",
-      techStack: ["Python", "LangChain"],
-      image: web3,
-      codeLink: "https://github.com/Javierlozo/langchain-autogpt",
     },
     {
       id: 4,
@@ -83,7 +83,7 @@ export default function Portfolio() {
           built with React, NextJS, TailwindCSS, and deployed on Vercel)
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center pb-7 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center pb-7 px-4">
         {projects.map((project) => (
           <div key={project.id} className="group relative cursor-pointer">
             <div className="overflow-hidden rounded-2xl">

@@ -5,7 +5,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="text-center p-10 bg-gray-50 dark:bg-gray-800"
+      className="text-center p-20 bg-gray-50 dark:bg-gray-800"
     >
       <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-white">
         About Me

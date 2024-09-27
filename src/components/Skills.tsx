@@ -1,5 +1,3 @@
-// src/components/Skills.tsx
-
 "use client";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -62,6 +60,9 @@ export default function Skills() {
                 <p className="mt-2">Angular</p>
               </li>
               <li className="flex flex-col items-center">
+                <p className="mt-2">TypeScript</p>
+              </li>
+              <li className="flex flex-col items-center">
                 <FontAwesomeIcon
                   icon={faPython}
                   size="2x"
@@ -87,6 +88,15 @@ export default function Skills() {
                 <p className="mt-2">Node.js</p>
               </li>
               <li className="flex flex-col items-center">
+                <p className="mt-2">Next.js</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">NestJS</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Express</p>
+              </li>
+              <li className="flex flex-col items-center">
                 <FontAwesomeIcon
                   icon={faDatabase}
                   size="2x"
@@ -101,6 +111,9 @@ export default function Skills() {
                   className="text-blue-500"
                 />
                 <p className="mt-2">MySQL</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">CosmosDB</p>
               </li>
             </ul>
           </div>
@@ -128,6 +141,18 @@ export default function Skills() {
                 <p className="mt-2">GitHub</p>
               </li>
               <li className="flex flex-col items-center">
+                <p className="mt-2">Figma</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">REST API</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Tailwind</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Bootstrap</p>
+              </li>
+              <li className="flex flex-col items-center">
                 <FontAwesomeIcon
                   icon={faAws}
                   size="2x"
@@ -136,12 +161,18 @@ export default function Skills() {
                 <p className="mt-2">AWS</p>
               </li>
               <li className="flex flex-col items-center">
+                <p className="mt-2">Azure</p>
+              </li>
+              <li className="flex flex-col items-center">
                 <FontAwesomeIcon
                   icon={faLinux}
                   size="2x"
                   className="text-black"
                 />
                 <p className="mt-2">Linux</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Cypress</p>
               </li>
             </ul>
           </div>
@@ -156,10 +187,40 @@ export default function Skills() {
                 <p className="mt-2">Metasploit</p>
               </li>
               <li className="flex flex-col items-center">
-                <p className="mt-2">Nmap</p>
+                <p className="mt-2">Burp Suite</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">BeEF</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Nikto</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">WMAP</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">John the Ripper</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Nmap/Zenmap</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Masscan</p>
               </li>
               <li className="flex flex-col items-center">
                 <p className="mt-2">Wireshark</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">tcpdump</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">OpenVAS</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">ICMP</p>
+              </li>
+              <li className="flex flex-col items-center">
+                <p className="mt-2">Shodan</p>
               </li>
             </ul>
           </div>
