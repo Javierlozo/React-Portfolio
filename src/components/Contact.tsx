@@ -45,13 +45,11 @@ export default function Contact() {
       <h3 className="text-3xl text-center dark:text-white">Get in Touch</h3>
       <form className="max-w-md mx-auto mt-5" onSubmit={handleSubmit}>
         <div className="field">
-          <label htmlFor="from_name" className="block mb-2">
-            Your Name
-          </label>
           <input
             type="text"
             name="from_name"
             id="from_name"
+            placeholder="Name" // Placeholder added
             value={formData.from_name}
             onChange={(e) =>
               setFormData({ ...formData, from_name: e.target.value })
@@ -61,13 +59,11 @@ export default function Contact() {
           />
         </div>
         <div className="field">
-          <label htmlFor="reply_to" className="block mb-2">
-            Your Email
-          </label>
           <input
             type="email"
             name="reply_to"
             id="reply_to"
+            placeholder="Email"
             value={formData.reply_to}
             onChange={(e) =>
               setFormData({ ...formData, reply_to: e.target.value })
@@ -77,12 +73,10 @@ export default function Contact() {
           />
         </div>
         <div className="field">
-          <label htmlFor="message" className="block mb-2">
-            Message
-          </label>
           <textarea
             name="message"
             id="message"
+            placeholder="Message"
             value={formData.message}
             onChange={(e) =>
               setFormData({ ...formData, message: e.target.value })
