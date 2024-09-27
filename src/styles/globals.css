@@ -1,0 +1,53 @@
+/* styles/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #0d9488; /* Teal 600 */
+  --secondary-color: #14b8a6; /* Teal 500 */
+  --background-color: #f9fafb; /* Gray 50 */
+  --text-color: #111827; /* Gray 900 */
+}
+
+body {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Heading styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Link styles */
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button styles */
+.button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: var(--secondary-color);
+}
