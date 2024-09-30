@@ -16,24 +16,26 @@ import { faDatabase } from "@fortawesome/free-solid-svg-icons";
 
 export default function Skills() {
   return (
-    <section id="skills" className="bg-gray-200 dark:bg-white">
-      <hr className="my-8" />
+    <section
+      id="skills"
+      className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-10"
+    >
       <div className="text-center">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-gray-900">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
           Skills & Tools
         </h3>
-        <p className="text-md md:text-lg lg:text-xl py-5 leading-8 dark:text-gray-700">
+        <p className="text-md md:text-lg lg:text-xl py-5 leading-8 text-gray-700 dark:text-gray-300">
           Some of my skills and tools
         </p>
       </div>
-      <div className="shadow-lg p-10 rounded-xl my-10">
+      <div className="shadow-lg p-10 rounded-xl my-10 bg-gray-50 dark:bg-gray-800">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {/* Front End Skills */}
           <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600">
+            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
               Front End
             </h4>
-            <div className="border-2 border-teal-900 mb-3 mx-auto w-24"></div>
+            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-24"></div>
             <ul className="space-y-4">
               <li className="flex flex-col items-center">
                 <p className="mt-2">JavaScript</p>
@@ -54,10 +56,10 @@ export default function Skills() {
           </div>
           {/* Back End Skills */}
           <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600">
+            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
               Back End
             </h4>
-            <div className="border-2 border-teal-900 mb-3 mx-auto w-24"></div>
+            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-24"></div>
             <ul className="space-y-4">
               <li className="flex flex-col items-center">
                 <p className="mt-2">Node.js</p>
@@ -84,10 +86,10 @@ export default function Skills() {
           </div>
           {/* Tools */}
           <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600">
+            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
               Cloud & DevOps
             </h4>
-            <div className="border-2 border-teal-900 mb-3 mx-auto w-40"></div>
+            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-40"></div>
             <ul className="space-y-4">
               <li className="flex flex-col items-center">
                 <p className="mt-2">Git</p>
@@ -117,10 +119,10 @@ export default function Skills() {
           </div>
           {/* Cybersecurity */}
           <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600">
+            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
               Cybersecurity Tools
             </h4>
-            <div className="border-2 border-teal-900 mb-3 mx-auto w-52"></div>
+            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-52"></div>
             <ul className="space-y-4">
               <li className="flex flex-col items-center">
                 <p className="mt-2">Metasploit</p>
@@ -165,10 +167,10 @@ export default function Skills() {
           </div>
           {/* Testing */}
           <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600">
+            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
               Testing & API Development
             </h4>
-            <div className="border-2 border-teal-900 mb-3 mx-auto w-72"></div>
+            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-72"></div>
             <ul className="space-y-4">
               <li className="flex flex-col items-center">
                 <p className="mt-2">Cypress</p>
