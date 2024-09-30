@@ -42,7 +42,9 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-10">
-      <h3 className="text-3xl text-center dark:text-white">Get in Touch</h3>
+      <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center dark:text-white">
+        Get in Touch
+      </h3>
 
       {/* LinkedIn Call-to-Action */}
       <p className="text-center text-lg py-5 dark:text-gray-400">

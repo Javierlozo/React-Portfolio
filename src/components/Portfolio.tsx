@@ -68,15 +68,18 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="bg-gray-50 dark:bg-gray-800">
+    <section
+      id="portfolio"
+      className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-10"
+    >
       <div className="text-center">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-white">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
           Portfolio
         </h3>
-        <div className="text-md md:text-lg lg:text-xl pt-5 dark:text-gray-300">
+        <div className="text-md md:text-lg lg:text-xl pt-5">
           Some of the projects that I have worked on
         </div>
-        <div className="text-sm md:text-base pb-20 dark:text-gray-300">
+        <div className="text-sm md:text-base pb-20">
           (Click on any projects to learn more, this portfolio page was also
           built with React, NextJS, TailwindCSS, and deployed on Vercel)
         </div>
@@ -84,7 +87,7 @@ export default function Portfolio() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center pb-7 px-4">
         {projects.map((project) => (
           <div key={project.id} className="group relative cursor-pointer">
-            <div className="overflow-hidden rounded-2xl">
+            <div className="overflow-hidden rounded-2xl shadow-lg dark:shadow-gray-800">
               <Image
                 src={project.image}
                 alt={project.title}
@@ -94,9 +97,13 @@ export default function Portfolio() {
             </div>
             {/* Overlay */}
             <div
-              className="absolute inset-0 bg-black bg-opacity-75 flex flex-col justify-center items-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4"
+              className="absolute inset-0 bg-black bg-opacity-75 flex flex-col justify-center items-center text-center text-gray-200 dark:text-gray-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4"
               onClick={() => handleProjectClick(project)}
-            ></div>
+            >
+              <h4 className="text-lg font-bold">{project.title}</h4>
+              <p className="text-sm">{project.description}</p>
+              <p className="text-xs mt-2">{project.techStack.join(", ")}</p>
+            </div>
           </div>
         ))}
       </div>
