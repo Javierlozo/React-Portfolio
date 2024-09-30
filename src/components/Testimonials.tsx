@@ -26,7 +26,7 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-10 bg-gray-100 dark:bg-gray-800">
       <h3 className="text-3xl text-center dark:text-white">Testimonials</h3>
-      <div className="max-w-4xl mx-auto mt-8">
+      <div className="max-w-4xl mx-auto mt-5">
         {testimonials.map((testimonial) => (
           <div key={testimonial.id} className="mb-6 flex items-center">
             {testimonial.image && (

@@ -43,6 +43,21 @@ export default function Contact() {
   return (
     <section id="contact" className="py-10">
       <h3 className="text-3xl text-center dark:text-white">Get in Touch</h3>
+
+      {/* LinkedIn Call-to-Action */}
+      <p className="text-center text-lg py-5 dark:text-gray-400">
+        Feel free to reach out through the form below or connect with me on{" "}
+        <a
+          href="https://www.linkedin.com/in/luisjlozoya"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-teal-500 hover:underline"
+        >
+          LinkedIn
+        </a>
+        .
+      </p>
+
       <form className="max-w-md mx-auto mt-5" onSubmit={handleSubmit}>
         <div className="field">
           <input
