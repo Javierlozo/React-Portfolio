@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { BsFillMoonFill, BsFillBrightnessHighFill } from "react-icons/bs";
 import { FiMenu, FiX } from "react-icons/fi";
+import Link from "next/link";
 
 export default function Navbar() {
   const [darkMode, setDarkMode] = useState<boolean>(
@@ -67,12 +68,11 @@ export default function Navbar() {
 
           {/* Resume and Dark Mode Toggle */}
           <div className="hidden md:flex items-center">
-            <button
-              className="ml-8 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md hover:opacity-80"
-              onClick={() => setShowResume(!showResume)} // Toggle embedded resume
-            >
-              {showResume ? "Hide Resume" : "Resume"}
-            </button>
+            <Link href="/resume">
+              <button className="ml-8 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md hover:opacity-80">
+                Resume
+              </button>
+            </Link>
             <button
               onClick={toggle}
               aria-label="Toggle dark mode"

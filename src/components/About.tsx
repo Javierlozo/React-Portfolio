@@ -23,9 +23,9 @@ export default function About() {
         solutions for businesses. With years of experience specializing in
         building secure, high-performance web applications, I focus on creating
         user-friendly and efficient digital experiences using modern frameworks
-        like React and Next.js. My passion for front-end development drives me
-        to design and implement impactful, transformative interfaces that help
-        companies thrive in the digital landscape.
+        like React, Next.js, and AWS. My passion for full-stack development
+        drives me to design and implement impactful, transformative solutions
+        that help companies thrive in the digital landscape.
       </p>
     </section>
   );
