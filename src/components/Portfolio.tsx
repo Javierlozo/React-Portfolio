@@ -38,8 +38,8 @@ export default function Portfolio() {
       id: 6,
       title: "Querri",
       description:
-        "Created an innovative solution with Querri, providing personalized services and leveraging cutting-edge technologies like React and Node.js to deliver exceptional performance.",
-      techStack: ["Next.js", "React", "Node.js", "AWS", "TailwindCSS"],
+        "Collaborated with Querri to develop a dynamic and user-friendly platform, utilizing modern technologies and custom coding to align with the client's vision. Focused on creating seamless user experiences and ensuring robust functionality, the project exemplifies innovation and performance.",
+      techStack: ["HubSpot CMS", "HTML", "CSS", "Javacript"],
       image: querri,
       liveLink: "https://querri.com/",
     },
@@ -133,8 +133,17 @@ export default function Portfolio() {
               onClick={() => handleProjectClick(project)}
             >
               <h4 className="text-lg font-bold">{project.title}</h4>
-              <p className="text-sm">{project.description}</p>
-              <p className="text-xs mt-2">{project.techStack.join(", ")}</p>
+              <p className="text-sm mt-8">{project.description}</p>
+              <div className="text-xs flex justify-center flex-wrap gap-2 mt-8">
+                {project.techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium px-3 py-1 rounded-full shadow-sm hover:shadow-lg transition-shadow duration-200"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         ))}
