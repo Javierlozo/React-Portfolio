@@ -11,7 +11,7 @@ export default function Navbar() {
       : false
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [showResume, setShowResume] = useState<boolean>(false); // State to toggle embedded resume
+  // Removed showResume state if you only want the download option
 
   useEffect(() => {
     if (darkMode) {
@@ -33,6 +33,7 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Navbar */}
       <nav className="p-5 bg-white dark:bg-gray-900 fixed w-full z-10 top-0 left-0 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo */}
@@ -74,13 +75,16 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Resume and Dark Mode Toggle */}
+          {/* Download Resume and Dark Mode Toggle */}
           <div className="hidden md:flex items-center">
-            <Link href="/resume">
-              <button className="ml-8 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-2 rounded-md hover:opacity-80">
+            {/* Download Resume Link */}
+            <a href="/Resume.pdf" download>
+              <button className="ml-8 text-white px-4 py-2 rounded-md hover:opacity-80 bg-teal-700">
                 Resume
               </button>
-            </Link>
+            </a>
+
+            {/* Dark Mode Toggle */}
             <button
               onClick={toggle}
               aria-label="Toggle dark mode"
@@ -96,6 +100,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
+            {/* Dark Mode Toggle */}
             <button
               onClick={toggle}
               aria-label="Toggle dark mode"
@@ -107,6 +112,7 @@ export default function Navbar() {
                 <BsFillMoonFill className="text-gray-800" size={24} />
               )}
             </button>
+            {/* Menu Toggle */}
             <button onClick={toggleMenu} aria-label="Toggle menu">
               {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
@@ -140,33 +146,15 @@ export default function Navbar() {
             >
               Contact
             </a>
-            <button
-              className="w-full text-left px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:bg-teal-600"
-              onClick={() => setShowResume(!showResume)}
-            >
-              {showResume ? "Hide Resume" : "Resume"}
-            </button>
+            {/* Download Resume Link */}
+            <a href="/resume/Resume.pdf" download>
+              <button className="w-full text-left px-4 py-2 text-white hover:bg-teal-600 bg-teal-800">
+                Resume
+              </button>
+            </a>
           </div>
         )}
       </nav>
-
-      {/* Resume Embed */}
-      {showResume && (
-        <div className="mt-24 p-5">
-          <h3 className="text-2xl font-bold mb-4 text-center text-teal-600">
-            My Resume
-          </h3>
-          <div className="flex justify-center">
-            <embed
-              src="/Resume.pdf" // Path to your resume file
-              type="application/pdf"
-              width="100%"
-              height="600px"
-              className="shadow-lg border border-gray-300"
-            />
-          </div>
-        </div>
-      )}
     </>
   );
 }

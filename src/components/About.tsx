@@ -10,12 +10,12 @@ export default function About() {
       <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-gray-100">
         About Me
       </h3>
-      <p className="text-md md:text-lg lg:text-xl py-5 leading-8 text-gray-700 dark:text-gray-300 max-w-6xl mx-auto">
+      <p className="text-md md:text-lg lg:text-xl py-5 leading-8 text-gray-700 dark:text-gray-400 max-w-6xl mx-auto">
         I am the founder of{" "}
         <a
           href="https://linkedin.com/company/iberiatech"
-          style={{ color: "#002F71" }}
-          className="dark:text-blue-400"
+          style={{ color: "#0D9488" }}
+          className="text-teal-600"
         >
           <strong>IberiaTech Solutions</strong>
         </a>
