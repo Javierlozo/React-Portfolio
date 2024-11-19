@@ -24,7 +24,10 @@ export default function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" className="py-10 bg-gray-100 dark:bg-gray-800">
+    <section
+      id="testimonials"
+      className="py-10 px-10 bg-gray-100 dark:bg-gray-800"
+    >
       <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center dark:text-white">
         Testimonials
       </h3>

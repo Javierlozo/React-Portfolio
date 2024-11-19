@@ -41,7 +41,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-10">
+    <section id="contact" className="py-10 px-10">
       <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center dark:text-white">
         Get in Touch
       </h3>
@@ -60,7 +60,7 @@ export default function Contact() {
         .
       </p>
 
-      <form className="max-w-md mx-auto mt-5" onSubmit={handleSubmit}>
+      <form className="max-w-lg mx-auto mt-5" onSubmit={handleSubmit}>
         <div className="field">
           <input
             type="text"
