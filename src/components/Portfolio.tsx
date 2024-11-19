@@ -102,13 +102,13 @@ export default function Portfolio() {
           Explore a selection of projects that highlight my skills and expertise
           in web development.
         </p>
-        <p className="text-xs md:text-sm pb-20 dark:text-gray-400">
+        <p className="text-xs md:text-sm pb-20 dark:text-gray-400 mt-3">
           Click on any project to dive deeper into its features and the
           technologies used. This portfolio itself was crafted using React,
           Next.js and TailwindCSS.
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center pb-7 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-7 px-4">
         {projects.map((project) => (
           <div
             key={project.id}
