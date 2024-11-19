@@ -12,7 +12,7 @@ interface Project {
   techStack: string[];
   image: StaticImageData;
   liveLink?: string;
-  codeLink: string;
+  codeLink?: string;
 }
 
 interface ProjectModalProps {
@@ -89,12 +89,14 @@ export default function ProjectModal({
               Live
             </button>
           )}
-          <button
-            className="bg-gray-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition-transform transform hover:scale-105"
-            onClick={() => window.open(project.codeLink, "_blank")}
-          >
-            Code
-          </button>
+          {project.codeLink && (
+            <button
+              className="bg-gray-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition-transform transform hover:scale-105"
+              onClick={() => window.open(project.codeLink, "_blank")}
+            >
+              Code
+            </button>
+          )}
           <button
             className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition-transform transform hover:scale-105"
             onClick={() => setShowModal(false)}
