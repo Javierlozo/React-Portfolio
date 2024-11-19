@@ -95,17 +95,17 @@ export default function Portfolio() {
       className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-10"
     >
       <div className="text-center">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-gray-100">
           My Portfolio
         </h3>
-        <p className="text-md md:text-lg lg:text-xl pt-5">
+        <p className="text-md md:text-lg lg:text-xl pt-5 dark:text-gray-400">
           Explore a selection of projects that highlight my skills and expertise
           in web development.
         </p>
-        <p className="text-sm md:text-base pb-20">
+        <p className="text-xs md:text-sm pb-20 dark:text-gray-400">
           Click on any project to dive deeper into its features and the
           technologies used. This portfolio itself was crafted using React,
-          Next.js, TailwindCSS, and is seamlessly deployed on Vercel.
+          Next.js and TailwindCSS.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center pb-7 px-4">

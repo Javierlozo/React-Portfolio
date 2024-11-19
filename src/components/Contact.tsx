@@ -104,7 +104,7 @@ export default function Contact() {
         </div>
         <button
           type="submit"
-          className="w-full bg-teal-500 text-white p-2 rounded hover:bg-teal-600"
+          className="w-full bg-teal-700 text-white p-2 rounded hover:bg-teal-600"
         >
           Send Email
         </button>

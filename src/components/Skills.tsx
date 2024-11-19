@@ -21,7 +21,7 @@ export default function Skills() {
       className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-10"
     >
       <div className="text-center">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-gray-100">
           Skills & Tools
         </h3>
         <p className="text-md md:text-lg lg:text-xl py-5 leading-8 text-gray-700 dark:text-gray-300">

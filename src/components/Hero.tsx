@@ -1,5 +1,3 @@
-// components/Hero.tsx
-
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -27,7 +25,7 @@ export default function Hero() {
         React | Angular | NextJS | NestJS
       </p>
       <button
-        className="mt-5 bg-teal-500 text-white px-6 py-3 rounded-full hover:bg-teal-600"
+        className="mt-5 bg-teal-700 text-white px-6 py-3 rounded-full hover:bg-teal-600"
         onClick={scrollToPortfolio}
       >
         View My Work
