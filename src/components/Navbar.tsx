@@ -36,7 +36,9 @@ export default function Navbar() {
       <nav className="p-5 bg-white dark:bg-gray-900 fixed w-full z-10 top-0 left-0 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           {/* Logo */}
-          <div className="text-xl font-bold text-teal-600">LL Portfolio</div>
+          <div className="text-xl font-bold text-teal-600">
+            Welcome to my Portfolio
+          </div>
 
           {/* Centered Desktop Menu */}
           <div className="hidden md:flex justify-center items-center flex-grow">
