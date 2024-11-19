@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 :root {
   --primary-color: #0d9488; /* Teal 600 */
   --secondary-color: #14b8a6; /* Teal 500 */

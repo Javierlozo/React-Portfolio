@@ -41,6 +41,12 @@ export default function Navbar() {
           {/* Centered Desktop Menu */}
           <div className="hidden md:flex justify-center items-center flex-grow">
             <a
+              href="#about"
+              className="ml-6 text-gray-800 dark:text-white hover:underline"
+            >
+              About
+            </a>
+            <a
               href="#skills"
               className="ml-6 text-gray-800 dark:text-white hover:underline"
             >

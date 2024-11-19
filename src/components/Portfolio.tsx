@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ProjectModal from "./ProjectModal";
 
-// Import your project images
 import web1 from "@/src/public/pictures/rental.png";
 import web2 from "@/src/public/pictures/weather.png";
 import web3 from "@/src/public/pictures/langchain.png";
 import web4 from "@/src/public/pictures/Screenshot (117).png";
+import lessUSA from "@/src/public/pictures/Less1.png";
+import querri from "@/src/public/pictures/querri1.png";
 
 interface Project {
   id: number;
@@ -16,7 +17,7 @@ interface Project {
   techStack: string[];
   image: import("next/image").StaticImageData;
   liveLink?: string;
-  codeLink: string;
+  codeLink?: string;
 }
 
 export default function Portfolio() {
@@ -25,9 +26,28 @@ export default function Portfolio() {
 
   const projects: Project[] = [
     {
+      id: 5, // Assign a unique ID
+      title: "LESS USA",
+      description:
+        "Developed a robust and scalable platform for LESS USA, enhancing user experience and operational efficiency through seamless integration with AWS and Amplify.",
+      techStack: ["Next.js", "AWS", "Amplify"],
+      image: lessUSA,
+      liveLink: "https://www.less-usa.com/",
+    },
+    {
+      id: 6,
+      title: "Querri",
+      description:
+        "Created an innovative solution with Querri, providing personalized services and leveraging cutting-edge technologies like React and Node.js to deliver exceptional performance.",
+      techStack: ["Next.js", "React", "Node.js", "AWS", "TailwindCSS"],
+      image: querri,
+      liveLink: "https://querri.com/",
+    },
+    {
       id: 3,
-      title: "Youtube GPT Creator",
-      description: "An AutoGPT App.",
+      title: "YouTube GPT Creator",
+      description:
+        "Built an intelligent AutoGPT application for YouTube content creation, utilizing Python and LangChain to automate and enhance content generation processes.",
       techStack: ["Python", "LangChain"],
       image: web3,
       codeLink: "https://github.com/Javierlozo/langchain-autogpt",
@@ -36,7 +56,7 @@ export default function Portfolio() {
       id: 1,
       title: "Rental App",
       description:
-        "A sport equipment rental application in Charleston, SC area.",
+        "Designed and implemented a user-friendly sports equipment rental application tailored for the Charleston, SC area, featuring real-time availability and secure transactions.",
       techStack: ["React", "Node.js", "AWS"],
       image: web1,
       liveLink: "https://javierlozo.github.io/Rental-App/",
@@ -45,7 +65,8 @@ export default function Portfolio() {
     {
       id: 2,
       title: "Weather App",
-      description: "An application to check the weather in different cities.",
+      description:
+        "Developed a dynamic weather application enabling users to check real-time weather conditions across multiple cities, integrating reliable REST APIs for accurate data.",
       techStack: ["React", "REST API"],
       image: web2,
       liveLink: "https://javierlozo.github.io/WeatherCheck-API/",
@@ -54,7 +75,8 @@ export default function Portfolio() {
     {
       id: 4,
       title: "Old Portfolio Page",
-      description: "Showcase of my projects and skills.",
+      description:
+        "Created an early version of my portfolio website to showcase projects and skills, built with React and Node.js, serving as a foundation for my current professional site.",
       techStack: ["React", "Node.js"],
       image: web4,
       liveLink: "https://javierlozo.github.io/portfolio/",
@@ -74,23 +96,33 @@ export default function Portfolio() {
     >
       <div className="text-center">
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold">
-          Portfolio
+          My Portfolio
         </h3>
-        <div className="text-md md:text-lg lg:text-xl pt-5">
-          Some of the projects that I have worked on
-        </div>
-        <div className="text-sm md:text-base pb-20">
-          (Click on any projects to learn more, this portfolio page was also
-          built with React, NextJS, TailwindCSS, and deployed on Vercel)
-        </div>
+        <p className="text-md md:text-lg lg:text-xl pt-5">
+          Explore a selection of projects that highlight my skills and expertise
+          in web development.
+        </p>
+        <p className="text-sm md:text-base pb-20">
+          Click on any project to dive deeper into its features and the
+          technologies used. This portfolio itself was crafted using React,
+          Next.js, TailwindCSS, and is seamlessly deployed on Vercel.
+        </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 place-items-center pb-7 px-4">
         {projects.map((project) => (
-          <div key={project.id} className="group relative cursor-pointer">
+          <div
+            key={project.id}
+            className="group relative cursor-pointer"
+            tabIndex={0} // Make it focusable
+            onClick={() => handleProjectClick(project)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") handleProjectClick(project);
+            }}
+          >
             <div className="overflow-hidden rounded-2xl shadow-lg dark:shadow-gray-800">
               <Image
                 src={project.image}
-                alt={project.title}
+                alt={`Screenshot of ${project.title} website`}
                 className="transform group-hover:scale-105 transition-transform duration-300 w-full h-60 object-cover"
                 layout="responsive"
               />
