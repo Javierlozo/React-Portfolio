@@ -1,24 +1,30 @@
-/* styles/globals.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); /* For Firefox */
 }
+
+/* Root Variables for Dark Mode */
 :root {
-  --primary-color: #0d9488; /* Teal 600 */
-  --secondary-color: #14b8a6; /* Teal 500 */
-  --background-color: #f9fafb; /* Gray 50 */
-  --text-color: #111827; /* Gray 900 */
+  --scrollbar-thumb: #0f766e; /* Secondary Color */
+  --scrollbar-track: #d1d5db; /* Light Gray */
+}
+
+html.dark {
+  --scrollbar-thumb: #0f766e; /* Darker Blue for Dark Mode */
+  --scrollbar-track: #4b5563; /* Dark Gray for Dark Mode */
 }
 
 body {
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: #111827; /* Tailwind's 'text' color */
+  background-color: #f3f4f6; /* Tailwind's 'background' color */
   font-family: "Inter", sans-serif;
   transition: background-color 0.5s ease, color 0.5s ease;
+  -ms-overflow-style: scrollbar; /* IE 10+ */
 }
 
 /* Heading styles */
@@ -28,13 +34,13 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--primary-color);
+  color: #1f2937; /* Tailwind's 'primary' color */
   font-weight: 700;
 }
 
 /* Link styles */
 a {
-  color: var(--secondary-color);
+  color: #2563eb; /* Tailwind's 'secondary' color */
   text-decoration: none;
 }
 
@@ -44,7 +50,7 @@ a:hover {
 
 /* Button styles */
 .button {
-  background-color: var(--primary-color);
+  background-color: #2563eb; /* Tailwind's 'secondary' color */
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
@@ -52,5 +58,43 @@ a:hover {
 }
 
 .button:hover {
-  background-color: var(--secondary-color);
+  background-color: #1f2937; /* Tailwind's 'primary' color */
+}
+
+/* Custom Scrollbar Styles */
+
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbar-track); /* Creates padding around thumb */
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #1f2937; /* Tailwind's 'primary' color */
+}
+
+/* Dark Mode Scrollbar Styles */
+html.dark ::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border: 3px solid var(--scrollbar-track);
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: #1f2937; /* Tailwind's 'primary' color */
 }
