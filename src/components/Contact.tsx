@@ -41,7 +41,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-10 px-10">
+    <section
+      id="contact"
+      className="py-10 px-10 bg-gradient-to-b from-teal-100 to-white dark:from-gray-800 dark:to-gray-900"
+    >
       <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center dark:text-white">
         Get in Touch
       </h3>

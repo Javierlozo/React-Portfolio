@@ -11,21 +11,17 @@ export default function About() {
         About Me
       </h3>
       <p className="text-md md:text-lg lg:text-xl py-5 leading-8 text-gray-700 dark:text-gray-400 max-w-6xl mx-auto">
-        I am the founder of{" "}
-        <a
-          href="https://linkedin.com/company/iberiatech"
-          style={{ color: "#0D9488" }}
-          className="text-teal-600"
-        >
-          <strong>IberiaTech Solutions</strong>
-        </a>
-        , a company dedicated to delivering innovative and scalable technology
-        solutions for businesses. With years of experience specializing in
-        building secure, high-performance web applications, I focus on creating
-        user-friendly and efficient digital experiences using modern frameworks
-        like React, Next.js, and AWS. My passion for full-stack development
-        drives me to design and implement impactful, transformative solutions
-        that help companies thrive in the digital landscape.
+        I’m a{" "}
+        <strong className="text-teal-600" style={{ color: "#0D9488" }}>
+          Senior Full Stack Engineer
+        </strong>{" "}
+        with extensive experience in building secure, high-performance web
+        applications for businesses of all sizes. Leveraging modern frameworks
+        like React, Next.js, and AWS, I focus on creating user-friendly
+        solutions that help companies thrive in today’s digital landscape. With
+        a passion for full-stack development, I strive to implement impactful,
+        transformative technologies and best practices that drive real-world
+        results.
       </p>
     </section>
   );
