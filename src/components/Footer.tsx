@@ -1,5 +1,3 @@
-// src/components/Footer.tsx
-
 "use client";
 import React from "react";
 import { FaLinkedinIn } from "react-icons/fa";
@@ -7,7 +5,7 @@ import { AiFillGithub } from "react-icons/ai";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-6 mt-10">
+    <footer className="bg-gray-800 text-white py-6">
       <div className="container mx-auto text-center">
         <p className="text-sm md:text-base">
           &copy; {new Date().getFullYear()} Luis Lozoya. All rights reserved.
