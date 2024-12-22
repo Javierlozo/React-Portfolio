@@ -9,6 +9,7 @@ import Skills from "../components/Skills";
 import Portfolio from "../components/Portfolio";
 import Testimonials from "../components/Testimonials";
 import Contact from "../components/Contact";
+import Experience from "../components/Experience";
 
 export default function Home() {
   useEffect(() => {
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero />
       <About />
       <Skills />
+      <Experience />
       <Portfolio />
       <Testimonials />
       <Contact />

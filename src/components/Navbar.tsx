@@ -34,8 +34,8 @@ export default function Navbar() {
   return (
     <>
       {/* Navbar */}
-      <nav className="p-5 bg-white dark:bg-gray-900 fixed w-full z-10 top-0 left-0 shadow-md">
-        <div className="container mx-auto flex justify-between items-center">
+      <nav className="p-7 bg-white dark:bg-gray-900 fixed w-full z-10 top-0 left-0 shadow-md">
+        <div className="container mx-auto flex justify-between items-center font-bold">
           {/* Logo */}
           <div className="text-xl font-bold text-teal-600">
             Welcome to my Portfolio
@@ -56,8 +56,14 @@ export default function Navbar() {
               Skills
             </a>
             <a
-              href="#portfolio"
+              href="#experience"
               className="ml-6 text-gray-800 dark:text-white hover:underline"
+            >
+              Experience
+            </a>
+            <a
+              href="#portfolio"
+              className="ml-6 text-[#0D9488] dark:text-white hover:underline"
             >
               Portfolio
             </a>
@@ -78,11 +84,11 @@ export default function Navbar() {
           {/* Download Resume and Dark Mode Toggle */}
           <div className="hidden md:flex items-center">
             {/* Download Resume Link */}
-            <a href="/Resume.pdf" download>
+            {/* <a href="/resume/Resume.pdf" download>
               <button className="ml-8 text-white px-4 py-2 rounded-md hover:opacity-80 bg-teal-700">
                 Resume
               </button>
-            </a>
+            </a> */}
 
             {/* Dark Mode Toggle */}
             <button
@@ -121,12 +127,18 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden bg-white dark:bg-gray-900">
+          <div className="md:hidden bg-white dark:bg-gray-900 font-bold">
             <a
               href="#skills"
               className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
             >
               Skills
+            </a>
+            <a
+              href="#experience"
+              className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              Experience
             </a>
             <a
               href="#portfolio"
@@ -147,11 +159,11 @@ export default function Navbar() {
               Contact
             </a>
             {/* Download Resume Link */}
-            <a href="/resume/Resume.pdf" download>
+            {/* <a href="/resume/Resume.pdf" download>
               <button className="w-full text-left px-4 py-2 text-white hover:bg-teal-600 bg-teal-800">
                 Resume
               </button>
-            </a>
+            </a> */}
           </div>
         )}
       </nav>
