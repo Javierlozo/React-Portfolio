@@ -13,8 +13,8 @@ export default function Experience() {
           Experience
         </h2>
         <p className="text-md md:text-lg lg:text-xl mt-5 dark:text-gray-400 max-w-3xl mx-auto">
-          I’ve had the privilege of collaborating with a variety of
-          organizations, where I’ve developed scalable applications, mentored
+          I have had the privilege of collaborating with a variety of
+          organizations, where I have developed scalable applications, mentored
           teams, and optimized cloud-based solutions.
         </p>
       </div>
@@ -97,8 +97,9 @@ export default function Experience() {
               requirements and enhance overall performance.
             </li>
             <li>
-              Worked directly with the CEO to understand and execute her vision
-              for the company's web presence.
+              Worked closely with the CEO to design and launch a cohesive web
+              platform, advancing her vision while enhancing brand consistency
+              and meeting key business objectives.
             </li>
           </ul>
         </div>
