@@ -30,7 +30,7 @@ export default function Contact() {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        formData,
+        formData as unknown as Record<string, unknown>,
         process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
       );
       setSubmitStatus({
