@@ -13,18 +13,34 @@ import Experience from "../components/Experience";
 
 export default function Home() {
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: "ease-out",
+    });
   }, []);
 
   return (
-    <>
+    <div className="bg-gradient-to-b from-gray-900 via-black to-gray-900">
       <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Portfolio />
-      <Testimonials />
-      <Contact />
-    </>
+      <div data-aos="fade-up">
+        <About />
+      </div>
+      <div data-aos="fade-up">
+        <Skills />
+      </div>
+      <div data-aos="fade-up">
+        <Experience />
+      </div>
+      <div data-aos="fade-up">
+        <Portfolio />
+      </div>
+      <div data-aos="fade-up">
+        <Testimonials />
+      </div>
+      <div data-aos="fade-up">
+        <Contact />
+      </div>
+    </div>
   );
 }
