@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with gradient -->
+  <rect width="32" height="32" rx="6" fill="url(#gradient)" />
+  
+  <!-- Modern LL monogram - more stylized version -->
+  <path 
+    d="M9 8v16h3V13h1.5v11h5V13H20v11h3V8H9z"
+    fill="white"
+    fill-opacity="0.95"
+  />
+  
+  <!-- Gradient definition - slightly adjusted colors -->
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="50%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#93c5fd" />
+    </linearGradient>
+  </defs>
+</svg> 

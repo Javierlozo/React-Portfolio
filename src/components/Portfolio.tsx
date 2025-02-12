@@ -24,6 +24,11 @@ export default function Portfolio() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setShowModal(true);
+  };
+
   const projects: Project[] = [
     {
       id: 5, // Assign a unique ID
@@ -84,70 +89,75 @@ export default function Portfolio() {
     },
   ];
 
-  const handleProjectClick = (project: Project) => {
-    setSelectedProject(project);
-    setShowModal(true);
-  };
-
   return (
     <section
       id="portfolio"
-      className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-10"
+      className="relative py-20 bg-gradient-to-b from-gray-900 to-black"
     >
-      <div className="text-center">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-gray-100">
+      <div className="container mx-auto px-4">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-12 animate-fade-in">
           My Portfolio
         </h3>
-        <p className="text-md md:text-lg lg:text-xl pt-5 dark:text-gray-400">
+        <p className="text-center text-lg text-gray-300 mb-16 animate-fade-in">
           Explore a selection of projects that highlight my skills and expertise
           in web development.
         </p>
-        <p className="text-xs md:text-sm pb-20 dark:text-gray-400 mt-3">
-          Click on any project to dive deeper into its features and the
-          technologies used. This portfolio itself was crafted using React,
-          Next.js and TailwindCSS.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-7 px-4">
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className="group relative cursor-pointer"
-            tabIndex={0} // Make it focusable
-            onClick={() => handleProjectClick(project)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") handleProjectClick(project);
-            }}
-          >
-            <div className="overflow-hidden rounded-2xl shadow-lg dark:shadow-gray-800">
-              <Image
-                src={project.image}
-                alt={`Screenshot of ${project.title} website`}
-                className="transform group-hover:scale-105 transition-transform duration-300 w-full h-60 object-cover"
-                layout="responsive"
-              />
-            </div>
-            {/* Overlay */}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          {projects.map((project, index) => (
             <div
-              className="absolute inset-0 bg-black bg-opacity-75 flex flex-col justify-center items-center text-center text-gray-200 dark:text-gray-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4"
+              key={project.id}
+              className="group relative cursor-pointer transform transition-all duration-300 hover:scale-105 animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
               onClick={() => handleProjectClick(project)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  handleProjectClick(project);
+                }
+              }}
             >
-              <h4 className="text-lg font-bold">{project.title}</h4>
-              <p className="text-sm mt-8">{project.description}</p>
-              <div className="text-xs flex justify-center flex-wrap gap-2 mt-8">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium px-3 py-1 rounded-full shadow-sm hover:shadow-lg transition-shadow duration-200"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              <div className="overflow-hidden rounded-2xl aspect-video glass-morphism">
+                <div className="relative h-full">
+                  <Image
+                    src={project.image}
+                    alt={`Screenshot of ${project.title}`}
+                    fill
+                    className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h4 className="text-lg font-bold text-white mb-2">
+                        {project.title}
+                      </h4>
+                      <p className="text-sm text-gray-200 line-clamp-2">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {project.techStack.slice(0, 3).map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 text-xs font-medium text-white bg-white/10 rounded-full"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {project.techStack.length > 3 && (
+                          <span className="px-2 py-1 text-xs font-medium text-white bg-white/10 rounded-full">
+                            +{project.techStack.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+
       {selectedProject && (
         <ProjectModal
           showModal={showModal}

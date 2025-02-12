@@ -11,178 +11,228 @@ import {
   faGitAlt,
   faGithub,
   faLinux,
+  faDocker,
+  faJenkins,
 } from "@fortawesome/free-brands-svg-icons";
-import { faDatabase } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDatabase,
+  faShieldAlt,
+  faLock,
+  faServer,
+  faCloud,
+  faCode,
+  faBug,
+  faNetworkWired,
+  faFileCode,
+  faGears,
+} from "@fortawesome/free-solid-svg-icons";
+
+interface Skill {
+  name: string;
+  icon: any;
+  color: string;
+  category: "frontend" | "backend" | "devops" | "security" | "other";
+}
+
+// Add this SVG component for Svelte logo
+const SvelteIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 98.1 118"
+    className="w-8 h-8 md:w-10 md:h-10"
+  >
+    <path
+      d="M91.8 15.6C80.9-.1 59.2-4.7 43.6 5.2L16.1 22.8C8.6 27.5 3.4 35.2 1.9 43.9c-1.3 7.3-.2 14.8 3.3 21.3-2.4 3.6-4 7.6-4.7 11.8-1.6 8.9.5 18.1 5.7 25.4 11 15.7 32.6 20.3 48.2 10.4l27.5-17.5c7.5-4.7 12.7-12.4 14.2-21.1 1.3-7.3.2-14.8-3.3-21.3 2.4-3.6 4-7.6 4.7-11.8 1.7-9-.4-18.2-5.7-25.5"
+      fill="#ff3e00"
+    />
+    <path
+      d="M40.9 103.9c-8.9 2.3-18.2-1.2-23.4-8.7-3.2-4.4-4.4-9.9-3.5-15.3.2-.9.4-1.7.6-2.6l.5-1.6 1.4 1c3.3 2.4 6.9 4.2 10.8 5.4l1 .3-.1 1c-.1 1.4.3 2.9 1.1 4.1 1.6 2.3 4.4 3.4 7.1 2.7.6-.2 1.2-.4 1.7-.7L65.5 72c1.4-.9 2.3-2.2 2.6-3.8.3-1.6-.1-3.3-1-4.6-1.6-2.3-4.4-3.3-7.1-2.6-.6.2-1.2.4-1.7.7l-10.5 6.7c-1.7 1.1-3.6 1.9-5.6 2.4-8.9 2.3-18.2-1.2-23.4-8.7-3.1-4.4-4.4-9.9-3.4-15.3.9-5.2 4.1-9.9 8.6-12.7l27.5-17.5c1.7-1.1 3.6-1.9 5.6-2.5 8.9-2.3 18.2 1.2 23.4 8.7 3.2 4.4 4.4 9.9 3.5 15.3-.2.9-.4 1.7-.7 2.6l-.5 1.6-1.4-1c-3.3-2.4-6.9-4.2-10.8-5.4l-1-.3.1-1c.1-1.4-.3-2.9-1.1-4.1-1.6-2.3-4.4-3.3-7.1-2.6-.6.2-1.2.4-1.7.7L32.4 46.1c-1.4.9-2.3 2.2-2.6 3.8s.1 3.3 1 4.6c1.6 2.3 4.4 3.3 7.1 2.6.6-.2 1.2-.4 1.7-.7l10.5-6.7c1.7-1.1 3.6-1.9 5.6-2.5 8.9-2.3 18.2 1.2 23.4 8.7 3.2 4.4 4.4 9.9 3.5 15.3-.9 5.2-4.1 9.9-8.6 12.7l-27.5 17.5c-1.7 1.1-3.6 1.9-5.6 2.5"
+      fill="#ffffff"
+    />
+  </svg>
+);
 
 export default function Skills() {
+  const skills: Skill[] = [
+    // Frontend
+    {
+      name: "JavaScript",
+      icon: faJs,
+      color: "text-yellow-400",
+      category: "frontend",
+    },
+    {
+      name: "React",
+      icon: faReact,
+      color: "text-blue-400",
+      category: "frontend",
+    },
+    {
+      name: "Angular",
+      icon: faAngular,
+      color: "text-red-500",
+      category: "frontend",
+    },
+    {
+      name: "TypeScript",
+      icon: faCode,
+      color: "text-blue-500",
+      category: "frontend",
+    },
+    {
+      name: "Svelte",
+      icon: SvelteIcon,
+      color: "text-[#ff3e00]",
+      category: "frontend",
+    },
+
+    // Backend
+    {
+      name: "Node.js",
+      icon: faNode,
+      color: "text-green-500",
+      category: "backend",
+    },
+    {
+      name: "Python",
+      icon: faPython,
+      color: "text-blue-500",
+      category: "backend",
+    },
+    {
+      name: "Databases",
+      icon: faDatabase,
+      color: "text-blue-300",
+      category: "backend",
+    },
+    {
+      name: "APIs",
+      icon: faServer,
+      color: "text-violet-400",
+      category: "backend",
+    },
+    {
+      name: "Microservices",
+      icon: faGears,
+      color: "text-gray-300",
+      category: "backend",
+    },
+
+    // DevOps & Cloud
+    { name: "AWS", icon: faAws, color: "text-orange-500", category: "devops" },
+    {
+      name: "Docker",
+      icon: faDocker,
+      color: "text-blue-500",
+      category: "devops",
+    },
+    {
+      name: "Jenkins",
+      icon: faJenkins,
+      color: "text-red-400",
+      category: "devops",
+    },
+    { name: "Git", icon: faGitAlt, color: "text-red-400", category: "devops" },
+    {
+      name: "GitHub",
+      icon: faGithub,
+      color: "text-gray-400",
+      category: "devops",
+    },
+    {
+      name: "Linux",
+      icon: faLinux,
+      color: "text-yellow-500",
+      category: "devops",
+    },
+    {
+      name: "Cloud Security",
+      icon: faCloud,
+      color: "text-blue-300",
+      category: "devops",
+    },
+
+    // Security
+    {
+      name: "Cybersecurity",
+      icon: faShieldAlt,
+      color: "text-violet-400",
+      category: "security",
+    },
+    {
+      name: "Auth & OAuth",
+      icon: faLock,
+      color: "text-green-400",
+      category: "security",
+    },
+    {
+      name: "Penetration Testing",
+      icon: faBug,
+      color: "text-red-400",
+      category: "security",
+    },
+    {
+      name: "Network Security",
+      icon: faNetworkWired,
+      color: "text-blue-500",
+      category: "security",
+    },
+    {
+      name: "Code Analysis",
+      icon: faFileCode,
+      color: "text-yellow-400",
+      category: "security",
+    },
+  ];
+
+  const categories = {
+    frontend: "Frontend Development",
+    backend: "Backend Development",
+    devops: "DevOps & Cloud",
+    security: "Security & Infrastructure",
+  };
+
   return (
-    <section
-      id="skills"
-      className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-10"
-    >
-      <div className="text-center">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold dark:text-gray-100">
-          Skills & Tools
+    <section id="skills" className="py-20 bg-gray-900">
+      <div className="container mx-auto px-4">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-16 animate-fade-in">
+          Technical Skills
         </h3>
-        <p className="text-md md:text-lg lg:text-xl py-5 leading-8 text-gray-700 dark:text-gray-300">
-          Some of my skills and tools
-        </p>
-      </div>
-      <div className="shadow-lg p-10 rounded-xl my-10 bg-gray-50 dark:bg-gray-800">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {/* Front End Skills */}
-          <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
-              Front End
-            </h4>
-            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-24"></div>
-            <ul className="space-y-4">
-              <li className="flex flex-col items-center">
-                <p className="mt-2">JavaScript</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">React</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Angular</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">TypeScript</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Python</p>
-              </li>
-            </ul>
-          </div>
-          {/* Back End Skills */}
-          <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
-              Back End
-            </h4>
-            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-24"></div>
-            <ul className="space-y-4">
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Node.js</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Next.js</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">NestJS</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Express</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">MongoDB</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">MySQL</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">CosmosDB</p>
-              </li>
-            </ul>
-          </div>
-          {/* Tools */}
-          <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
-              Cloud & DevOps
-            </h4>
-            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-40"></div>
-            <ul className="space-y-4">
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Git</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">GitHub</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Figma</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Tailwind</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Bootstrap</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">AWS</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Azure</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Linux</p>
-              </li>
-            </ul>
-          </div>
-          {/* Cybersecurity */}
-          <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
-              Cybersecurity Tools
-            </h4>
-            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-52"></div>
-            <ul className="space-y-4">
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Metasploit</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Burp Suite</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">BeEF</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Nikto</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">WMAP</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">John the Ripper</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Nmap/Zenmap</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Masscan</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Wireshark</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">tcpdump</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">OpenVAS</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">ICMP</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Shodan</p>
-              </li>
-            </ul>
-          </div>
-          {/* Testing */}
-          <div className="p-4 text-center">
-            <h4 className="text-lg md:text-xl font-semibold text-teal-600 dark:text-teal-400">
-              Testing & API Development
-            </h4>
-            <div className="border-2 border-teal-900 dark:border-teal-400 mb-3 mx-auto w-72"></div>
-            <ul className="space-y-4">
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Cypress</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">REST APIs</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="mt-2">Axios</p>
-              </li>
-            </ul>
-          </div>
+
+        <div className="max-w-7xl mx-auto">
+          {Object.entries(categories).map(([category, title]) => (
+            <div key={category} className="mb-16 last:mb-0">
+              <h4 className="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400 mb-8 text-center">
+                {title}
+              </h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 justify-items-center max-w-6xl mx-auto">
+                {skills
+                  .filter((skill) => skill.category === category)
+                  .map((skill, index) => (
+                    <div
+                      key={skill.name}
+                      className="group flex flex-col items-center animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <div className="relative p-8 rounded-2xl glass-morphism group-hover:scale-110 transition-transform duration-300">
+                        {typeof skill.icon === "function" ? (
+                          <skill.icon />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={skill.icon}
+                            className={`text-4xl md:text-5xl ${skill.color} transition-transform duration-300`}
+                          />
+                        )}
+                        <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <p className="mt-4 text-sm md:text-base text-gray-300 group-hover:text-white transition-colors duration-300">
+                        {skill.name}
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
