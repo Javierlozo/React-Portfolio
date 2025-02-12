@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-favicon": "node scripts/generate-favicon.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@types/aos": "^3.0.7",
-    "@types/react-pdf": "^6.2.0"
+    "@types/react-pdf": "^6.2.0",
+    "sharp": "^0.32.0"
   }
 }

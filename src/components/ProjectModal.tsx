@@ -1,9 +1,13 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faExternalLinkAlt,
+  faCode,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface Project {
   id: number;
@@ -26,83 +30,86 @@ export default function ProjectModal({
   setShowModal,
   project,
 }: ProjectModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   if (!showModal) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm"
-      onClick={() => setShowModal(false)}
-    >
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      {/* Backdrop */}
       <div
-        className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg mx-auto relative transform transition-transform duration-300 ease-in-out scale-95 hover:scale-100 shadow-2xl max-h-[75vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
+        onClick={() => setShowModal(false)}
+      />
+
+      {/* Modal content */}
+      <div
+        ref={modalRef}
+        className="relative w-[90vw] max-w-4xl glass-morphism rounded-2xl overflow-hidden animate-fade-in"
       >
-        {/* Close Icon */}
+        {/* Close button */}
         <button
-          className="absolute top-3 right-3 text-gray-400 hover:text-red-500"
           onClick={() => setShowModal(false)}
+          className="absolute top-4 right-4 text-white/80 hover:text-white z-10 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
+          aria-label="Close modal"
         >
-          <FontAwesomeIcon icon={faTimes} size="lg" />
+          <FontAwesomeIcon icon={faTimes} className="text-xl" />
         </button>
 
-        {/* Title */}
-        <h2 className="text-2xl font-bold text-teal-600 dark:text-teal-400 text-center">
-          {project.title}
-        </h2>
-
-        {/* Project Image */}
-        {/* <div className="mt-4">
+        {/* Image */}
+        <div className="relative h-64 sm:h-80 md:h-96 group">
           <Image
             src={project.image}
             alt={project.title}
-            className="rounded-lg"
-            layout="responsive"
-            width={100}
-            height={50}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-        </div> */}
-
-        {/* Description */}
-        <p className="mt-4 text-gray-700 dark:text-gray-300 text-center">
-          {project.description}
-        </p>
-
-        {/* Tech Stack */}
-        <div className="mt-4 flex justify-center flex-wrap gap-2">
-          {project.techStack.map((tech) => (
-            <span
-              key={tech}
-              className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium px-3 py-1 rounded-full shadow-sm hover:shadow-lg transition-shadow duration-200"
-            >
-              {tech}
-            </span>
-          ))}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
         </div>
 
-        {/* Buttons */}
-        <div className="mt-6 flex justify-center gap-4">
-          {project.liveLink && (
-            <button
-              className="bg-teal-500 text-white px-5 py-2 rounded-lg hover:bg-teal-600 transition-transform transform hover:scale-105"
-              onClick={() => window.open(project.liveLink, "_blank")}
-            >
-              Live
-            </button>
-          )}
-          {project.codeLink && (
-            <button
-              className="bg-gray-500 text-white px-5 py-2 rounded-lg hover:bg-gray-600 transition-transform transform hover:scale-105"
-              onClick={() => window.open(project.codeLink, "_blank")}
-            >
-              Code
-            </button>
-          )}
-          <button
-            className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition-transform transform hover:scale-105"
-            onClick={() => setShowModal(false)}
-          >
-            Close
-          </button>
+        {/* Content */}
+        <div className="p-6 sm:p-8">
+          <h3 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400 mb-4">
+            {project.title}
+          </h3>
+
+          <p className="text-gray-300 mb-6">{project.description}</p>
+
+          <div className="flex flex-wrap gap-2 mb-8">
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 text-sm font-medium text-white bg-white/10 rounded-full"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-4">
+            {project.liveLink && (
+              <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-500 to-blue-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+              >
+                <FontAwesomeIcon icon={faExternalLinkAlt} />
+                <span>View Live</span>
+              </a>
+            )}
+            {project.codeLink && (
+              <a
+                href={project.codeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 glass-morphism text-white rounded-lg hover:bg-white/10 transition-colors"
+              >
+                <FontAwesomeIcon icon={faCode} />
+                <span>View Code</span>
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>
