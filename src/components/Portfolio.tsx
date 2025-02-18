@@ -9,6 +9,8 @@ import web3 from "@/src/public/pictures/langchain.png";
 import web4 from "@/src/public/pictures/Screenshot (117).png";
 import lessUSA from "@/src/public/pictures/Less1.png";
 import querri from "@/src/public/pictures/querri1.png";
+import cursorRules from "@/src/public/pictures/cursor-rules.png";
+import gseay from "@/src/public/pictures/gseay.png";
 
 interface Project {
   id: number;
@@ -30,6 +32,25 @@ export default function Portfolio() {
   };
 
   const projects: Project[] = [
+    {
+      id: 7,
+      title: "Cursor Rules Hub",
+      description:
+        "A community-driven platform for sharing and discovering AI behavior rules for the Cursor Editor. Features include rule browsing, creation tools, file pattern matching, and a dark mode interface. Built with a modern tech stack including Next.js 14, Supabase, and TypeScript.",
+      techStack: ["Next.js 14", "Supabase", "TypeScript", "Tailwind CSS"],
+      image: cursorRules,
+      liveLink: "https://cursor-rules-virid.vercel.app/",
+      codeLink: "https://github.com/Javierlozo/cursor_rules",
+    },
+    {
+      id: 8,
+      title: "GSeay Inc Construction",
+      description:
+        "A professional website for GSeay Inc General Contractor, showcasing their construction services, project portfolio, and company history. Built with Next.js and AWS Amplify, featuring a modern design with interactive elements and comprehensive service information.",
+      techStack: ["Next.js", "AWS Amplify", "TypeScript", "Responsive Design"],
+      image: gseay,
+      liveLink: "https://main.d7q6p8t1hyujm.amplifyapp.com/",
+    },
     {
       id: 5, // Assign a unique ID
       title: "LESS USA",
