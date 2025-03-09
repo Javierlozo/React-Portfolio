@@ -17,11 +17,10 @@ export default function Experience() {
       position: "Software Engineer (Contract)",
       period: "April 2024 – Present",
       responsibilities: [
-        "Lead the development of React-based front-end applications, improving performance and responsiveness.",
-        "Optimize cloud delivery with AWS services (Amplify, Lambda, S3, CloudFront), increasing deployment efficiency by 20%.",
-        "Mentor junior developers on React and Next.js best practices, improving team productivity.",
-        "Collaborate with backend teams to streamline API integrations.",
-        "Leverage GitHub Copilot to accelerate feature development, reducing delivery times by 15%.",
+        "Leading end-to-end development of MVP React applications using AWS Lambda and Amplify, reducing time-to-market by 40%",
+        "Implementing Next.js 14 with Server Components and Supabase for real-time features and authentication",
+        "Integrating AI-powered features using AWS services, creating key differentiators for market positioning",
+        "Architecting scalable hybrid infrastructure using Supabase and AWS, optimizing performance and costs",
       ],
     },
     {
