@@ -12,7 +12,7 @@ interface ExperienceItem {
 export default function Experience() {
   const experiences: ExperienceItem[] = [
     {
-      company: "Global Digital Needs Agency (GDNA)",
+      company: "Global Digital Needs Agency (g/d/n/a)",
       location: "Charleston, SC",
       position: "Software Engineer (Contract)",
       period: "April 2024 – Present",
