@@ -49,7 +49,7 @@ export default function Portfolio() {
         "A professional website for GSeay Inc General Contractor, showcasing their construction services, project portfolio, and company history. Built with Next.js and AWS Amplify, featuring a modern design with interactive elements and comprehensive service information.",
       techStack: ["Next.js", "AWS Amplify", "TypeScript", "Responsive Design"],
       image: gseay,
-      liveLink: "https://main.d7q6p8t1hyujm.amplifyapp.com/",
+      liveLink: "https://www.gseayinc.com/",
     },
     {
       id: 5, // Assign a unique ID
