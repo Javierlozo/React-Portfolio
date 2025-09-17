@@ -11,6 +11,7 @@ import lessUSA from "@/src/public/pictures/Less1.png";
 import querri from "@/src/public/pictures/querri1.png";
 import cursorRules from "@/src/public/pictures/cursor-rules.png";
 import gseay from "@/src/public/pictures/gseay.png";
+import africanxt from "@/src/public/pictures/Header.png";
 
 interface Project {
   id: number;
@@ -32,6 +33,16 @@ export default function Portfolio() {
   };
 
   const projects: Project[] = [
+    {
+      id: 10,
+      title: "AfricaNXT - Global African Talent Platform",
+      description:
+        "Led the development of a sophisticated mentorship platform connecting African talent globally. Implemented a production-ready AWS infrastructure with Cognito authentication, featuring domain-based validation, tiered user hierarchy (Admin → Anonymous), and GDPR-compliant consent management. Built an advanced admin dashboard with waitlist management, user promotion workflows, and real-time analytics powered by Squid Cloud backend.",
+      techStack: ["React 18", "AWS CDK", "Cognito", "Squid Cloud", "TypeScript", "SES"],
+      image: africanxt,
+      liveLink: "https://app.africanxt.com/unga",
+      codeLink: "https://github.com/gdnaio/africanxt-monorepo",
+    },
     {
       id: 7,
       title: "Cursor Rules Hub",
