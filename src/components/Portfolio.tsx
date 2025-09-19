@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ProjectModal from "./ProjectModal";
+import { useTheme } from "../contexts/ThemeContext";
 
 import web1 from "@/src/public/pictures/rental.png";
 import web2 from "@/src/public/pictures/weather.png";
@@ -24,6 +25,7 @@ interface Project {
 }
 
 export default function Portfolio() {
+  const { theme } = useTheme();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -124,23 +126,28 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="relative py-20 bg-gradient-to-b from-gray-900 to-black"
+      className={`py-20 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
       <div className="container mx-auto px-4">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-12 animate-fade-in">
-          My Portfolio
-        </h3>
-        <p className="text-center text-lg text-gray-300 mb-16 animate-fade-in">
-          Explore a selection of projects that highlight my skills and expertise
-          in web development.
-        </p>
+        <div className="max-w-2xl mx-auto text-center mb-12 sm:mb-16 px-4">
+          <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-4 sm:mb-6 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            My Portfolio
+          </h2>
+          <p className={`text-lg sm:text-xl mb-6 sm:mb-8 ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            Explore a selection of projects that highlight my skills and expertise
+            in web development and cybersecurity.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group relative cursor-pointer transform transition-all duration-300 hover:scale-105 animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group cursor-pointer"
               onClick={() => handleProjectClick(project)}
               role="button"
               tabIndex={0}
@@ -150,36 +157,43 @@ export default function Portfolio() {
                 }
               }}
             >
-              <div className="overflow-hidden rounded-2xl aspect-video glass-morphism">
+              <div className={`overflow-hidden rounded-lg aspect-video ${
+                theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
+              }`}>
                 <div className="relative h-full">
                   <Image
                     src={project.image}
                     alt={`Screenshot of ${project.title}`}
                     fill
-                    className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h4 className="text-lg font-bold text-white mb-2">
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                    theme === 'dark' ? 'bg-black/60' : 'bg-gray-900/60'
+                  }`}>
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h4 className={`text-lg font-bold mb-2 ${
+                        theme === 'dark' ? 'text-white' : 'text-white'
+                      }`}>
                         {project.title}
                       </h4>
-                      <p className="text-sm text-gray-200 line-clamp-2">
+                      <p className={`text-sm line-clamp-2 mb-3 ${
+                        theme === 'dark' ? 'text-gray-200' : 'text-gray-200'
+                      }`}>
                         {project.description}
                       </p>
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {project.techStack.slice(0, 3).map((tech) => (
+                      <div className="flex flex-wrap gap-2">
+                        {project.techStack.slice(0, 3).map((tech, techIndex) => (
                           <span
                             key={tech}
-                            className="px-2 py-1 text-xs font-medium text-white bg-white/10 rounded-full"
+                            className={`px-2 py-1 text-xs font-medium rounded ${
+                              theme === 'dark' 
+                                ? 'text-white bg-gray-700' 
+                                : 'text-white bg-gray-600'
+                            }`}
                           >
                             {tech}
                           </span>
                         ))}
-                        {project.techStack.length > 3 && (
-                          <span className="px-2 py-1 text-xs font-medium text-white bg-white/10 rounded-full">
-                            +{project.techStack.length - 3} more
-                          </span>
-                        )}
                       </div>
                     </div>
                   </div>

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface ExperienceItem {
   company: string;
@@ -10,6 +11,8 @@ interface ExperienceItem {
 }
 
 export default function Experience() {
+  const { theme } = useTheme();
+  
   const experiences: ExperienceItem[] = [
     {
       company: "Global Digital Needs Agency (g/d/n/a)",
@@ -48,56 +51,66 @@ export default function Experience() {
     {
       company: "Interloop Technologies, Inc",
       location: "Charleston, SC",
-      position: "Software Engineer II",
-      period: "November 2022 – June 2023 (8 months)",
+      position: "Software Engineer I & II",
+      period: "July 2021 – June 2023 (2 years)",
       responsibilities: [
-        "Led multiple high-impact projects using Angular, NestJS, and MongoDB.",
-        "Created and managed Azure Functions to automate processes.",
-        "Mentored junior developers through code reviews and pair programming.",
-      ],
-    },
-    {
-      company: "Interloop Technologies, Inc",
-      location: "Charleston, SC",
-      position: "Software Engineer I",
-      period: "July 2021 – November 2022 (1 year, 4 months)",
-      responsibilities: [
-        "Developed custom Chrome extensions integrated with CRM tools.",
-        "Improved application reliability by implementing test plans using Cypress.",
+        "Led multiple high-impact projects using Angular, NestJS, and MongoDB",
+        "Created and managed Azure Functions to automate processes",
+        "Mentored junior developers through code reviews and pair programming",
+        "Developed custom Chrome extensions integrated with CRM tools",
+        "Improved application reliability by implementing test plans using Cypress",
+        "Implemented secure coding practices and security architecture",
       ],
     },
   ];
 
   return (
-    <section id="experience" className="py-20 bg-gray-900">
+    <section id="experience" className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="container mx-auto px-4">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-16 animate-fade-in">
-          Work Experience
-        </h3>
+        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-16 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
+          Professional Experience
+        </h2>
 
         <div className="max-w-4xl mx-auto space-y-8">
           {experiences.map((exp, index) => (
             <div
-              key={exp.company}
-              className="glass-morphism p-8 rounded-2xl animate-fade-in"
-              style={{ animationDelay: `${index * 0.2}s` }}
+              key={`${exp.company}-${exp.position}`}
+              className={`p-8 rounded-lg ${
+                theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+              }`}
             >
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                 <div>
-                  <h4 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400">
+                  <h4 className={`text-xl font-bold ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
                     {exp.company}
                   </h4>
-                  <p className="text-gray-400">{exp.location}</p>
+                  <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                    {exp.location}
+                  </p>
                 </div>
                 <div className="text-right mt-2 md:mt-0">
-                  <p className="text-white font-medium">{exp.position}</p>
-                  <p className="text-gray-400">{exp.period}</p>
+                  <p className={`font-medium ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {exp.position}
+                  </p>
+                  <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                    {exp.period}
+                  </p>
                 </div>
               </div>
-              <ul className="space-y-3 text-gray-300">
+              <ul className={`space-y-3 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
                 {exp.responsibilities.map((resp, i) => (
                   <li key={i} className="flex items-start">
-                    <span className="mr-2 text-violet-400">•</span>
+                    <span className={`mr-2 ${
+                      theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                    }`}>•</span>
                     {resp}
                   </li>
                 ))}

@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { ThemeProvider } from "../contexts/ThemeContext";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -36,12 +37,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="description" content={metadata.description} />
       </head>
-      <body
-        className={`${inter.className} bg-gradient-to-b from-gray-900 to-black text-white min-h-screen`}
-      >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+      <body className={`${inter.className} min-h-screen transition-colors duration-300`}>
+        <ThemeProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
