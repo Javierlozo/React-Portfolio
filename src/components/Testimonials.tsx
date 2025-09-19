@@ -2,6 +2,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image"; // Import Image and StaticImageData
 import querriImage from "../public/pictures/querri.png"; // Import the image
+import { useTheme } from "../contexts/ThemeContext";
 
 interface Testimonial {
   id: number;
@@ -12,6 +13,8 @@ interface Testimonial {
 }
 
 export default function Testimonials() {
+  const { theme } = useTheme();
+  
   const testimonials: Testimonial[] = [
     {
       id: 1,
@@ -26,25 +29,22 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-20 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden"
+      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
     >
-      {/* Background gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        <div className="absolute top-40 -right-20 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-        <div className="absolute -bottom-40 left-20 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-16 animate-fade-in">
+      <div className="container mx-auto px-4">
+        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-16 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
           Testimonials
-        </h3>
+        </h2>
 
         <div className="max-w-4xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="glass-morphism p-8 rounded-2xl animate-fade-in"
-              style={{ animationDelay: `${index * 0.2}s` }}
+              className={`p-8 rounded-lg ${
+                theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+              }`}
             >
               <div className="flex flex-col md:flex-row items-center gap-8">
                 {testimonial.image && (
@@ -58,14 +58,20 @@ export default function Testimonials() {
                   </div>
                 )}
                 <div>
-                  <p className="text-xl text-gray-300 italic mb-4">
+                  <p className={`text-xl italic mb-4 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
                   <div>
-                    <p className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 font-semibold">
+                    <p className={`font-semibold ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
                       {testimonial.name}
                     </p>
-                    <p className="text-gray-400">{testimonial.position}</p>
+                    <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                      {testimonial.position}
+                    </p>
                   </div>
                 </div>
               </div>

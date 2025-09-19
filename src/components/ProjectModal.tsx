@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,6 +8,7 @@ import {
   faExternalLinkAlt,
   faCode,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface Project {
   id: number;
@@ -30,56 +31,86 @@ export default function ProjectModal({
   setShowModal,
   project,
 }: ProjectModalProps) {
+  const { theme } = useTheme();
   const modalRef = useRef<HTMLDivElement>(null);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showModal]);
 
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={() => setShowModal(false)}
       />
 
       {/* Modal content */}
       <div
         ref={modalRef}
-        className="relative w-[90vw] max-w-4xl glass-morphism rounded-2xl overflow-hidden animate-fade-in"
+        className={`relative w-[90vw] max-w-4xl max-h-[90vh] rounded-lg overflow-hidden z-10 my-8 ${
+          theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+        }`}
       >
         {/* Close button */}
         <button
           onClick={() => setShowModal(false)}
-          className="absolute top-4 right-4 text-white/80 hover:text-white z-10 p-2 rounded-full bg-black/20 hover:bg-black/40 transition-colors"
+          className={`absolute top-4 right-4 z-10 p-2 rounded-full transition-colors ${
+            theme === 'dark' 
+              ? 'text-white hover:text-gray-300 bg-gray-700 hover:bg-gray-600' 
+              : 'text-gray-800 hover:text-gray-600 bg-gray-200 hover:bg-gray-300'
+          }`}
           aria-label="Close modal"
         >
           <FontAwesomeIcon icon={faTimes} className="text-xl" />
         </button>
 
         {/* Image */}
-        <div className="relative h-64 sm:h-80 md:h-96 group">
+        <div className="relative h-48 sm:h-64 md:h-80">
           <Image
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
         </div>
 
         {/* Content */}
-        <div className="p-6 sm:p-8">
-          <h3 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400 mb-4">
+        <div className="p-6 sm:p-8 overflow-y-auto max-h-[50vh]">
+          <h3 className={`text-2xl sm:text-3xl font-bold mb-4 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
             {project.title}
           </h3>
 
-          <p className="text-gray-300 mb-6">{project.description}</p>
+          <p className={`mb-6 ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            {project.description}
+          </p>
 
           <div className="flex flex-wrap gap-2 mb-8">
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 text-sm font-medium text-white bg-white/10 rounded-full"
+                className={`px-3 py-1 text-sm font-medium rounded ${
+                  theme === 'dark' 
+                    ? 'text-white bg-gray-700' 
+                    : 'text-gray-800 bg-gray-200'
+                }`}
               >
                 {tech}
               </span>
@@ -92,7 +123,11 @@ export default function ProjectModal({
                 href={project.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-500 to-blue-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-white text-black hover:bg-gray-200'
+                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                }`}
               >
                 <FontAwesomeIcon icon={faExternalLinkAlt} />
                 <span>View Live</span>
@@ -103,7 +138,11 @@ export default function ProjectModal({
                 href={project.codeLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 glass-morphism text-white rounded-lg hover:bg-white/10 transition-colors"
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-gray-700 text-white hover:bg-gray-600'
+                    : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                }`}
               >
                 <FontAwesomeIcon icon={faCode} />
                 <span>View Code</span>

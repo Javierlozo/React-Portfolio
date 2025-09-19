@@ -8,19 +8,56 @@ html {
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); /* For Firefox */
 }
 
-/* Root Variables for Dark Mode */
+/* Root Variables for Dark Mode - Tech/Cybersecurity Theme */
 :root {
-  --primary-gradient: linear-gradient(to right, #c084fc, #93c5fd);
-  --scrollbar-thumb: #c084fc;
-  --scrollbar-track: #1f2937;
+  --primary-gradient: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+  --secondary-gradient: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
+  --accent-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  --cyber-gradient: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
+  --matrix-gradient: linear-gradient(135deg, #00ff00 0%, #008000 100%);
+  --scrollbar-thumb: #00d4ff;
+  --scrollbar-track: #0a0a0a;
+  --glass-bg: rgba(0, 212, 255, 0.05);
+  --glass-border: rgba(0, 212, 255, 0.1);
 }
 
+/* Light Theme Variables */
+.light {
+  --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --secondary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --cyber-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --matrix-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --scrollbar-thumb: #3b82f6;
+  --scrollbar-track: #f8fafc;
+  --glass-bg: rgba(59, 130, 246, 0.05);
+  --glass-border: rgba(59, 130, 246, 0.1);
+}
+
+/* Enhanced Cybersecurity Backgrounds */
 body {
   color: #ffffff;
-  background-color: #0a0a0a;
-  font-family: "Inter", sans-serif;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  background: 
+    linear-gradient(135deg, #000000 0%, #001122 25%, #002244 50%, #001122 75%, #000000 100%),
+    radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "JetBrains Mono", monospace;
+  transition: all 0.3s ease;
   -ms-overflow-style: scrollbar; /* IE 10+ */
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+}
+
+/* Light Theme Body */
+.light body {
+  color: #1f2937;
+  background: 
+    linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #e2e8f0 50%, #f8fafc 75%, #ffffff 100%),
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
 }
 
 /* Heading styles */
@@ -189,11 +226,12 @@ a:hover {
 
 /* Improved glass effect */
 .glass-morphism {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* Add these new animations after your existing ones */
@@ -234,12 +272,95 @@ a:hover {
   animation: shimmer 2s infinite;
 }
 
-/* Gradient text utility */
+/* Gradient text utilities - Tech/Cybersecurity Theme */
 .gradient-text {
-  @apply text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Gradient border utility */
+.gradient-text-secondary {
+  background: var(--secondary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-accent {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-cyber {
+  background: var(--cyber-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-matrix {
+  background: var(--matrix-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Modern button styles - Tech/Cybersecurity Theme */
+.btn-primary {
+  background: var(--primary-gradient);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
+  border-color: rgba(0, 212, 255, 0.6);
+}
+
+.btn-secondary {
+  background: var(--secondary-gradient);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6);
+  border-color: rgba(0, 255, 136, 0.6);
+}
+
+.btn-cyber {
+  background: var(--cyber-gradient);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.btn-cyber:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.6);
+  border-color: rgba(0, 255, 255, 0.6);
+}
+
+/* Gradient border utility - Tech Theme */
 .gradient-border {
   position: relative;
 }
@@ -250,21 +371,317 @@ a:hover {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(to right, #c084fc, #93c5fd);
+  background: var(--primary-gradient);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
 }
 
-/* Update background orbs colors */
+.gradient-border-cyber::after {
+  background: var(--cyber-gradient);
+}
+
+.gradient-border-matrix::after {
+  background: var(--matrix-gradient);
+}
+
+/* Subtle Cybersecurity Animations */
+@keyframes subtleGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+@keyframes slowFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Subtle utility classes */
+.animate-subtle-glow {
+  animation: subtleGlow 4s ease-in-out infinite;
+}
+
+.animate-gentle-pulse {
+  animation: gentlePulse 6s ease-in-out infinite;
+}
+
+.animate-slow-float {
+  animation: slowFloat 8s ease-in-out infinite;
+}
+
+/* Terminal-style text effect */
+.terminal-text {
+  font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Enhanced Cybersecurity Effects */
+.cyber-grid {
+  background-image: 
+    linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.terminal-cursor::after {
+  content: '_';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.data-stream {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-stream::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffff, transparent);
+  animation: dataFlow 3s linear infinite;
+}
+
+.code-syntax {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border-left: 3px solid #00ffff;
+}
+
+.cyber-border {
+  position: relative;
+}
+
+.cyber-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(45deg, #00ffff, #0080ff, #00ff88, #00ffff);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+}
+
+/* Cybersecurity card styles */
+.cyber-card {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 8px 32px rgba(0, 212, 255, 0.1),
+    inset 0 1px 0 rgba(0, 212, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.cyber-card:hover {
+  border-color: rgba(0, 212, 255, 0.6);
+  box-shadow: 
+    0 12px 40px rgba(0, 212, 255, 0.2),
+    inset 0 1px 0 rgba(0, 212, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Hacker-style input fields */
+.cyber-input {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: 8px;
+  color: #00ff00;
+  font-family: "JetBrains Mono", monospace;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.cyber-input:focus {
+  outline: none;
+  border-color: rgba(0, 255, 0, 0.6);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+/* Simplified Cybersecurity Background Effects */
+.cyber-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, rgba(0, 255, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(0, 255, 0, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.cyber-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Holographic effect */
+.holographic-bg {
+  position: relative;
+  background: linear-gradient(45deg, 
+    rgba(0, 212, 255, 0.1) 0%, 
+    rgba(0, 255, 136, 0.1) 25%, 
+    rgba(0, 255, 255, 0.1) 50%, 
+    rgba(255, 107, 53, 0.1) 75%, 
+    rgba(0, 212, 255, 0.1) 100%);
+  background-size: 400% 400%;
+  animation: holographicShift 10s ease-in-out infinite;
+}
+
+@keyframes holographicShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Data stream effect */
+.data-stream {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-stream::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 255, 0, 0.8) 50%, 
+    transparent 100%);
+  animation: dataFlow 3s linear infinite;
+}
+
+.data-stream::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 212, 255, 0.8) 50%, 
+    transparent 100%);
+  animation: dataFlow 3s linear infinite reverse;
+}
+
+@keyframes dataFlow {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Terminal scan lines */
+.terminal-scan {
+  position: relative;
+}
+
+.terminal-scan::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0, 255, 0, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  animation: scanLine 2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Cybersecurity status indicators */
+.status-online {
+  color: #00ff00;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.status-warning {
+  color: #ff6b35;
+  text-shadow: 0 0 5px rgba(255, 107, 53, 0.5);
+}
+
+/* Update background orbs colors - Tech/Cybersecurity Theme */
 .bg-gradient-orb-1 {
-  background: #c084fc;
+  background: #00d4ff;
 }
 
 .bg-gradient-orb-2 {
-  background: #93c5fd;
+  background: #00ff88;
 }
 
 .bg-gradient-orb-3 {
-  background: #818cf8;
+  background: #00ffff;
 }

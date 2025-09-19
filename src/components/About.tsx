@@ -1,42 +1,70 @@
 "use client";
 import React from "react";
+import { useTheme } from "../contexts/ThemeContext";
 
 export default function About() {
+  const { theme } = useTheme();
+  
   return (
     <section
       id="about"
-      className="relative overflow-hidden py-20 sm:py-32 bg-gradient-to-b from-black to-gray-900"
+      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
     >
-      {/* Background gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-orb-1 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-        <div className="absolute bottom-40 left-20 w-80 h-80 bg-gradient-orb-2 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-      </div>
-
-      <div className="relative container mx-auto px-4">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-12 animate-fade-in">
+      <div className="container mx-auto px-4">
+        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-12 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
           About Me
-        </h3>
-        <div
-          className="max-w-4xl mx-auto glass-morphism p-8 sm:p-12 rounded-2xl animate-fade-in"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <p className="text-md md:text-lg lg:text-xl leading-relaxed text-gray-300">
+        </h2>
+        <div className={`max-w-4xl mx-auto p-8 rounded-lg ${
+          theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+        }`}>
+          <p className={`text-lg leading-relaxed mb-6 ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             I&apos;m a{" "}
-            <strong className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400">
-              Senior Full Stack Engineer
+            <strong className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>
+              Full Stack Engineer & Web Security Specialist
             </strong>{" "}
-            with extensive experience in building secure, high-performance web
-            applications for businesses of all sizes. Leveraging modern
-            frameworks like React, Next.js, and AWS, I focus on creating
-            user-friendly solutions that help companies thrive in today&apos;s
-            digital landscape.
+            with extensive experience building secure, scalable web applications. I specialize in 
+            React, Next.js, TypeScript, and AWS, with a strong focus on implementing security best 
+            practices and protecting applications from vulnerabilities.
           </p>
-          <p className="text-md md:text-lg lg:text-xl leading-relaxed text-gray-300 mt-6">
-            With a passion for full-stack development, I strive to implement
-            impactful, transformative technologies and best practices that drive
-            real-world results.
+          <p className={`text-lg leading-relaxed mb-8 ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            My passion lies in creating robust, secure applications that not only deliver exceptional 
+            user experiences but also protect against modern cyber threats. I&apos;m dedicated to 
+            staying current with security trends and implementing defense-in-depth strategies.
           </p>
+          
+          {/* SANS Academy Achievement */}
+          <div className={`mt-8 p-6 rounded-lg border ${
+            theme === 'dark' 
+              ? 'bg-blue-900/20 border-blue-500/20' 
+              : 'bg-blue-50 border-blue-200'
+          }`}>
+            <h4 className={`text-lg font-semibold mb-3 ${
+              theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+            }`}>Recent Achievement</h4>
+            <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
+              <strong className={theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}>Accepted into Fall 2025 SANS Cyber Academy!</strong> 
+              {" "}Training with industry experts to enhance my security knowledge and earn GIAC certifications 
+              in incident response, threat detection, and cyber defense.
+            </p>
+          </div>
+          
+          <div className="mt-8 flex flex-wrap gap-4">
+            {['React', 'Next.js', 'TypeScript', 'AWS', 'Web Security', 'Penetration Testing'].map((skill) => (
+              <span key={skill} className={`px-3 py-1 rounded-full text-sm ${
+                theme === 'dark' 
+                  ? 'bg-gray-700 text-gray-300' 
+                  : 'bg-gray-200 text-gray-700'
+              }`}>
+                {skill}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

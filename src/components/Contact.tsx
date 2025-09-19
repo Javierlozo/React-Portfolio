@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface FormData {
   from_name: string;
@@ -9,6 +10,7 @@ interface FormData {
 }
 
 export default function Contact() {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState<FormData>({
     from_name: "",
     reply_to: "",
@@ -52,24 +54,31 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-20 bg-gradient-to-b from-gray-900 to-black"
+      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
     >
       <div className="container mx-auto px-4">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-12 animate-fade-in">
+        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-12 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
           Get in Touch
-        </h3>
+        </h2>
 
         <div className="max-w-4xl mx-auto">
           <p
-            className="text-center text-lg text-gray-300 mb-12 animate-fade-in"
-            style={{ animationDelay: "0.2s" }}
+            className={`text-center text-lg mb-12 ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}
           >
             Feel free to reach out through the form below or connect with me on{" "}
             <a
               href="https://www.linkedin.com/in/luisjlozoya"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400 hover:opacity-80 transition-opacity"
+              className={`transition-colors ${
+                theme === 'dark' 
+                  ? 'text-white hover:text-gray-300' 
+                  : 'text-gray-900 hover:text-gray-600'
+              }`}
             >
               LinkedIn
             </a>
@@ -77,11 +86,12 @@ export default function Contact() {
           </p>
 
           <form
-            className="space-y-6 animate-fade-in"
+            className="space-y-6"
             onSubmit={handleSubmit}
-            style={{ animationDelay: "0.4s" }}
           >
-            <div className="glass-morphism p-8 rounded-2xl space-y-6">
+            <div className={`p-8 rounded-lg space-y-6 ${
+              theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+            }`}>
               <input
                 type="text"
                 name="from_name"
@@ -92,7 +102,11 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className="w-full p-4 bg-white/5 rounded-lg border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-violet-400 transition-colors disabled:opacity-50"
+                className={`w-full p-4 rounded-lg border transition-colors disabled:opacity-50 ${
+                  theme === 'dark'
+                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                    : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                }`}
               />
               <input
                 type="email"
@@ -104,7 +118,11 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className="w-full p-4 bg-white/5 rounded-lg border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-violet-400 transition-colors disabled:opacity-50"
+                className={`w-full p-4 rounded-lg border transition-colors disabled:opacity-50 ${
+                  theme === 'dark'
+                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                    : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                }`}
               />
               <textarea
                 name="message"
@@ -116,16 +134,24 @@ export default function Contact() {
                 required
                 disabled={isSubmitting}
                 rows={6}
-                className="w-full p-4 bg-white/5 rounded-lg border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-violet-400 transition-colors resize-none disabled:opacity-50"
+                className={`w-full p-4 rounded-lg border transition-colors resize-none disabled:opacity-50 ${
+                  theme === 'dark'
+                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                    : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                }`}
               ></textarea>
             </div>
 
             {submitStatus.message && (
               <div
-                className={`text-center p-4 rounded-lg ${
+                className={`text-center p-4 rounded-lg border ${
                   submitStatus.type === "success"
-                    ? "bg-green-500/10 text-green-400"
-                    : "bg-red-500/10 text-red-400"
+                    ? theme === 'dark'
+                      ? "bg-green-900/20 text-green-400 border-green-500/20"
+                      : "bg-green-50 text-green-600 border-green-200"
+                    : theme === 'dark'
+                      ? "bg-red-900/20 text-red-400 border-red-500/20"
+                      : "bg-red-50 text-red-600 border-red-200"
                 }`}
               >
                 {submitStatus.message}
@@ -135,7 +161,11 @@ export default function Contact() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 px-8 bg-gradient-to-r from-violet-500 to-blue-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity animate-float disabled:opacity-50"
+              className={`w-full py-4 px-8 rounded-lg font-semibold transition-colors disabled:opacity-50 ${
+                theme === 'dark'
+                  ? 'bg-white text-black hover:bg-gray-200'
+                  : 'bg-gray-900 text-white hover:bg-gray-800'
+              }`}
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>

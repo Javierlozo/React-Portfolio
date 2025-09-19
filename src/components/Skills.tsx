@@ -25,7 +25,14 @@ import {
   faNetworkWired,
   faFileCode,
   faGears,
+  faEye,
+  faSearch,
+  faExclamationTriangle,
+  faKey,
+  faShield,
+  faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface Skill {
   name: string;
@@ -53,6 +60,8 @@ const SvelteIcon = () => (
 );
 
 export default function Skills() {
+  const { theme } = useTheme();
+  
   const skills: Skill[] = [
     // Frontend
     {
@@ -160,6 +169,12 @@ export default function Skills() {
       category: "security",
     },
     {
+      name: "Web App Security",
+      icon: faShield,
+      color: "text-cyan-400",
+      category: "security",
+    },
+    {
       name: "Auth & OAuth",
       icon: faLock,
       color: "text-green-400",
@@ -169,6 +184,18 @@ export default function Skills() {
       name: "Penetration Testing",
       icon: faBug,
       color: "text-red-400",
+      category: "security",
+    },
+    {
+      name: "Vulnerability Assessment",
+      icon: faSearch,
+      color: "text-orange-400",
+      category: "security",
+    },
+    {
+      name: "Security Auditing",
+      icon: faEye,
+      color: "text-purple-400",
       category: "security",
     },
     {
@@ -183,6 +210,24 @@ export default function Skills() {
       color: "text-yellow-400",
       category: "security",
     },
+    {
+      name: "Threat Detection",
+      icon: faExclamationTriangle,
+      color: "text-red-500",
+      category: "security",
+    },
+    {
+      name: "Access Control",
+      icon: faKey,
+      color: "text-indigo-400",
+      category: "security",
+    },
+    {
+      name: "Security Architecture",
+      icon: faUserShield,
+      color: "text-teal-400",
+      category: "security",
+    },
   ];
 
   const categories = {
@@ -193,39 +238,45 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-20 bg-gray-900">
+    <section id="skills" className={`py-20 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
       <div className="container mx-auto px-4">
-        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center text-white mb-16 animate-fade-in">
-          Technical Skills
-        </h3>
+        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-16 ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
+          Technical Skills & Security Expertise
+        </h2>
 
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {Object.entries(categories).map(([category, title]) => (
             <div key={category} className="mb-16 last:mb-0">
-              <h4 className="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-blue-400 mb-8 text-center">
+              <h3 className={`text-2xl font-semibold mb-8 text-center ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
                 {title}
-              </h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 justify-items-center max-w-6xl mx-auto">
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                 {skills
                   .filter((skill) => skill.category === category)
-                  .map((skill, index) => (
+                  .map((skill) => (
                     <div
                       key={skill.name}
-                      className="group flex flex-col items-center animate-fade-in"
-                      style={{ animationDelay: `${index * 0.1}s` }}
+                      className={`flex flex-col items-center justify-center p-6 rounded-lg hover:transition-colors duration-200 h-32 w-full ${
+                        theme === 'dark' 
+                          ? 'bg-gray-800 hover:bg-gray-700' 
+                          : 'bg-gray-100 hover:bg-gray-200'
+                      }`}
                     >
-                      <div className="relative p-8 rounded-2xl glass-morphism group-hover:scale-110 transition-transform duration-300">
-                        {typeof skill.icon === "function" ? (
-                          <skill.icon />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={skill.icon}
-                            className={`text-4xl md:text-5xl ${skill.color} transition-transform duration-300`}
-                          />
-                        )}
-                        <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                      <p className="mt-4 text-sm md:text-base text-gray-300 group-hover:text-white transition-colors duration-300">
+                      {typeof skill.icon === "function" ? (
+                        <skill.icon />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={skill.icon}
+                          className={`text-3xl ${skill.color}`}
+                        />
+                      )}
+                      <p className={`mt-3 text-sm text-center font-medium ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                      }`}>
                         {skill.name}
                       </p>
                     </div>
