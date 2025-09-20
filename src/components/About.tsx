@@ -8,63 +8,70 @@ export default function About() {
   return (
     <section
       id="about"
-      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
+      className={`py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <div className="container mx-auto px-4">
-        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-12 ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>
-          About Me
-        </h2>
-        <div className={`max-w-4xl mx-auto p-8 rounded-lg ${
-          theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-        }`}>
-          <p className={`text-lg leading-relaxed mb-6 ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+      <div className="container mx-auto px-6 max-w-4xl">
+        {/* Minimalist Section Header */}
+        <div className="text-center mb-20">
+          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            About Me
+          </h2>
+          <div className={`w-16 h-px mx-auto ${
+            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
+          }`}></div>
+        </div>
+
+        {/* Main Content */}
+        <div className="space-y-8">
+          <p className={`text-lg leading-relaxed ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
             I&apos;m a{" "}
-            <strong className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>
-              Full Stack Engineer & Web Security Specialist
-            </strong>{" "}
-            with extensive experience building secure, scalable web applications. I specialize in 
-            React, Next.js, TypeScript, and AWS, with a strong focus on implementing security best 
-            practices and protecting applications from vulnerabilities.
-          </p>
-          <p className={`text-lg leading-relaxed mb-8 ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
-            My passion lies in creating robust, secure applications that not only deliver exceptional 
-            user experiences but also protect against modern cyber threats. I&apos;m dedicated to 
-            staying current with security trends and implementing defense-in-depth strategies.
+            <span className={`font-medium ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              Full Stack Engineer, AI Specialist & Security Expert
+            </span>{" "}
+            with extensive experience building secure, scalable applications. I combine modern 
+            development practices with AI integration and cybersecurity expertise to create 
+            robust solutions that protect against evolving threats.
           </p>
           
-          {/* SANS Academy Achievement */}
-          <div className={`mt-8 p-6 rounded-lg border ${
-            theme === 'dark' 
-              ? 'bg-blue-900/20 border-blue-500/20' 
-              : 'bg-blue-50 border-blue-200'
+          <p className={`text-lg leading-relaxed ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            <h4 className={`text-lg font-semibold mb-3 ${
-              theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-            }`}>Recent Achievement</h4>
-            <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-              <strong className={theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}>Accepted into Fall 2025 SANS Cyber Academy!</strong> 
-              {" "}Training with industry experts to enhance my security knowledge and earn GIAC certifications 
+            My passion lies in leveraging AI and modern technologies to build intelligent, 
+            secure applications. I&apos;m dedicated to staying at the forefront of AI development 
+            while implementing comprehensive security measures that protect against both 
+            traditional and emerging cyber threats.
+          </p>
+          
+          {/* Achievement Highlight */}
+          <div className={`mt-12 p-6 border-l-4 ${
+            theme === 'dark' 
+              ? 'border-gray-600 bg-gray-900/50' 
+              : 'border-gray-300 bg-gray-50'
+          }`}>
+            <h4 className={`text-base font-medium mb-2 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              Recent Achievement
+            </h4>
+            <p className={`text-sm ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              <span className={`font-medium ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                Accepted into Fall 2025 SANS Cyber Academy
+              </span>{" "}
+              — Training with industry experts to enhance my security knowledge and earn GIAC certifications 
               in incident response, threat detection, and cyber defense.
             </p>
           </div>
           
-          <div className="mt-8 flex flex-wrap gap-4">
-            {['React', 'Next.js', 'TypeScript', 'AWS', 'Web Security', 'Penetration Testing'].map((skill) => (
-              <span key={skill} className={`px-3 py-1 rounded-full text-sm ${
-                theme === 'dark' 
-                  ? 'bg-gray-700 text-gray-300' 
-                  : 'bg-gray-200 text-gray-700'
-              }`}>
-                {skill}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>

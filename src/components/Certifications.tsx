@@ -70,31 +70,35 @@ export default function Certifications() {
   return (
     <section
       id="certifications"
-      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
+      className={`py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center mb-12 sm:mb-16 px-4">
-          <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-4 sm:mb-6 ${
+      <div className="container mx-auto px-6 max-w-6xl">
+        {/* Minimalist Section Header */}
+        <div className="text-center mb-20">
+          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
             Certifications
           </h2>
-          <p className={`text-lg sm:text-xl mb-6 sm:mb-8 ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          <div className={`w-16 h-px mx-auto mb-6 ${
+            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
+          }`}></div>
+          <p className={`text-lg max-w-2xl mx-auto ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            Professional certifications that validate my expertise in cybersecurity and system administration
+            Professional certifications validating my expertise in cybersecurity and system administration
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {certifications.map((cert) => (
             <div
               key={cert.id}
-              className={`group cursor-pointer rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+              className={`group cursor-pointer rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 ${
                 theme === 'dark' 
-                  ? 'bg-gray-800 hover:bg-gray-700' 
-                  : 'bg-white hover:bg-gray-50'
-              } shadow-lg`}
+                  ? 'bg-gray-800 border border-gray-700 hover:bg-gray-700' 
+                  : 'bg-white border border-gray-200 hover:bg-gray-50'
+              }`}
             >
               <div className="relative h-64 overflow-hidden">
                 {cert.image ? (
