@@ -65,50 +65,65 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
-      <div className="container mx-auto px-4">
-        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-16 ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>
-          Professional Experience
-        </h2>
+    <section id="experience" className={`py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+      <div className="container mx-auto px-6 max-w-4xl">
+        {/* Minimalist Section Header */}
+        <div className="text-center mb-20">
+          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            Experience
+          </h2>
+          <div className={`w-16 h-px mx-auto ${
+            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
+          }`}></div>
+        </div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="space-y-12">
           {experiences.map((exp, index) => (
             <div
               key={`${exp.company}-${exp.position}`}
-              className={`p-8 rounded-lg ${
-                theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+              className={`p-8 border-l-4 ${
+                theme === 'dark' 
+                  ? 'border-gray-600 bg-gray-900/30' 
+                  : 'border-gray-300 bg-gray-50'
               }`}
             >
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+              {/* Company Header */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                 <div>
-                  <h4 className={`text-xl font-bold ${
+                  <h4 className={`text-lg font-medium mb-1 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
                     {exp.company}
                   </h4>
-                  <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                  <p className={`text-sm ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
                     {exp.location}
                   </p>
                 </div>
                 <div className="text-right mt-2 md:mt-0">
-                  <p className={`font-medium ${
+                  <p className={`text-sm font-medium ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
                     {exp.position}
                   </p>
-                  <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}>
+                  <p className={`text-xs ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
                     {exp.period}
                   </p>
                 </div>
               </div>
+
+              {/* Responsibilities */}
               <ul className={`space-y-3 ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
               }`}>
                 {exp.responsibilities.map((resp, i) => (
-                  <li key={i} className="flex items-start">
-                    <span className={`mr-2 ${
+                  <li key={i} className="flex items-start text-sm leading-relaxed">
+                    <span className={`mr-3 mt-1 text-xs ${
                       theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
                     }`}>•</span>
                     {resp}

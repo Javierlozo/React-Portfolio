@@ -54,22 +54,23 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
+      className={`py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <div className="container mx-auto px-4">
-        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-12 ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>
-          Get in Touch
-        </h2>
-
-        <div className="max-w-4xl mx-auto">
-          <p
-            className={`text-center text-lg mb-12 ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}
-          >
-            Feel free to reach out through the form below or connect with me on{" "}
+      <div className="container mx-auto px-6 max-w-4xl">
+        {/* Minimalist Section Header */}
+        <div className="text-center mb-20">
+          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            Contact
+          </h2>
+          <div className={`w-16 h-px mx-auto mb-6 ${
+            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
+          }`}></div>
+          <p className={`text-lg max-w-2xl mx-auto ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            Let&apos;s discuss your next project. Reach out via the form below or connect on{" "}
             <a
               href="https://www.linkedin.com/in/luisjlozoya"
               target="_blank"
@@ -82,16 +83,16 @@ export default function Contact() {
             >
               LinkedIn
             </a>
-            .
           </p>
+        </div>
 
-          <form
-            className="space-y-6"
-            onSubmit={handleSubmit}
-          >
-            <div className={`p-8 rounded-lg space-y-6 ${
-              theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-            }`}>
+        <form
+          className="space-y-6"
+          onSubmit={handleSubmit}
+        >
+          <div className={`p-8 border border-gray-200 dark:border-gray-700 rounded-lg space-y-6 ${
+            theme === 'dark' ? 'bg-gray-900/30' : 'bg-gray-50'
+          }`}>
               <input
                 type="text"
                 name="from_name"
@@ -158,19 +159,18 @@ export default function Contact() {
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`w-full py-4 px-8 rounded-lg font-semibold transition-colors disabled:opacity-50 ${
-                theme === 'dark'
-                  ? 'bg-white text-black hover:bg-gray-200'
-                  : 'bg-gray-900 text-white hover:bg-gray-800'
-              }`}
-            >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </button>
-          </form>
-        </div>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`w-full py-4 px-8 text-sm font-medium tracking-wider uppercase border-2 transition-all duration-300 disabled:opacity-50 ${
+              theme === 'dark'
+                ? 'border-white text-white hover:bg-white hover:text-black'
+                : 'border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white'
+            }`}
+          >
+            {isSubmitting ? "Sending..." : "Send Message"}
+          </button>
+        </form>
       </div>
     </section>
   );

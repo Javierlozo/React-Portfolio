@@ -238,32 +238,38 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className={`py-20 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
-      <div className="container mx-auto px-4">
-        <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-16 ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>
-          Technical Skills & Security Expertise
-        </h2>
+    <section id="skills" className={`py-24 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div className="container mx-auto px-6 max-w-6xl">
+        {/* Minimalist Section Header */}
+        <div className="text-center mb-20">
+          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            Skills & Expertise
+          </h2>
+          <div className={`w-16 h-px mx-auto ${
+            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
+          }`}></div>
+        </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="space-y-16">
           {Object.entries(categories).map(([category, title]) => (
-            <div key={category} className="mb-16 last:mb-0">
-              <h3 className={`text-2xl font-semibold mb-8 text-center ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
+            <div key={category}>
+              <h3 className={`text-lg font-medium mb-8 text-center tracking-wide ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
               }`}>
                 {title}
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {skills
                   .filter((skill) => skill.category === category)
                   .map((skill) => (
                     <div
                       key={skill.name}
-                      className={`flex flex-col items-center justify-center p-6 rounded-lg hover:transition-colors duration-200 h-32 w-full ${
+                      className={`flex flex-col items-center justify-center p-4 rounded-lg transition-all duration-200 hover:scale-105 ${
                         theme === 'dark' 
-                          ? 'bg-gray-800 hover:bg-gray-700' 
-                          : 'bg-gray-100 hover:bg-gray-200'
+                          ? 'bg-gray-800/50 hover:bg-gray-800 border border-gray-700' 
+                          : 'bg-white hover:bg-gray-50 border border-gray-200'
                       }`}
                     >
                       {typeof skill.icon === "function" ? (
@@ -271,11 +277,11 @@ export default function Skills() {
                       ) : (
                         <FontAwesomeIcon
                           icon={skill.icon}
-                          className={`text-3xl ${skill.color}`}
+                          className={`text-2xl ${skill.color}`}
                         />
                       )}
-                      <p className={`mt-3 text-sm text-center font-medium ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                      <p className={`mt-2 text-xs text-center font-medium ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                       }`}>
                         {skill.name}
                       </p>
