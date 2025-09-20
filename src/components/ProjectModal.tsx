@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import Image from "next/image";
-import type { StaticImageData } from "next/image";
+import { createPortal } from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTimes,
@@ -15,7 +14,7 @@ interface Project {
   title: string;
   description: string;
   techStack: string[];
-  image: StaticImageData;
+  image?: import("next/image").StaticImageData;
   liveLink?: string;
   codeLink?: string;
 }
@@ -50,8 +49,8 @@ export default function ProjectModal({
 
   if (!showModal) return null;
 
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
+  const modalContent = (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/80 backdrop-blur-sm"
@@ -61,7 +60,7 @@ export default function ProjectModal({
       {/* Modal content */}
       <div
         ref={modalRef}
-        className={`relative w-[90vw] max-w-4xl max-h-[90vh] rounded-lg overflow-hidden z-10 my-8 ${
+        className={`relative w-full max-w-2xl max-h-[90vh] rounded-lg overflow-hidden z-10 ${
           theme === 'dark' ? 'bg-gray-800' : 'bg-white'
         }`}
       >
@@ -78,19 +77,9 @@ export default function ProjectModal({
           <FontAwesomeIcon icon={faTimes} className="text-xl" />
         </button>
 
-        {/* Image */}
-        <div className="relative h-48 sm:h-64 md:h-80">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-          />
-        </div>
-
         {/* Content */}
-        <div className="p-6 sm:p-8 overflow-y-auto max-h-[50vh]">
-          <h3 className={`text-2xl sm:text-3xl font-bold mb-4 ${
+        <div className="p-6 overflow-y-auto max-h-[90vh]">
+          <h3 className={`text-2xl font-bold mb-4 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
             {project.title}
@@ -153,4 +142,7 @@ export default function ProjectModal({
       </div>
     </div>
   );
+
+  // Use portal to render modal at document body level
+  return createPortal(modalContent, document.body);
 }
