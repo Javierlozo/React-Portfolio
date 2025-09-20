@@ -61,8 +61,12 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="p-3 sm:p-4 glass-morphism fixed w-full z-50 top-0 left-0">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className={`py-4 px-6 fixed w-full z-50 top-0 left-0 transition-all duration-300 ${
+      theme === 'dark' 
+        ? 'bg-black/80 backdrop-blur-md border-b border-gray-800' 
+        : 'bg-white/80 backdrop-blur-md border-b border-gray-200'
+    }`}>
+      <div className="container mx-auto flex justify-between items-center max-w-6xl">
         {/* Logo */}
         <div 
           className="cursor-pointer hover:scale-105 transition-transform duration-300"
@@ -71,9 +75,11 @@ export default function Navbar() {
           <Image
             src="/favicon.png"
             alt="Portfolio Logo"
-            width={32}
-            height={32}
-            className="rounded-full border-2 border-white/10 sm:w-10 sm:h-10"
+            width={36}
+            height={36}
+            className={`rounded-full border-2 ${
+              theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+            }`}
           />
         </div>
 
@@ -93,20 +99,20 @@ export default function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className={`relative px-4 py-2 text-sm uppercase tracking-wider font-medium transition-all duration-300 ${
+                className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 ${
                   isActive 
                     ? theme === 'dark'
-                      ? "text-white bg-gray-800 rounded-lg" 
-                      : "text-gray-900 bg-gray-200 rounded-lg"
+                      ? "text-white" 
+                      : "text-gray-900"
                     : theme === 'dark'
-                      ? "text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg"
-                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-200/50 rounded-lg"
+                      ? "text-gray-400 hover:text-white"
+                      : "text-gray-600 hover:text-gray-900"
                 }`}
               >
                 {item}
                 {isActive && (
-                  <div className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full ${
-                    theme === 'dark' ? 'bg-white' : 'bg-gray-800'
+                  <div className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-px ${
+                    theme === 'dark' ? 'bg-white' : 'bg-gray-900'
                   }`}></div>
                 )}
               </a>
@@ -117,27 +123,27 @@ export default function Navbar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors duration-200 ${
+          className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300 hover:scale-110 ${
             theme === 'dark' 
-              ? 'bg-gray-800 hover:bg-gray-700' 
-              : 'bg-gray-200 hover:bg-gray-300'
+              ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+              : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
           }`}
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
-            <FiSun className="w-5 h-5 text-white" />
+            <FiSun className="w-5 h-5" />
           ) : (
-            <FiMoon className="w-5 h-5 text-gray-800" />
+            <FiMoon className="w-5 h-5" />
           )}
         </button>
 
         {/* Minimal Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className={`md:hidden w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 ${
+          className={`md:hidden w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
             theme === 'dark' 
-              ? 'bg-gray-800 hover:bg-gray-700' 
-              : 'bg-gray-200 hover:bg-gray-300'
+              ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+              : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
           }`}
           aria-label="Toggle menu"
         >
@@ -158,59 +164,51 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className={`fixed inset-0 z-50 md:hidden ${
-          theme === 'dark' ? 'bg-black' : 'bg-white'
+          theme === 'dark' ? 'bg-black/90 backdrop-blur-md' : 'bg-white/90 backdrop-blur-md'
         }`}>
           {/* Backdrop */}
           <div
-            className={`absolute inset-0 transition-all duration-700 ${
-              theme === 'dark' ? 'bg-black' : 'bg-white'
-            }`}
+            className="absolute inset-0"
             onClick={toggleMenu}
           />
           
           {/* Menu Panel */}
           <div 
-            className={`absolute right-0 top-0 w-full border shadow-lg transform transition-all duration-300 ease-out ${
+            className={`absolute right-0 top-0 w-full border-b transform transition-all duration-300 ease-out ${
               theme === 'dark' 
-                ? 'bg-gray-900 border-gray-700' 
-                : 'bg-gray-50 border-gray-200'
+                ? 'bg-black/95 border-gray-800' 
+                : 'bg-white/95 border-gray-200'
             }`}
           >
             {/* Header */}
-            <div 
-              className={`p-4 border-b ${
-                theme === 'dark' 
-                  ? 'border-gray-700 bg-black' 
-                  : 'border-gray-200 bg-white'
-              }`}
-            >
+            <div className="p-6 border-b border-gray-200 dark:border-gray-800">
               <div className="flex items-center justify-between">
-                <span className={`text-lg font-medium ${
+                <span className={`text-lg font-light tracking-wide ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>Menu</span>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   {/* Mobile Theme Toggle */}
                   <button
                     onClick={toggleTheme}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200 ${
+                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
                       theme === 'dark' 
-                        ? 'bg-gray-800 hover:bg-gray-700' 
-                        : 'bg-gray-200 hover:bg-gray-300'
+                        ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                        : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                     }`}
                     aria-label="Toggle theme"
                   >
                     {theme === 'dark' ? (
-                      <FiSun className="w-4 h-4 text-white" />
+                      <FiSun className="w-4 h-4" />
                     ) : (
-                      <FiMoon className="w-4 h-4 text-gray-800" />
+                      <FiMoon className="w-4 h-4" />
                     )}
                   </button>
                   <button
                     onClick={toggleMenu}
-                    className={`w-6 h-6 flex items-center justify-center transition-all duration-200 ${
+                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
                       theme === 'dark' 
-                        ? 'text-gray-400 hover:text-white' 
-                        : 'text-gray-500 hover:text-gray-800'
+                        ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                        : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                     }`}
                   >
                     <span className="text-lg">×</span>
@@ -220,11 +218,7 @@ export default function Navbar() {
             </div>
             
             {/* Menu Items */}
-            <div 
-              className={`p-4 space-y-1 ${
-                theme === 'dark' ? 'bg-black' : 'bg-white'
-              }`}
-            >
+            <div className="p-6 space-y-2">
               {[
                 "About",
                 "Skills",
@@ -239,14 +233,14 @@ export default function Navbar() {
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className={`block transition-colors duration-200 py-3 px-4 rounded-lg ${
+                    className={`block transition-all duration-300 py-3 px-4 text-sm font-medium tracking-wide ${
                       isActive 
                         ? theme === 'dark'
-                          ? "text-cyan-400 bg-gray-800 border-l-4 border-cyan-400" 
-                          : "text-blue-600 bg-gray-100 border-l-4 border-blue-600"
+                          ? "text-white border-l-4 border-white" 
+                          : "text-gray-900 border-l-4 border-gray-900"
                         : theme === 'dark'
-                          ? "text-white hover:text-cyan-400 hover:bg-gray-800"
-                          : "text-gray-800 hover:text-blue-600 hover:bg-gray-100"
+                          ? "text-gray-400 hover:text-white hover:border-l-4 hover:border-gray-400"
+                          : "text-gray-600 hover:text-gray-900 hover:border-l-4 hover:border-gray-600"
                     }`}
                     onClick={toggleMenu}
                   >
@@ -257,15 +251,9 @@ export default function Navbar() {
             </div>
             
             {/* Footer */}
-            <div 
-              className={`p-4 border-t ${
-                theme === 'dark' 
-                  ? 'border-gray-700 bg-black' 
-                  : 'border-gray-200 bg-white'
-              }`}
-            >
+            <div className="p-6 border-t border-gray-200 dark:border-gray-800">
               <div className="text-center">
-                <div className={`text-xs ${
+                <div className={`text-xs tracking-wide ${
                   theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
                 }`}>© 2025 Luis Lozoya</div>
               </div>

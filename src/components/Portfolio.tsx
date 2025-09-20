@@ -126,24 +126,27 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className={`py-20 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
+      className={`py-24 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
     >
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto text-center mb-12 sm:mb-16 px-4">
-          <h2 className={`text-4xl sm:text-5xl font-bold text-center mb-4 sm:mb-6 ${
+      <div className="container mx-auto px-6 max-w-6xl">
+        {/* Minimalist Section Header */}
+        <div className="text-center mb-20">
+          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
-            My Portfolio
+            Portfolio
           </h2>
-          <p className={`text-lg sm:text-xl mb-6 sm:mb-8 ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          <div className={`w-16 h-px mx-auto mb-6 ${
+            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
+          }`}></div>
+          <p className={`text-lg max-w-2xl mx-auto ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            Explore a selection of projects that highlight my skills and expertise
-            in web development and cybersecurity.
+            A selection of projects showcasing my expertise in web development and cybersecurity
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div
               key={project.id}
@@ -157,10 +160,10 @@ export default function Portfolio() {
                 }
               }}
             >
-              <div className={`overflow-hidden rounded-lg aspect-video ${
-                theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
+              <div className={`overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 ${
+                theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
               }`}>
-                <div className="relative h-full">
+                <div className="relative aspect-video">
                   <Image
                     src={project.image}
                     alt={`Screenshot of ${project.title}`}
@@ -168,34 +171,59 @@ export default function Portfolio() {
                     className="object-cover"
                   />
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                    theme === 'dark' ? 'bg-black/60' : 'bg-gray-900/60'
+                    theme === 'dark' ? 'bg-black/70' : 'bg-gray-900/70'
                   }`}>
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h4 className={`text-lg font-bold mb-2 ${
-                        theme === 'dark' ? 'text-white' : 'text-white'
-                      }`}>
-                        {project.title}
-                      </h4>
-                      <p className={`text-sm line-clamp-2 mb-3 ${
-                        theme === 'dark' ? 'text-gray-200' : 'text-gray-200'
-                      }`}>
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.techStack.slice(0, 3).map((tech, techIndex) => (
-                          <span
-                            key={tech}
-                            className={`px-2 py-1 text-xs font-medium rounded ${
-                              theme === 'dark' 
-                                ? 'text-white bg-gray-700' 
-                                : 'text-white bg-gray-600'
-                            }`}
-                          >
-                            {tech}
-                          </span>
-                        ))}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center p-4">
+                        <h4 className={`text-lg font-medium mb-2 ${
+                          theme === 'dark' ? 'text-white' : 'text-white'
+                        }`}>
+                          {project.title}
+                        </h4>
+                        <div className="flex flex-wrap gap-2 justify-center">
+                          {project.techStack.slice(0, 3).map((tech, techIndex) => (
+                            <span
+                              key={tech}
+                              className={`px-3 py-1 text-xs font-medium rounded-full border ${
+                                theme === 'dark' 
+                                  ? 'text-white border-gray-600 bg-gray-800/50' 
+                                  : 'text-white border-gray-300 bg-gray-900/50'
+                              }`}
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                
+                {/* Project Info */}
+                <div className="p-6">
+                  <h4 className={`text-lg font-medium mb-2 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {project.title}
+                  </h4>
+                  <p className={`text-sm leading-relaxed mb-4 ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.techStack.map((tech, techIndex) => (
+                      <span
+                        key={tech}
+                        className={`px-3 py-1 text-xs font-medium rounded-full border ${
+                          theme === 'dark' 
+                            ? 'text-gray-300 border-gray-700 bg-gray-800/50' 
+                            : 'text-gray-600 border-gray-200 bg-gray-50'
+                        }`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
