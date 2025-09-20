@@ -6,10 +6,11 @@ import "aos/dist/aos.css";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import Skills from "../components/Skills";
+import Experience from "../components/Experience";
+import Certifications from "../components/Certifications";
 import Portfolio from "../components/Portfolio";
 import Testimonials from "../components/Testimonials";
 import Contact from "../components/Contact";
-import Experience from "../components/Experience";
 
 export default function Home() {
   useEffect(() => {
@@ -31,6 +32,9 @@ export default function Home() {
       </div>
       <div data-aos="fade-up">
         <Experience />
+      </div>
+      <div data-aos="fade-up">
+        <Certifications />
       </div>
       <div data-aos="fade-up">
         <Portfolio />
