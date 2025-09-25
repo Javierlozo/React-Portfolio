@@ -37,13 +37,12 @@ export default function Portfolio() {
   const projects: Project[] = [
     {
       id: 10,
-      title: "AfricaNXT - Global African Talent Platform",
+      title: "AfricaNXT – Global Mentorship Platform (via GDNA)",
       description:
-        "Led the development of a sophisticated mentorship platform connecting African talent globally. Implemented a production-ready AWS infrastructure with Cognito authentication, featuring domain-based validation, tiered user hierarchy (Admin → Anonymous), and GDPR-compliant consent management. Built an advanced admin dashboard with waitlist management, user promotion workflows, and real-time analytics powered by Squid Cloud backend.",
+        "Contributed through GDNA (contract role): React-based UI, Cognito authentication, AWS integration.",
       techStack: ["React 18", "AWS CDK", "Cognito", "Squid Cloud", "TypeScript", "SES"],
       image: africanxt,
       liveLink: "https://app.africanxt.com/unga",
-      codeLink: "https://github.com/gdnaio/africanxt-monorepo",
     },
     {
       id: 7,
@@ -57,27 +56,27 @@ export default function Portfolio() {
     },
     {
       id: 8,
-      title: "GSeay Inc Construction",
+      title: "GSeay, Inc. – Construction Website (via GDNA)",
       description:
-        "A professional website for GSeay Inc General Contractor, showcasing their construction services, project portfolio, and company history. Built with Next.js and AWS Amplify, featuring a modern design with interactive elements and comprehensive service information.",
+        "Contributed through GDNA (contract role): Next.js front-end, AWS Amplify integration, responsive design.",
       techStack: ["Next.js", "AWS Amplify", "TypeScript", "Responsive Design"],
       image: gseay,
       liveLink: "https://www.gseayinc.com/",
     },
     {
       id: 5, // Assign a unique ID
-      title: "LESS USA",
+      title: "LESS USA – Digital Platform (via GDNA)",
       description:
-        "Developed a robust and scalable platform for LESS USA, enhancing user experience and operational efficiency through seamless integration with AWS and Amplify.",
+        "Contributed through GDNA (contract role): Next.js front-end, AWS Amplify deployment, user experience optimization.",
       techStack: ["Next.js", "AWS", "Amplify"],
       image: lessUSA,
       liveLink: "https://www.less-usa.com/",
     },
     {
       id: 6,
-      title: "Querri",
+      title: "Querri – Dynamic Platform (via Querri)",
       description:
-        "Collaborated with Querri to develop a dynamic and user-friendly platform, utilizing modern technologies and custom coding to align with the client's vision. Focused on creating seamless user experiences and ensuring robust functionality, the project exemplifies innovation and performance.",
+        "Contributed through Querri (contract role): HubSpot CMS development, custom HTML/CSS implementation, user experience optimization.",
       techStack: ["HubSpot CMS", "HTML", "CSS", "Javacript"],
       image: querri,
       liveLink: "https://querri.com/",
