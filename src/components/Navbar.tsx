@@ -61,7 +61,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`py-6 px-6 fixed w-full z-50 top-0 left-0 transition-all duration-300 ${
+    <nav className={`py-4 sm:py-6 px-4 sm:px-6 fixed w-full z-50 top-0 left-0 transition-all duration-300 ${
       theme === 'dark' 
         ? 'bg-black/90 backdrop-blur-sm border-b border-gray-800' 
         : 'bg-white/90 backdrop-blur-sm border-b border-gray-200'
@@ -84,7 +84,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex justify-center items-center flex-grow gap-12">
+        <div className="hidden lg:flex justify-center items-center flex-grow gap-8 xl:gap-12">
           {[
             "About",
             "Skills",
@@ -123,7 +123,7 @@ export default function Navbar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 hover:scale-105 ${
+          className={`flex items-center justify-center w-10 h-10 border transition-all duration-300 hover:scale-105 ${
             theme === 'dark' 
               ? 'border-gray-700 text-gray-400 hover:border-white hover:text-white' 
               : 'border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900'
@@ -140,7 +140,7 @@ export default function Navbar() {
         {/* Minimal Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className={`md:hidden w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 hover:scale-105 ${
+          className={`lg:hidden w-10 h-10 border flex items-center justify-center transition-all duration-300 hover:scale-105 ${
             theme === 'dark' 
               ? 'border-gray-700 text-gray-400 hover:border-white hover:text-white' 
               : 'border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900'
@@ -163,7 +163,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className={`fixed inset-0 z-50 md:hidden ${
+        <div className={`fixed inset-0 z-50 lg:hidden ${
           theme === 'dark' ? 'bg-black/90 backdrop-blur-md' : 'bg-white/90 backdrop-blur-md'
         }`}>
           {/* Backdrop */}

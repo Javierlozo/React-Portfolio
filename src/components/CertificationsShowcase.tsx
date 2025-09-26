@@ -70,16 +70,16 @@ export default function CertificationsShowcase() {
   ];
 
   return (
-    <section id="certifications" className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
-      <div className="container mx-auto px-6 max-w-7xl">
+    <section id="certifications" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
             Certifications
           </h2>
-          <p className={`text-xl max-w-3xl mx-auto ${
+          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
             Professional certifications and continuous learning achievements
@@ -87,7 +87,7 @@ export default function CertificationsShowcase() {
         </div>
 
         {/* Certifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {certifications.map((cert) => (
             <div
               key={cert.id}
@@ -97,7 +97,7 @@ export default function CertificationsShowcase() {
               onClick={() => setSelectedCert(cert)}
             >
               {/* Certificate Image */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-40 sm:h-48 overflow-hidden">
                 <Image
                   src={cert.image}
                   alt={`${cert.title} certificate`}
@@ -107,22 +107,22 @@ export default function CertificationsShowcase() {
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                 
                 {/* Overlay Badge */}
-                <div className="absolute top-4 right-4 bg-white/90 text-gray-900 px-2 py-1 rounded-full text-xs font-medium">
+                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/90 text-gray-900 px-2 py-1 rounded-full text-xs font-medium">
                   <FontAwesomeIcon icon={faCertificate} className="mr-1" />
                   Verified
                 </div>
               </div>
 
               {/* Certificate Info */}
-              <div className="p-6">
-                <h3 className={`text-lg font-bold mb-2 line-clamp-2 ${
+              <div className="p-4 sm:p-6">
+                <h3 className={`text-base sm:text-lg font-bold mb-2 line-clamp-2 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   {cert.title}
                 </h3>
                 
                 <div className="flex items-center gap-2 mb-3">
-                  <span className={`text-sm font-medium ${
+                  <span className={`text-xs sm:text-sm font-medium ${
                     theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
                   }`}>
                     {cert.issuer}

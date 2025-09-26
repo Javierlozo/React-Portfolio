@@ -29,17 +29,17 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className={`py-24 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
+      className={`py-16 sm:py-24 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
     >
-      <div className="container mx-auto px-6 max-w-4xl">
+      <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-24">
-          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+        <div className="text-center mb-16 sm:mb-24">
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
             Testimonials
           </h2>
-          <p className={`text-lg max-w-2xl mx-auto ${
+          <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
             What clients and colleagues say about working with me
@@ -50,15 +50,15 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className={`p-12 border-l ${
+              className={`p-8 sm:p-12 border-l ${
                 theme === 'dark' 
                   ? 'border-gray-700 bg-transparent' 
                   : 'border-gray-200 bg-transparent'
               }`}
             >
-              <div className="flex flex-col md:flex-row items-start gap-8">
+              <div className="flex flex-col md:flex-row items-start gap-6 sm:gap-8">
                 {testimonial.image && (
-                  <div className="w-20 h-20 relative flex-shrink-0">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 relative flex-shrink-0">
                     <Image
                       src={testimonial.image}
                       alt={`${testimonial.name}'s picture`}
@@ -68,18 +68,18 @@ export default function Testimonials() {
                   </div>
                 )}
                 <div className="flex-1">
-                  <blockquote className={`text-xl leading-relaxed mb-8 ${
+                  <blockquote className={`text-base sm:text-lg md:text-xl leading-relaxed mb-6 sm:mb-8 ${
                     theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                   }`}>
                     &ldquo;{testimonial.quote}&rdquo;
                   </blockquote>
                   <div className="pt-4">
-                    <p className={`font-light text-lg ${
+                    <p className={`font-light text-base sm:text-lg ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       {testimonial.name}
                     </p>
-                    <p className={`text-sm font-light ${
+                    <p className={`text-xs sm:text-sm font-light ${
                       theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                     }`}>
                       {testimonial.position}

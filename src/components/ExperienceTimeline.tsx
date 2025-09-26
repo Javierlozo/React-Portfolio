@@ -68,6 +68,7 @@ export default function ExperienceTimeline() {
         "Managed project workflows and implemented full-stack solutions with Supabase"
       ],
       technologies: ["React", "AWS CDK", "Cognito", "TypeScript", "Next.js", "AWS Amplify", "Supabase", "Python", "Squid AI"],
+      companyUrl: "https://gdna.io/",
       current: true,
       logo: gdnaLogo,
       industry: "AWS & Cloud Solutions"
@@ -124,7 +125,7 @@ export default function ExperienceTimeline() {
         "Created and maintained custom Azure Functions, implementing cost-effective solutions with various triggers",
         "Mentored new junior software developers, providing guidance and technical leadership"
       ],
-      technologies: ["Angular", "NestJs", "MongoDB", "Azure Cosmos DB", "Azure Functions", "React", "TypeScript", "Node.js", "REST APIs", "OAuth2.0"],
+      technologies: ["Angular", "NestJs", "MongoDB", "Azure Cosmos DB", "Azure Functions", "TypeScript", "Node.js", "REST APIs", "OAuth2.0"],
       companyUrl: "https://www.interloopdata.com/",
       current: false,
       logo: interloopLogo,
@@ -133,16 +134,16 @@ export default function ExperienceTimeline() {
   ];
 
   return (
-    <section id="experience" className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section id="experience" className={`py-16 sm:py-20 w-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div className="w-full px-3 sm:px-6 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
             Experience
           </h2>
-          <p className={`text-xl max-w-3xl mx-auto ${
+          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
             My journey in web development and technology
@@ -151,8 +152,8 @@ export default function ExperienceTimeline() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Timeline Line */}
-          <div className={`absolute left-8 top-0 bottom-0 w-0.5 ${
+          {/* Timeline Line - Hidden on mobile */}
+          <div className={`absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 hidden sm:block ${
             theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
           }`}></div>
 
@@ -160,8 +161,18 @@ export default function ExperienceTimeline() {
           <div className="space-y-12">
             {experiences.map((exp, index) => (
               <div key={exp.id} className="relative flex items-start">
-                {/* Timeline Dot */}
-                <div className={`absolute left-6 w-4 h-4 rounded-full border-4 ${
+                {/* Year Label - Hidden on mobile */}
+                <div className={`absolute -left-2 sm:-left-2 top-6 text-xs font-light tracking-widest hidden sm:block ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                }`}>
+                  {exp.duration.includes(' - ') 
+                    ? exp.duration.split(' - ')[0].split(' ').pop()
+                    : exp.duration.split(' ')[0]
+                  }
+                </div>
+                
+                {/* Timeline Dot - Hidden on mobile */}
+                <div className={`absolute left-2 sm:left-6 w-4 h-4 rounded-full border-4 hidden sm:block ${
                   exp.current 
                     ? 'bg-blue-500 border-blue-500' 
                     : theme === 'dark' 
@@ -170,7 +181,7 @@ export default function ExperienceTimeline() {
                 }`}></div>
 
                 {/* Content Card */}
-                <div className={`ml-16 p-8 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl w-full max-w-5xl ${
+                <div className={`ml-0 sm:ml-16 p-4 sm:p-8 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl w-full max-w-5xl ${
                   theme === 'dark' ? 'bg-gray-800' : 'bg-white'
                 }`}>
                   {/* Header */}
@@ -202,20 +213,20 @@ export default function ExperienceTimeline() {
                       </div>
 
                       <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className={`text-2xl font-bold ${
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                          <h3 className={`text-lg sm:text-xl md:text-2xl font-bold ${
                             theme === 'dark' ? 'text-white' : 'text-gray-900'
                           }`}>
                             {exp.position}
                           </h3>
                           {exp.current && (
-                            <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                            <span className="bg-green-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium w-fit">
                               Current
                             </span>
                           )}
                         </div>
                         
-                        <div className="flex items-center gap-4 text-lg mb-2">
+                        <div className="flex items-center gap-4 text-base sm:text-lg mb-2">
                           {exp.companyUrl ? (
                             <a
                               href={exp.companyUrl}
@@ -255,7 +266,7 @@ export default function ExperienceTimeline() {
                       </div>
                     </div>
 
-                    <div className={`text-sm mt-2 md:mt-0 ${
+                    <div className={`text-xs sm:text-sm mt-2 md:mt-0 ${
                       theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                     }`}>
                       <div className="flex items-center gap-2 mb-1">
@@ -270,7 +281,7 @@ export default function ExperienceTimeline() {
                   </div>
 
                   {/* Description */}
-                  <p className={`text-lg mb-6 leading-relaxed ${
+                  <p className={`text-sm sm:text-base md:text-lg mb-6 leading-relaxed ${
                     theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                   }`}>
                     {exp.description}
@@ -278,20 +289,20 @@ export default function ExperienceTimeline() {
 
                   {/* Achievements */}
                   <div className="mb-6">
-                    <h4 className={`text-lg font-semibold mb-3 ${
+                    <h4 className={`text-base sm:text-lg font-semibold mb-3 ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       Key Achievements:
                     </h4>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, idx) => (
-                        <li key={idx} className={`flex items-start gap-3 ${
+                        <li key={idx} className={`flex items-start gap-2 sm:gap-3 ${
                           theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                         }`}>
                           <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
                             theme === 'dark' ? 'bg-blue-400' : 'bg-blue-500'
                           }`}></div>
-                          <span>{achievement}</span>
+                          <span className="text-xs sm:text-sm">{achievement}</span>
                         </li>
                       ))}
                     </ul>
@@ -299,16 +310,16 @@ export default function ExperienceTimeline() {
 
                   {/* Technologies */}
                   <div>
-                    <h4 className={`text-lg font-semibold mb-3 ${
+                    <h4 className={`text-base sm:text-lg font-semibold mb-3 ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       Technologies Used:
                     </h4>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {exp.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className={`px-3 py-1 text-sm font-medium rounded-full ${
+                          className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full ${
                             theme === 'dark' 
                               ? 'bg-gray-700 text-gray-300' 
                               : 'bg-gray-200 text-gray-700'
