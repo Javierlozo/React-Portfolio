@@ -54,17 +54,17 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className={`py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
+      className={`py-16 sm:py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <div className="container mx-auto px-6 max-w-4xl">
+      <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-24">
-          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+        <div className="text-center mb-16 sm:mb-24">
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
             Contact
           </h2>
-          <p className={`text-lg max-w-2xl mx-auto ${
+          <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
             Let&apos;s discuss your next project. Reach out via the form below or connect on{" "}
@@ -84,10 +84,10 @@ export default function Contact() {
         </div>
 
         <form
-          className="max-w-2xl mx-auto space-y-8"
+          className="max-w-2xl mx-auto space-y-6 sm:space-y-8"
           onSubmit={handleSubmit}
         >
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
               <input
                 type="text"
                 name="from_name"
@@ -98,7 +98,7 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className={`w-full p-4 border-b transition-colors disabled:opacity-50 bg-transparent ${
+                className={`w-full p-3 sm:p-4 text-sm sm:text-base border-b transition-colors disabled:opacity-50 bg-transparent ${
                   theme === 'dark'
                     ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
                     : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
@@ -114,7 +114,7 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className={`w-full p-4 border-b transition-colors disabled:opacity-50 bg-transparent ${
+                className={`w-full p-3 sm:p-4 text-sm sm:text-base border-b transition-colors disabled:opacity-50 bg-transparent ${
                   theme === 'dark'
                     ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
                     : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
@@ -130,7 +130,7 @@ export default function Contact() {
                 required
                 disabled={isSubmitting}
                 rows={6}
-                className={`w-full p-4 border-b transition-colors resize-none disabled:opacity-50 bg-transparent ${
+                className={`w-full p-3 sm:p-4 text-sm sm:text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent ${
                   theme === 'dark'
                     ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
                     : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
@@ -157,7 +157,7 @@ export default function Contact() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full py-4 px-8 text-sm font-light tracking-widest uppercase border transition-all duration-300 disabled:opacity-50 ${
+            className={`w-full py-3 sm:py-4 px-6 sm:px-8 text-xs sm:text-sm font-light tracking-widest uppercase border transition-all duration-300 disabled:opacity-50 ${
               theme === 'dark'
                 ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
                 : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
