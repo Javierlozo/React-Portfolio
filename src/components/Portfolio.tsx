@@ -12,7 +12,8 @@ import lessUSA from "@/src/public/pictures/Less1.png";
 import querri from "@/src/public/pictures/querri1.png";
 import cursorRules from "@/src/public/pictures/cursor-rules.png";
 import gseay from "@/src/public/pictures/gseay.png";
-import africanxt from "@/src/public/pictures/Header.png";
+import africanxt from "@/src/public/pictures/app.africanxt.com_ (1).png";
+import iberiatech from "@/src/public/pictures/www.iberiatechsolutions.com_ (1).png";
 
 interface Project {
   id: number;
@@ -35,6 +36,16 @@ export default function Portfolio() {
   };
 
   const projects: Project[] = [
+    {
+      id: 11,
+      title: "IberiaTech Solutions – Business Website",
+      description:
+        "Built a modern, bilingual business website for my web development company. Features full English/Spanish translation system, AI-powered capabilities, responsive design, and professional business presentation. Showcases services, pricing, and portfolio for small and medium businesses.",
+      techStack: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      image: iberiatech,
+      liveLink: "https://www.iberiatechsolutions.com/",
+      codeLink: "https://github.com/IberiaTech-Solutions/iberiatech",
+    },
     {
       id: 10,
       title: "AfricaNXT – Global Mentorship Platform (via GDNA)",
@@ -162,12 +173,13 @@ export default function Portfolio() {
               <div className={`overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 ${
                 theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
               }`}>
-                <div className="relative aspect-video">
+                <div className="relative w-full h-48 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={`Screenshot of ${project.title}`}
-                    fill
-                    className="object-cover"
+                    width={800}
+                    height={600}
+                    className="w-full h-auto object-contain object-top"
                   />
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
                     theme === 'dark' ? 'bg-black/70' : 'bg-gray-900/70'
