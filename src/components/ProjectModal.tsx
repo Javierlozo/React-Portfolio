@@ -8,6 +8,7 @@ import {
   faCode,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
+import Image from "next/image";
 
 interface Project {
   id: number;
@@ -78,12 +79,26 @@ export default function ProjectModal({
         </button>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[90vh]">
-          <h3 className={`text-2xl font-bold mb-4 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>
-            {project.title}
-          </h3>
+        <div className="overflow-y-auto max-h-[90vh]">
+          {/* Project Image */}
+          {project.image && (
+            <div className="w-full mb-6 h-48 overflow-hidden">
+              <Image
+                src={project.image}
+                alt={`Screenshot of ${project.title}`}
+                width={800}
+                height={600}
+                className="w-full h-auto object-contain object-top"
+              />
+            </div>
+          )}
+          
+          <div className="p-6">
+            <h3 className={`text-2xl font-bold mb-4 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              {project.title}
+            </h3>
 
           <p className={`mb-6 ${
             theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
@@ -137,6 +152,7 @@ export default function ProjectModal({
                 <span>View Code</span>
               </a>
             )}
+          </div>
           </div>
         </div>
       </div>
