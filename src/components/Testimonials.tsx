@@ -33,56 +33,53 @@ export default function Testimonials() {
     >
       <div className="container mx-auto px-6 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-20">
-          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
+        <div className="text-center mb-24">
+          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
             Testimonials
           </h2>
-          <div className={`w-16 h-px mx-auto mb-6 ${
-            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
-          }`}></div>
           <p className={`text-lg max-w-2xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
             What clients and colleagues say about working with me
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="max-w-3xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className={`p-8 border-l-4 ${
+              className={`p-12 border-l ${
                 theme === 'dark' 
-                  ? 'border-gray-600 bg-gray-800/30' 
-                  : 'border-gray-300 bg-white'
+                  ? 'border-gray-700 bg-transparent' 
+                  : 'border-gray-200 bg-transparent'
               }`}
             >
-              <div className="flex flex-col md:flex-row items-start gap-6">
+              <div className="flex flex-col md:flex-row items-start gap-8">
                 {testimonial.image && (
-                  <div className="w-16 h-16 relative flex-shrink-0">
+                  <div className="w-20 h-20 relative flex-shrink-0">
                     <Image
                       src={testimonial.image}
                       alt={`${testimonial.name}'s picture`}
                       fill
-                      className="rounded-full object-cover border-2 border-gray-200 dark:border-gray-700"
+                      className="rounded-full object-cover border border-gray-200 dark:border-gray-700"
                     />
                   </div>
                 )}
                 <div className="flex-1">
-                  <blockquote className={`text-lg leading-relaxed mb-6 ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  <blockquote className={`text-xl leading-relaxed mb-8 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                   }`}>
                     &ldquo;{testimonial.quote}&rdquo;
                   </blockquote>
-                  <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                    <p className={`font-medium ${
+                  <div className="pt-4">
+                    <p className={`font-light text-lg ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       {testimonial.name}
                     </p>
-                    <p className={`text-sm ${
+                    <p className={`text-sm font-light ${
                       theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                     }`}>
                       {testimonial.position}

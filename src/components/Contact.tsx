@@ -58,24 +58,21 @@ export default function Contact() {
     >
       <div className="container mx-auto px-6 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-20">
-          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
+        <div className="text-center mb-24">
+          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
             Contact
           </h2>
-          <div className={`w-16 h-px mx-auto mb-6 ${
-            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
-          }`}></div>
           <p className={`text-lg max-w-2xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
             Let&apos;s discuss your next project. Reach out via the form below or connect on{" "}
             <a
               href="https://www.linkedin.com/in/luisjlozoya"
               target="_blank"
               rel="noopener noreferrer"
-              className={`transition-colors ${
+              className={`transition-colors font-light ${
                 theme === 'dark' 
                   ? 'text-white hover:text-gray-300' 
                   : 'text-gray-900 hover:text-gray-600'
@@ -87,12 +84,10 @@ export default function Contact() {
         </div>
 
         <form
-          className="space-y-6"
+          className="max-w-2xl mx-auto space-y-8"
           onSubmit={handleSubmit}
         >
-          <div className={`p-8 border border-gray-200 dark:border-gray-700 rounded-lg space-y-6 ${
-            theme === 'dark' ? 'bg-gray-900/30' : 'bg-gray-50'
-          }`}>
+          <div className="space-y-6">
               <input
                 type="text"
                 name="from_name"
@@ -103,10 +98,10 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className={`w-full p-4 rounded-lg border transition-colors disabled:opacity-50 ${
+                className={`w-full p-4 border-b transition-colors disabled:opacity-50 bg-transparent ${
                   theme === 'dark'
-                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                    : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                    ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                    : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
                 }`}
               />
               <input
@@ -119,10 +114,10 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className={`w-full p-4 rounded-lg border transition-colors disabled:opacity-50 ${
+                className={`w-full p-4 border-b transition-colors disabled:opacity-50 bg-transparent ${
                   theme === 'dark'
-                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                    : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                    ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                    : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
                 }`}
               />
               <textarea
@@ -135,10 +130,10 @@ export default function Contact() {
                 required
                 disabled={isSubmitting}
                 rows={6}
-                className={`w-full p-4 rounded-lg border transition-colors resize-none disabled:opacity-50 ${
+                className={`w-full p-4 border-b transition-colors resize-none disabled:opacity-50 bg-transparent ${
                   theme === 'dark'
-                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                    : 'bg-gray-100 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                    ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                    : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
                 }`}
               ></textarea>
             </div>
@@ -162,10 +157,10 @@ export default function Contact() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full py-4 px-8 text-sm font-medium tracking-wider uppercase border-2 transition-all duration-300 disabled:opacity-50 ${
+            className={`w-full py-4 px-8 text-sm font-light tracking-widest uppercase border transition-all duration-300 disabled:opacity-50 ${
               theme === 'dark'
-                ? 'border-white text-white hover:bg-white hover:text-black'
-                : 'border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white'
+                ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
+                : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
             }`}
           >
             {isSubmitting ? "Sending..." : "Send Message"}

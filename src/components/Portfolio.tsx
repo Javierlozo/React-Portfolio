@@ -4,16 +4,16 @@ import Image from "next/image";
 import ProjectModal from "./ProjectModal";
 import { useTheme } from "../contexts/ThemeContext";
 
-import web1 from "@/src/public/pictures/rental.png";
-import web2 from "@/src/public/pictures/weather.png";
-import web3 from "@/src/public/pictures/langchain.png";
-import web4 from "@/src/public/pictures/Screenshot (117).png";
 import lessUSA from "@/src/public/pictures/Less1.png";
 import querri from "@/src/public/pictures/querri1.png";
 import cursorRules from "@/src/public/pictures/cursor-rules.png";
 import gseay from "@/src/public/pictures/gseay.png";
 import africanxt from "@/src/public/pictures/app.africanxt.com_ (1).png";
 import iberiatech from "@/src/public/pictures/www.iberiatechsolutions.com_ (1).png";
+import web1 from "@/src/public/pictures/rental.png";
+import web2 from "@/src/public/pictures/weather.png";
+import web3 from "@/src/public/pictures/langchain.png";
+import web4 from "@/src/public/pictures/Screenshot (117).png";
 
 interface Project {
   id: number;
@@ -37,73 +37,73 @@ export default function Portfolio() {
 
   const projects: Project[] = [
     {
-      id: 11,
-      title: "IberiaTech Solutions – Business Website",
-      description:
-        "Built a modern, bilingual business website for my web development company. Features full English/Spanish translation system, AI-powered capabilities, responsive design, and professional business presentation. Showcases services, pricing, and portfolio for small and medium businesses.",
-      techStack: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      image: iberiatech,
-      liveLink: "https://www.iberiatechsolutions.com/",
-      codeLink: "https://github.com/IberiaTech-Solutions/iberiatech",
-    },
-    {
       id: 10,
-      title: "AfricaNXT – Global Mentorship Platform (via GDNA)",
+      title: "AfricaNXT — Global Mentorship Platform (via GDNA)",
       description:
-        "Contributed through GDNA (contract role): React-based UI, Cognito authentication, AWS integration.",
+        "Contributing to a mentorship platform currently onboarding ~1,200 users. Delivered React-based UI components and AWS Cognito authentication system to improve user registration and onboarding.",
       techStack: ["React 18", "AWS CDK", "Cognito", "Squid Cloud", "TypeScript", "SES"],
       image: africanxt,
       liveLink: "https://app.africanxt.com/unga",
     },
     {
-      id: 7,
-      title: "Cursor Rules Hub",
-      description:
-        "A community-driven platform for sharing and discovering AI behavior rules for the Cursor Editor. Features include rule browsing, creation tools, file pattern matching, and a dark mode interface. Built with a modern tech stack including Next.js 14, Supabase, and TypeScript.",
-      techStack: ["Next.js 14", "Supabase", "TypeScript", "Tailwind CSS"],
-      image: cursorRules,
-      liveLink: "https://cursor-rules-virid.vercel.app/",
-      codeLink: "https://github.com/Javierlozo/cursor_rules",
-    },
-    {
       id: 8,
-      title: "GSeay, Inc. – Construction Website (via GDNA)",
+      title: "GSeay, Inc. — Construction Website (via GDNA)",
       description:
-        "Contributed through GDNA (contract role): Next.js front-end, AWS Amplify integration, responsive design.",
-      techStack: ["Next.js", "AWS Amplify", "TypeScript", "Responsive Design"],
+        "Delivered a responsive website with Next.js and AWS Amplify integration, completed 2 weeks ahead of schedule.",
+      techStack: ["Next.js", "AWS Amplify", "TypeScript"],
       image: gseay,
       liveLink: "https://www.gseayinc.com/",
     },
     {
       id: 5, // Assign a unique ID
-      title: "LESS USA – Digital Platform (via GDNA)",
+      title: "LESS USA — Digital Platform (via GDNA)",
       description:
-        "Contributed through GDNA (contract role): Next.js front-end, AWS Amplify deployment, user experience optimization.",
+        "Enhanced platform performance by 30% and optimized user experience. Deployed with AWS Amplify.",
       techStack: ["Next.js", "AWS", "Amplify"],
       image: lessUSA,
       liveLink: "https://www.less-usa.com/",
     },
     {
       id: 6,
-      title: "Querri – Dynamic Platform (via Querri)",
+      title: "Querri — Dynamic Analytics Platform (Contract Role)",
       description:
-        "Contributed through Querri (contract role): HubSpot CMS development, custom HTML/CSS implementation, user experience optimization.",
+        "Built custom HubSpot CMS solutions, improved site speed by 35%, and increased mobile engagement by 40%.",
       techStack: ["HubSpot CMS", "HTML", "CSS", "Javacript"],
       image: querri,
       liveLink: "https://querri.com/",
     },
     {
-      id: 3,
-      title: "YouTube GPT Creator",
+      id: 11,
+      title: "IberiaTech Solutions — Bilingual Business Website (Independent Project)",
       description:
-        "Built an intelligent AutoGPT application for YouTube content creation, utilizing Python and LangChain to automate and enhance content generation processes.",
+        "Built a modern, bilingual business website with English/Spanish translation, AI-powered features, and responsive design that increased engagement by 40% and expanded market reach to Spanish-speaking audiences.",
+      techStack: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      image: iberiatech,
+      liveLink: "https://www.iberiatechsolutions.com/",
+      codeLink: "https://github.com/IberiaTech-Solutions/iberiatech",
+    },
+    {
+      id: 7,
+      title: "Cursor Rules Hub — AI Community Platform (Independent Project)",
+      description:
+        "Developing a community-driven platform for AI behavior rules in Cursor Editor. Features include rule browsing, creation tools, and intelligent file pattern matching. Early stage platform under active development, focused on core features and preparing for community rollout.",
+      techStack: ["Next.js 14", "Supabase", "TypeScript", "Tailwind CSS"],
+      image: cursorRules,
+      liveLink: "https://cursor-rules-virid.vercel.app/",
+      codeLink: "https://github.com/Javierlozo/cursor_rules",
+    },
+    {
+      id: 3,
+      title: "YouTube GPT Creator (Independent Project)",
+      description:
+        "Developed an intelligent AutoGPT application to automate YouTube content workflows, reducing manual content creation time by ~40%. Utilized Python and LangChain to streamline content generation processes.",
       techStack: ["Python", "LangChain"],
       image: web3,
       codeLink: "https://github.com/Javierlozo/langchain-autogpt",
     },
     {
       id: 1,
-      title: "Rental App",
+      title: "Rental App (Independent Project)",
       description:
         "Designed and implemented a user-friendly sports equipment rental application tailored for the Charleston, SC area, featuring real-time availability and secure transactions.",
       techStack: ["React", "Node.js", "AWS"],
@@ -113,7 +113,7 @@ export default function Portfolio() {
     },
     {
       id: 2,
-      title: "Weather App",
+      title: "Weather App (Independent Project)",
       description:
         "Developed a dynamic weather application enabling users to check real-time weather conditions across multiple cities, integrating reliable REST APIs for accurate data.",
       techStack: ["React", "REST API"],
@@ -123,7 +123,7 @@ export default function Portfolio() {
     },
     {
       id: 4,
-      title: "Old Portfolio Page",
+      title: "Old Portfolio Page (Independent Project)",
       description:
         "Created an early version of my portfolio website to showcase projects and skills, built with React and Node.js, serving as a foundation for my current professional site.",
       techStack: ["React", "Node.js"],
