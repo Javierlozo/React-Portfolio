@@ -8,11 +8,11 @@ export default function About() {
   return (
     <section
       id="about"
-      className={`py-16 sm:py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
+      className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
       <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-16 sm:mb-24">
+        <div className="text-center mb-12 sm:mb-16">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>

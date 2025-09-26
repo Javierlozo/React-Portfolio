@@ -215,7 +215,7 @@ export default function PortfolioSlider() {
           {/* Navigation Arrows */}
           <button
             onClick={prevSlide}
-            className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-all duration-300 ${
+            className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 border transition-all duration-300 ${
               theme === 'dark' 
                 ? 'bg-gray-800/50 backdrop-blur-sm text-white/80 hover:bg-gray-700/70 hover:text-white' 
                 : 'bg-white/50 backdrop-blur-sm text-gray-900/80 hover:bg-gray-100/70 hover:text-gray-900'
@@ -226,7 +226,7 @@ export default function PortfolioSlider() {
           
           <button
             onClick={nextSlide}
-            className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full transition-all duration-300 ${
+            className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 border transition-all duration-300 ${
               theme === 'dark' 
                 ? 'bg-gray-800/50 backdrop-blur-sm text-white/80 hover:bg-gray-700/70 hover:text-white' 
                 : 'bg-white/50 backdrop-blur-sm text-gray-900/80 hover:bg-gray-100/70 hover:text-gray-900'
@@ -354,7 +354,7 @@ export default function PortfolioSlider() {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 border transition-all duration-300 ${
                   index === currentIndex
                     ? theme === 'dark' ? 'bg-white' : 'bg-gray-900'
                     : theme === 'dark' ? 'bg-gray-600' : 'bg-gray-300'

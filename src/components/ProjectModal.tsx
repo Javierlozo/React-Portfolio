@@ -110,10 +110,10 @@ export default function ProjectModal({
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className={`px-3 py-1 text-sm font-medium rounded ${
+                className={`px-3 py-1 text-sm font-medium border ${
                   theme === 'dark' 
-                    ? 'text-white bg-gray-700' 
-                    : 'text-gray-800 bg-gray-200'
+                    ? 'text-gray-300 border-gray-600' 
+                    : 'text-gray-600 border-gray-300'
                 }`}
               >
                 {tech}
@@ -127,10 +127,10 @@ export default function ProjectModal({
                 href={project.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 transition-all duration-300 border ${
                   theme === 'dark'
-                    ? 'bg-white text-black hover:bg-gray-200'
-                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                    ? 'border-blue-600 text-blue-400 hover:border-blue-500 hover:text-blue-300'
+                    : 'border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700'
                 }`}
               >
                 <FontAwesomeIcon icon={faExternalLinkAlt} />
@@ -142,10 +142,10 @@ export default function ProjectModal({
                 href={project.codeLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 transition-all duration-300 border ${
                   theme === 'dark'
-                    ? 'bg-gray-700 text-white hover:bg-gray-600'
-                    : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                    ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200'
+                    : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
                 }`}
               >
                 <FontAwesomeIcon icon={faCode} />
