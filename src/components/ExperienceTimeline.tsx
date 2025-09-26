@@ -41,10 +41,9 @@ export default function ExperienceTimeline() {
       duration: "2024 - Present",
       description: "Delivering independent projects and prototypes under my consulting brand. Focus on bilingual websites, AI features, and modern web solutions for small businesses in the US and Spain.",
       achievements: [
-        "Built proof-of-concept websites with full English/Spanish translation",
-        "Developed AI-powered chatbot prototypes that cut manual support tasks",
-        "Created custom applications showcasing modern cloud architecture",
-        "Designed responsive web solutions demonstrating latest development practices"
+        "Managed full project lifecycle with small business clients, from requirements to deployment",
+        "Advised clients on bilingual strategy and AI integration, shaping digital roadmaps",
+        "Delivered production websites and prototypes, ensuring timely launches and measurable impact"
       ],
       technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AWS", "Node.js"],
       companyUrl: "https://www.iberiatechsolutions.com/",
@@ -58,14 +57,14 @@ export default function ExperienceTimeline() {
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
       duration: "Apr 2024 - Present",
-      description: "Leading end-to-end development of web applications using Next.js 14, React, and AWS services.",
+      description: "Leading end-to-end development of web applications using Next.js 14, React, and AWS services. Collaborating with external engineering teams and conducting code reviews while delivering scalable solutions.",
       achievements: [
-        "Delivered React components and AWS Cognito integration for AfricaNXT (in-progress mentorship platform), supporting ~1,200 users",
-        "Optimized React components, improving user onboarding experiences by 60%",
-        "Implemented AWS Cognito authentication, reducing login issues by 45%",
-        "Delivered production-ready websites ahead of schedule",
-        "Enhanced application performance, reducing load times by 30%",
-        "Managed project workflows and implemented full-stack solutions with Supabase"
+        "Delivered React components and AWS Cognito integration for AfricaNXT (mentorship platform, ~1,200 users)",
+        "Coordinated sprints and code reviews with cross-functional teams to ensure consistent delivery",
+        "Partnered with design and product stakeholders to align technical work with business goals",
+        "Built database infrastructure using Squid AI, supporting scalable data flows",
+        "Mentored teammates on modern React and AWS practices, improving team velocity",
+        "Optimized performance, reducing load times by 30% and onboarding friction by 60%"
       ],
       technologies: ["React", "AWS CDK", "Cognito", "TypeScript", "Next.js", "AWS Amplify", "Supabase", "Python", "Squid AI"],
       companyUrl: "https://gdna.io/",
@@ -120,10 +119,11 @@ export default function ExperienceTimeline() {
       description: "Progressive role from Software Engineer I to Software Engineer II, focusing on enhancing client productivity and driving company profitability through custom solutions and full-stack development.",
       achievements: [
         "Successfully delivered software development projects, driving a 10% increase in company's Q1 and Q2 profit in 2023",
+        "Mentored junior developers, providing technical guidance and accelerating onboarding",
+        "Acted as a bridge between development and leadership teams, aligning deliverables with business objectives",
         "Developed custom Chrome extensions integrated with CRM tools and databases using RESTful APIs and OAuth2.0",
         "Built and maintained applications using Angular, NestJs, MongoDB, and Azure Cosmos DB",
-        "Created and maintained custom Azure Functions, implementing cost-effective solutions with various triggers",
-        "Mentored new junior software developers, providing guidance and technical leadership"
+        "Created and maintained custom Azure Functions, implementing cost-effective solutions with various triggers"
       ],
       technologies: ["Angular", "NestJs", "MongoDB", "Azure Cosmos DB", "Azure Functions", "TypeScript", "Node.js", "REST APIs", "OAuth2.0"],
       companyUrl: "https://www.interloopdata.com/",
