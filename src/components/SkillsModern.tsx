@@ -70,16 +70,16 @@ export default function SkillsModern() {
 
 
   return (
-    <section id="skills" className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
-      <div className="container mx-auto px-6 max-w-7xl">
+    <section id="skills" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+      <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
             Skills & Expertise
           </h2>
-          <p className={`text-xl max-w-3xl mx-auto ${
+          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
             Comprehensive technical expertise across modern web development, cloud infrastructure, and AI-powered solutions
@@ -87,21 +87,21 @@ export default function SkillsModern() {
         </div>
 
         {/* All Skills Display */}
-        <div className="space-y-16">
+        <div className="space-y-12 sm:space-y-16">
           {skillCategories.map((category) => (
-            <div key={category.id} className="space-y-8">
+            <div key={category.id} className="space-y-6 sm:space-y-8">
               {/* Category Header */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <div className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  <FontAwesomeIcon icon={category.icon} className="text-3xl" />
+                  <FontAwesomeIcon icon={category.icon} className="text-2xl sm:text-3xl" />
                 </div>
                 <div>
-                  <h3 className={`text-2xl font-thin ${
+                  <h3 className={`text-xl sm:text-2xl font-thin ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
                     {category.title}
                   </h3>
-                  <p className={`text-lg ${
+                  <p className={`text-sm sm:text-base md:text-lg ${
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                   }`}>
                     {category.description}
@@ -110,7 +110,7 @@ export default function SkillsModern() {
               </div>
 
               {/* Skills Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                 {category.skills.map((skill) => {
                   const getSkillIcon = (skillName: string) => {
                     switch (skillName.toLowerCase()) {
@@ -162,16 +162,16 @@ export default function SkillsModern() {
                   return (
                     <div
                       key={skill}
-                      className={`flex items-center gap-3 p-4 rounded-lg border transition-all duration-300 ${
+                      className={`flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-lg border transition-all duration-300 ${
                         theme === 'dark' 
                           ? 'bg-transparent border-gray-700 hover:border-gray-600' 
                           : 'bg-transparent border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <div className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                        <FontAwesomeIcon icon={getSkillIcon(skill)} className="text-lg" />
+                        <FontAwesomeIcon icon={getSkillIcon(skill)} className="text-base sm:text-lg" />
                       </div>
-                      <span className={`text-sm font-light ${
+                      <span className={`text-xs sm:text-sm font-light ${
                         theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                       }`}>
                         {skill}
@@ -194,27 +194,7 @@ export default function SkillsModern() {
             Highlights
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className={`p-6 rounded-xl ${
-              theme === 'dark' ? 'bg-gray-700' : 'bg-white'
-            }`}>
-              <div className={`flex items-center gap-3 mb-3 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                <FontAwesomeIcon icon={faCheckCircle} className="text-xl" />
-                <h4 className={`text-lg font-light ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  Proven Track Record
-                </h4>
-              </div>
-              <p className={`text-sm ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                Delivering modern web apps and AI-powered solutions with measurable business impact
-              </p>
-            </div>
-            
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className={`p-6 rounded-xl ${
               theme === 'dark' ? 'bg-gray-700' : 'bg-white'
             }`}>
@@ -225,14 +205,36 @@ export default function SkillsModern() {
                 <h4 className={`text-lg font-light ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Diverse Experience
+                  Client-Focused (IberiaTech Solutions)
                 </h4>
               </div>
-              <p className={`text-sm ${
+              <div className={`text-sm space-y-2 ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                Experienced across client projects, contracts, and independent builds
-              </p>
+                <p>Built bilingual websites and AI features for US and Spanish small businesses.</p>
+                <p>Increased engagement by up to 40% with responsive, modern designs.</p>
+              </div>
+            </div>
+            
+            <div className={`p-6 rounded-xl ${
+              theme === 'dark' ? 'bg-gray-700' : 'bg-white'
+            }`}>
+              <div className={`flex items-center gap-3 mb-3 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                <FontAwesomeIcon icon={faCheckCircle} className="text-xl" />
+                <h4 className={`text-lg font-light ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                  Enterprise-Scale (GDNA)
+                </h4>
+              </div>
+              <div className={`text-sm space-y-2 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                <p>Contributed to AfricaNXT mentorship platform (~1,200 users).</p>
+                <p>Improved onboarding efficiency by 60% through optimized React components.</p>
+              </div>
             </div>
             
             <div className={`p-6 rounded-xl ${
@@ -245,34 +247,16 @@ export default function SkillsModern() {
                 <h4 className={`text-lg font-light ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Business-Focused
+                  Career Growth
                 </h4>
               </div>
-              <p className={`text-sm ${
+              <div className={`text-sm space-y-2 ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                Skilled in translating business needs into scalable technical solutions
-              </p>
-            </div>
-            
-            <div className={`p-6 rounded-xl ${
-              theme === 'dark' ? 'bg-gray-700' : 'bg-white'
-            }`}>
-              <div className={`flex items-center gap-3 mb-3 ${
-                theme === 'dark' ? 'text-orange-400' : 'text-orange-600'
-              }`}>
-                <FontAwesomeIcon icon={faShieldAlt} className="text-xl" />
-                <h4 className={`text-lg font-semibold ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  Best Practices
-                </h4>
+                <p>Full-stack experience with React, Next.js, AWS, Python, and AI frameworks.</p>
+                <p>Proven results: faster load times (30%) and enhanced user experiences.</p>
+                <p>Expanding expertise through SANS Cyber Academy.</p>
               </div>
-              <p className={`text-sm ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                Committed to security and performance best practices
-              </p>
             </div>
           </div>
         </div>

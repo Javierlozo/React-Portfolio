@@ -8,33 +8,45 @@ export default function About() {
   return (
     <section
       id="about"
-      className={`py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
+      className={`py-16 sm:py-24 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <div className="container mx-auto px-6 max-w-4xl">
+      <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-24">
-          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
+        <div className="text-center mb-16 sm:mb-24">
+          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
             About
           </h2>
         </div>
 
         {/* Main Content */}
-        <div className="space-y-12 max-w-3xl mx-auto">
-          <p className={`text-lg leading-relaxed ${
+        <div className="space-y-8 sm:space-y-12 max-w-3xl mx-auto">
+          <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
             Through my consulting brand IberiaTech Solutions, I{" "}
             <span className={`font-light ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              deliver prototypes and proof-of-concepts
+              build bilingual websites, AI-powered features, and modern cloud applications
             </span>{" "}
-            that demonstrate modern web and AI capabilities for small businesses in the US and Spain.
+            for small businesses in the US and Spain. These projects include full production websites as well as prototypes that help clients validate new ideas quickly.
           </p>
           
-          <p className={`text-lg leading-relaxed ${
+          <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+          }`}>
+            I also contract with{" "}
+            <span className={`font-light ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              Global Digital Needs Agency (GDNA)
+            </span>
+            , where I contribute to AWS-powered platforms and large-scale web applications — including AfricaNXT, a mentorship platform currently serving ~1,200 users.
+          </p>
+          
+          <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
             My expertise spans{" "}
@@ -43,21 +55,21 @@ export default function About() {
             }`}>
               full-stack development, AI integration, and cloud architecture
             </span>{" "}
-            — building solutions that deliver measurable business results.
+            — delivering solutions that are not only technically strong but also drive measurable business results.
           </p>
           
           {/* Achievement Highlight */}
-          <div className={`mt-16 p-8 border-l ${
+          <div className={`mt-12 sm:mt-16 p-6 sm:p-8 border-l ${
             theme === 'dark' 
               ? 'border-gray-700 bg-transparent' 
               : 'border-gray-200 bg-transparent'
           }`}>
-            <h4 className={`text-sm font-light mb-3 tracking-widest uppercase ${
+            <h4 className={`text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-widest uppercase ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
             }`}>
               Recent Achievement
             </h4>
-            <p className={`text-base leading-relaxed ${
+            <p className={`text-sm sm:text-base leading-relaxed ${
               theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               <span className={`font-light ${
