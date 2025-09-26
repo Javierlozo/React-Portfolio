@@ -12,62 +12,60 @@ export default function About() {
     >
       <div className="container mx-auto px-6 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-20">
-          <h2 className={`text-3xl sm:text-4xl font-light tracking-tight mb-4 ${
+        <div className="text-center mb-24">
+          <h2 className={`text-3xl md:text-4xl font-thin mb-8 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
-            About Me
+            About
           </h2>
-          <div className={`w-16 h-px mx-auto ${
-            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
-          }`}></div>
         </div>
 
         {/* Main Content */}
-        <div className="space-y-8">
+        <div className="space-y-12 max-w-3xl mx-auto">
           <p className={`text-lg leading-relaxed ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            I&apos;m a{" "}
-            <span className={`font-medium ${
+            Through my consulting brand IberiaTech Solutions, I{" "}
+            <span className={`font-light ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              Full Stack Engineer, AI Specialist & Security Expert
+              deliver prototypes and proof-of-concepts
             </span>{" "}
-            with extensive experience building secure, scalable applications. I combine modern 
-            development practices with AI integration and cybersecurity expertise to create 
-            robust solutions that protect against evolving threats.
+            that demonstrate modern web and AI capabilities for small businesses in the US and Spain.
           </p>
           
           <p className={`text-lg leading-relaxed ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            My passion lies in leveraging AI and modern technologies to build intelligent, 
-            secure applications. I&apos;m dedicated to staying at the forefront of AI development 
-            while implementing comprehensive security measures that protect against both 
-            traditional and emerging cyber threats.
+            My expertise spans{" "}
+            <span className={`font-light ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              full-stack development, AI integration, and cloud architecture
+            </span>{" "}
+            — building solutions that deliver measurable business results.
           </p>
           
           {/* Achievement Highlight */}
-          <div className={`mt-12 p-6 border-l-4 ${
+          <div className={`mt-16 p-8 border-l ${
             theme === 'dark' 
-              ? 'border-gray-600 bg-gray-900/50' 
-              : 'border-gray-300 bg-gray-50'
+              ? 'border-gray-700 bg-transparent' 
+              : 'border-gray-200 bg-transparent'
           }`}>
-            <h4 className={`text-base font-medium mb-2 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            <h4 className={`text-sm font-light mb-3 tracking-widest uppercase ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
             }`}>
               Recent Achievement
             </h4>
-            <p className={`text-sm ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            <p className={`text-base leading-relaxed ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
-              <span className={`font-medium ${
+              <span className={`font-light ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 Accepted into Fall 2025 SANS Cyber Academy
               </span>{" "}
-              — Training with industry experts to enhance my security knowledge and earn GIAC certifications 
+              — Training with industry experts to enhance security knowledge and earn GIAC certifications 
               in incident response, threat detection, and cyber defense.
             </p>
           </div>

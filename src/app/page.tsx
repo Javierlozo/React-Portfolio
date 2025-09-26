@@ -1,50 +1,26 @@
 "use client";
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React from "react";
 
 import Hero from "../components/Hero";
 import About from "../components/About";
-import Skills from "../components/Skills";
-import Experience from "../components/Experience";
-import Certifications from "../components/Certifications";
-import Portfolio from "../components/Portfolio";
+import SkillsModern from "../components/SkillsModern";
+import ExperienceTimeline from "../components/ExperienceTimeline";
+import CertificationsShowcase from "../components/CertificationsShowcase";
+import PortfolioSlider from "../components/PortfolioSlider";
 import Testimonials from "../components/Testimonials";
 import Contact from "../components/Contact";
 
 export default function Home() {
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: "ease-out",
-    });
-  }, []);
-
   return (
-    <div className="bg-gradient-to-b from-gray-900 via-black to-gray-900">
+    <div className="bg-white dark:bg-black">
       <Hero />
-      <div data-aos="fade-up">
-        <About />
-      </div>
-      <div data-aos="fade-up">
-        <Skills />
-      </div>
-      <div data-aos="fade-up">
-        <Experience />
-      </div>
-      <div data-aos="fade-up">
-        <Certifications />
-      </div>
-      <div data-aos="fade-up">
-        <Portfolio />
-      </div>
-      <div data-aos="fade-up">
-        <Testimonials />
-      </div>
-      <div data-aos="fade-up">
-        <Contact />
-      </div>
+      <About />
+      <SkillsModern />
+      <ExperienceTimeline />
+      <CertificationsShowcase />
+      <PortfolioSlider />
+      <Testimonials />
+      <Contact />
     </div>
   );
 }

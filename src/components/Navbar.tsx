@@ -61,10 +61,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`py-4 px-6 fixed w-full z-50 top-0 left-0 transition-all duration-300 ${
+    <nav className={`py-6 px-6 fixed w-full z-50 top-0 left-0 transition-all duration-300 ${
       theme === 'dark' 
-        ? 'bg-black/80 backdrop-blur-md border-b border-gray-800' 
-        : 'bg-white/80 backdrop-blur-md border-b border-gray-200'
+        ? 'bg-black/90 backdrop-blur-sm border-b border-gray-800' 
+        : 'bg-white/90 backdrop-blur-sm border-b border-gray-200'
     }`}>
       <div className="container mx-auto flex justify-between items-center max-w-6xl">
         {/* Logo */}
@@ -84,7 +84,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex justify-center items-center flex-grow gap-8">
+        <div className="hidden md:flex justify-center items-center flex-grow gap-12">
           {[
             "About",
             "Skills",
@@ -99,19 +99,19 @@ export default function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-all duration-300 ${
+                className={`relative px-2 py-2 text-sm font-light tracking-widest uppercase transition-all duration-300 ${
                   isActive 
                     ? theme === 'dark'
                       ? "text-white" 
                       : "text-gray-900"
                     : theme === 'dark'
                       ? "text-gray-400 hover:text-white"
-                      : "text-gray-600 hover:text-gray-900"
+                      : "text-gray-500 hover:text-gray-900"
                 }`}
               >
                 {item}
                 {isActive && (
-                  <div className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-px ${
+                  <div className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-px ${
                     theme === 'dark' ? 'bg-white' : 'bg-gray-900'
                   }`}></div>
                 )}
@@ -123,38 +123,38 @@ export default function Navbar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300 hover:scale-110 ${
+          className={`flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 hover:scale-105 ${
             theme === 'dark' 
-              ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
-              : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+              ? 'border-gray-700 text-gray-400 hover:border-white hover:text-white' 
+              : 'border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900'
           }`}
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
-            <FiSun className="w-5 h-5" />
+            <FiSun className="w-4 h-4" />
           ) : (
-            <FiMoon className="w-5 h-5" />
+            <FiMoon className="w-4 h-4" />
           )}
         </button>
 
         {/* Minimal Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className={`md:hidden w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+          className={`md:hidden w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 hover:scale-105 ${
             theme === 'dark' 
-              ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
-              : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+              ? 'border-gray-700 text-gray-400 hover:border-white hover:text-white' 
+              : 'border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900'
           }`}
           aria-label="Toggle menu"
         >
           <div className="flex flex-col space-y-1">
-            <div className={`w-5 h-0.5 transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''} ${
+            <div className={`w-4 h-0.5 transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''} ${
               theme === 'dark' ? 'bg-white' : 'bg-gray-800'
             }`}></div>
-            <div className={`w-5 h-0.5 transition-all duration-300 ${isOpen ? 'opacity-0' : ''} ${
+            <div className={`w-4 h-0.5 transition-all duration-300 ${isOpen ? 'opacity-0' : ''} ${
               theme === 'dark' ? 'bg-white' : 'bg-gray-800'
             }`}></div>
-            <div className={`w-5 h-0.5 transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : ''} ${
+            <div className={`w-4 h-0.5 transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : ''} ${
               theme === 'dark' ? 'bg-white' : 'bg-gray-800'
             }`}></div>
           </div>
@@ -218,7 +218,7 @@ export default function Navbar() {
             </div>
             
             {/* Menu Items */}
-            <div className="p-6 space-y-2">
+            <div className="p-6 space-y-1">
               {[
                 "About",
                 "Skills",
@@ -233,14 +233,14 @@ export default function Navbar() {
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className={`block transition-all duration-300 py-3 px-4 text-sm font-medium tracking-wide ${
+                    className={`block transition-all duration-300 py-4 px-4 text-sm font-light tracking-widest uppercase ${
                       isActive 
                         ? theme === 'dark'
-                          ? "text-white border-l-4 border-white" 
-                          : "text-gray-900 border-l-4 border-gray-900"
+                          ? "text-white border-l-2 border-white" 
+                          : "text-gray-900 border-l-2 border-gray-900"
                         : theme === 'dark'
-                          ? "text-gray-400 hover:text-white hover:border-l-4 hover:border-gray-400"
-                          : "text-gray-600 hover:text-gray-900 hover:border-l-4 hover:border-gray-600"
+                          ? "text-gray-400 hover:text-white hover:border-l-2 hover:border-gray-400"
+                          : "text-gray-500 hover:text-gray-900 hover:border-l-2 hover:border-gray-600"
                     }`}
                     onClick={toggleMenu}
                   >
@@ -253,7 +253,7 @@ export default function Navbar() {
             {/* Footer */}
             <div className="p-6 border-t border-gray-200 dark:border-gray-800">
               <div className="text-center">
-                <div className={`text-xs tracking-wide ${
+                <div className={`text-xs font-light tracking-widest ${
                   theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
                 }`}>© 2025 Luis Lozoya</div>
               </div>
