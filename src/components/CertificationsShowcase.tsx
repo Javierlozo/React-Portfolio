@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faCertificate, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 // Import certification images
 import coursera from "@/src/public/certifications/Coursera.png";
@@ -167,7 +167,7 @@ export default function CertificationsShowcase() {
 
         {/* Modal for Certificate Details */}
         {selectedCert && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
@@ -175,23 +175,23 @@ export default function CertificationsShowcase() {
             />
             
             {/* Modal Content */}
-            <div className={`relative w-full max-w-2xl max-h-[90vh] rounded-2xl overflow-hidden ${
+            <div className={`relative w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden ${
               theme === 'dark' ? 'bg-gray-800' : 'bg-white'
             }`}>
               {/* Close Button */}
               <button
                 onClick={() => setSelectedCert(null)}
-                className={`absolute top-4 right-4 z-10 p-2 rounded-full ${
+                className={`absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2 border transition-all duration-300 ${
                   theme === 'dark' 
-                    ? 'bg-gray-700 text-white hover:bg-gray-600' 
-                    : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                    ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200' 
+                    : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
                 }`}
               >
-                <FontAwesomeIcon icon={faExternalLinkAlt} className="text-xl" />
+                <FontAwesomeIcon icon={faTimes} className="text-lg sm:text-xl" />
               </button>
 
               {/* Certificate Image */}
-              <div className="relative h-64">
+              <div className="relative h-48 sm:h-64">
                 <Image
                   src={selectedCert.image}
                   alt={`${selectedCert.title} certificate`}
@@ -201,15 +201,15 @@ export default function CertificationsShowcase() {
               </div>
 
               {/* Certificate Details */}
-              <div className="p-8">
-                <h3 className={`text-2xl font-bold mb-4 ${
+              <div className="p-4 sm:p-8 overflow-y-auto max-h-[calc(95vh-12rem)] sm:max-h-[calc(90vh-16rem)]">
+                <h3 className={`text-xl sm:text-2xl font-bold mb-3 sm:mb-4 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   {selectedCert.title}
                 </h3>
                 
-                <div className="flex items-center gap-4 mb-4">
-                  <span className={`text-lg font-medium ${
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
+                  <span className={`text-base sm:text-lg font-medium ${
                     theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
                   }`}>
                     {selectedCert.issuer}
@@ -218,31 +218,31 @@ export default function CertificationsShowcase() {
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                   }`}>
                     <FontAwesomeIcon icon={faCalendarAlt} />
-                    <span>{selectedCert.date}</span>
+                    <span className="text-sm sm:text-base">{selectedCert.date}</span>
                   </div>
                 </div>
 
-                <p className={`text-lg mb-6 leading-relaxed ${
+                <p className={`text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed ${
                   theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                 }`}>
                   {selectedCert.description}
                 </p>
 
                 {/* Skills */}
-                <div className="mb-6">
-                  <h4 className={`text-lg font-semibold mb-3 ${
+                <div className="mb-4 sm:mb-6">
+                  <h4 className={`text-base sm:text-lg font-semibold mb-2 sm:mb-3 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
                     Skills Covered:
                   </h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {selectedCert.skills.map((skill) => (
                       <span
                         key={skill}
-                        className={`px-3 py-1 text-sm rounded-full ${
+                        className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full ${
                           theme === 'dark' 
                             ? 'bg-gray-700 text-gray-300' 
-                            : 'bg-gray-200 text-gray-700'
+                            : 'bg-gray-200 text-gray-600'
                         }`}
                       >
                         {skill}
@@ -257,10 +257,10 @@ export default function CertificationsShowcase() {
                     href={selectedCert.verifyLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg transition-colors ${
+                    className={`inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base transition-all duration-300 border w-full sm:w-auto ${
                       theme === 'dark'
-                        ? 'bg-blue-600 text-white hover:bg-blue-700'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'border-blue-600 text-blue-400 hover:border-blue-500 hover:text-blue-300'
+                        : 'border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700'
                     }`}
                   >
                     <FontAwesomeIcon icon={faExternalLinkAlt} />
