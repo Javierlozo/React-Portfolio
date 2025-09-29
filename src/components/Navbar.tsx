@@ -74,7 +74,7 @@ export default function Navbar() {
         >
           <Image
             src="/favicon.png"
-            alt="Portfolio Logo"
+            alt="Luis Lozoya Portfolio Logo"
             width={36}
             height={36}
             className={`rounded-full border-2 ${
