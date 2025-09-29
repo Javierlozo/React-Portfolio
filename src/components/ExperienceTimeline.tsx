@@ -193,7 +193,7 @@ export default function ExperienceTimeline() {
                           <div className="w-16 h-16 relative">
                             <Image
                               src={exp.logo}
-                              alt={`${exp.company} logo`}
+                              alt={`${exp.company} company logo`}
                               fill
                               className="object-contain rounded-lg"
                             />
