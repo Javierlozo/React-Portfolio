@@ -89,7 +89,7 @@ export default function Hero() {
             <div className="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64">
               <Image
                 src={photo}
-                alt="Portrait of Luis Lozoya"
+                alt="Luis Lozoya - Full Stack Developer & AI Engineer"
                 className="rounded-full object-cover border border-gray-200 dark:border-gray-700"
                 width={256}
                 height={256}

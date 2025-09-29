@@ -100,7 +100,7 @@ export default function CertificationsShowcase() {
               <div className="relative h-40 sm:h-48 overflow-hidden">
                 <Image
                   src={cert.image}
-                  alt={`${cert.title} certificate`}
+                  alt={`${cert.title} professional certification`}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
                 />
@@ -194,7 +194,7 @@ export default function CertificationsShowcase() {
               <div className="relative h-48 sm:h-64">
                 <Image
                   src={selectedCert.image}
-                  alt={`${selectedCert.title} certificate`}
+                  alt={`${selectedCert.title} professional certification`}
                   fill
                   className="object-cover"
                 />

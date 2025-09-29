@@ -251,7 +251,7 @@ export default function PortfolioSlider() {
                       <div className="relative w-full h-80 overflow-hidden rounded-xl group">
                         <Image
                           src={project.image}
-                          alt={`Screenshot of ${project.title}`}
+                          alt={`${project.title} - ${project.description}`}
                           fill
                           className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
                         />
@@ -401,7 +401,7 @@ export default function PortfolioSlider() {
                 <div className="mb-4 sm:mb-6 h-40 sm:h-48 overflow-hidden rounded-lg">
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt={`${project.title} project screenshot`}
                     width={400}
                     height={192}
                     className="w-full h-full object-cover object-top"
