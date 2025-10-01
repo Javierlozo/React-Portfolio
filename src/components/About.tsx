@@ -25,13 +25,19 @@ export default function About() {
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            Through my consulting brand IberiaTech Solutions, I{" "}
+            IberiaTech Solutions empowers businesses in the US and Spain with{" "}
             <span className={`font-light ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              build bilingual websites, AI-powered features, and modern cloud applications
-            </span>{" "}
-            for small businesses in the US and Spain. These projects include full production websites as well as prototypes that help clients validate new ideas quickly.
+              AI-enabled, bilingual digital solutions
+            </span>
+            . From responsive websites to scalable cloud platforms, we design and build systems that{" "}
+            <span className={`font-light ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              expand market reach, accelerate launches, and drive measurable business results
+            </span>
+            .
           </p>
           
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
@@ -43,7 +49,7 @@ export default function About() {
             }`}>
               Global Digital Needs Agency (GDNA)
             </span>
-            , where I contribute to AWS-powered platforms and large-scale web applications — including AfricaNXT, a mentorship platform currently serving ~1,200 users.
+            , where I contribute to AWS-powered platforms and large-scale web applications. Including AfricaNXT, a mentorship platform currently serving ~1,200 users.
           </p>
           
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
@@ -53,9 +59,9 @@ export default function About() {
             <span className={`font-light ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              full-stack development, AI integration, and cloud architecture
+              full-stack development, AI integration, and cloud architecture, 
             </span>{" "}
-            — delivering solutions that are not only technically strong but also drive measurable business results.
+            delivering solutions that are technically strong, secure, and designed to drive measurable business results.
           </p>
           
           {/* Achievement Highlight */}
