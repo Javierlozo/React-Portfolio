@@ -39,7 +39,7 @@ export default function ExperienceTimeline() {
       position: "Independent Consultant — Personal Brand",
       location: "Charleston, SC",
       duration: "2024 - Present",
-      description: "Delivering independent projects and prototypes under my consulting brand. Focus on bilingual websites, AI features, and modern web solutions for small businesses in the US and Spain.",
+      description: "IberiaTech Solutions empowers businesses in the US and Spain with AI-enabled, bilingual digital solutions, from responsive websites to scalable cloud applications that help small businesses expand their digital presence and validate new ideas quickly.",
       achievements: [
         "Managed full project lifecycle with small business clients, from requirements to deployment",
         "Advised clients on bilingual strategy and AI integration, shaping digital roadmaps",
