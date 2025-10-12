@@ -12,6 +12,7 @@ import cursorRules from "@/src/public/pictures/cursor-rules.png";
 import gseay from "@/src/public/pictures/gseay.png";
 import africanxt from "@/src/public/pictures/app.africanxt.com_ (1).png";
 import iberiatech from "@/src/public/pictures/www.iberiatechsolutions.com_ (1).png";
+import portfolioHub from "@/src/public/pictures/portfoliohub.png";
 import web1 from "@/src/public/pictures/rental.png";
 import web2 from "@/src/public/pictures/weather.png";
 import web3 from "@/src/public/pictures/langchain.png";
@@ -70,6 +71,16 @@ export default function PortfolioSlider() {
   ];
 
   const independentProjects: Project[] = [
+    {
+      id: 12,
+      title: "PortfolioHub — Professional Portfolio Platform (Independent Project)",
+      description: "A personal platform for connecting with talented professionals and exploring their existing portfolios. Allows users to browse other professionals' work, discover talent, and facilitate collaborations. Designed to help find and connect with the best professionals in their fields.",
+      techStack: ["Next.js 15", "React 19", "TypeScript", "Supabase", "Tailwind CSS", "PLpgSQL"],
+      image: portfolioHub,
+      liveLink: "https://portfolio-hub-tawny.vercel.app/",
+      codeLink: "https://github.com/IberiaTech-Solutions/PortfolioHub",
+      featured: true,
+    },
     {
       id: 11,
       title: "IberiaTech Solutions — Bilingual Business Website (Independent Project)",
