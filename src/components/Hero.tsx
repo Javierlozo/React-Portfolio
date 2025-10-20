@@ -40,18 +40,29 @@ export default function Hero() {
               Full Stack Developer & AI Specialist
             </h2>
 
-            {/* Business Value Proposition */}
-            <div className={`max-w-lg`}>
+            {/* Personal Value Proposition */}
+            <div className={`max-w-lg space-y-3`}>
               <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                I help businesses{" "}
+                Passionate about building{" "}
                 <span className={`font-normal ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
-                  modernize their digital presence
+                  modern, secure, and AI-driven web experiences
+                </span>
+                .
+              </p>
+              <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                I create{" "}
+                <span className={`font-normal ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                  scalable bilingual websites and cloud solutions
                 </span>{" "}
-                with scalable bilingual websites, AI integration, and secure cloud deployments.
+                that empower teams and reach global audiences.
               </p>
             </div>
 

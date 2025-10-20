@@ -172,12 +172,12 @@ export default function PortfolioSlider() {
               <h4 className={`text-base sm:text-lg font-light mb-2 ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
-                Clients
+                Selected Work
               </h4>
               <p className={`text-xs sm:text-sm ${
                 theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
               }`}>
-                GDNA, Querri, Upstate Nutrition, Interloop
+                Client projects and independent initiatives
               </p>
             </div>
             <div className="text-center">
@@ -206,17 +206,17 @@ export default function PortfolioSlider() {
             </div>
           </div>
           
-          {/* Client Projects Subheader */}
+          {/* Client Work Subheader */}
           <div className="mb-6 sm:mb-8">
             <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              Client & Contract Projects
+              Client Work
             </h3>
             <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              Professional work delivering real business impact
+              Professional projects via GDNA, Querri, Upstate Nutrition
             </p>
           </div>
         </div>
@@ -390,12 +390,12 @@ export default function PortfolioSlider() {
             <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              Independent Projects & Prototypes
+              Independent Projects
             </h3>
             <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              Personal initiatives showcasing innovation and technical exploration
+              PortfolioHub, Cursor Rules Hub, and other personal initiatives
             </p>
           </div>
 
