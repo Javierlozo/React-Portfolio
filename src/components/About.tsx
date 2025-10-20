@@ -25,43 +25,19 @@ export default function About() {
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            IberiaTech Solutions empowers businesses in the US and Spain with{" "}
-            <span className={`font-light ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              AI-enabled, bilingual digital solutions
-            </span>
-            . From responsive websites to scalable cloud platforms, we design and build systems that{" "}
-            <span className={`font-light ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              expand market reach, accelerate launches, and drive measurable business results
-            </span>
-            .
+            I'm a full-stack software engineer based in Charleston, SC, with a passion for building intelligent, secure, and scalable web applications.
           </p>
           
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            I also contract with{" "}
-            <span className={`font-light ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              Global Digital Needs Agency (GDNA)
-            </span>
-            , where I contribute to AWS-powered platforms and large-scale web applications. Including AfricaNXT, a mentorship platform currently serving ~1,200 users.
+            Through my company, IberiaTech Solutions, I help small businesses in the US and Spain expand their digital presence with AI-powered and bilingual websites.
           </p>
           
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            My expertise spans{" "}
-            <span className={`font-light ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              full-stack development, AI integration, and cloud architecture, 
-            </span>{" "}
-            delivering solutions that are technically strong, secure, and designed to drive measurable business results.
+            I also contract with Global Digital Needs Agency (GDNA), contributing to AWS-powered platforms such as AfricaNXT, a mentorship platform serving over 1,200 users.
           </p>
           
           {/* Achievement Highlight */}
@@ -85,6 +61,31 @@ export default function About() {
               </span>{" "}
               — Training with industry experts to enhance security knowledge and earn GIAC certifications 
               in incident response, threat detection, and cyber defense.
+            </p>
+          </div>
+
+          {/* Personal Touch */}
+          <div className={`mt-8 sm:mt-12 p-4 sm:p-6 rounded-xl ${
+            theme === 'dark' 
+              ? 'bg-gray-800/50 border border-gray-700' 
+              : 'bg-gray-50/50 border border-gray-200'
+          }`}>
+            <p className={`text-sm sm:text-base leading-relaxed text-center ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              Outside of code, I love exploring{" "}
+              <span className={`font-light ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                AI, cybersecurity, and mentoring other developers
+              </span>
+              .{" "}
+              <span className={`font-light ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                Winner of HackOps 2024
+              </span>{" "}
+              and passionate about bridging tech between the US and Spain.
             </p>
           </div>
           

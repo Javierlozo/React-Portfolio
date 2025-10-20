@@ -36,10 +36,10 @@ export default function ExperienceTimeline() {
     {
       id: 1,
       company: "IberiaTech Solutions",
-      position: "Independent Consultant — Personal Brand",
+      position: "Independent Consultant — Founder, IberiaTech Solutions",
       location: "Charleston, SC",
       duration: "2024 - Present",
-      description: "IberiaTech Solutions empowers businesses in the US and Spain with AI-enabled, bilingual digital solutions, from responsive websites to scalable cloud applications that help small businesses expand their digital presence and validate new ideas quickly.",
+      description: "As an independent consultant, I help businesses in the US and Spain expand their digital presence with AI-enabled, bilingual solutions. Through IberiaTech Solutions, I deliver responsive websites and scalable cloud applications that help small businesses validate new ideas quickly and reach broader markets.",
       achievements: [
         "Managed full project lifecycle with small business clients, from requirements to deployment",
         "Advised clients on bilingual strategy and AI integration, shaping digital roadmaps",
