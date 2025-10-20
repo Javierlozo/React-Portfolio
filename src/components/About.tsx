@@ -25,7 +25,7 @@ export default function About() {
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            I'm a full-stack software engineer based in Charleston, SC, with a passion for building intelligent, secure, and scalable web applications.
+            I&apos;m a full-stack software engineer based in Charleston, SC, with a passion for building intelligent, secure, and scalable web applications.
           </p>
           
           <p className={`text-sm sm:text-base md:text-lg leading-relaxed ${
