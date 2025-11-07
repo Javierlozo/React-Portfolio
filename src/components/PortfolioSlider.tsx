@@ -17,6 +17,7 @@ import web1 from "@/src/public/pictures/rental.png";
 import web2 from "@/src/public/pictures/weather.png";
 import web3 from "@/src/public/pictures/langchain.png";
 import web4 from "@/src/public/pictures/Screenshot (117).png";
+import shopEssentialshub from "@/src/public/pictures/www.shopessentialshub.com_.png";
 
 interface Project {
   id: number;
@@ -71,6 +72,16 @@ export default function PortfolioSlider() {
   ];
 
   const independentProjects: Project[] = [
+    {
+      id: 13,
+      title: "ShopEssentialsHub — Curated Product Recommendation Platform (Independent Project)",
+      description: "Built a modern product curation platform featuring hand-picked Amazon products across multiple categories. Includes product reviews, ratings, category filtering, and an Editor's Choice section. Features responsive design, SEO optimization, and Amazon affiliate integration for monetization.",
+      techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      image: shopEssentialshub,
+      liveLink: "https://www.shopessentialshub.com/",
+      codeLink: "https://github.com/IberiaTech-Solutions/essentials-hub",
+      featured: true,
+    },
     {
       id: 12,
       title: "PortfolioHub — Professional Portfolio Platform (Independent Project)",
