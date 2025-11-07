@@ -10,7 +10,7 @@ import lessUSA from "@/src/public/pictures/Less1.png";
 import querri from "@/src/public/pictures/querri1.png";
 import cursorRules from "@/src/public/pictures/cursor-rules.png";
 import gseay from "@/src/public/pictures/gseay.png";
-import africanxt from "@/src/public/pictures/app.africanxt.com_ (1).png";
+import africanxt from "@/src/public/pictures/app.africanxt.com_.png";
 import iberiatech from "@/src/public/pictures/www.iberiatechsolutions.com_ (1).png";
 import portfolioHub from "@/src/public/pictures/portfoliohub.png";
 import web1 from "@/src/public/pictures/rental.png";
