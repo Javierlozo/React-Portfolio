@@ -113,13 +113,13 @@ export default function SkillsModern() {
     <section id="skills" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-1">
+        <div className="text-center mb-8 sm:mb-0 relative z-10">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
             Skills & Expertise
           </h2>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
+          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-4 sm:mb-0 pb-4 sm:pb-0 ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
             Comprehensive technical expertise across modern web development, cloud infrastructure, and AI-powered solutions
@@ -127,7 +127,7 @@ export default function SkillsModern() {
         </div>
 
         {/* All Skills Display - Cards Stacking on Top, Previous Fade Out */}
-        <div className="relative">
+        <div className="relative -mt-8 sm:-mt-24">
           {skillCategories.map((category, index) => {
             const isVisible = visibleCards.has(category.id);
             const delay = 200;
@@ -143,7 +143,7 @@ export default function SkillsModern() {
                   cardRefs.current[category.id] = el;
                 }}
                 data-card-id={category.id}
-                className={`sticky top-20 sm:top-24 min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center transition-all duration-1000 ease-out mb-8 ${
+                className={`sticky top-24 sm:top-24 min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center transition-all duration-1000 ease-out mb-8 ${
                   isVisible
                     ? 'opacity-100 translate-y-0 scale-100'
                     : hasLaterVisibleCard
