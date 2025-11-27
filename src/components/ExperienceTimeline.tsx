@@ -214,7 +214,7 @@ export default function ExperienceTimeline() {
 
                       <div className="flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                          <h3 className={`text-lg sm:text-xl md:text-2xl font-bold ${
+                          <h3 className={`text-lg sm:text-xl md:text-2xl font-light ${
                             theme === 'dark' ? 'text-white' : 'text-gray-900'
                           }`}>
                             {exp.position}
@@ -289,7 +289,7 @@ export default function ExperienceTimeline() {
 
                   {/* Achievements */}
                   <div className="mb-6">
-                    <h4 className={`text-base sm:text-lg font-semibold mb-3 ${
+                    <h4 className={`text-base sm:text-lg font-light mb-3 ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       Key Achievements:
@@ -310,7 +310,7 @@ export default function ExperienceTimeline() {
 
                   {/* Technologies */}
                   <div>
-                    <h4 className={`text-base sm:text-lg font-semibold mb-3 ${
+                    <h4 className={`text-base sm:text-lg font-light mb-3 ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
                     }`}>
                       Technologies Used:
