@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +33,17 @@ interface Project {
 export default function PortfolioSlider() {
   const { theme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardPosition, setCardPosition] = useState({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+  }, []);
 
   const clientProjects: Project[] = [
     {
@@ -159,6 +169,29 @@ export default function PortfolioSlider() {
     setCurrentIndex(index);
   };
 
+  // Magnetic hover effect for portfolio cards (desktop only, no reduced motion)
+  const handleCardMouseMove = (e: React.MouseEvent) => {
+    if (isTouchDevice || prefersReducedMotion || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    const rotateX = (y / rect.height) * -10; // Max 10 degrees
+    const rotateY = (x / rect.width) * 10;
+    
+    setCardPosition({
+      x: x * 0.1,
+      y: y * 0.1,
+      rotateX,
+      rotateY
+    });
+  };
+
+  const handleCardMouseLeave = () => {
+    if (isTouchDevice || prefersReducedMotion) return;
+    setCardPosition({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
+  };
+
   return (
     <section id="portfolio" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
@@ -265,9 +298,23 @@ export default function PortfolioSlider() {
             >
               {clientProjects.map((project, index) => (
                 <div key={project.id} className="w-full flex-shrink-0">
-                  <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 ${
-                    theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-                  } rounded-2xl shadow-2xl`}>
+                  <div 
+                    ref={index === currentIndex ? cardRef : null}
+                    onMouseMove={index === currentIndex && !isTouchDevice && !prefersReducedMotion ? handleCardMouseMove : undefined}
+                    onMouseLeave={index === currentIndex && !isTouchDevice && !prefersReducedMotion ? handleCardMouseLeave : undefined}
+                    className={`grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 ${
+                      theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+                    } rounded-2xl shadow-2xl transition-transform ease-out ${
+                      isTouchDevice || prefersReducedMotion ? 'duration-0' : 'duration-300'
+                    }`}
+                    style={{
+                      transform: (index === currentIndex && !isTouchDevice && !prefersReducedMotion)
+                        ? `translate(${cardPosition.x}px, ${cardPosition.y}px) rotateX(${cardPosition.rotateX}deg) rotateY(${cardPosition.rotateY}deg)`
+                        : 'none',
+                      transformStyle: (isTouchDevice || prefersReducedMotion) ? 'flat' : 'preserve-3d',
+                      perspective: (isTouchDevice || prefersReducedMotion) ? 'none' : '1000px'
+                    }}
+                  >
                     {/* Project Image */}
                     <div className="relative">
                       <div className="relative w-full h-80 overflow-hidden rounded-xl group">
