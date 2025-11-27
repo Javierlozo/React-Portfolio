@@ -115,7 +115,7 @@ export default function CertificationsShowcase() {
 
               {/* Certificate Info */}
               <div className="p-4 sm:p-6">
-                <h3 className={`text-base sm:text-lg font-bold mb-2 line-clamp-2 ${
+                <h3 className={`text-base sm:text-lg font-light mb-2 line-clamp-2 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   {cert.title}
@@ -202,7 +202,7 @@ export default function CertificationsShowcase() {
 
               {/* Certificate Details */}
               <div className="p-4 sm:p-8 overflow-y-auto max-h-[calc(95vh-12rem)] sm:max-h-[calc(90vh-16rem)]">
-                <h3 className={`text-xl sm:text-2xl font-bold mb-3 sm:mb-4 ${
+                <h3 className={`text-xl sm:text-2xl font-thin mb-3 sm:mb-4 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   {selectedCert.title}
@@ -230,7 +230,7 @@ export default function CertificationsShowcase() {
 
                 {/* Skills */}
                 <div className="mb-4 sm:mb-6">
-                  <h4 className={`text-base sm:text-lg font-semibold mb-2 sm:mb-3 ${
+                  <h4 className={`text-base sm:text-lg font-light mb-2 sm:mb-3 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>
                     Skills Covered:

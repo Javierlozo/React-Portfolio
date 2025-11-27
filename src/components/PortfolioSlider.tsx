@@ -302,7 +302,7 @@ export default function PortfolioSlider() {
 
                     {/* Project Info */}
                     <div className="flex flex-col justify-center">
-                      <h3 className={`text-xl sm:text-2xl md:text-3xl font-bold mb-4 ${
+                      <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         {project.title}
