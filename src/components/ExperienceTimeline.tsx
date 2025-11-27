@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,6 +31,67 @@ interface Experience {
 
 export default function ExperienceTimeline() {
   const { theme } = useTheme();
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const [lineProgress, setLineProgress] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10% 0px -10% 0px',
+      threshold: 0.2
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        const index = parseInt(entry.target.getAttribute('data-index') || '0');
+        if (entry.isIntersecting) {
+          setVisibleCards((prev) => new Set(prev).add(index));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    // Timeline line progress animation (skip if reduced motion)
+    const updateLineProgress = () => {
+      if (prefersReducedMotion || !timelineRef.current) {
+        setLineProgress(1); // Show full line immediately
+        return;
+      }
+      const timelineRect = timelineRef.current.getBoundingClientRect();
+      const scrollTop = window.scrollY;
+      const timelineTop = timelineRect.top + scrollTop;
+      const timelineHeight = timelineRect.height;
+      const viewportHeight = window.innerHeight;
+      
+      const scrollProgress = Math.max(0, Math.min(1, 
+        (scrollTop + viewportHeight - timelineTop) / timelineHeight
+      ));
+      setLineProgress(scrollProgress);
+    };
+
+    window.addEventListener('scroll', updateLineProgress, { passive: true });
+    updateLineProgress();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', updateLineProgress);
+    };
+  }, [prefersReducedMotion]);
 
   const experiences: Experience[] = [
     {
@@ -151,16 +212,41 @@ export default function ExperienceTimeline() {
         </div>
 
         {/* Timeline */}
-        <div className="relative">
+        <div className="relative" ref={timelineRef}>
           {/* Timeline Line - Hidden on mobile */}
           <div className={`absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 hidden sm:block ${
             theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
-          }`}></div>
+          }`}>
+            {/* Animated progress line */}
+            <div 
+              className={`absolute top-0 left-0 w-full transition-all duration-300 ${
+                theme === 'dark' ? 'bg-gradient-to-b from-blue-500 to-cyan-500' : 'bg-gradient-to-b from-blue-600 to-cyan-600'
+              }`}
+              style={{ 
+                height: `${lineProgress * 100}%`,
+                boxShadow: `0 0 10px ${theme === 'dark' ? 'rgba(59, 130, 246, 0.5)' : 'rgba(37, 99, 235, 0.5)'}`
+              }}
+            />
+          </div>
 
           {/* Experience Items */}
           <div className="space-y-12">
             {experiences.map((exp, index) => (
-              <div key={exp.id} className="relative flex items-start">
+              <div 
+                key={exp.id} 
+                ref={(el) => { cardRefs.current[index] = el; }}
+                data-index={index}
+                className={`relative flex items-start transition-all ease-out ${
+                  prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
+                } ${
+                  visibleCards.has(index)
+                    ? 'opacity-100 translate-x-0'
+                    : 'opacity-0 translate-x-4 sm:translate-x-8'
+                }`}
+                style={{ 
+                  transitionDelay: prefersReducedMotion || !visibleCards.has(index) ? '0ms' : `${index * 100}ms`
+                }}
+              >
                 {/* Year Label - Hidden on mobile */}
                 <div className={`absolute -left-2 sm:-left-2 top-6 text-xs font-light tracking-widest hidden sm:block ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-500'

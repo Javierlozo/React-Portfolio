@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import ScrollProgress from "../components/ScrollProgress";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import StructuredData from "../components/StructuredData";
 import { ReactNode } from "react";
@@ -121,6 +122,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${inter.className} min-h-screen transition-colors duration-300`}>
         <StructuredData />
         <ThemeProvider>
+          <ScrollProgress />
           <Navbar />
           <main>{children}</main>
           <Footer />
