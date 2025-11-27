@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import ScrollProgress from "../components/ScrollProgress";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import StructuredData from "../components/StructuredData";
+import ConsoleMessage from "../components/ConsoleMessage";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -115,12 +116,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#1f2937" />
         <meta name="msapplication-TileColor" content="#1f2937" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${inter.className} min-h-screen transition-colors duration-300`}>
         <StructuredData />
+        <ConsoleMessage />
         <ThemeProvider>
           <ScrollProgress />
           <Navbar />
