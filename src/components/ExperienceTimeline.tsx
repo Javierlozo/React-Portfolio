@@ -198,7 +198,7 @@ export default function ExperienceTimeline() {
     <section id="experience" className={`py-16 sm:py-20 w-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="w-full px-3 sm:px-6 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-12 sm:mb-16 relative z-10">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
