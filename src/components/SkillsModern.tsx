@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReact, faJs, faPython, faAws, faNodeJs, faHtml5, faCss3Alt, faGitAlt, faDocker } from "@fortawesome/free-brands-svg-icons";
@@ -16,6 +16,46 @@ interface SkillCategory {
 
 export default function SkillsModern() {
   const { theme } = useTheme();
+  const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
+  const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  // Intersection Observer for scroll-triggered animations - card by card reveal
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -20% 0px", // More aggressive threshold for sequential reveal
+      threshold: [0, 0.25, 0.5, 0.75, 1] // Multiple thresholds for smoother transitions
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        const cardId = entry.target.getAttribute('data-card-id');
+        if (cardId && entry.isIntersecting && entry.intersectionRatio > 0.25) {
+          setVisibleCards((prev) => {
+            const newSet = new Set(prev);
+            newSet.add(cardId);
+            return newSet;
+          });
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all category cards after a short delay to ensure refs are set
+    const timeoutId = setTimeout(() => {
+      Object.values(cardRefs.current).forEach((ref) => {
+        if (ref) {
+          observer.observe(ref);
+        }
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, []);
 
   const skillCategories: SkillCategory[] = [
     {
@@ -73,7 +113,7 @@ export default function SkillsModern() {
     <section id="skills" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-1">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
@@ -86,31 +126,66 @@ export default function SkillsModern() {
           </p>
         </div>
 
-        {/* All Skills Display */}
-        <div className="space-y-12 sm:space-y-16">
-          {skillCategories.map((category) => (
-            <div key={category.id} className="space-y-6 sm:space-y-8">
-              {/* Category Header */}
-              <div className="flex items-center gap-3 sm:gap-4">
-                <div className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  <FontAwesomeIcon icon={category.icon} className="text-2xl sm:text-3xl" />
-                </div>
-                <div>
-                  <h3 className={`text-xl sm:text-2xl font-thin ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
-                    {category.title}
-                  </h3>
-                  <p className={`text-sm sm:text-base md:text-lg ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                  }`}>
-                    {category.description}
-                  </p>
-                </div>
-              </div>
+        {/* All Skills Display - Cards Stacking on Top, Previous Fade Out */}
+        <div className="relative">
+          {skillCategories.map((category, index) => {
+            const isVisible = visibleCards.has(category.id);
+            const delay = 200;
+            // Check if a later card is visible (this card should fade out)
+            const hasLaterVisibleCard = skillCategories.slice(index + 1).some(cat => visibleCards.has(cat.id));
+            // Higher z-index for cards that appear later (they stack on top)
+            const zIndex = isVisible ? (index + 10) : (index + 1);
+            
+            return (
+              <div
+                key={category.id}
+                ref={(el) => {
+                  cardRefs.current[category.id] = el;
+                }}
+                data-card-id={category.id}
+                className={`sticky top-20 sm:top-24 min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center transition-all duration-1000 ease-out mb-8 ${
+                  isVisible
+                    ? 'opacity-100 translate-y-0 scale-100'
+                    : hasLaterVisibleCard
+                    ? 'opacity-0 translate-y-0 scale-95 pointer-events-none'
+                    : 'opacity-0 translate-y-12 scale-95'
+                }`}
+                style={{
+                  transitionDelay: isVisible ? `${delay}ms` : '0ms',
+                  zIndex: zIndex
+                }}
+              >
+                {/* Complete Category Card - Header + All Skills */}
+                <div className={`flex flex-col p-8 sm:p-12 rounded-3xl border-2 transition-all duration-700 shadow-2xl backdrop-blur-sm ${
+                  theme === 'dark' 
+                    ? 'bg-gray-800/95 border-gray-700 hover:border-gray-600 hover:shadow-2xl' 
+                    : 'bg-white/95 border-gray-200 hover:border-gray-300 hover:shadow-2xl'
+                } ${isVisible ? 'scale-100 shadow-2xl' : 'scale-95 shadow-none'}`}>
+                  {/* Category Header */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+                    <div className={`p-4 sm:p-5 rounded-2xl ${
+                      theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-900'
+                    } transition-all duration-500 ${isVisible ? 'scale-100 rotate-0' : 'scale-90 -rotate-6'}`}>
+                      <FontAwesomeIcon icon={category.icon} className="text-3xl sm:text-4xl" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-3 sm:mb-4 transition-all duration-500 ${
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      } ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'}`}>
+                        {category.title}
+                      </h3>
+                      <p className={`text-base sm:text-lg md:text-xl transition-all duration-700 ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      } ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'}`} style={{
+                        transitionDelay: isVisible ? '300ms' : '0ms'
+                      }}>
+                        {category.description}
+                      </p>
+                    </div>
+                  </div>
 
-              {/* Skills Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                  {/* Skills Grid - All Skills in One Card */}
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                 {category.skills.map((skill) => {
                   const getSkillIcon = (skillName: string) => {
                     switch (skillName.toLowerCase()) {
@@ -159,105 +234,135 @@ export default function SkillsModern() {
                     }
                   };
 
+                  const skillIndex = category.skills.indexOf(skill);
+                  const skillDelay = skillIndex * 80; // Increased delay for more sequential feel
+                  const skillVisible = isVisible;
+                  
                   return (
                     <div
                       key={skill}
-                      className={`flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-lg border transition-all duration-300 ${
+                      className={`flex items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl border-2 transition-all duration-700 ease-out ${
                         theme === 'dark' 
-                          ? 'bg-transparent border-gray-700 hover:border-gray-600' 
-                          : 'bg-transparent border-gray-200 hover:border-gray-300'
+                          ? 'bg-gray-800/30 border-gray-700 hover:border-gray-600 hover:bg-gray-800/50 hover:scale-105' 
+                          : 'bg-gray-50/50 border-gray-200 hover:border-gray-300 hover:bg-gray-50 hover:scale-105'
+                      } ${
+                        skillVisible 
+                          ? 'opacity-100 translate-y-0 scale-100' 
+                          : 'opacity-0 translate-y-6 scale-90'
                       }`}
+                      style={{
+                        transitionDelay: skillVisible ? `${delay + skillDelay}ms` : '0ms'
+                      }}
                     >
-                      <div className={`${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                        <FontAwesomeIcon icon={getSkillIcon(skill)} className="text-base sm:text-lg" />
+                      <div className={`transition-all duration-500 ${skillVisible ? 'scale-100 rotate-0' : 'scale-0 rotate-180'} ${
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}>
+                        <FontAwesomeIcon icon={getSkillIcon(skill)} className="text-lg sm:text-xl" />
                       </div>
-                      <span className={`text-xs sm:text-sm font-light ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                      <span className={`text-sm sm:text-base font-light ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                       }`}>
                         {skill}
                       </span>
                     </div>
                   );
                 })}
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Highlights Section */}
-        <div className={`mt-16 p-8 rounded-2xl ${
-          theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
-        }`}>
-          <h3 className={`text-2xl font-thin text-center mb-8 ${
+        {/* Highlights Section - Card by Card */}
+        <div 
+          ref={(el) => {
+            cardRefs.current['highlights'] = el;
+          }}
+          data-card-id="highlights"
+          className={`mt-4 sm:mt-6 min-h-[60vh] sm:min-h-[70vh] flex flex-col justify-center p-8 sm:p-12 rounded-3xl transition-all duration-1000 ease-out ${
+            theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
+          } ${
+            visibleCards.has('highlights')
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 translate-y-12 scale-95'
+          }`}
+        >
+          <h3 className={`text-2xl sm:text-3xl md:text-4xl font-thin text-center mb-12 sm:mb-16 transition-all duration-700 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
+          } ${
+            visibleCards.has('highlights')
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-4'
           }`}>
             Highlights
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className={`p-6 rounded-xl ${
-              theme === 'dark' ? 'bg-gray-700' : 'bg-white'
-            }`}>
-              <div className={`flex items-center gap-3 mb-3 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                <FontAwesomeIcon icon={faUsers} className="text-xl" />
-                <h4 className={`text-lg font-light ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  Client-Focused (IberiaTech Solutions)
-                </h4>
-              </div>
-              <div className={`text-sm space-y-2 ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                <p>Built bilingual websites and AI features for US and Spanish small businesses.</p>
-                <p>Increased engagement by up to 40% with responsive, modern designs.</p>
-              </div>
-            </div>
-            
-            <div className={`p-6 rounded-xl ${
-              theme === 'dark' ? 'bg-gray-700' : 'bg-white'
-            }`}>
-              <div className={`flex items-center gap-3 mb-3 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                <FontAwesomeIcon icon={faCheckCircle} className="text-xl" />
-                <h4 className={`text-lg font-light ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  Enterprise-Scale (GDNA)
-                </h4>
-              </div>
-              <div className={`text-sm space-y-2 ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                <p>Contributed to AfricaNXT mentorship platform (~1,200 users).</p>
-                <p>Improved onboarding efficiency by 60% through optimized React components.</p>
-              </div>
-            </div>
-            
-            <div className={`p-6 rounded-xl ${
-              theme === 'dark' ? 'bg-gray-700' : 'bg-white'
-            }`}>
-              <div className={`flex items-center gap-3 mb-3 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                <FontAwesomeIcon icon={faLightbulb} className="text-xl" />
-                <h4 className={`text-lg font-light ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  Career Growth
-                </h4>
-              </div>
-              <div className={`text-sm space-y-2 ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                <p>Full-stack experience with React, Next.js, AWS, Python, and AI frameworks.</p>
-                <p>Proven results: faster load times (30%) and enhanced user experiences.</p>
-                <p>Expanding expertise through SANS Cyber Academy.</p>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+            {[
+              {
+                icon: faUsers,
+                title: "Client-Focused (IberiaTech Solutions)",
+                content: [
+                  "Built bilingual websites and AI features for US and Spanish small businesses.",
+                  "Increased engagement by up to 40% with responsive, modern designs."
+                ]
+              },
+              {
+                icon: faCheckCircle,
+                title: "Enterprise-Scale (GDNA)",
+                content: [
+                  "Contributed to AfricaNXT mentorship platform (~1,200 users).",
+                  "Improved onboarding efficiency by 60% through optimized React components."
+                ]
+              },
+              {
+                icon: faLightbulb,
+                title: "Career Growth",
+                content: [
+                  "Full-stack experience with React, Next.js, AWS, Python, and AI frameworks.",
+                  "Proven results: faster load times (30%) and enhanced user experiences.",
+                  "Expanding expertise through SANS Cyber Academy."
+                ]
+              }
+            ].map((highlight, index) => {
+              const highlightVisible = visibleCards.has('highlights');
+              const highlightDelay = index * 200;
+              
+              return (
+                <div
+                  key={index}
+                  className={`p-8 sm:p-10 rounded-2xl border-2 transition-all duration-700 ease-out shadow-lg ${
+                    theme === 'dark' ? 'bg-gray-700 border-gray-600 hover:border-gray-500' : 'bg-white border-gray-200 hover:border-gray-300'
+                  } ${
+                    highlightVisible
+                      ? 'opacity-100 translate-y-0 scale-100 shadow-xl'
+                      : 'opacity-0 translate-y-8 scale-90 shadow-none'
+                  }`}
+                  style={{
+                    transitionDelay: highlightVisible ? `${highlightDelay}ms` : '0ms'
+                  }}
+                >
+                  <div className={`flex items-center gap-3 mb-3 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    <FontAwesomeIcon icon={highlight.icon} className="text-xl" />
+                    <h4 className={`text-lg font-light ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {highlight.title}
+                    </h4>
+                  </div>
+                  <div className={`text-sm space-y-2 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    {highlight.content.map((text, i) => (
+                      <p key={i}>{text}</p>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
