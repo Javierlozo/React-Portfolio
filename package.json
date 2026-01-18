@@ -1,7 +1,7 @@
 {
   "name": "react-portfolio",
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "version": "0.1.0",
   "private": true,
@@ -17,7 +17,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@material-tailwind/react": "^2.0.1",
-    "@types/node": "^18.0.0",
+    "@types/node": "^24.0.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "aos": "^2.3.4",
