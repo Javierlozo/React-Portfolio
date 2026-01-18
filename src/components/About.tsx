@@ -4,7 +4,7 @@ import { useTheme } from "../contexts/ThemeContext";
 
 export default function About() {
   const { theme } = useTheme();
-  const [visibleElements, setVisibleElements] = useState<Set<number>>(new Set([0, 1, 2, 3, 4])); // Start with all visible
+  const [visibleElements, setVisibleElements] = useState<Set<number>>(new Set([0, 1, 2, 3])); // Start with all visible
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const elementRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -90,7 +90,13 @@ export default function About() {
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
           >
-            I&apos;m a full-stack software engineer based in Charleston, SC, with a passion for building intelligent, secure, and scalable web applications.
+            I&apos;m a software engineer with a strong focus on frontend development, cloud technologies, and cybersecurity. I recently earned the{" "}
+            <span className={`font-normal ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              GIAC Foundational Cybersecurity Technologies (GFACT) certification
+            </span>{" "}
+            through the SANS Institute, validating my knowledge across networking, operating systems, cloud platforms, web technologies, and core security principles.
           </p>
           
           <p 
@@ -105,7 +111,12 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(1) ? '0ms' : '100ms' }}
           >
-            Through my company, IberiaTech Solutions, I help small businesses in the US and Spain expand their digital presence with AI-powered and bilingual websites.
+            I bring together real-world software engineering experience and formal security training to design and build applications that are{" "}
+            <span className={`font-normal ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              secure by design, scalable, and production-ready
+            </span>.
           </p>
           
           <p 
@@ -120,79 +131,34 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(2) ? '0ms' : '200ms' }}
           >
-            I also contract with Global Digital Needs Agency (GDNA), contributing to AWS-powered platforms such as AfricaNXT, a mentorship platform serving over 1,200 users.
+            In addition to traditional web development, I work with{" "}
+            <span className={`font-normal ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              AI-enabled features, including LLM integrations and automation workflows
+            </span>
+            , always with a security-aware mindset around data handling, access control, and responsible AI usage.
           </p>
           
-          {/* Achievement Highlight */}
-          <div 
+          <p 
             ref={(el) => { elementRefs.current[3] = el; }}
             data-index="3"
-            className={`mt-12 sm:mt-16 p-6 sm:p-8 border-l transition-all ease-out ${
+            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${
-              theme === 'dark' 
-                ? 'border-gray-700 bg-transparent' 
-                : 'border-gray-200 bg-transparent'
-            } ${
+            } ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} ${
               visibleElements.has(3)
-                ? 'opacity-100 translate-x-0'
-                : 'opacity-0 -translate-x-3 sm:-translate-x-6'
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
-            <h4 className={`text-xs sm:text-sm font-light mb-2 sm:mb-3 tracking-widest uppercase ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            I&apos;m continuously expanding my skills at the intersection of{" "}
+            <span className={`font-normal ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              Recent Achievement
-            </h4>
-            <p className={`text-sm sm:text-base leading-relaxed ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              <span className={`font-light ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                Accepted into Fall 2025 SANS Cyber Academy
-              </span>{" "}
-              — Training with industry experts to enhance security knowledge and earn GIAC certifications 
-              in incident response, threat detection, and cyber defense.
-            </p>
-          </div>
-
-          {/* Personal Touch */}
-          <div 
-            ref={(el) => { elementRefs.current[4] = el; }}
-            data-index="4"
-            className={`mt-8 sm:mt-12 p-4 sm:p-6 rounded-xl transition-all ease-out ${
-              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${
-              theme === 'dark' 
-                ? 'bg-gray-800/50 border border-gray-700' 
-                : 'bg-gray-50/50 border border-gray-200'
-            } ${
-              visibleElements.has(4)
-                ? 'opacity-100 translate-y-0 scale-100'
-                : 'opacity-0 translate-y-3 sm:translate-y-6 scale-98 sm:scale-95'
-            }`}
-            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '400ms' }}
-          >
-            <p className={`text-sm sm:text-base leading-relaxed text-center ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              Outside of code, I love exploring{" "}
-              <span className={`font-light ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                AI, cybersecurity, and mentoring other developers
-              </span>
-              .{" "}
-              <span className={`font-light ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                Winner of HackOps 2024
-              </span>{" "}
-              and passionate about bridging tech between the US and Spain.
-            </p>
-          </div>
+              software engineering, cloud security, and applied AI
+            </span>.
+          </p>
           
         </div>
       </div>

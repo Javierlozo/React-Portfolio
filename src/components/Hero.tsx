@@ -81,6 +81,12 @@ export default function Hero() {
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToContact = () => {
+    document
+      .getElementById("contact")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section
       className={`min-h-screen flex flex-col items-center justify-center relative ${
@@ -119,7 +125,7 @@ export default function Hero() {
               </span>
             </h1>
 
-            {/* Title - Fade in from bottom */}
+            {/* Headline - Fade in from bottom */}
             <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
             } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
@@ -127,11 +133,11 @@ export default function Hero() {
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
-              Full Stack Developer & AI Specialist
+              Software Engineer | Security-Focused | AI-Enabled | GIAC GFACT Certified
             </h2>
 
-            {/* Personal Value Proposition */}
-            <div className={`max-w-lg space-y-3 transition-all ease-out ${
+            {/* Sub-headline */}
+            <div className={`max-w-lg transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
             } ${
               paragraphsVisible 
@@ -141,24 +147,7 @@ export default function Hero() {
               <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                Passionate about building{" "}
-                <span className={`font-normal ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  modern, secure, and AI-driven web experiences
-                </span>
-                .
-              </p>
-              <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                I create{" "}
-                <span className={`font-normal ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  scalable bilingual websites and cloud solutions
-                </span>{" "}
-                that empower teams and reach global audiences.
+                Building secure, cloud-native web applications with React, Next.js, AWS, and AI-powered features.
               </p>
             </div>
 
@@ -187,17 +176,29 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* CTA Button - Minimalist design */}
-            <button
-              onClick={scrollToPortfolio}
-              className={`px-8 sm:px-12 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border w-fit ${
-                theme === 'dark' 
-                  ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
-                  : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
-              }`}
-            >
-              View Work
-            </button>
+            {/* CTA Buttons - Minimalist design */}
+            <div className="flex flex-wrap gap-4">
+              <button
+                onClick={scrollToPortfolio}
+                className={`px-8 sm:px-12 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                  theme === 'dark' 
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                View My Work
+              </button>
+              <button
+                onClick={scrollToContact}
+                className={`px-8 sm:px-12 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                  theme === 'dark' 
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                Contact Me
+              </button>
+            </div>
           </div>
 
           {/* Right Side - Profile Image with magnetic effect */}

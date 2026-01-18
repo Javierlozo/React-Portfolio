@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 // Import certification images
+import gfact from "@/src/public/certifications/GFACT.png";
 import coursera from "@/src/public/certifications/Coursera.png";
 import systemAdm from "@/src/public/certifications/System Adm.png";
 import thm1 from "@/src/public/certifications/THM-LJHNPB9YI3.png";
@@ -29,6 +30,16 @@ export default function CertificationsShowcase() {
   const certifications: Certification[] = [
     {
       id: 1,
+      title: "GIAC Foundational Cybersecurity Technologies (GFACT)",
+      issuer: "SANS Institute",
+      date: "January 2026",
+      image: gfact,
+      verifyLink: "https://www.credly.com/badges/e82ec125-f253-430a-9daa-b0146f3b056b",
+      description: "Comprehensive certification validating foundational knowledge across networking, operating systems, cloud platforms, web technologies, and core security principles. Demonstrates expertise in cybersecurity fundamentals essential for secure software development.",
+      skills: ["Cybersecurity", "Networking", "Operating Systems", "Cloud Security", "Web Technologies", "Security Principles"]
+    },
+    {
+      id: 2,
       title: "Introduction to AI",
       issuer: "Google (via Coursera)",
       date: "2025",
@@ -38,7 +49,7 @@ export default function CertificationsShowcase() {
       skills: ["Artificial Intelligence", "Machine Learning", "AI Applications", "Data Science", "Neural Networks"]
     },
     {
-      id: 2,
+      id: 3,
       title: "Cybersecurity - System Administration Certificate Program",
       issuer: "Purdue University and Ivy Tech",
       date: "2023",
@@ -48,7 +59,7 @@ export default function CertificationsShowcase() {
       skills: ["Cybersecurity", "System Administration", "Network Security", "Infrastructure", "Security Management"]
     },
     {
-      id: 3,
+      id: 4,
       title: "Complete Beginner - TryHackMe",
       issuer: "TryHackMe",
       date: "2023",
@@ -58,7 +69,7 @@ export default function CertificationsShowcase() {
       skills: ["Cybersecurity", "Networking", "Web Security", "Ethical Hacking", "Penetration Testing"]
     },
     {
-      id: 4,
+      id: 5,
       title: "Pre Security - TryHackMe",
       issuer: "TryHackMe",
       date: "2023",
