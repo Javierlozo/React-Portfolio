@@ -5,8 +5,8 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Luis Lozoya",
-    "jobTitle": "Full Stack Developer & AI Engineer",
-    "description": "Senior Full Stack Engineer & AI Specialist with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
+    "jobTitle": "Software Engineer | Security-Focused | AI-Enabled",
+    "description": "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
     "url": "https://javierlozo.github.io",
     "image": "https://javierlozo.github.io/og-image.png",
     "sameAs": [
@@ -22,7 +22,6 @@ export default function StructuredData() {
       "Python",
       "AWS",
       "Node.js",
-      "Machine Learning",
       "Artificial Intelligence",
       "Web Development",
       "Cloud Architecture",
@@ -44,7 +43,6 @@ export default function StructuredData() {
         "JavaScript",
         "TypeScript",
         "Node.js",
-        "Machine Learning",
         "AI Integration"
       ]
     },

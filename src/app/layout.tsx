@@ -12,18 +12,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
-    default: "Luis Lozoya | Full Stack Developer & AI Engineer",
+    default: "Luis Lozoya — Software Engineer | Security-Focused | AI-Enabled",
     template: "%s | Luis Lozoya"
   },
-  description: "Senior Full Stack Engineer & AI Specialist with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration. Building scalable web applications and AI-powered solutions for businesses worldwide.",
+  description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration. Building scalable web applications and AI-powered solutions for businesses worldwide.",
   keywords: [
     "Full Stack Developer",
     "React Developer",
     "Next.js Developer", 
     "AWS Engineer",
     "Python Developer",
-    "AI Engineer",
-    "Machine Learning",
     "Web Development",
     "Cloud Architecture",
     "JavaScript",
@@ -52,8 +50,8 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Luis Lozoya | Full Stack Developer & AI Engineer",
-    description: "Senior Full Stack Engineer & AI Specialist with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
+    title: "Luis Lozoya — Software Engineer | Security-Focused | AI-Enabled",
+    description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
     url: 'https://javierlozo.github.io',
     siteName: 'Luis Lozoya Portfolio',
     images: [
@@ -61,7 +59,7 @@ export const metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Luis Lozoya - Full Stack Developer & AI Engineer',
+        alt: 'Luis Lozoya — Software Engineer | Security-Focused | AI-Enabled',
       },
     ],
     locale: 'en_US',
@@ -69,8 +67,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Luis Lozoya | Full Stack Developer & AI Engineer",
-    description: "Senior Full Stack Engineer & AI Specialist with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
+    title: "Luis Lozoya — Software Engineer | Security-Focused | AI-Enabled",
+    description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
     images: ['/og-image.png'],
     creator: '@javierlozo',
   },

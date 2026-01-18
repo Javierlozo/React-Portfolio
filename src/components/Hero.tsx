@@ -90,7 +90,7 @@ export default function Hero() {
   return (
     <section
       className={`min-h-screen flex flex-col items-center justify-center relative ${
-        theme === 'dark' ? 'bg-black' : 'bg-white'
+        theme === 'dark' ? 'bg-transparent' : 'bg-transparent'
       }`}
       id="hero"
     >
@@ -218,7 +218,7 @@ export default function Hero() {
             >
               <Image
                 src={photo}
-                alt="Luis Lozoya - Full Stack Developer & AI Specialist"
+                alt="Luis Lozoya — Software Engineer | Security-Focused | AI-Enabled"
                 className="rounded-full object-cover border border-gray-200 dark:border-gray-700 transition-all duration-500"
                 width={256}
                 height={256}
