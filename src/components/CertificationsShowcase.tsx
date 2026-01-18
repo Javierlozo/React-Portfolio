@@ -45,8 +45,8 @@ export default function CertificationsShowcase() {
       date: "2025",
       image: coursera,
       verifyLink: "https://www.coursera.org/account/accomplishments/verify/ABC123",
-      description: "Comprehensive program covering AI fundamentals, machine learning concepts, and practical applications of artificial intelligence.",
-      skills: ["Artificial Intelligence", "Machine Learning", "AI Applications", "Data Science", "Neural Networks"]
+      description: "Comprehensive program covering AI fundamentals and practical applications of artificial intelligence.",
+      skills: ["Artificial Intelligence", "AI Applications", "Data Science"]
     },
     {
       id: 3,

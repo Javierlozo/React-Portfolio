@@ -52,14 +52,14 @@ export default function ConsoleMessage() {
 
     // Compact modern layout
     console.log(
-      `%c LUIS LOZOYA %c\n%cFull Stack Developer & AI Specialist\n`,
+      `%c LUIS LOZOYA %c\n%cFull Stack Developer\n`,
       titleStyle,
       "",
       subtitleStyle
     );
 
     console.log(
-      `%cTECH%c React • Next.js • TypeScript • AWS • Python • AI/ML`,
+      `%cTECH%c React • Next.js • TypeScript • AWS • Python • AI Integration`,
       sectionHeaderStyle,
       textStyle
     );
