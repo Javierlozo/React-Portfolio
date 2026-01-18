@@ -121,6 +121,7 @@ export default function ExperienceTimeline() {
       description: "Leading end-to-end development of web applications using Next.js 14, React, and AWS services. Collaborating with external engineering teams and conducting code reviews while delivering scalable solutions.",
       achievements: [
         "Delivered React components and AWS Cognito integration for AfricaNXT (mentorship platform, ~1,200 users)",
+        "Applied security-aware practices in authentication, authorization, and cloud configuration aligned with industry best practices",
         "Coordinated sprints and code reviews with cross-functional teams to ensure consistent delivery",
         "Partnered with design and product stakeholders to align technical work with business goals",
         "Built database infrastructure using Squid AI, supporting scalable data flows",

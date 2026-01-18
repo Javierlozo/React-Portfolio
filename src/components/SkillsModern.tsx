@@ -87,7 +87,7 @@ export default function SkillsModern() {
       title: "Security & Compliance",
       icon: faShieldAlt,
       description: "Enterprise-grade security and compliance implementations",
-      skills: ["Cybersecurity", "Authentication", "Authorization", "SOC 2", "GDPR", "Data Protection"],
+      skills: ["Cybersecurity", "Authentication", "Authorization", "Data Protection"],
       color: "red"
     },
     {
@@ -100,10 +100,10 @@ export default function SkillsModern() {
     },
     {
       id: "ai",
-      title: "AI & Machine Learning",
+      title: "AI & Automation",
       icon: faRocketSolid,
       description: "AI-powered solutions and intelligent automation",
-      skills: ["Machine Learning", "AI Integration", "LangChain", "OpenAI", "Prompt Engineering", "Natural Language Processing"],
+      skills: ["AI Integration", "LangChain", "OpenAI", "Prompt Engineering"],
       color: "indigo"
     }
   ];
@@ -156,7 +156,7 @@ export default function SkillsModern() {
                 }}
               >
                 {/* Complete Category Card - Header + All Skills */}
-                <div className={`flex flex-col p-8 sm:p-12 rounded-3xl border-2 transition-all duration-700 shadow-2xl backdrop-blur-sm ${
+                <div className={`flex flex-col p-8 sm:p-12 rounded-3xl border-2 transition-all duration-700 shadow-2xl backdrop-blur-sm sm:h-[400px] ${
                   theme === 'dark' 
                     ? 'bg-gray-800/95 border-gray-700 hover:border-gray-600 hover:shadow-2xl' 
                     : 'bg-white/95 border-gray-200 hover:border-gray-300 hover:shadow-2xl'
@@ -199,7 +199,6 @@ export default function SkillsModern() {
                       case 'docker': return faDocker;
                       case 'kubernetes': return faCog;
                       case 'git': return faGitAlt;
-                      case 'machine learning': return faBrain;
                       case 'data analytics': return faChartLine;
                       case 'ai integration': return faLightbulb;
                       case 'authentication': return faLock;
@@ -222,7 +221,6 @@ export default function SkillsModern() {
                       case 'langchain': return faBrain;
                       case 'openai': return faBrain;
                       case 'prompt engineering': return faLightbulb;
-                      case 'natural language processing': return faBrain;
                       case 'cybersecurity': return faShieldAlt;
                       case 'authorization': return faLock;
                       case 'soc 2': return faCheckCircle;

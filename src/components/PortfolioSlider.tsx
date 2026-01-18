@@ -123,7 +123,7 @@ export default function PortfolioSlider() {
     {
       id: 3,
       title: "YouTube GPT Creator (Independent Project)",
-      description: "Developed an intelligent AutoGPT application to automate YouTube content workflows, reducing manual content creation time by ~40%. Utilized Python and LangChain to streamline content generation processes.",
+      description: "Developed an AI-assisted automation tool using Python and LangChain to streamline YouTube content workflows, reducing manual effort by ~40%.",
       techStack: ["Python", "LangChain"],
       image: web3,
       codeLink: "https://github.com/Javierlozo/langchain-autogpt",
