@@ -196,7 +196,7 @@ export default function ExperienceTimeline() {
   ];
 
   return (
-    <section id="experience" className={`py-16 sm:py-20 w-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <section id="experience" className={`py-16 sm:py-20 w-full ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
       <div className="w-full px-3 sm:px-6 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 relative z-10">

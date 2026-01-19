@@ -81,7 +81,7 @@ export default function CertificationsShowcase() {
   ];
 
   return (
-    <section id="certifications" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <section id="certifications" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
       <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
