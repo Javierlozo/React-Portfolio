@@ -7,7 +7,7 @@ export default function Footer() {
   const { theme } = useTheme();
   
   return (
-    <footer className={`py-16 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <footer className={`py-16 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="text-center">
           {/* Minimalist Header */}
