@@ -110,7 +110,7 @@ export default function SkillsModern() {
 
 
   return (
-    <section id="skills" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}>
+    <section id="skills" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
       <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-0 relative z-10">
@@ -278,7 +278,7 @@ export default function SkillsModern() {
             cardRefs.current['highlights'] = el;
           }}
           data-card-id="highlights"
-          className={`mt-4 sm:mt-6 min-h-[60vh] sm:min-h-[70vh] flex flex-col justify-center p-8 sm:p-12 rounded-3xl transition-all duration-1000 ease-out ${
+          className={`mt-4 sm:mt-6 min-h-[60vh] sm:min-h-[45vh] flex flex-col justify-center p-8 sm:p-12 rounded-3xl transition-all duration-1000 ease-out ${
             theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
           } ${
             visibleCards.has('highlights')
