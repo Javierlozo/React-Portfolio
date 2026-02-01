@@ -5,7 +5,7 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Luis Lozoya",
-    "jobTitle": "Software Engineer | Security-Focused | AI-Enabled",
+    "jobTitle": "Software Engineer. Security focused, AI enabled.",
     "description": "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
     "url": "https://javierlozo.github.io",
     "image": "https://javierlozo.github.io/og-image.png",

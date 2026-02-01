@@ -28,6 +28,18 @@ interface Project {
   liveLink?: string;
   codeLink?: string;
   featured?: boolean;
+  /** Micro-case study: what challenge or need this addressed */
+  problem?: string;
+  /** Micro-case study: your approach (design, architecture, implementation) */
+  approach?: string;
+  /** Micro-case study: measurable or qualitative outcome */
+  outcome?: string;
+  /** Your role(s): e.g. "Design, backend, deployment" */
+  role?: string;
+  /** Case study: solution delivered (for client work) */
+  solution?: string;
+  /** Case study: measurable impact (for client work) */
+  impact?: string;
 }
 
 export default function PortfolioSlider() {
@@ -48,112 +60,156 @@ export default function PortfolioSlider() {
   const clientProjects: Project[] = [
     {
       id: 10,
-      title: "AfricaNXT — Global Mentorship Platform (via GDNA)",
+      title: "AfricaNXT: Global Mentorship Platform (via GDNA)",
       description: "Contributing to a mentorship platform currently onboarding ~1,200 users. Delivered React-based UI components and AWS Cognito authentication system to improve user registration and onboarding.",
       techStack: ["React 18", "AWS CDK", "Cognito", "Squid Cloud", "TypeScript", "SES"],
       image: africanxt,
       liveLink: "https://app.africanxt.com/unga",
       featured: true,
+      problem: "Mentorship platform needed secure, scalable onboarding UX for ~1,200 users.",
+      solution: "Built React UI components and AWS Cognito auth, with scalable backend and CDK-managed infrastructure.",
+      impact: "Onboarding efficiency improved by 60%; secure registration and sign-in flow in production.",
     },
     {
       id: 8,
-      title: "GSeay, Inc. — Construction Website (via GDNA)",
+      title: "GSeay, Inc.: Construction Website (via GDNA)",
       description: "Delivered a responsive website with Next.js and AWS Amplify integration, completed 2 weeks ahead of schedule.",
       techStack: ["Next.js", "AWS Amplify", "TypeScript"],
       image: gseay,
       liveLink: "https://www.gseayinc.com/",
+      problem: "Construction company needed a professional, responsive site with reliable hosting.",
+      solution: "Built and deployed a Next.js site with AWS Amplify; clean layout and fast load times.",
+      impact: "Delivered 2 weeks ahead of schedule; live site supports lead generation and brand presence.",
     },
     {
       id: 5,
-      title: "LESS USA — Digital Platform (via GDNA)",
+      title: "LESS USA: Digital Platform (via GDNA)",
       description: "Enhanced platform performance by 30% and optimized user experience. Deployed with AWS Amplify.",
       techStack: ["Next.js", "AWS", "Amplify"],
       image: lessUSA,
       liveLink: "https://www.less-usa.com/",
+      problem: "Platform needed better performance and a smoother user experience.",
+      solution: "Optimized front-end and deployment; deployed with AWS Amplify for stability and speed.",
+      impact: "Platform performance improved by 30%; clearer UX and faster page loads.",
     },
     {
       id: 6,
-      title: "Querri — Dynamic Analytics Platform (Contract Role)",
+      title: "Querri: Dynamic Analytics Platform (Contract Role)",
       description: "Built custom HubSpot CMS solutions, improved site speed by 35%, and increased mobile engagement by 40%.",
       techStack: ["HubSpot CMS", "HTML", "CSS", "JavaScript"],
       image: querri,
       liveLink: "https://querri.com/",
+      problem: "Analytics platform site needed faster load times and better mobile engagement.",
+      solution: "Built custom HubSpot CMS solutions; optimized assets and front-end code.",
+      impact: "Site speed improved by 35%; mobile engagement increased by 40%.",
     },
   ];
 
   const independentProjects: Project[] = [
     {
       id: 13,
-      title: "ShopEssentialsHub — Curated Product Recommendation Platform (Independent Project)",
-      description: "Built a modern product curation platform featuring hand-picked Amazon products across multiple categories. Includes product reviews, ratings, category filtering, and an Editor's Choice section. Features responsive design, SEO optimization, and Amazon affiliate integration for monetization.",
+      title: "ShopEssentialsHub: Curated Product Recommendation Platform",
+      description: "A modern product curation platform with hand-picked Amazon products, reviews, category filtering, and Editor's Choice. Responsive, SEO-optimized, with affiliate integration.",
       techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
       image: shopEssentialshub,
       liveLink: "https://www.shopessentialshub.com/",
       codeLink: "https://github.com/IberiaTech-Solutions/essentials-hub",
       featured: true,
+      problem: "Users needed a trusted, curated list of products by category instead of browsing generic storefronts.",
+      approach: "Designed and built the full stack: Next.js app, category and filter UX, Editor's Choice section, and Amazon affiliate integration with SEO and responsive layout.",
+      outcome: "Live site with clear categories, fast load times, and monetization path. Demonstrates full-stack and product-thinking skills.",
+      role: "Design, full-stack development, deployment (Vercel)",
     },
     {
       id: 12,
-      title: "PortfolioHub — Professional Portfolio Platform (Independent Project)",
-      description: "A personal platform for connecting with talented professionals and exploring their existing portfolios. Allows users to browse other professionals' work, discover talent, and facilitate collaborations. Designed to help find and connect with the best professionals in their fields.",
+      title: "PortfolioHub: Professional Portfolio Platform",
+      description: "A platform for discovering and connecting with professionals via their portfolios. Browse work, discover talent, and facilitate collaborations.",
       techStack: ["Next.js 15", "React 19", "TypeScript", "Supabase", "Tailwind CSS", "PLpgSQL"],
       image: portfolioHub,
       liveLink: "https://portfolio-hub-tawny.vercel.app/",
       codeLink: "https://github.com/IberiaTech-Solutions/PortfolioHub",
       featured: true,
+      problem: "No single place to discover and compare portfolios; recruiters and teams spend time hunting across LinkedIn and personal sites.",
+      approach: "Built end-to-end: auth and profiles in Supabase, PLpgSQL for queries, Next.js 15/React 19 front end. Focus on browse, search, and clear profile presentation.",
+      outcome: "Working platform where users can browse and connect with professionals. Shows backend (Supabase, SQL), front end, and product design.",
+      role: "Full-stack design, backend (Supabase/PLpgSQL), deployment",
     },
     {
       id: 11,
-      title: "IberiaTech Solutions — Bilingual Business Website (Independent Project)",
-      description: "Built a modern, bilingual business website with English/Spanish translation, AI-powered features, and responsive design that increased engagement by 40% and expanded market reach to Spanish-speaking audiences.",
+      title: "IberiaTech Solutions: Bilingual Business Website",
+      description: "Modern bilingual (EN/ES) business site with AI features and responsive design. Increased engagement and expanded reach to Spanish-speaking audiences.",
       techStack: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
       image: iberiatech,
       liveLink: "https://www.iberiatechsolutions.com/",
       codeLink: "https://github.com/IberiaTech-Solutions/iberiatech",
+      problem: "Business needed a professional, bilingual web presence and clearer way to showcase services and reach both English and Spanish markets.",
+      approach: "Designed and implemented the site with i18n, responsive layout, and AI-powered sections. Used Framer Motion for polished interactions.",
+      outcome: "~40% increase in engagement and expanded reach to Spanish-speaking audiences. Live site used for client acquisition.",
+      role: "Design, front-end development, deployment",
     },
     {
       id: 7,
-      title: "Cursor Rules Hub — AI Community Platform (Independent Project)",
-      description: "Developing a community-driven platform for AI behavior rules in Cursor Editor. Features include rule browsing, creation tools, and intelligent file pattern matching. Currently building core features and preparing for community rollout.",
+      title: "Cursor Rules Hub: AI Community Platform",
+      description: "Community-driven platform for sharing and discovering AI behavior rules for Cursor Editor. Rule browsing, creation tools, and file-pattern matching.",
       techStack: ["Next.js 14", "Supabase", "TypeScript", "Tailwind CSS"],
       image: cursorRules,
       liveLink: "https://cursor-rules-virid.vercel.app/",
       codeLink: "https://github.com/Javierlozo/cursor_rules",
+      problem: "Cursor users had no central place to find, share, or version rules; everyone was reinventing the wheel.",
+      approach: "Built a Next.js app with Supabase for storage and auth. Implemented rule CRUD, tagging, and pattern-matching logic so rules can be suggested by file type.",
+      outcome: "Live community site for browsing and contributing rules. Demonstrates full-stack work and understanding of developer tools.",
+      role: "Full-stack development, database design, deployment",
     },
     {
       id: 3,
-      title: "YouTube GPT Creator (Independent Project)",
-      description: "Developed an AI-assisted automation tool using Python and LangChain to streamline YouTube content workflows, reducing manual effort by ~40%.",
+      title: "YouTube GPT Creator",
+      description: "AI-assisted automation for YouTube content workflows using Python and LangChain, reducing manual steps in scripting and planning.",
       techStack: ["Python", "LangChain"],
       image: web3,
       codeLink: "https://github.com/Javierlozo/langchain-autogpt",
+      problem: "Content creators spend significant time on scripting, research, and planning before recording.",
+      approach: "Built a Python tool using LangChain to automate research and draft scripts from prompts. Integrated with common content workflows.",
+      outcome: "Roughly 40% reduction in manual effort for script and planning steps. Demonstrates AI/LLM integration and automation.",
+      role: "Backend, AI integration, scripting/automation",
     },
     {
       id: 1,
-      title: "Rental App (Independent Project)",
-      description: "Designed and implemented a user-friendly sports equipment rental application tailored for the Charleston, SC area, featuring real-time availability and secure transactions.",
+      title: "Rental App",
+      description: "User-friendly sports equipment rental app for the Charleston, SC area with real-time availability and secure transactions.",
       techStack: ["React", "Node.js", "AWS"],
       image: web1,
       liveLink: "https://javierlozo.github.io/Rental-App/",
       codeLink: "https://github.com/Javierlozo/Rental-App",
+      problem: "Local sports equipment rental lacked a simple way to see availability and book online.",
+      approach: "Designed and built a React front end and Node.js backend with availability logic and a clear booking flow. Deployed for demo use.",
+      outcome: "Working demo showing full-stack skills: React, Node, and deployment. Real-time availability and transaction flow.",
+      role: "Design, front-end and backend, deployment",
     },
     {
       id: 2,
-      title: "Weather App (Independent Project)",
-      description: "Developed a dynamic weather application enabling users to check real-time weather conditions across multiple cities, integrating reliable REST APIs for accurate data.",
+      title: "Weather App",
+      description: "Dynamic weather app for real-time conditions across multiple cities, powered by a reliable REST API.",
       techStack: ["React", "REST API"],
       image: web2,
       liveLink: "https://javierlozo.github.io/WeatherCheck-API/",
       codeLink: "https://github.com/Javierlozo/WeatherCheck-API",
+      problem: "Need a simple, fast way to check weather in multiple cities without switching sites or apps.",
+      approach: "Built a React SPA that consumes a weather REST API, with city search and clear display of conditions and forecasts.",
+      outcome: "Clean, functional demo of API integration and React state management. Live and open source.",
+      role: "Front-end development, API integration, deployment",
     },
     {
       id: 4,
-      title: "Old Portfolio Page (Independent Project)",
-      description: "Created an early version of my portfolio website to showcase projects and skills, built with React and Node.js, serving as a foundation for my current professional site.",
+      title: "Old Portfolio Page",
+      description: "Early portfolio site to showcase projects and skills, built with React and Node.js. Foundation for this professional site.",
       techStack: ["React", "Node.js"],
       image: web4,
       liveLink: "https://javierlozo.github.io/portfolio/",
       codeLink: "https://github.com/Javierlozo/portfolio",
+      problem: "Needed a single place to present projects and skills to recruiters and clients.",
+      approach: "Designed and built a React + Node.js portfolio with project cards and a simple, readable layout.",
+      outcome: "Served as the basis for this portfolio and demonstrated early full-stack and deployment skills.",
+      role: "Design, front-end and backend, deployment",
     },
   ];
 
@@ -233,7 +289,7 @@ export default function PortfolioSlider() {
               <p className={`text-xs sm:text-sm ${
                 theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
               }`}>
-                Delivered measurable results — from 30% faster load times to 60% higher engagement
+                Delivered measurable results: 30% faster load times to 60% higher engagement
               </p>
             </div>
             <div className="text-center">
@@ -320,7 +376,7 @@ export default function PortfolioSlider() {
                       <div className="relative w-full h-80 overflow-hidden rounded-xl group">
                         <Image
                           src={project.image}
-                          alt={`${project.title} - ${project.description}`}
+                          alt={`${project.title}, ${project.description}`}
                           fill
                           className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
                         />
@@ -347,21 +403,80 @@ export default function PortfolioSlider() {
                       </div>
                     </div>
 
-                    {/* Project Info */}
+                    {/* Project Info: Case study format */}
                     <div className="flex flex-col justify-center">
                       <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         {project.title}
                       </h3>
-                      
-                      <p className={`text-sm sm:text-base md:text-lg mb-6 leading-relaxed ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                      }`}>
-                        {project.description}
-                      </p>
 
-                      {/* Tech Stack */}
+                      {/* Case study: Problem / Solution / Impact */}
+                      {(project.problem || project.solution || project.impact) && (
+                        <div className={`space-y-3 mb-6 border-l-2 pl-4 ${
+                          theme === 'dark' ? 'border-gray-600' : 'border-gray-300'
+                        }`}>
+                          {project.problem && (
+                            <div>
+                              <span className={`text-xs font-semibold uppercase tracking-wide ${
+                                theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
+                              }`}>
+                                Problem
+                              </span>
+                              <p className={`text-sm sm:text-base leading-relaxed mt-0.5 ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                              }`}>
+                                {project.problem}
+                              </p>
+                            </div>
+                          )}
+                          {project.solution && (
+                            <div>
+                              <span className={`text-xs font-semibold uppercase tracking-wide ${
+                                theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
+                              }`}>
+                                Solution
+                              </span>
+                              <p className={`text-sm sm:text-base leading-relaxed mt-0.5 ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                              }`}>
+                                {project.solution}
+                              </p>
+                            </div>
+                          )}
+                          {project.impact && (
+                            <div>
+                              <span className={`text-xs font-semibold uppercase tracking-wide ${
+                                theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
+                              }`}>
+                                Impact
+                              </span>
+                              <p className={`text-sm sm:text-base leading-relaxed mt-0.5 ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                              }`}>
+                                {project.impact}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {!(project.problem || project.solution || project.impact) && (
+                        <p className={`text-sm sm:text-base md:text-lg mb-6 leading-relaxed ${
+                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                        }`}>
+                          {project.description}
+                        </p>
+                      )}
+
+                      {/* Tech */}
+                      <div className="mb-2">
+                        <span className={`text-xs font-semibold uppercase tracking-wide ${
+                          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                        }`}>
+                          Tech
+                        </span>
+                      </div>
                       <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-8">
                         {project.techStack.map((tech) => (
                           <span
@@ -453,7 +568,7 @@ export default function PortfolioSlider() {
             <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              PortfolioHub, Cursor Rules Hub, and other personal initiatives
+              Developer projects with Problem → Approach → Outcome. Code + live demos linked.
             </p>
           </div>
 
@@ -484,12 +599,58 @@ export default function PortfolioSlider() {
                   }`}>
                     {project.title}
                   </h4>
+
+                  {project.role && (
+                    <p className={`text-xs font-medium uppercase tracking-wide ${
+                      theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+                    }`}>
+                      Role: {project.role}
+                    </p>
+                  )}
                   
                   <p className={`text-xs sm:text-sm leading-relaxed ${
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                   }`}>
                     {project.description}
                   </p>
+
+                  {/* Micro-case study: Problem / Approach / Outcome */}
+                  {(project.problem || project.approach || project.outcome) && (
+                    <div className={`space-y-2 text-xs sm:text-sm border-l-2 pl-3 ${
+                      theme === 'dark' ? 'border-gray-600' : 'border-gray-300'
+                    }`}>
+                      {project.problem && (
+                        <div>
+                          <span className={`font-medium ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                          }`}>Problem: </span>
+                          <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                            {project.problem}
+                          </span>
+                        </div>
+                      )}
+                      {project.approach && (
+                        <div>
+                          <span className={`font-medium ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                          }`}>Approach: </span>
+                          <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                            {project.approach}
+                          </span>
+                        </div>
+                      )}
+                      {project.outcome && (
+                        <div>
+                          <span className={`font-medium ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                          }`}>Outcome: </span>
+                          <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                            {project.outcome}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Tech Stack */}
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">

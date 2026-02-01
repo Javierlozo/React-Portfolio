@@ -20,7 +20,7 @@ export default function Navbar() {
 
   // Track active section using Intersection Observer
   useEffect(() => {
-    const sections = ["about", "skills", "experience", "certifications", "portfolio", "testimonials", "contact"];
+    const sections = ["about", "skills", "experience", "certifications", "labs", "portfolio", "testimonials", "contact"];
     
     const observerOptions = {
       root: null,
@@ -64,7 +64,7 @@ export default function Navbar() {
   return (
     <nav 
       id="main-navbar" 
-      className={`py-4 sm:py-6 px-4 sm:px-6 fixed w-full z-[100] top-0 left-0 right-0 transition-all duration-300 ${
+      className={`py-2 sm:py-3 px-3 sm:px-4 fixed w-full z-[100] top-0 left-0 right-0 transition-all duration-300 ${
         theme === 'dark' 
           ? 'bg-black/90 backdrop-blur-sm border-b border-gray-800' 
           : 'bg-white/90 backdrop-blur-sm border-b border-gray-200'
@@ -78,17 +78,17 @@ export default function Navbar() {
         zIndex: 100
       }}
     >
-      <div className="container mx-auto flex justify-between items-center max-w-6xl">
+      <div className="container mx-auto flex justify-between items-center max-w-7xl gap-2">
         {/* Logo */}
         <div 
-          className="cursor-pointer hover:scale-105 transition-transform duration-300"
+          className="cursor-pointer hover:scale-105 transition-transform duration-300 shrink-0"
           onClick={scrollToTop}
         >
           <Image
             src="/favicon.png"
             alt="Luis Lozoya Portfolio Logo"
-            width={36}
-            height={36}
+            width={32}
+            height={32}
             priority
             className={`rounded-full border-2 ${
               theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
@@ -96,13 +96,14 @@ export default function Navbar() {
           />
         </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex justify-center items-center flex-grow gap-8 xl:gap-12">
+        {/* Desktop Menu - compact */}
+        <div className="hidden lg:flex justify-center items-center flex-grow gap-2 sm:gap-3 xl:gap-4 min-w-0">
           {[
             "About",
             "Skills",
             "Experience",
             "Certifications",
+            "Labs",
             "Portfolio",
             "Testimonials",
             "Contact",
@@ -112,7 +113,7 @@ export default function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className={`relative px-2 py-2 text-sm font-light tracking-widest uppercase transition-all duration-300 ${
+                className={`relative px-1.5 py-1 text-xs font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
                   isActive 
                     ? theme === 'dark'
                       ? "text-white" 
@@ -124,7 +125,7 @@ export default function Navbar() {
               >
                 {item}
                 {isActive && (
-                  <div className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-px ${
+                  <div className={`absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 w-5 h-px ${
                     theme === 'dark' ? 'bg-white' : 'bg-gray-900'
                   }`}></div>
                 )}
@@ -136,7 +137,7 @@ export default function Navbar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`flex items-center justify-center w-10 h-10 border transition-all duration-300 hover:scale-105 ${
+          className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 border shrink-0 transition-all duration-300 hover:scale-105 ${
             theme === 'dark' 
               ? 'border-gray-700 text-gray-400 hover:border-white hover:text-white' 
               : 'border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900'
@@ -153,7 +154,7 @@ export default function Navbar() {
         {/* Hamburger Menu Button */}
         <button
           onClick={toggleMenu}
-          className="lg:hidden w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-105 focus:outline-none"
+          className="lg:hidden w-10 h-10 flex items-center justify-center shrink-0 transition-all duration-300 hover:scale-105 focus:outline-none"
           aria-label="Toggle menu"
           aria-expanded={isOpen}
         >
@@ -269,6 +270,7 @@ export default function Navbar() {
                 "Skills",
                 "Experience",
                 "Certifications",
+                "Labs",
                 "Portfolio",
                 "Testimonials",
                 "Contact",
@@ -278,7 +280,7 @@ export default function Navbar() {
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className={`block transition-all duration-200 py-4 px-4 text-base font-medium rounded-xl mb-1 active:scale-95 active:opacity-80 ${
+                    className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
                       isActive 
                         ? theme === 'dark'
                           ? "text-white bg-gray-800" 

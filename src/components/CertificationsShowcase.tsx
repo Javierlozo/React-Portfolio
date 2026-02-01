@@ -50,7 +50,7 @@ export default function CertificationsShowcase() {
     },
     {
       id: 3,
-      title: "Cybersecurity - System Administration Certificate Program",
+      title: "Cybersecurity: System Administration Certificate Program",
       issuer: "Purdue University and Ivy Tech",
       date: "2023",
       image: systemAdm,
@@ -60,7 +60,7 @@ export default function CertificationsShowcase() {
     },
     {
       id: 4,
-      title: "Complete Beginner - TryHackMe",
+      title: "Complete Beginner, TryHackMe",
       issuer: "TryHackMe",
       date: "2023",
       image: thm1,
@@ -70,7 +70,7 @@ export default function CertificationsShowcase() {
     },
     {
       id: 5,
-      title: "Pre Security - TryHackMe",
+      title: "Pre Security, TryHackMe",
       issuer: "TryHackMe",
       date: "2023",
       image: thm2,
@@ -82,9 +82,9 @@ export default function CertificationsShowcase() {
 
   return (
     <section id="certifications" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
-      <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
+      <div className="w-full">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-12 sm:mb-16 px-3 sm:px-6">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
@@ -97,12 +97,12 @@ export default function CertificationsShowcase() {
           </p>
         </div>
 
-        {/* Certifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16">
+        {/* Certifications: full viewport width, single row */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6 mb-12 sm:mb-16 w-full px-3 sm:px-6">
           {certifications.map((cert) => (
             <div
               key={cert.id}
-              className={`group cursor-pointer transition-all duration-300 hover:scale-105 ${
+              className={`group cursor-pointer transition-all duration-300 hover:scale-105 min-w-0 ${
                 theme === 'dark' ? 'bg-gray-800' : 'bg-white'
               } rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden`}
               onClick={() => setSelectedCert(cert)}
