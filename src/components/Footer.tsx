@@ -17,6 +17,45 @@ export default function Footer() {
             }`}>
               Let&apos;s Connect
             </h4>
+
+            {/* Quick CTAs for recruiters */}
+            <div className={`flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              <a
+                href="/resume/Resume.pdf"
+                download
+                className={`text-sm font-light tracking-wide uppercase border px-4 py-2 transition-all duration-300 hover:scale-105 ${
+                  theme === 'dark'
+                    ? 'border-gray-600 hover:border-white hover:text-white'
+                    : 'border-gray-300 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                Download Resume
+              </a>
+              <a
+                href="https://github.com/Javierlozo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-sm font-light tracking-wide uppercase border px-4 py-2 transition-all duration-300 hover:scale-105 ${
+                  theme === 'dark'
+                    ? 'border-gray-600 hover:border-white hover:text-white'
+                    : 'border-gray-300 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                View Code on GitHub
+              </a>
+              <a
+                href="#labs"
+                className={`text-sm font-light tracking-wide uppercase border px-4 py-2 transition-all duration-300 hover:scale-105 ${
+                  theme === 'dark'
+                    ? 'border-gray-600 hover:border-white hover:text-white'
+                    : 'border-gray-300 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                See Cybersecurity Labs
+              </a>
+            </div>
             
             {/* Social Links */}
             <div className="flex justify-center space-x-8">

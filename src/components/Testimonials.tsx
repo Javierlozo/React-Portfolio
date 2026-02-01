@@ -61,7 +61,7 @@ export default function Testimonials() {
                   <div className="w-16 h-16 sm:w-20 sm:h-20 relative flex-shrink-0">
                     <Image
                       src={testimonial.image}
-                      alt={`${testimonial.name} — ${testimonial.position}`}
+                      alt={`${testimonial.name}, ${testimonial.position}`}
                       fill
                       className="rounded-full object-cover border border-gray-200 dark:border-gray-700"
                     />
