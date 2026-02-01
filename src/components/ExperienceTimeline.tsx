@@ -97,9 +97,9 @@ export default function ExperienceTimeline() {
     {
       id: 1,
       company: "IberiaTech Solutions",
-      position: "Independent Consultant — Founder, IberiaTech Solutions",
+      position: "Independent Consultant, Founder, IberiaTech Solutions",
       location: "Charleston, SC",
-      duration: "2024 - Present",
+      duration: "2024 to Present",
       description: "As an independent consultant, I help businesses in the US and Spain expand their digital presence with AI-enabled, bilingual solutions. Through IberiaTech Solutions, I deliver responsive websites and scalable cloud applications that help small businesses validate new ideas quickly and reach broader markets.",
       achievements: [
         "Managed full project lifecycle with small business clients, from requirements to deployment",
@@ -117,7 +117,7 @@ export default function ExperienceTimeline() {
       company: "GDNA",
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
-      duration: "Apr 2024 - Present",
+      duration: "Apr 2024 to Present",
       description: "Leading end-to-end development of web applications using Next.js 14, React, and AWS services. Collaborating with external engineering teams and conducting code reviews while delivering scalable solutions.",
       achievements: [
         "Delivered React components and AWS Cognito integration for AfricaNXT (mentorship platform, ~1,200 users)",
@@ -139,7 +139,7 @@ export default function ExperienceTimeline() {
       company: "Querri",
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
-      duration: "Aug 2023 - Apr 2024",
+      duration: "Aug 2023 to Apr 2024",
       description: "Delivered multiple projects focusing on Svelte and front-end development. Built Querri's website using HubSpot and custom code extensions.",
       achievements: [
         "Built custom HubSpot CMS solutions that increased content publishing efficiency by 50%",
@@ -158,7 +158,7 @@ export default function ExperienceTimeline() {
       company: "Upstate Nutrition",
       position: "Software Engineer (Contract)",
       location: "Remote",
-      duration: "Jul 2023 - Aug 2023",
+      duration: "Jul 2023 to Aug 2023",
       description: "Partnered with CEO to transform business vision into technical solutions.",
       achievements: [
         "Translated CEO's vision into technical solutions on the company's web platform",
@@ -177,7 +177,7 @@ export default function ExperienceTimeline() {
       company: "Interloop",
       position: "Software Engineer",
       location: "Charleston, SC",
-      duration: "Jul 2021 - Jun 2023",
+      duration: "Jul 2021 to Jun 2023",
       description: "Progressive role from Software Engineer I to Software Engineer II, focusing on enhancing client productivity and driving company profitability through custom solutions and full-stack development.",
       achievements: [
         "Successfully delivered software development projects, driving a 10% increase in company's Q1 and Q2 profit in 2023",
@@ -252,8 +252,8 @@ export default function ExperienceTimeline() {
                 <div className={`absolute -left-2 sm:-left-2 top-6 text-xs font-light tracking-widest hidden sm:block ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
                 }`}>
-                  {exp.duration.includes(' - ') 
-                    ? exp.duration.split(' - ')[0].split(' ').pop()
+                  {exp.duration.includes(' to ')
+                    ? exp.duration.split(' to ')[0].split(' ').pop()
                     : exp.duration.split(' ')[0]
                   }
                 </div>

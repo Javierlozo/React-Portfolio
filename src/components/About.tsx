@@ -75,6 +75,11 @@ export default function About() {
           }`}>
             About
           </h2>
+          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            Background and approach
+          </p>
         </div>
 
         {/* Main Content */}

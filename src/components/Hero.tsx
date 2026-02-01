@@ -81,6 +81,12 @@ export default function Hero() {
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToLabs = () => {
+    document
+      .getElementById("labs")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const scrollToContact = () => {
     document
       .getElementById("contact")
@@ -133,7 +139,7 @@ export default function Hero() {
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
-              Software Engineer | Security-Focused | AI-Enabled | GIAC GFACT Certified
+              Software Engineer. Security focused, AI enabled. GIAC GFACT Certified
             </h2>
 
             {/* Sub-headline */}
@@ -176,11 +182,11 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* CTA Buttons - Minimalist design */}
-            <div className="flex flex-wrap gap-4">
+            {/* CTA Buttons - Clear actions for recruiters */}
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               <button
                 onClick={scrollToPortfolio}
-                className={`px-8 sm:px-12 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
                   theme === 'dark' 
                     ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
@@ -188,9 +194,42 @@ export default function Hero() {
               >
                 View My Work
               </button>
+              <a
+                href="/resume/Resume.pdf"
+                download
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
+                  theme === 'dark' 
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                Download Resume
+              </a>
+              <a
+                href="https://github.com/Javierlozo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
+                  theme === 'dark' 
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                View Code on GitHub
+              </a>
+              <button
+                onClick={scrollToLabs}
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                  theme === 'dark' 
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+                }`}
+              >
+                See Cybersecurity Labs
+              </button>
               <button
                 onClick={scrollToContact}
-                className={`px-8 sm:px-12 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
                   theme === 'dark' 
                     ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
@@ -218,7 +257,7 @@ export default function Hero() {
             >
               <Image
                 src={photo}
-                alt="Luis Lozoya — Software Engineer | Security-Focused | AI-Enabled"
+                alt="Luis Lozoya, Software Engineer. Security focused, AI enabled."
                 className="rounded-full object-cover border border-gray-200 dark:border-gray-700 transition-all duration-500"
                 width={256}
                 height={256}
