@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -18,9 +20,18 @@ export default function Navbar() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const pathname = usePathname();
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      scrollToTop();
+    }
+    if (isOpen) toggleMenu();
+  };
+
   // Track active section using Intersection Observer
   useEffect(() => {
-    const sections = ["about", "skills", "experience", "certifications", "labs", "portfolio", "testimonials", "contact"];
+    const sections = ["about", "skills", "experience", "certifications", "security-labs", "portfolio", "testimonials", "contact"];
     
     const observerOptions = {
       root: null,
@@ -79,10 +90,11 @@ export default function Navbar() {
       }}
     >
       <div className="container mx-auto flex justify-between items-center max-w-7xl gap-2">
-        {/* Logo */}
-        <div 
-          className="cursor-pointer hover:scale-105 transition-transform duration-300 shrink-0"
-          onClick={scrollToTop}
+        {/* Logo - home link, scroll to top when already on home */}
+        <Link
+          href="/"
+          onClick={handleLogoClick}
+          className="cursor-pointer hover:scale-105 transition-transform duration-300 shrink-0 block"
         >
           <Image
             src="/favicon.png"
@@ -94,7 +106,7 @@ export default function Navbar() {
               theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
             }`}
           />
-        </div>
+        </Link>
 
         {/* Desktop Menu - compact */}
         <div className="hidden lg:flex justify-center items-center flex-grow gap-2 sm:gap-3 xl:gap-4 min-w-0">
@@ -103,30 +115,38 @@ export default function Navbar() {
             "Skills",
             "Experience",
             "Certifications",
-            "Labs",
+            "Security Labs",
             "Portfolio",
             "Testimonials",
             "Contact",
           ].map((item) => {
-            const isActive = activeSection === item.toLowerCase();
+            const sectionId = item.toLowerCase().replace(/\s+/g, "-");
+            const isActive = activeSection === sectionId;
+            const isLabs = item === "Security Labs";
+            const labsClass = isLabs
+              ? theme === "dark"
+                ? "text-amber-400 hover:text-amber-300"
+                : "text-amber-600 hover:text-amber-700"
+              : "";
+            const defaultClass = isActive
+              ? theme === "dark"
+                ? "text-white"
+                : "text-gray-900"
+              : theme === "dark"
+                ? "text-gray-400 hover:text-white"
+                : "text-gray-500 hover:text-gray-900";
             return (
               <a
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={`#${sectionId}`}
                 className={`relative px-1.5 py-1 text-xs font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
-                  isActive 
-                    ? theme === 'dark'
-                      ? "text-white" 
-                      : "text-gray-900"
-                    : theme === 'dark'
-                      ? "text-gray-400 hover:text-white"
-                      : "text-gray-500 hover:text-gray-900"
+                  isLabs ? labsClass : defaultClass
                 }`}
               >
                 {item}
                 {isActive && (
                   <div className={`absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 w-5 h-px ${
-                    theme === 'dark' ? 'bg-white' : 'bg-gray-900'
+                    isLabs ? "bg-amber-500" : theme === "dark" ? "bg-white" : "bg-gray-900"
                   }`}></div>
                 )}
               </a>
@@ -270,24 +290,36 @@ export default function Navbar() {
                 "Skills",
                 "Experience",
                 "Certifications",
-                "Labs",
+                "Security Labs",
                 "Portfolio",
                 "Testimonials",
                 "Contact",
               ].map((item, index) => {
-                const isActive = activeSection === item.toLowerCase();
+                const sectionId = item.toLowerCase().replace(/\s+/g, "-");
+                const isActive = activeSection === sectionId;
+                const isLabs = item === "Security Labs";
+                const labsMobileClass = isLabs
+                  ? theme === "dark"
+                    ? isActive
+                      ? "text-amber-400 bg-amber-500/20"
+                      : "text-amber-400/90 active:bg-amber-500/10"
+                    : isActive
+                      ? "text-amber-700 bg-amber-100"
+                      : "text-amber-600 active:bg-amber-50"
+                  : "";
+                const defaultMobileClass = isActive
+                  ? theme === "dark"
+                    ? "text-white bg-gray-800"
+                    : "text-gray-900 bg-gray-100"
+                  : theme === "dark"
+                    ? "text-gray-300 active:bg-gray-800"
+                    : "text-gray-700 active:bg-gray-100";
                 return (
                   <a
                     key={item}
-                    href={`#${item.toLowerCase()}`}
+                    href={`#${sectionId}`}
                     className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
-                      isActive 
-                        ? theme === 'dark'
-                          ? "text-white bg-gray-800" 
-                          : "text-gray-900 bg-gray-100"
-                        : theme === 'dark'
-                          ? "text-gray-300 active:bg-gray-800"
-                          : "text-gray-700 active:bg-gray-100"
+                      isLabs ? labsMobileClass : defaultMobileClass
                     }`}
                     onClick={toggleMenu}
                     style={{

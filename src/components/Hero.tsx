@@ -83,7 +83,7 @@ export default function Hero() {
 
   const scrollToLabs = () => {
     document
-      .getElementById("labs")
+      .getElementById("security-labs")
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -225,7 +225,7 @@ export default function Hero() {
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                 }`}
               >
-                See Cybersecurity Labs
+                See Security Labs
               </button>
               <button
                 onClick={scrollToContact}
