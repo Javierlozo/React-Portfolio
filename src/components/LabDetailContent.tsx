@@ -83,10 +83,17 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
           </div>
         )}
 
-        {lab.skillsDemonstrated && (
-          <p className={`mb-10 text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-            <strong className={theme === "dark" ? "text-gray-300" : "text-gray-700"}>Skills demonstrated:</strong> {lab.skillsDemonstrated}
-          </p>
+        {lab.skillsDemonstrated && lab.skillsDemonstrated.length > 0 && (
+          <div className="mb-10">
+            <h2 className={`text-sm font-semibold uppercase tracking-wide mb-2 ${theme === "dark" ? "text-amber-400" : "text-amber-700"}`}>
+              Skills demonstrated
+            </h2>
+            <ul className="list-disc list-inside space-y-1 text-sm">
+              {lab.skillsDemonstrated.map((skill, idx) => (
+                <li key={idx} className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>{skill}</li>
+              ))}
+            </ul>
+          </div>
         )}
 
         {/* Ethics / Sharing */}
@@ -252,11 +259,27 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
             {lab.outcome}
           </p>
           {lab.nextStepsInProduction && (
-            <p className={`text-sm sm:text-base leading-relaxed italic ${theme === "dark" ? "text-amber-200/90" : "text-amber-900/90"}`}>
+            <p className={`text-sm sm:text-base leading-relaxed italic mb-4 ${theme === "dark" ? "text-amber-200/90" : "text-amber-900/90"}`}>
               {lab.nextStepsInProduction}
             </p>
           )}
         </section>
+
+        {/* Security controls relevant */}
+        {lab.securityControlsRelevant && lab.securityControlsRelevant.length > 0 && (
+          <section className="mb-10">
+            <h2 className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-3 ${
+              theme === "dark" ? "text-amber-400" : "text-amber-700"
+            }`}>
+              Security controls relevant
+            </h2>
+            <ul className="list-disc list-inside space-y-1 text-sm">
+              {lab.securityControlsRelevant.map((control, idx) => (
+                <li key={idx} className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>{control}</li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* Report link */}
         {lab.reportDownloadLink && (
