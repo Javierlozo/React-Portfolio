@@ -46,14 +46,14 @@ export default function Footer() {
                 View Code on GitHub
               </a>
               <a
-                href="#labs"
+                href="/#security-labs"
                 className={`text-sm font-light tracking-wide uppercase border px-4 py-2 transition-all duration-300 hover:scale-105 ${
                   theme === 'dark'
                     ? 'border-gray-600 hover:border-white hover:text-white'
                     : 'border-gray-300 hover:border-gray-900 hover:text-gray-900'
                 }`}
               >
-                See Cybersecurity Labs
+                See Security Labs
               </a>
             </div>
             

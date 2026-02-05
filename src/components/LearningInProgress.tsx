@@ -99,7 +99,7 @@ export default function LearningInProgress() {
               theme === "dark" ? "text-white border-gray-700" : "text-gray-900 border-gray-200"
             }`}
           >
-            What I&apos;m Learning / Labs in Progress
+            What I&apos;m Learning / Security Labs in Progress
           </h2>
           <p
             className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
@@ -125,7 +125,7 @@ export default function LearningInProgress() {
               }`}
             >
               <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-              Labs in progress
+              Security Labs in progress
             </h3>
             <ul className="space-y-4">
               {LABS_IN_PROGRESS.map((lab) => (
