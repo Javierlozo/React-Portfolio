@@ -30,8 +30,12 @@ export interface CybersecurityLab {
   level?: string;
   /** Completion date (e.g. "Feb 2026") */
   date?: string;
+  /** Artifacts included (e.g. "Sanitized screenshots + my own DNS capture PCAP") */
+  artifacts?: string;
   /** 3-line TL;DR for recruiters */
   tldr?: string[];
+  /** Skills demonstrated (ATS-friendly) */
+  skillsDemonstrated?: string;
   context: string;
   /** Brief summary for main page card (1–2 sentences) */
   summary: string;
@@ -41,6 +45,8 @@ export interface CybersecurityLab {
   steps: string[];
   stepDetails?: LabStep[];
   outcome: string;
+  /** What you'd do next in a real production environment */
+  nextStepsInProduction?: string;
   keyFindings?: string[];
   reportDownloadLink?: string;
   reportDownloadLabel?: string;
@@ -63,11 +69,13 @@ export const LABS: CybersecurityLab[] = [
     focus: "Network Forensics",
     level: "SEC401",
     date: "Feb 2026",
+    artifacts: "Sanitized screenshots + my own DNS capture PCAP (available on GitHub)",
     tldr: [
       "Found .env probing and WordPress brute-force patterns",
       "Used tcpdump filters + payload inspection to confirm behavior",
       "Reinforced why HTTPS + credential handling matters",
     ],
+    skillsDemonstrated: "Packet capture triage, tcpdump filtering, HTTP session analysis, DNS correlation, attacker pattern recognition",
     tools: ["tcpdump", "dig", "PCAP analysis", "CLI"],
     steps: [
       "Initial packet overview: tcpdump -n -r investigate.pcap -c 20 -#",
@@ -83,53 +91,55 @@ export const LABS: CybersecurityLab[] = [
         title: "Initial packet overview",
         description: "Read the first 20 packets from investigate.pcap to get a high-level view of traffic types (DNS, TCP, HTTP).",
         command: "tcpdump -n -r investigate.pcap -c 20 -#",
-        commandBreakdown: "-n: no hostname/port lookup (show raw IPs)\n-r: read from file\n-c 20: exit after 20 packets\n-#: print packet number",
+        commandBreakdown: "-n: no DNS/port lookup\n-r: read from file\n-c 20: stop after 20 packets\n-#: print packet number",
         screenshot: "/labs/tcpdump-145021.png",
       },
       {
         title: "Filtering session 1: GET /.env",
         description: "Filtered TCP traffic between 135.125.217.54 and 10.130.8.94 (ports 44366 and 80). Revealed an HTTP GET request for /.env; server responded 404 Not Found.",
         command: "tcpdump -n -r investigate.pcap 'tcp and (host 135.125.217.54 and host 10.130.8.94) and (port 44366 and port 80)'",
-        commandBreakdown: "-n: no hostname lookup\n-r: read from file\nFilter: tcp, host pair, port pair",
+        commandBreakdown: "-n: no DNS/port lookup\n-r: read from file\nFilter: tcp + host/port pair",
         screenshot: "/labs/tcpdump-150012.png",
       },
       {
         title: "Read session.pcap",
         description: "Read session.pcap to view the filtered wp-login session packets.",
         command: "tcpdump -n -r session.pcap -#",
-        commandBreakdown: "-n: no hostname lookup\n-r: read from file\n-#: print packet number",
+        commandBreakdown: "-n: no DNS/port lookup\n-r: read from file\n-#: print packet number",
         screenshot: "/labs/tcpdump-150547.png",
       },
       {
         title: "HTTP payload extraction: visible login parameters",
         description: "Dumped packet contents. Revealed cleartext HTTP POST to /wp-login.php with Hydra user-agent and visible login parameters (redacted).",
         command: "tcpdump -n -r session.pcap -X -v -c 4",
-        commandBreakdown: "-X: hex and ASCII payload\n-v: verbose\n-c 4: first 4 packets only",
+        commandBreakdown: "-X: hex and ASCII payload\n-v: verbose\n-c 4: stop after 4 packets",
         screenshot: "/labs/tcpdump-150815.png",
       },
       {
         title: "Correlate with dig",
         description: "Used dig to query NS records for alphainc.ca, correlating with the captured DNS traffic.",
         command: "dig alphainc.ca NS",
-        commandBreakdown: "alphainc.ca: domain to query\nNS: record type (name server)",
+        commandBreakdown: "alphainc.ca: domain\nNS: name server",
         screenshot: "/labs/tcpdump-151413.png",
       },
       {
         title: "Live DNS capture and read",
         description: "Captured live UDP traffic on port 53 (DNS) with sudo tcpdump, wrote to created_capture.pcap, then read the capture to view DNS queries and responses.",
         command: "sudo tcpdump -n -i eth0 -w created_capture.pcap 'udp port 53'\ntcpdump -n -r created_capture.pcap",
-        commandBreakdown: "sudo tcpdump: live capture on eth0, filter udp port 53\n-r: read created_capture.pcap",
+        commandBreakdown: "-i eth0: listen on eth0\n-w: write to file\nFilter: udp port 53\n-r: read from file",
         screenshot: "/labs/tcpdump-151524.png",
       },
       {
         title: "DNS payload extraction",
         description: "Dumped DNS packet contents in hex and ASCII, revealing domain names in the payload.",
         command: "tcpdump -n -r created_capture.pcap -X",
-        commandBreakdown: "-X: print packet payload in hex and ASCII",
+        commandBreakdown: "-X: hex and ASCII payload",
         screenshot: "/labs/tcpdump-151610.png",
       },
     ],
     outcome: "Identified suspicious HTTP activity (/.env probing, WordPress brute-force attempt), cleartext login parameters visible in unencrypted traffic, and correlated DNS data with infrastructure.",
+    nextStepsInProduction:
+      "If this were production: I'd confirm whether traffic was internal/external, check web server logs for repeated attempts, ensure HTTPS is enforced, and review WAF/rate-limiting controls around authentication endpoints.",
     keyFindings: [
       "HTTP GET /.env from 135.125.217.54; server returned 404",
       "HTTP POST /wp-login.php with Hydra user-agent; visible login parameters (redacted)",
