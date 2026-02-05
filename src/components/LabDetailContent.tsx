@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,45 +8,22 @@ import {
   faListCheck,
   faLightbulb,
   faDownload,
-  faImage,
   faBullseye,
   faArrowLeft,
   faExclamationTriangle,
   faShieldAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import LabStepHelper from "./LabStepHelper";
 import ImageLightbox from "./ImageLightbox";
 import type { CybersecurityLab } from "../data/labs";
 
 export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
   const { theme } = useTheme();
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt?: string; caption?: string } | null>(null);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    if (!lab.stepDetails?.length) return;
-    const observers = lab.stepDetails.map((_, idx) => {
-      const el = stepRefs.current[idx];
-      if (!el) return () => {};
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) setActiveStepIndex(idx);
-          });
-        },
-        { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
-      );
-      observer.observe(el);
-      return () => observer.disconnect();
-    });
-    return () => observers.forEach((cleanup) => cleanup());
-  }, [lab.stepDetails?.length]);
 
   return (
     <div className={`min-h-screen pt-24 pb-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
-      <div className="container mx-auto px-3 sm:px-6 max-w-7xl flex gap-8 lg:gap-12">
-        <article className="flex-1 min-w-0 max-w-4xl">
+      <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
+        <article className="w-full">
         <a
           href="/#security-labs"
           className={`inline-flex items-center gap-2 text-sm font-medium mb-8 ${
@@ -63,11 +40,23 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
               {lab.course}
             </p>
           )}
-          <h1 className={`text-2xl sm:text-3xl font-medium mb-2 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-2xl sm:text-3xl font-medium mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
             {lab.title}
           </h1>
           {lab.role && (
-            <p className={`text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{lab.role}</p>
+            <p className={`text-sm mb-4 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{lab.role}</p>
+          )}
+          {(lab.focus || lab.level || lab.date || lab.artifacts) && (
+            <div
+              className={`space-y-1 text-sm ${
+                theme === "dark" ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
+              {lab.focus && <p><strong className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>Focus:</strong> {lab.focus}</p>}
+              {lab.level && <p><strong className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>Level:</strong> {lab.level}</p>}
+              {lab.date && <p><strong className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>Date:</strong> {lab.date}</p>}
+              {lab.artifacts && <p><strong className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>Artifacts:</strong> {lab.artifacts}</p>}
+            </div>
           )}
         </header>
 
@@ -92,6 +81,12 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
               ))}
             </ul>
           </div>
+        )}
+
+        {lab.skillsDemonstrated && (
+          <p className={`mb-10 text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+            <strong className={theme === "dark" ? "text-gray-300" : "text-gray-700"}>Skills demonstrated:</strong> {lab.skillsDemonstrated}
+          </p>
         )}
 
         {/* Ethics / Sharing */}
@@ -177,11 +172,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
           {lab.stepDetails && lab.stepDetails.length > 0 ? (
             <div className="space-y-8">
               {lab.stepDetails.map((s, idx) => (
-                <div
-                  key={idx}
-                  ref={(el) => { stepRefs.current[idx] = el; }}
-                  className="space-y-3 scroll-mt-32"
-                >
+                <div key={idx} className="space-y-3">
                   <h3 className={`font-medium ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
                     {idx + 1}. {s.title}
                   </h3>
@@ -196,14 +187,14 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                         <code>{s.command}</code>
                       </pre>
                       {s.commandBreakdown && (
-                        <p className={`text-xs lg:hidden ${theme === "dark" ? "text-gray-500" : "text-gray-500"}`}>
-                          {s.commandBreakdown.split("\n").map((line, i, arr) => (
-                            <span key={i}>
-                              {line}
-                              {i < arr.length - 1 && <br />}
-                            </span>
-                          ))}
-                        </p>
+                        <div className={`text-xs ${theme === "dark" ? "text-gray-500" : "text-gray-500"}`}>
+                          <p className={`font-medium mb-1 ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Flags</p>
+                          <ul className="space-y-0.5 list-none">
+                            {s.commandBreakdown.split("\n").map((line, i) => (
+                              <li key={i}><code>{line}</code></li>
+                            ))}
+                          </ul>
+                        </div>
                       )}
                     </>
                   )}
@@ -211,7 +202,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                     <figure>
                       <button
                         type="button"
-                        onClick={() => setLightboxImage({ src: s.screenshot!, alt: s.title, caption: s.title })}
+                        onClick={() => setLightboxImage({ src: s.screenshot!, alt: s.title, caption: s.command ?? s.title })}
                         title="Click to enlarge"
                         className={`block w-full text-left relative aspect-video max-w-2xl rounded-lg overflow-hidden border cursor-zoom-in hover:opacity-90 transition-opacity ${
                           theme === "dark" ? "border-gray-600" : "border-gray-300"
@@ -257,9 +248,14 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
             <FontAwesomeIcon icon={faLightbulb} />
             Outcome / Lessons learned
           </h2>
-          <p className={`text-sm sm:text-base leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+          <p className={`text-sm sm:text-base leading-relaxed mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
             {lab.outcome}
           </p>
+          {lab.nextStepsInProduction && (
+            <p className={`text-sm sm:text-base leading-relaxed italic ${theme === "dark" ? "text-amber-200/90" : "text-amber-900/90"}`}>
+              {lab.nextStepsInProduction}
+            </p>
+          )}
         </section>
 
         {/* Report link */}
@@ -281,54 +277,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
           </section>
         )}
 
-        {/* Screenshots */}
-        {lab.screenshots && lab.screenshots.length > 0 && (
-          <section>
-            <h2 className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-4 ${
-              theme === "dark" ? "text-gray-400" : "text-gray-500"
-            }`}>
-              <FontAwesomeIcon icon={faImage} />
-              Screenshots
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {lab.screenshots.map((shot, idx) => (
-                <figure key={idx} className="space-y-2">
-                  <button
-                    type="button"
-                    onClick={() => setLightboxImage({ src: shot.src, alt: shot.alt, caption: shot.caption })}
-                    title="Click to enlarge"
-                    className={`block w-full text-left relative aspect-video rounded-lg overflow-hidden border cursor-zoom-in hover:opacity-90 transition-opacity ${
-                      theme === "dark" ? "border-gray-600" : "border-gray-300"
-                    }`}
-                  >
-                    <Image src={shot.src} alt={shot.alt ?? `Screenshot ${idx + 1}`} fill className="object-contain" />
-                  </button>
-                  {shot.caption && (
-                    <figcaption className={`text-xs ${theme === "dark" ? "text-gray-500" : "text-gray-500"}`}>
-                      {shot.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ))}
-            </div>
-          </section>
-        )}
         </article>
-
-        {/* Sticky helper sidebar */}
-        {lab.stepDetails && lab.stepDetails.length > 0 && (
-          <LabStepHelper
-            steps={lab.stepDetails.map((s) => ({
-              title: s.title,
-              command: s.command,
-              commandBreakdown: s.commandBreakdown,
-            }))}
-            activeStepIndex={activeStepIndex}
-            onStepClick={(idx) => {
-              stepRefs.current[idx]?.scrollIntoView({ behavior: "smooth", block: "start" });
-            }}
-          />
-        )}
 
         <ImageLightbox
           src={lightboxImage?.src ?? ""}
