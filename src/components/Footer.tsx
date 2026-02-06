@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -45,7 +46,7 @@ export default function Footer() {
               >
                 View Code on GitHub
               </a>
-              <a
+              <Link
                 href="/#security-labs"
                 className={`text-sm font-light tracking-wide uppercase border px-4 py-2 transition-all duration-300 hover:scale-105 ${
                   theme === 'dark'
@@ -54,7 +55,7 @@ export default function Footer() {
                 }`}
               >
                 See Security Labs
-              </a>
+              </Link>
             </div>
             
             {/* Social Links */}

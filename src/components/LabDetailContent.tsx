@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -24,14 +25,14 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
     <div className={`min-h-screen pt-24 pb-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
       <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
         <article className="w-full">
-        <a
+        <Link
           href="/#security-labs"
           className={`inline-flex items-center gap-2 text-sm font-medium mb-8 ${
             theme === "dark" ? "text-amber-400 hover:text-amber-300" : "text-amber-700 hover:text-amber-800"
           }`}
         >
           <FontAwesomeIcon icon={faArrowLeft} /> See Security Labs
-        </a>
+        </Link>
 
         {/* Header */}
         <header className="mb-10">
