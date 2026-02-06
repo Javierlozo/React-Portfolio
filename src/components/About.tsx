@@ -65,11 +65,11 @@ export default function About() {
   return (
     <section
       id="about"
-      className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}
+      className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}
     >
-      <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
@@ -83,7 +83,7 @@ export default function About() {
         </div>
 
         {/* Main Content */}
-        <div className="space-y-8 sm:space-y-12 max-w-3xl mx-auto">
+        <div className="space-y-6 sm:space-y-8 md:space-y-12 max-w-3xl mx-auto">
           <p 
             ref={(el) => { elementRefs.current[0] = el; }}
             data-index="0"

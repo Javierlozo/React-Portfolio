@@ -31,7 +31,7 @@ export default function ImageLightbox({ src, alt, caption, isOpen, onClose }: Im
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-black/90"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -39,7 +39,7 @@ export default function ImageLightbox({ src, alt, caption, isOpen, onClose }: Im
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 z-10 p-2 text-white/80 hover:text-white transition-colors"
+        className="absolute top-4 right-4 z-10 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-white/80 hover:text-white transition-colors"
         aria-label="Close"
       >
         <FontAwesomeIcon icon={faTimes} className="text-xl" />

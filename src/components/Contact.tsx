@@ -54,11 +54,11 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}
+      className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}
     >
-      <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
@@ -84,10 +84,10 @@ export default function Contact() {
         </div>
 
         <form
-          className="max-w-2xl mx-auto space-y-6 sm:space-y-8"
+          className="max-w-2xl mx-auto space-y-5 sm:space-y-6 md:space-y-8"
           onSubmit={handleSubmit}
         >
-          <div className="space-y-4 sm:space-y-6">
+          <div className="space-y-4 sm:space-y-5 md:space-y-6">
               <input
                 type="text"
                 name="from_name"
@@ -98,7 +98,7 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className={`w-full p-3 sm:p-4 text-sm sm:text-base border-b transition-colors disabled:opacity-50 bg-transparent ${
+                className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
                   theme === 'dark'
                     ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
                     : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
@@ -114,7 +114,7 @@ export default function Contact() {
                 }
                 required
                 disabled={isSubmitting}
-                className={`w-full p-3 sm:p-4 text-sm sm:text-base border-b transition-colors disabled:opacity-50 bg-transparent ${
+                className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
                   theme === 'dark'
                     ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
                     : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
@@ -130,7 +130,7 @@ export default function Contact() {
                 required
                 disabled={isSubmitting}
                 rows={6}
-                className={`w-full p-3 sm:p-4 text-sm sm:text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent ${
+                className={`w-full p-3 sm:p-4 text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent min-h-[120px] ${
                   theme === 'dark'
                     ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
                     : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'

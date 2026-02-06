@@ -81,10 +81,10 @@ export default function CertificationsShowcase() {
   ];
 
   return (
-    <section id="certifications" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
+    <section id="certifications" className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
       <div className="w-full">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16 px-3 sm:px-6">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4 sm:px-6 md:px-8">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
@@ -98,7 +98,7 @@ export default function CertificationsShowcase() {
         </div>
 
         {/* Certifications: full viewport width, single row */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 md:gap-6 mb-12 sm:mb-16 w-full px-3 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 w-full px-4 sm:px-6 md:px-8">
           {certifications.map((cert) => (
             <div
               key={cert.id}
@@ -108,7 +108,7 @@ export default function CertificationsShowcase() {
               onClick={() => setSelectedCert(cert)}
             >
               {/* Certificate Image */}
-              <div className="relative h-40 sm:h-48 overflow-hidden">
+              <div className="relative h-44 sm:h-48 md:h-52 overflow-hidden">
                 <Image
                   src={cert.image}
                   alt={`${cert.title} professional certification`}
@@ -125,7 +125,7 @@ export default function CertificationsShowcase() {
               </div>
 
               {/* Certificate Info */}
-              <div className="p-4 sm:p-6">
+              <div className="p-4 sm:p-5 md:p-6">
                 <h3 className={`text-base sm:text-lg font-light mb-2 line-clamp-2 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
@@ -178,7 +178,7 @@ export default function CertificationsShowcase() {
 
         {/* Modal for Certificate Details */}
         {selectedCert && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
@@ -186,7 +186,7 @@ export default function CertificationsShowcase() {
             />
             
             {/* Modal Content */}
-            <div className={`relative w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden ${
+            <div className={`relative w-full max-w-2xl max-h-[90vh] sm:max-h-[85vh] md:max-h-[90vh] overflow-hidden rounded-lg ${
               theme === 'dark' ? 'bg-gray-800' : 'bg-white'
             }`}>
               {/* Close Button */}

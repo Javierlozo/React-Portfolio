@@ -101,9 +101,9 @@ export default function Hero() {
       id="hero"
     >
       {/* Minimalist Content Container */}
-      <div className="px-3 sm:px-6 max-w-6xl mx-auto pt-20 sm:pt-20 md:pt-16 lg:pt-16">
+      <div className="px-4 sm:px-6 md:px-8 max-w-6xl mx-auto pt-20 sm:pt-24 md:pt-20 lg:pt-16 pb-12 sm:pb-0">
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Left Side - Text Content */}
           <div className="text-left space-y-6 sm:space-y-8 order-1">
             {/* Name - Split text animation */}
@@ -183,10 +183,10 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons - Clear actions for recruiters */}
-            <div className="flex flex-wrap gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:flex lg:flex-wrap gap-2 sm:gap-3 md:gap-4">
               <button
                 onClick={scrollToPortfolio}
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
                   theme === 'dark' 
                     ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
@@ -197,7 +197,7 @@ export default function Hero() {
               <a
                 href="/resume/Resume.pdf"
                 download
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
+                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
                   theme === 'dark' 
                     ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
@@ -209,7 +209,7 @@ export default function Hero() {
                 href="https://github.com/Javierlozo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
+                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
                   theme === 'dark' 
                     ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
@@ -219,7 +219,7 @@ export default function Hero() {
               </a>
               <button
                 onClick={scrollToLabs}
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
                   theme === 'dark' 
                     ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
@@ -229,7 +229,7 @@ export default function Hero() {
               </button>
               <button
                 onClick={scrollToContact}
-                className={`px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
                   theme === 'dark' 
                     ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'

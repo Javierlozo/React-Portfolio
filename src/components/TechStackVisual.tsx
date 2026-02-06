@@ -111,11 +111,11 @@ export default function TechStackVisual() {
     <section
       id="skills"
       aria-label="Tech stack overview"
-      className={`py-12 sm:py-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}
+      className={`py-12 sm:py-16 md:py-20 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}
     >
-      <div className="container mx-auto px-3 sm:px-6 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <h2
             className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
               theme === "dark" ? "text-white border-gray-700" : "text-gray-900 border-gray-200"
@@ -133,11 +133,11 @@ export default function TechStackVisual() {
         </div>
 
         {/* Categories grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
           {CATEGORIES.map((category) => (
             <div
               key={category.id}
-              className={`rounded-xl border-2 p-4 sm:p-5 transition-all duration-300 ${
+              className={`rounded-xl border-2 p-4 sm:p-5 md:p-6 transition-all duration-300 ${
                 theme === "dark"
                   ? "bg-gray-800/40 border-gray-700 hover:border-gray-600"
                   : "bg-white border-gray-200 hover:border-gray-300"

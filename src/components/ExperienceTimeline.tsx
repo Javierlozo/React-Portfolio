@@ -196,10 +196,10 @@ export default function ExperienceTimeline() {
   ];
 
   return (
-    <section id="experience" className={`py-16 sm:py-20 w-full ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
-      <div className="w-full px-3 sm:px-6 max-w-6xl mx-auto">
+    <section id="experience" className={`py-12 sm:py-16 md:py-20 w-full ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
+      <div className="w-full px-4 sm:px-6 md:px-8 max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16 relative z-10">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16 relative z-10">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
@@ -214,8 +214,8 @@ export default function ExperienceTimeline() {
 
         {/* Timeline */}
         <div className="relative" ref={timelineRef}>
-          {/* Timeline Line - Hidden on mobile */}
-          <div className={`absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 hidden sm:block ${
+          {/* Timeline Line - Hidden on mobile, visible from tablet */}
+          <div className={`absolute left-4 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 hidden sm:block ${
             theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
           }`}>
             {/* Animated progress line */}
@@ -231,7 +231,7 @@ export default function ExperienceTimeline() {
           </div>
 
           {/* Experience Items */}
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-10 md:space-y-12">
             {experiences.map((exp, index) => (
               <div 
                 key={exp.id} 
@@ -259,7 +259,7 @@ export default function ExperienceTimeline() {
                 </div>
                 
                 {/* Timeline Dot - Hidden on mobile */}
-                <div className={`absolute left-2 sm:left-6 w-4 h-4 rounded-full border-4 hidden sm:block ${
+                <div className={`absolute left-2 sm:left-5 md:left-6 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 sm:border-4 hidden sm:block ${
                   exp.current 
                     ? 'bg-blue-500 border-blue-500' 
                     : theme === 'dark' 
@@ -268,7 +268,7 @@ export default function ExperienceTimeline() {
                 }`}></div>
 
                 {/* Content Card */}
-                <div className={`ml-0 sm:ml-16 p-4 sm:p-8 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl w-full max-w-5xl ${
+                <div className={`ml-0 sm:ml-14 md:ml-16 p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl w-full max-w-5xl ${
                   theme === 'dark' ? 'bg-gray-800' : 'bg-white'
                 }`}>
                   {/* Header */}
