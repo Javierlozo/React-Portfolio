@@ -2,8 +2,12 @@ import { LABS, getLabByCourseAndSlug } from "../../../../data/labs";
 import LabDetailContent from "../../../../components/LabDetailContent";
 import LabNotFound from "../../../../components/LabNotFound";
 
-export default function LabPage({ params }: { params: { course: string; slug: string } }) {
-  const { course, slug } = params;
+export default async function LabPage({
+  params,
+}: {
+  params: Promise<{ course: string; slug: string }>;
+}) {
+  const { course, slug } = await params;
   const lab = getLabByCourseAndSlug(course, slug);
 
   if (!lab || lab.comingSoon) {
