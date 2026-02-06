@@ -9,9 +9,9 @@ export default function LabNotFound() {
   const { theme } = useTheme();
 
   return (
-    <div className={`min-h-screen pt-24 pb-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
-      <div className="container mx-auto px-3 sm:px-6 max-w-3xl">
-        <h1 className={`text-2xl font-medium ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+    <div className={`min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-3xl">
+        <h1 className={`text-xl sm:text-2xl font-medium ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
           Lab not found
         </h1>
         <Link

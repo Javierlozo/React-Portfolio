@@ -14,10 +14,10 @@ export default function CybersecurityLabs() {
   const { theme } = useTheme();
 
   return (
-    <section id="security-labs" className={`py-16 sm:py-20 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
-      <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
+    <section id="security-labs" className={`py-12 sm:py-16 md:py-20 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <h2
             className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
               theme === "dark" ? "text-white border-gray-700" : "text-gray-900 border-gray-200"
@@ -35,7 +35,7 @@ export default function CybersecurityLabs() {
         </div>
 
         {/* Labs: compact summary cards */}
-        <div className="space-y-6 sm:space-y-8">
+        <div className="space-y-6 sm:space-y-8 md:space-y-10">
           {(() => {
             const byCourse = LABS.reduce<Record<string, typeof LABS>>((acc, lab) => {
               const key = lab.course ?? "_other";
@@ -57,7 +57,7 @@ export default function CybersecurityLabs() {
                       {courseKey}
                     </h3>
                   )}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
                     {labsInCourse.map((lab) => (
                       <article
                         key={lab.id}
@@ -69,7 +69,7 @@ export default function CybersecurityLabs() {
                             : "bg-white border-gray-200 hover:border-gray-300"
                         }`}
                       >
-                        <div className="p-5 sm:p-6 flex flex-col h-full">
+                        <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
                           <div className="flex items-start gap-3 mb-3">
                             <div
                               className={`p-2.5 rounded-xl shrink-0 ${

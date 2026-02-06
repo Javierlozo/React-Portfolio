@@ -8,7 +8,7 @@ export default function ResumePage() {
 
   return (
     <div
-      className={`min-h-screen pt-24 pb-12 px-4 sm:px-6 ${
+      className={`min-h-screen pt-20 sm:pt-24 pb-8 sm:pb-12 px-4 sm:px-6 md:px-8 ${
         theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"
       }`}
     >
@@ -37,13 +37,12 @@ export default function ResumePage() {
           className={`rounded-xl overflow-hidden border-2 ${
             theme === "dark" ? "border-gray-700 bg-gray-800/50" : "border-gray-200 bg-white"
           }`}
-          style={{ minHeight: "calc(100vh - 12rem)" }}
+          style={{ minHeight: "400px" }}
         >
           <iframe
             src="/resume/Resume.pdf"
             title="Luis Lozoya Resume"
-            className="w-full border-0"
-            style={{ height: "calc(100vh - 12rem)", minHeight: "600px" }}
+            className="w-full border-0 h-[calc(100vh-10rem)] min-h-[400px] max-h-[800px]"
           />
         </div>
         <p

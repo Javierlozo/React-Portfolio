@@ -22,8 +22,8 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt?: string; caption?: string } | null>(null);
 
   return (
-    <div className={`min-h-screen pt-24 pb-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
-      <div className="container mx-auto px-3 sm:px-6 max-w-4xl">
+    <div className={`min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         <article className="w-full">
         <Link
           href="/#security-labs"
@@ -35,7 +35,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
         </Link>
 
         {/* Header */}
-        <header className="mb-10">
+        <header className="mb-8 sm:mb-10">
           {lab.course && (
             <p className={`text-sm font-medium mb-1 ${theme === "dark" ? "text-amber-400/80" : "text-amber-700"}`}>
               {lab.course}
@@ -188,7 +188,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                   {s.command && (
                     <>
                       <pre
-                        className={`p-4 rounded-lg text-xs sm:text-sm overflow-x-auto ${
+                        className={`p-3 sm:p-4 rounded-lg text-xs sm:text-sm overflow-x-auto ${
                           theme === "dark" ? "bg-gray-900 text-gray-300" : "bg-gray-100 text-gray-800"
                         }`}
                       >
@@ -212,7 +212,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                         type="button"
                         onClick={() => setLightboxImage({ src: s.screenshot!, alt: s.title, caption: s.command ?? s.title })}
                         title="Click to enlarge"
-                        className={`block w-full text-left relative aspect-video max-w-2xl rounded-lg overflow-hidden border cursor-zoom-in hover:opacity-90 transition-opacity ${
+                        className={`block w-full text-left relative aspect-video max-w-2xl rounded-lg overflow-hidden border cursor-zoom-in hover:opacity-90 transition-opacity w-full ${
                           theme === "dark" ? "border-gray-600" : "border-gray-300"
                         }`}
                       >
