@@ -73,9 +73,9 @@ export const LABS: CybersecurityLab[] = [
     date: "Feb 2026",
     artifacts: "Sanitized screenshots + my own DNS capture PCAP",
     tldr: [
-      "Found .env probing and WordPress brute-force patterns",
-      "Used tcpdump filters + payload inspection to confirm behavior",
-      "Reinforced why HTTPS + credential handling matters",
+      ".env probing attempt observed",
+      "WordPress login brute force detected",
+      "Demonstrates credential exposure risk over plaintext HTTP",
     ],
     skillsDemonstrated: [
       "Packet capture triage",
@@ -143,9 +143,10 @@ export const LABS: CybersecurityLab[] = [
         screenshot: "/labs/tcpdump-151610.png",
       },
     ],
-    outcome: "Identified suspicious HTTP activity (/.env probing, WordPress brute-force attempt), cleartext login parameters visible in unencrypted traffic, and correlated DNS data with infrastructure.",
+    outcome:
+      "This lab reinforced how quickly attacker behavior stands out in raw packet captures once you know what to filter for. It also highlighted how dangerous plaintext HTTP is in real environments, since authentication data can be recovered directly from packet payloads.",
     nextStepsInProduction:
-      "If this were production: I'd confirm whether traffic was internal/external, check web server logs for repeated attempts, ensure HTTPS is enforced, and review WAF/rate-limiting controls around authentication endpoints.",
+      "If this were production: I'd confirm whether the source was internal or external, check web server logs for repeated attempts, enforce HTTPS, and apply rate limiting or WAF protections around authentication endpoints.",
     securityControlsRelevant: [
       "Enforce HTTPS (HSTS)",
       "Rate-limit wp-login",
@@ -153,10 +154,9 @@ export const LABS: CybersecurityLab[] = [
       "Centralized logging + alerting (SIEM)",
     ],
     keyFindings: [
-      "HTTP GET /.env from 135.125.217.54; server returned 404",
-      "HTTP POST /wp-login.php with Hydra user-agent; visible login parameters (redacted)",
-      "DNS NS records for alphainc.ca resolved to AWS nameservers",
-      "Unencrypted HTTP exposes credentials to anyone with network access",
+      "HTTP GET /.env from 135.125.217.54 to 10.130.8.94; server returned 404",
+      "HTTP POST /wp-login.php with Hydra user-agent",
+      "DNS NS lookup mapped alphainc.ca to AWS nameservers",
     ],
     screenshots: [
       { src: "/labs/tcpdump-145021.png", alt: "Step 1: Initial packet overview", caption: "tcpdump -n -r investigate.pcap -c 20 -#" },
