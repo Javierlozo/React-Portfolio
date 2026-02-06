@@ -108,8 +108,8 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop Menu - compact */}
-        <div className="hidden lg:flex justify-center items-center flex-grow gap-2 sm:gap-3 xl:gap-4 min-w-0">
+        {/* Desktop Menu - compact (hidden on mobile/tablet, show at xl) */}
+        <div className="hidden xl:flex justify-center items-center flex-grow gap-2 sm:gap-3 xl:gap-4 min-w-0">
           {[
             "About",
             "Skills",
@@ -171,10 +171,10 @@ export default function Navbar() {
           )}
         </button>
 
-        {/* Hamburger Menu Button */}
+        {/* Hamburger Menu Button - show on mobile and tablet */}
         <button
           onClick={toggleMenu}
-          className="lg:hidden w-10 h-10 flex items-center justify-center shrink-0 transition-all duration-300 hover:scale-105 focus:outline-none"
+          className="xl:hidden w-10 h-10 flex items-center justify-center shrink-0 transition-all duration-300 hover:scale-105 focus:outline-none"
           aria-label="Toggle menu"
           aria-expanded={isOpen}
         >
@@ -206,7 +206,7 @@ export default function Navbar() {
       {/* Mobile Menu - App-like Slide-in */}
       {isOpen && (
         <div 
-          className={`fixed inset-0 z-[9999] lg:hidden ${
+          className={`fixed inset-0 z-[9999] xl:hidden ${
             theme === 'dark' ? 'bg-black/90 backdrop-blur-lg' : 'bg-white/90 backdrop-blur-lg'
           }`}
           style={{
@@ -221,7 +221,7 @@ export default function Navbar() {
           
           {/* Menu Panel - Slide from right */}
           <div 
-            className={`absolute right-0 top-0 h-full w-full max-w-sm border-l transform transition-all duration-300 ease-out shadow-2xl z-10 ${
+            className={`absolute right-0 top-0 h-full w-full max-w-sm sm:max-w-md md:max-w-lg border-l transform transition-all duration-300 ease-out shadow-2xl z-10 ${
               theme === 'dark' 
                 ? 'bg-gray-900 border-gray-800' 
                 : 'bg-white border-gray-200'

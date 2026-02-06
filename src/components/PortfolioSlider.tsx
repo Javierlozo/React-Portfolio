@@ -249,10 +249,10 @@ export default function PortfolioSlider() {
   };
 
   return (
-    <section id="portfolio" className={`py-16 sm:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
-      <div className="container mx-auto px-3 sm:px-6 max-w-7xl">
+    <section id="portfolio" className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
@@ -265,7 +265,7 @@ export default function PortfolioSlider() {
           </p>
 
           {/* Mini Grid Summary */}
-          <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12 p-4 sm:p-6 rounded-xl ${
+          <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-4xl mx-auto mb-6 sm:mb-8 md:mb-12 p-4 sm:p-5 md:p-6 rounded-xl ${
             theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
           }`}>
             <div className="text-center">
@@ -323,27 +323,27 @@ export default function PortfolioSlider() {
 
         {/* Main Slider */}
         <div className="relative">
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - smaller on mobile, avoid overlap */}
           <button
             onClick={prevSlide}
-            className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full border transition-all duration-300 ${
+            className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full border transition-all duration-300 ${
               theme === 'dark' 
                 ? 'bg-gray-800/50 backdrop-blur-sm text-white/80 hover:bg-gray-700/70 hover:text-white' 
                 : 'bg-white/50 backdrop-blur-sm text-gray-900/80 hover:bg-gray-100/70 hover:text-gray-900'
             } shadow-lg`}
           >
-            <FontAwesomeIcon icon={faChevronLeft} className="text-xl" />
+            <FontAwesomeIcon icon={faChevronLeft} className="text-base sm:text-xl" />
           </button>
           
           <button
             onClick={nextSlide}
-            className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full border transition-all duration-300 ${
+            className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full border transition-all duration-300 ${
               theme === 'dark' 
                 ? 'bg-gray-800/50 backdrop-blur-sm text-white/80 hover:bg-gray-700/70 hover:text-white' 
                 : 'bg-white/50 backdrop-blur-sm text-gray-900/80 hover:bg-gray-100/70 hover:text-gray-900'
             } shadow-lg`}
           >
-            <FontAwesomeIcon icon={faChevronRight} className="text-xl" />
+            <FontAwesomeIcon icon={faChevronRight} className="text-base sm:text-xl" />
           </button>
 
           {/* Project Display */}
@@ -358,7 +358,7 @@ export default function PortfolioSlider() {
                     ref={index === currentIndex ? cardRef : null}
                     onMouseMove={index === currentIndex && !isTouchDevice && !prefersReducedMotion ? handleCardMouseMove : undefined}
                     onMouseLeave={index === currentIndex && !isTouchDevice && !prefersReducedMotion ? handleCardMouseLeave : undefined}
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 ${
+                    className={`grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 p-4 sm:p-6 md:p-8 ${
                       theme === 'dark' ? 'bg-gray-800' : 'bg-white'
                     } rounded-2xl shadow-2xl transition-transform ease-out ${
                       isTouchDevice || prefersReducedMotion ? 'duration-0' : 'duration-300'
@@ -373,7 +373,7 @@ export default function PortfolioSlider() {
                   >
                     {/* Project Image */}
                     <div className="relative">
-                      <div className="relative w-full h-80 overflow-hidden rounded-xl group">
+                      <div className="relative w-full h-56 sm:h-64 md:h-72 lg:h-80 overflow-hidden rounded-xl group">
                         <Image
                           src={project.image}
                           alt={`${project.title}, ${project.description}`}
@@ -573,7 +573,7 @@ export default function PortfolioSlider() {
           </div>
 
           {/* Independent Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {independentProjects.map((project) => (
               <div
                 key={project.id}
@@ -582,7 +582,7 @@ export default function PortfolioSlider() {
                 }`}
               >
                 {/* Project Image */}
-                <div className="mb-4 sm:mb-6 h-40 sm:h-48 overflow-hidden rounded-lg">
+                <div className="mb-4 sm:mb-5 md:mb-6 h-36 sm:h-40 md:h-48 overflow-hidden rounded-lg">
                   <Image
                     src={project.image}
                     alt={`${project.title} project screenshot`}
