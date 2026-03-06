@@ -78,7 +78,7 @@ export default function About() {
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            Background and approach
+            Where software engineering meets security
           </p>
         </div>
 
@@ -145,7 +145,7 @@ export default function About() {
             , always with a security-aware mindset around data handling, access control, and responsible AI usage.
           </p>
           
-          <p 
+          <p
             ref={(el) => { elementRefs.current[3] = el; }}
             data-index="3"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
@@ -157,12 +157,13 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
-            I&apos;m continuously expanding my skills at the intersection of{" "}
+            Currently consulting for clients in the US and Spain through{" "}
             <span className={`font-normal ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              software engineering, cloud security, and applied AI
-            </span>.
+              IberiaTech Solutions
+            </span>
+            , while contributing to enterprise platforms at GDNA. Open to full-time and contract opportunities.
           </p>
           
         </div>

@@ -143,7 +143,7 @@ export default function SkillsModern() {
                   cardRefs.current[category.id] = el;
                 }}
                 data-card-id={category.id}
-                className={`sticky top-24 sm:top-24 min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center transition-all duration-1000 ease-out mb-8 ${
+                className={`sticky top-24 sm:top-24 min-h-[60vh] sm:min-h-[80vh] md:min-h-[90vh] flex flex-col justify-center transition-all duration-1000 ease-out mb-8 ${
                   isVisible
                     ? 'opacity-100 translate-y-0 scale-100'
                     : hasLaterVisibleCard
@@ -185,7 +185,7 @@ export default function SkillsModern() {
                   </div>
 
                   {/* Skills Grid - All Skills in One Card */}
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
                 {category.skills.map((skill) => {
                   const getSkillIcon = (skillName: string) => {
                     switch (skillName.toLowerCase()) {

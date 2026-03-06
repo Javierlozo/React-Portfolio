@@ -64,7 +64,7 @@ export default function PortfolioSlider() {
       description: "Contributing to a mentorship platform currently onboarding ~1,200 users. Delivered React-based UI components and AWS Cognito authentication system to improve user registration and onboarding.",
       techStack: ["React 18", "AWS CDK", "Cognito", "Squid Cloud", "TypeScript", "SES"],
       image: africanxt,
-      liveLink: "https://app.africanxt.com/unga",
+      liveLink: "https://build.africanxt.com/",
       featured: true,
       problem: "Mentorship platform needed secure, scalable onboarding UX for ~1,200 users.",
       solution: "Built React UI components and AWS Cognito auth, with scalable backend and CDK-managed infrastructure.",
@@ -258,54 +258,12 @@ export default function PortfolioSlider() {
           }`}>
             Portfolio
           </h2>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-6 sm:mb-8 ${
+          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            Real projects delivering measurable business value and growth
+            Selected client and independent work with measurable outcomes
           </p>
 
-          {/* Mini Grid Summary */}
-          <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 max-w-4xl mx-auto mb-6 sm:mb-8 md:mb-12 p-4 sm:p-5 md:p-6 rounded-xl ${
-            theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
-          }`}>
-            <div className="text-center">
-              <h4 className={`text-base sm:text-lg font-light mb-2 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                Selected Work
-              </h4>
-              <p className={`text-xs sm:text-sm ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-              }`}>
-                Client projects and independent initiatives
-              </p>
-            </div>
-            <div className="text-center">
-              <h4 className={`text-base sm:text-lg font-light mb-2 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                Impact
-              </h4>
-              <p className={`text-xs sm:text-sm ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-              }`}>
-                Delivered measurable results: 30% faster load times to 60% higher engagement
-              </p>
-            </div>
-            <div className="text-center">
-              <h4 className={`text-base sm:text-lg font-light mb-2 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                Tech
-              </h4>
-              <p className={`text-xs sm:text-sm ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-              }`}>
-                React, Next.js, AWS, Python, Svelte, Supabase, Squid AI
-              </p>
-            </div>
-          </div>
-          
           {/* Client Work Subheader */}
           <div className="mb-6 sm:mb-8">
             <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
@@ -316,7 +274,7 @@ export default function PortfolioSlider() {
             <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              Professional projects via GDNA, Querri, Upstate Nutrition
+              Delivered via GDNA, Querri, and direct engagements
             </p>
           </div>
         </div>
@@ -373,7 +331,7 @@ export default function PortfolioSlider() {
                   >
                     {/* Project Image */}
                     <div className="relative">
-                      <div className="relative w-full h-56 sm:h-64 md:h-72 lg:h-80 overflow-hidden rounded-xl group">
+                      <div className="relative w-full h-44 sm:h-56 md:h-64 lg:h-80 overflow-hidden rounded-xl group">
                         <Image
                           src={project.image}
                           alt={`${project.title}, ${project.description}`}
@@ -499,7 +457,7 @@ export default function PortfolioSlider() {
                             href={project.liveLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base transition-all duration-300 border ${
+                            className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] text-sm sm:text-base transition-all duration-300 border ${
                               theme === 'dark'
                                 ? 'border-blue-600 text-blue-400 hover:border-blue-500 hover:text-blue-300'
                                 : 'border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700'
@@ -514,7 +472,7 @@ export default function PortfolioSlider() {
                             href={project.codeLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base transition-all duration-300 border ${
+                            className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] text-sm sm:text-base transition-all duration-300 border ${
                               theme === 'dark'
                                 ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200'
                                 : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
@@ -568,7 +526,7 @@ export default function PortfolioSlider() {
             <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              Developer projects with Problem → Approach → Outcome. Code + live demos linked.
+              Side projects and open-source work with live demos and source code
             </p>
           </div>
 

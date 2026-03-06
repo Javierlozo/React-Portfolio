@@ -3,12 +3,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faCode, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 // Import company logos
 import querriLogo from "@/src/public/pictures/querri.png";
-import gseayLogo from "@/src/public/pictures/gseay.png";
-import lessLogo from "@/src/public/pictures/Less1.png";
 import interloopLogo from "@/src/public/pictures/interloop.jpeg";
 import upstateLogo from "@/src/public/pictures/upstate.jpg";
 import gdnaLogo from "@/src/public/pictures/gdna.ico";
@@ -97,14 +95,14 @@ export default function ExperienceTimeline() {
     {
       id: 1,
       company: "IberiaTech Solutions",
-      position: "Independent Consultant, Founder, IberiaTech Solutions",
+      position: "Founder & Lead Engineer",
       location: "Charleston, SC",
       duration: "2024 to Present",
-      description: "As an independent consultant, I help businesses in the US and Spain expand their digital presence with AI-enabled, bilingual solutions. Through IberiaTech Solutions, I deliver responsive websites and scalable cloud applications that help small businesses validate new ideas quickly and reach broader markets.",
+      description: "Founded a consulting practice serving small businesses in the US and Spain. Deliver production web applications, bilingual platforms, and AI-enabled features end-to-end, from scoping to deployment.",
       achievements: [
-        "Managed full project lifecycle with small business clients, from requirements to deployment",
-        "Advised clients on bilingual strategy and AI integration, shaping digital roadmaps",
-        "Delivered production websites and prototypes, ensuring timely launches and measurable impact"
+        "Built and launched iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com, both live and generating traffic",
+        "Delivered Next.js + AWS prototypes for clients, cutting time-to-market from months to weeks",
+        "Integrated AI features (LLM-powered content, recommendation logic) into client deliverables"
       ],
       technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AWS", "Node.js"],
       companyUrl: "https://www.iberiatechsolutions.com/",
@@ -118,15 +116,13 @@ export default function ExperienceTimeline() {
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
       duration: "Apr 2024 to Present",
-      description: "Leading end-to-end development of web applications using Next.js 14, React, and AWS services. Collaborating with external engineering teams and conducting code reviews while delivering scalable solutions.",
+      description: "Building and shipping web applications across multiple GDNA client engagements, and performing security audits on client infrastructure. Working with Next.js, React, AWS, and Python.",
       achievements: [
-        "Delivered React components and AWS Cognito integration for AfricaNXT (mentorship platform, ~1,200 users)",
-        "Applied security-aware practices in authentication, authorization, and cloud configuration aligned with industry best practices",
-        "Coordinated sprints and code reviews with cross-functional teams to ensure consistent delivery",
-        "Partnered with design and product stakeholders to align technical work with business goals",
-        "Built database infrastructure using Squid AI, supporting scalable data flows",
-        "Mentored teammates on modern React and AWS practices, improving team velocity",
-        "Optimized performance, reducing load times by 30% and onboarding friction by 60%"
+        "Delivered production apps for multiple clients: AfricaNXT (~1,200-user mentorship platform), GSeay Inc. (construction site delivered 2 weeks early), and LESS USA (performance optimization)",
+        "Built AWS Cognito authentication and React UI components for AfricaNXT, reducing onboarding friction by 60%",
+        "Conducted security audits for client applications: reviewed auth flows, cloud configurations, and dependency vulnerabilities",
+        "Optimized front-end performance across client sites, reducing load times by 30%",
+        "Built database infrastructure using Squid AI and mentored teammates on React and AWS practices"
       ],
       technologies: ["React", "AWS CDK", "Cognito", "TypeScript", "Next.js", "AWS Amplify", "Supabase", "Python", "Squid AI"],
       companyUrl: "https://gdna.io/",
@@ -140,12 +136,11 @@ export default function ExperienceTimeline() {
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
       duration: "Aug 2023 to Apr 2024",
-      description: "Delivered multiple projects focusing on Svelte and front-end development. Built Querri's website using HubSpot and custom code extensions.",
+      description: "Built and maintained Querri's marketing site and internal tools using HubSpot CMS and Svelte.",
       achievements: [
-        "Built custom HubSpot CMS solutions that increased content publishing efficiency by 50%",
-        "Optimized website performance, improving page load speeds by 35%",
-        "Implemented responsive design patterns that increased mobile engagement by 40%",
-        "Developed custom components that reduced development time by 3 weeks per project"
+        "Built custom HubSpot CMS modules and templates, improving content publishing workflow",
+        "Optimized site performance (image compression, lazy loading), improving page load speed by 35%",
+        "Implemented responsive design patterns across the marketing site for mobile and tablet"
       ],
       technologies: ["Svelte", "HubSpot CMS", "HTML", "CSS", "JavaScript", "FusionAuth", "AWS"],
       companyUrl: "https://querri.com/",
@@ -159,13 +154,11 @@ export default function ExperienceTimeline() {
       position: "Software Engineer (Contract)",
       location: "Remote",
       duration: "Jul 2023 to Aug 2023",
-      description: "Partnered with CEO to transform business vision into technical solutions.",
+      description: "Short-term engagement to redesign and optimize the company's Shopify storefront.",
       achievements: [
-        "Translated CEO's vision into technical solutions on the company's web platform",
-        "Built responsive e-commerce platforms that increased mobile sales by 45%",
-        "Implemented SEO optimizations that improved organic traffic by 60%",
-        "Created custom product recommendation systems that boosted average order value by 25%",
-        "Optimized checkout processes, reducing cart abandonment by 30%"
+        "Rebuilt the Shopify storefront with responsive Liquid templates and improved mobile UX",
+        "Implemented on-page SEO optimizations (meta tags, structured data, image compression)",
+        "Streamlined the checkout flow to reduce friction for mobile shoppers"
       ],
       technologies: ["Shopify", "Liquid", "JavaScript", "CSS", "SEO", "Analytics"],
       current: false,
@@ -178,14 +171,12 @@ export default function ExperienceTimeline() {
       position: "Software Engineer",
       location: "Charleston, SC",
       duration: "Jul 2021 to Jun 2023",
-      description: "Progressive role from Software Engineer I to Software Engineer II, focusing on enhancing client productivity and driving company profitability through custom solutions and full-stack development.",
+      description: "Promoted from Software Engineer I to II. Full-stack development on Angular/NestJs stack with Azure cloud services.",
       achievements: [
-        "Successfully delivered software development projects, driving a 10% increase in company's Q1 and Q2 profit in 2023",
-        "Mentored junior developers, providing technical guidance and accelerating onboarding",
-        "Acted as a bridge between development and leadership teams, aligning deliverables with business objectives",
-        "Developed custom Chrome extensions integrated with CRM tools and databases using RESTful APIs and OAuth2.0",
-        "Built and maintained applications using Angular, NestJs, MongoDB, and Azure Cosmos DB",
-        "Created and maintained custom Azure Functions, implementing cost-effective solutions with various triggers"
+        "Built custom Chrome extensions integrated with CRM tools using RESTful APIs and OAuth 2.0",
+        "Developed and maintained full-stack features using Angular, NestJs, MongoDB, and Azure Cosmos DB",
+        "Created Azure Functions with various triggers, reducing infrastructure costs for client workloads",
+        "Mentored junior developers and coordinated between development and leadership teams"
       ],
       technologies: ["Angular", "NestJs", "MongoDB", "Azure Cosmos DB", "Azure Functions", "TypeScript", "Node.js", "REST APIs", "OAuth2.0"],
       companyUrl: "https://www.interloopdata.com/",
@@ -208,7 +199,7 @@ export default function ExperienceTimeline() {
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            My journey in web development and technology
+            5+ years across startups, agencies, and independent consulting
           </p>
         </div>
 
@@ -268,7 +259,7 @@ export default function ExperienceTimeline() {
                 }`}></div>
 
                 {/* Content Card */}
-                <div className={`ml-0 sm:ml-14 md:ml-16 p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl w-full max-w-5xl ${
+                <div className={`ml-0 sm:ml-14 md:ml-16 p-3 sm:p-5 md:p-8 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl w-full max-w-5xl ${
                   theme === 'dark' ? 'bg-gray-800' : 'bg-white'
                 }`}>
                   {/* Header */}
@@ -277,7 +268,7 @@ export default function ExperienceTimeline() {
                       {/* Company Logo */}
                       <div className="flex-shrink-0">
                         {exp.logo ? (
-                          <div className="w-16 h-16 relative">
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 relative">
                             <Image
                               src={exp.logo}
                               alt={`${exp.company} company logo`}
@@ -286,7 +277,7 @@ export default function ExperienceTimeline() {
                             />
                           </div>
                         ) : (
-                          <div className={`w-16 h-16 rounded-lg flex items-center justify-center ${
+                          <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center ${
                             theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'
                           }`}>
                             <FontAwesomeIcon 

@@ -138,7 +138,7 @@ export default function Navbar() {
             return (
               <a
                 key={item}
-                href={`#${sectionId}`}
+                href={pathname === "/" ? `#${sectionId}` : `/#${sectionId}`}
                 className={`relative px-1.5 py-1 text-xs font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
                   isLabs ? labsClass : defaultClass
                 }`}
@@ -317,7 +317,7 @@ export default function Navbar() {
                 return (
                   <a
                     key={item}
-                    href={`#${sectionId}`}
+                    href={pathname === "/" ? `#${sectionId}` : `/#${sectionId}`}
                     className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
                       isLabs ? labsMobileClass : defaultMobileClass
                     }`}
@@ -344,7 +344,7 @@ export default function Navbar() {
               <div className="text-center">
                 <div className={`text-xs font-light tracking-widest ${
                   theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
-                }`}>© 2025 Luis Lozoya</div>
+                }`}>© {new Date().getFullYear()} Luis Lozoya</div>
               </div>
             </div>
           </div>

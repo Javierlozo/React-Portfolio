@@ -81,12 +81,6 @@ export default function Hero() {
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const scrollToLabs = () => {
-    document
-      .getElementById("security-labs")
-      ?.scrollIntoView({ behavior: "smooth" });
-  };
-
   const scrollToContact = () => {
     document
       .getElementById("contact")
@@ -135,31 +129,31 @@ export default function Hero() {
             <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
             } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
-              subtitleVisible 
-                ? 'opacity-100 translate-y-0' 
+              subtitleVisible
+                ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
-              Software Engineer. Security focused, AI enabled. GIAC GFACT Certified
+              Full Stack Engineer &middot; Security &middot; Cloud &middot; AI
             </h2>
 
             {/* Sub-headline */}
             <div className={`max-w-lg transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
             } ${
-              paragraphsVisible 
-                ? 'opacity-100 translate-y-0' 
+              paragraphsVisible
+                ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
               <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                Building secure, cloud-native web applications with React, Next.js, AWS, and AI-powered features.
+                5+ years building production web apps with React, Next.js, and AWS. GIAC GFACT certified. Currently delivering cloud-native solutions and AI integrations for clients across the US and Spain.
               </p>
             </div>
 
             {/* Skills - Cascade animation */}
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {['React', 'TypeScript', 'Python', 'AWS', 'AI Integration', 'Cloud Architecture'].map((skill, index) => (
+              {['React', 'Next.js', 'TypeScript', 'AWS', 'Python', 'Cybersecurity'].map((skill, index) => (
                 <span
                   key={skill}
                   className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-light rounded-full border transition-all ease-out ${
@@ -183,13 +177,13 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons - Clear actions for recruiters */}
-            <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:flex lg:flex-wrap gap-2 sm:gap-3 md:gap-4">
+            <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
               <button
                 onClick={scrollToPortfolio}
-                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
-                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
+                className={`px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-white text-gray-900 hover:bg-gray-200'
+                    : 'bg-gray-900 text-white hover:bg-gray-700'
                 }`}
               >
                 View My Work
@@ -197,45 +191,23 @@ export default function Hero() {
               <a
                 href="/resume/Resume.pdf"
                 download
-                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                className={`px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
+                  theme === 'dark'
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                 }`}
               >
-                Download Resume
+                Resume
               </a>
-              <a
-                href="https://github.com/Javierlozo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
-                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
-                }`}
-              >
-                View Code on GitHub
-              </a>
-              <button
-                onClick={scrollToLabs}
-                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
-                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
-                }`}
-              >
-                See Security Labs
-              </button>
               <button
                 onClick={scrollToContact}
-                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                className={`px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
+                  theme === 'dark'
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                 }`}
               >
-                Contact Me
+                Contact
               </button>
             </div>
           </div>
@@ -257,7 +229,7 @@ export default function Hero() {
             >
               <Image
                 src={photo}
-                alt="Luis Lozoya, Software Engineer. Security focused, AI enabled."
+                alt="Luis Lozoya, Full Stack Engineer"
                 className="rounded-full object-cover border border-gray-200 dark:border-gray-700 transition-all duration-500"
                 width={256}
                 height={256}

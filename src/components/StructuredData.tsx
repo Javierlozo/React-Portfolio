@@ -1,11 +1,9 @@
-"use client";
-
 export default function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Luis Lozoya",
-    "jobTitle": "Software Engineer. Security focused, AI enabled.",
+    "jobTitle": "Full Stack Engineer",
     "description": "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
     "url": "https://javierlozo.github.io",
     "image": "https://javierlozo.github.io/og-image.png",
@@ -53,7 +51,7 @@ export default function StructuredData() {
         "description": "Consulting brand delivering prototypes and proof-of-concepts for modern web and AI capabilities"
       },
       {
-        "@type": "Organization", 
+        "@type": "Organization",
         "name": "Global Digital Needs Agency (GDNA)",
         "description": "Contributing to AWS-powered digital platforms and large-scale projects"
       }
@@ -75,7 +73,8 @@ export default function StructuredData() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-    />
+    >
+      {JSON.stringify(structuredData)}
+    </script>
   );
 }

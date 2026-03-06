@@ -115,16 +115,16 @@ export default function TechStackVisual() {
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2
-            className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+            className={`text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight ${
               theme === "dark" ? "text-white border-gray-700" : "text-gray-900 border-gray-200"
             }`}
           >
             Tech Stack
           </h2>
           <p
-            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
+            className={`text-sm sm:text-lg md:text-xl max-w-3xl mx-auto ${
               theme === "dark" ? "text-gray-400" : "text-gray-600"
             }`}
           >
@@ -133,37 +133,37 @@ export default function TechStackVisual() {
         </div>
 
         {/* Categories grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-5 md:gap-6">
           {CATEGORIES.map((category) => (
             <div
               key={category.id}
-              className={`rounded-xl border-2 p-4 sm:p-5 md:p-6 transition-all duration-300 ${
+              className={`rounded-xl border p-4 sm:p-5 md:p-6 transition-all duration-300 ${
                 theme === "dark"
-                  ? "bg-gray-800/40 border-gray-700 hover:border-gray-600"
-                  : "bg-white border-gray-200 hover:border-gray-300"
+                  ? "bg-gray-800/50 border-gray-700/80 hover:border-gray-600"
+                  : "bg-white/95 border-gray-200 hover:border-gray-300"
               }`}
             >
               <h3
-                className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-3 pb-2 border-b ${
+                className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-2.5 sm:mb-3 pb-2 border-b ${
                   theme === "dark" ? "text-amber-400 border-gray-700" : "text-amber-700 border-gray-200"
                 }`}
               >
-                <FontAwesomeIcon icon={category.icon} className="text-base" />
-                {category.label}
+                <FontAwesomeIcon icon={category.icon} className="text-sm sm:text-base shrink-0" />
+                <span className="truncate">{category.label}</span>
               </h3>
-              <ul className="flex flex-wrap gap-2" role="list">
+              <ul className="flex flex-wrap gap-1.5 sm:gap-2" role="list">
                 {category.items.map((item) => (
                   <li key={item.name}>
                     <span
-                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm sm:text-xs font-medium transition-colors ${
                         theme === "dark"
-                          ? "bg-gray-700/80 text-gray-300 hover:bg-gray-600"
+                          ? "bg-gray-700/90 text-gray-200 hover:bg-gray-600"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                       title={item.name}
                     >
-                      <FontAwesomeIcon icon={item.icon} className="text-xs opacity-80" />
-                      {item.name}
+                      <FontAwesomeIcon icon={item.icon} className="text-[10px] sm:text-xs opacity-75 shrink-0" />
+                      <span className="leading-snug">{item.name}</span>
                     </span>
                   </li>
                 ))}
