@@ -21,7 +21,7 @@ export default function Testimonials() {
       quote:
         "Luis at IberiaTech does amazing work. He is a skilled developer and really great to work with.",
       name: "Dave Ingram",
-      position: "Querri",
+      position: "CEO, Querri",
       image: querriImage, // Use the imported image
     },
   ];
@@ -42,7 +42,7 @@ export default function Testimonials() {
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            What clients and colleagues say about working with me
+            Client feedback
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export default function Testimonials() {
                   : 'border-gray-200 bg-transparent'
               }`}
             >
-              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 md:gap-8">
+              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-5 md:gap-8">
                 {testimonial.image && (
                   <div className="w-16 h-16 sm:w-20 sm:h-20 relative flex-shrink-0">
                     <Image

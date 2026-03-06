@@ -44,7 +44,7 @@ export default function CertificationsShowcase() {
       issuer: "Google (via Coursera)",
       date: "2025",
       image: coursera,
-      verifyLink: "https://www.coursera.org/account/accomplishments/verify/ABC123",
+      verifyLink: undefined,
       description: "Comprehensive program covering AI fundamentals and practical applications of artificial intelligence.",
       skills: ["Artificial Intelligence", "AI Applications", "Data Science"]
     },
@@ -54,7 +54,7 @@ export default function CertificationsShowcase() {
       issuer: "Purdue University and Ivy Tech",
       date: "2023",
       image: systemAdm,
-      verifyLink: "https://www.coursera.org/account/accomplishments/verify/DEF456",
+      verifyLink: undefined,
       description: "Comprehensive cybersecurity and system administration program covering security fundamentals, network protection, and infrastructure management.",
       skills: ["Cybersecurity", "System Administration", "Network Security", "Infrastructure", "Security Management"]
     },
@@ -93,7 +93,7 @@ export default function CertificationsShowcase() {
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            Professional certifications and continuous learning achievements
+            Industry certifications validating security and engineering fundamentals
           </p>
         </div>
 
@@ -186,7 +186,7 @@ export default function CertificationsShowcase() {
             />
             
             {/* Modal Content */}
-            <div className={`relative w-full max-w-2xl max-h-[90vh] sm:max-h-[85vh] md:max-h-[90vh] overflow-hidden rounded-lg ${
+            <div className={`relative w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto overflow-hidden rounded-lg ${
               theme === 'dark' ? 'bg-gray-800' : 'bg-white'
             }`}>
               {/* Close Button */}

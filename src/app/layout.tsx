@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
-    default: "Luis Lozoya, Software Engineer. Security focused, AI enabled.",
+    default: "Luis Lozoya | Full Stack Engineer — Security, Cloud, AI",
     template: "%s | Luis Lozoya"
   },
   description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration. Building scalable web applications and AI-powered solutions for businesses worldwide.",
@@ -50,8 +50,8 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Luis Lozoya, Software Engineer. Security focused, AI enabled.",
-    description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
+    title: "Luis Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
     url: 'https://javierlozo.github.io',
     siteName: 'Luis Lozoya Portfolio',
     images: [
@@ -67,8 +67,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Luis Lozoya, Software Engineer. Security focused, AI enabled.",
-    description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
+    title: "Luis Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
     images: ['/og-image.png'],
     creator: '@javierlozo',
   },
@@ -83,11 +83,9 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
-  },
+  // verification: {
+  //   google: 'your-google-verification-code',
+  // },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
