@@ -1,16 +1,17 @@
 "use client";
 import React from "react";
+import dynamic from "next/dynamic";
 
 import Hero from "../components/Hero";
 import About from "../components/About";
 import TechStackVisual from "../components/TechStackVisual";
-// import SkillsModern from "../components/SkillsModern"; // uncomment to use scroll cards instead of Tech Stack
 import ExperienceTimeline from "../components/ExperienceTimeline";
 import CertificationsShowcase from "../components/CertificationsShowcase";
 import CybersecurityLabs from "../components/CybersecurityLabs";
-import PortfolioSlider from "../components/PortfolioSlider";
-import Testimonials from "../components/Testimonials";
-import Contact from "../components/Contact";
+
+const PortfolioSlider = dynamic(() => import("../components/PortfolioSlider"));
+const Testimonials = dynamic(() => import("../components/Testimonials"));
+const Contact = dynamic(() => import("../components/Contact"));
 
 export default function Home() {
   return (
@@ -18,8 +19,6 @@ export default function Home() {
       <Hero />
       <About />
       <TechStackVisual />
-      {/* To use Skills & Expertise (scroll cards) instead: uncomment <SkillsModern /> and the SkillsModern import above, then comment out <TechStackVisual /> */}
-      {/* <SkillsModern /> */}
       <ExperienceTimeline />
       <CertificationsShowcase />
       <CybersecurityLabs />

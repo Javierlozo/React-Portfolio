@@ -6,6 +6,7 @@ import ScrollProgress from "../components/ScrollProgress";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import StructuredData from "../components/StructuredData";
 import ConsoleMessage from "../components/ConsoleMessage";
+import ErrorBoundary from "../components/ErrorBoundary";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -120,9 +121,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <StructuredData />
         <ConsoleMessage />
         <ThemeProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:px-4 focus:py-2 focus:bg-white focus:text-gray-900 focus:rounded focus:shadow-lg focus:text-sm focus:font-medium"
+          >
+            Skip to main content
+          </a>
           <ScrollProgress />
           <Navbar />
-          <main>{children}</main>
+          <main id="main-content">
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </main>
           <Footer />
         </ThemeProvider>
       </body>

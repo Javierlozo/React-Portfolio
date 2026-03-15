@@ -88,58 +88,72 @@ export default function Contact() {
           onSubmit={handleSubmit}
         >
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
-              <input
-                type="text"
-                name="from_name"
-                placeholder="Your Name"
-                value={formData.from_name}
-                onChange={(e) =>
-                  setFormData({ ...formData, from_name: e.target.value })
-                }
-                required
-                disabled={isSubmitting}
-                className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
-                  theme === 'dark'
-                    ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                    : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
-                }`}
-              />
-              <input
-                type="email"
-                name="reply_to"
-                placeholder="Your Email"
-                value={formData.reply_to}
-                onChange={(e) =>
-                  setFormData({ ...formData, reply_to: e.target.value })
-                }
-                required
-                disabled={isSubmitting}
-                className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
-                  theme === 'dark'
-                    ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                    : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
-                }`}
-              />
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-                required
-                disabled={isSubmitting}
-                rows={6}
-                className={`w-full p-3 sm:p-4 text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent min-h-[120px] ${
-                  theme === 'dark'
-                    ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                    : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
-                }`}
-              ></textarea>
+              <div>
+                <label htmlFor="from_name" className="sr-only">Your Name</label>
+                <input
+                  id="from_name"
+                  type="text"
+                  name="from_name"
+                  placeholder="Your Name"
+                  value={formData.from_name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, from_name: e.target.value })
+                  }
+                  required
+                  disabled={isSubmitting}
+                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
+                    theme === 'dark'
+                      ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                      : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                  }`}
+                />
+              </div>
+              <div>
+                <label htmlFor="reply_to" className="sr-only">Your Email</label>
+                <input
+                  id="reply_to"
+                  type="email"
+                  name="reply_to"
+                  placeholder="Your Email"
+                  value={formData.reply_to}
+                  onChange={(e) =>
+                    setFormData({ ...formData, reply_to: e.target.value })
+                  }
+                  required
+                  disabled={isSubmitting}
+                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
+                    theme === 'dark'
+                      ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                      : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                  }`}
+                />
+              </div>
+              <div>
+                <label htmlFor="message" className="sr-only">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  required
+                  disabled={isSubmitting}
+                  rows={6}
+                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent min-h-[120px] ${
+                    theme === 'dark'
+                      ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
+                      : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
+                  }`}
+                ></textarea>
+              </div>
             </div>
 
             {submitStatus.message && (
               <div
+                role="status"
+                aria-live="polite"
                 className={`text-center p-4 rounded-lg border ${
                   submitStatus.type === "success"
                     ? theme === 'dark'
