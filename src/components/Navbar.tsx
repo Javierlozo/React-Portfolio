@@ -162,7 +162,8 @@ export default function Navbar() {
               ? 'border-gray-700 text-gray-400 hover:border-white hover:text-white' 
               : 'border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900'
           }`}
-          aria-label="Toggle theme"
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          aria-pressed={theme === 'dark'}
         >
           {theme === 'dark' ? (
             <FiSun className="w-4 h-4" />
@@ -250,11 +251,12 @@ export default function Navbar() {
                   <button
                     onClick={toggleTheme}
                     className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
-                      theme === 'dark' 
-                        ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                      theme === 'dark'
+                        ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
                         : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                     }`}
-                    aria-label="Toggle theme"
+                    aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                    aria-pressed={theme === 'dark'}
                   >
                     {theme === 'dark' ? (
                       <FiSun className="w-4 h-4" />
