@@ -3,7 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { FiZap } from "react-icons/fi";
+import { experienceNarratives } from "../data/ai-context";
 
 // Import company logos
 import querriLogo from "@/src/public/pictures/querri.png";
@@ -32,7 +34,17 @@ export default function ExperienceTimeline() {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const [lineProgress, setLineProgress] = useState(0);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [expandedNarratives, setExpandedNarratives] = useState<Set<number>>(new Set());
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const toggleNarrative = (id: number) => {
+    setExpandedNarratives((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
   const timelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -93,42 +105,40 @@ export default function ExperienceTimeline() {
 
   const experiences: Experience[] = [
     {
-      id: 1,
-      company: "IberiaTech Solutions",
-      position: "Founder & Lead Engineer",
-      location: "Charleston, SC",
-      duration: "2024 to Present",
-      description: "Founded a consulting practice serving small businesses in the US and Spain. Deliver production web applications, bilingual platforms, and AI-enabled features end-to-end, from scoping to deployment.",
-      achievements: [
-        "Built and launched iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com, both live and generating traffic",
-        "Delivered Next.js + AWS prototypes for clients, cutting time-to-market from months to weeks",
-        "Integrated AI features (LLM-powered content, recommendation logic) into client deliverables"
-      ],
-      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AWS", "Node.js"],
-      companyUrl: "https://www.iberiatechsolutions.com/",
-      current: true,
-      logo: itcLogo,
-      industry: "Web Development & AI Solutions"
-    },
-    {
       id: 2,
       company: "GDNA",
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
       duration: "Apr 2024 to Present",
-      description: "Building and shipping web applications across multiple GDNA client engagements, and performing security audits on client infrastructure. Working with Next.js, React, AWS, and Python.",
+      description: "Started translating Figma designs into React/Next.js code. Evolved into owning full application architecture, API design, and database design on AWS.",
       achievements: [
-        "Delivered production apps for multiple clients: AfricaNXT (~1,200-user mentorship platform), GSeay Inc. (construction site delivered 2 weeks early), and LESS USA (performance optimization)",
-        "Built AWS Cognito authentication and React UI components for AfricaNXT, reducing onboarding friction by 60%",
-        "Conducted security audits for client applications: reviewed auth flows, cloud configurations, and dependency vulnerabilities",
-        "Optimized front-end performance across client sites, reducing load times by 30%",
-        "Built database infrastructure using Squid AI and mentored teammates on React and AWS practices"
+        "Architecting serverless AWS solutions: API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify",
+        "Designing APIs, front-end architecture, and database schemas for client applications",
+        "Running weekly client meetings to demo progress and incorporate feedback"
       ],
-      technologies: ["React", "AWS CDK", "Cognito", "TypeScript", "Next.js", "AWS Amplify", "Supabase", "Python", "Squid AI"],
+      technologies: ["AWS API Gateway", "Lambda", "S3", "RDS", "Cognito", "IAM", "Secrets Manager", "Amplify", "React", "TypeScript", "Next.js", "PostgreSQL"],
       companyUrl: "https://gdna.io/",
       current: true,
       logo: gdnaLogo,
       industry: "AWS & Cloud Solutions"
+    },
+    {
+      id: 1,
+      company: "IberiaTech Solutions",
+      position: "Founder",
+      location: "Charleston, SC",
+      duration: "2024",
+      description: "Independent projects and web development under a personal brand. Built and shipped production sites to explore AI integration, bilingual platforms, and e-commerce.",
+      achievements: [
+        "Built and launched iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com",
+        "Integrated AI features (LLM-powered content, recommendation logic) into projects",
+        "Full project lifecycle: design, architecture, implementation, deployment"
+      ],
+      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AWS", "Node.js"],
+      companyUrl: "https://www.iberiatechsolutions.com/",
+      current: false,
+      logo: itcLogo,
+      industry: "Web Development & AI Solutions"
     },
     {
       id: 3,
@@ -136,11 +146,11 @@ export default function ExperienceTimeline() {
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
       duration: "Aug 2023 to Apr 2024",
-      description: "Built and maintained Querri's marketing site and internal tools using HubSpot CMS and Svelte.",
+      description: "Built a client project using Svelte and maintained Querri's HubSpot website with custom code modifications throughout the contract.",
       achievements: [
-        "Built custom HubSpot CMS modules and templates, improving content publishing workflow",
-        "Optimized site performance (image compression, lazy loading), improving page load speed by 35%",
-        "Implemented responsive design patterns across the marketing site for mobile and tablet"
+        "Built a client-facing project using Svelte and FusionAuth",
+        "Modified and maintained Querri's HubSpot website with custom code",
+        "Built custom HubSpot CMS modules and templates"
       ],
       technologies: ["Svelte", "HubSpot CMS", "HTML", "CSS", "JavaScript", "FusionAuth", "AWS"],
       companyUrl: "https://querri.com/",
@@ -154,11 +164,10 @@ export default function ExperienceTimeline() {
       position: "Software Engineer (Contract)",
       location: "Remote",
       duration: "Jul 2023 to Aug 2023",
-      description: "Short-term engagement to redesign and optimize the company's Shopify storefront.",
+      description: "Short-term contract to rebuild the company's Shopify storefront. The engagement ended before completion.",
       achievements: [
-        "Rebuilt the Shopify storefront with responsive Liquid templates and improved mobile UX",
-        "Implemented on-page SEO optimizations (meta tags, structured data, image compression)",
-        "Streamlined the checkout flow to reduce friction for mobile shoppers"
+        "Started rebuilding the Shopify storefront with Liquid templates",
+        "Gained experience with Shopify's ecosystem and e-commerce development"
       ],
       technologies: ["Shopify", "Liquid", "JavaScript", "CSS", "SEO", "Analytics"],
       current: false,
@@ -171,7 +180,7 @@ export default function ExperienceTimeline() {
       position: "Software Engineer",
       location: "Charleston, SC",
       duration: "Jul 2021 to Jun 2023",
-      description: "Promoted from Software Engineer I to II. Full-stack development on Angular/NestJs stack with Azure cloud services.",
+      description: "First engineering role after JRS Coding School bootcamp. Promoted from Software Engineer I to II. Full-stack development on Angular/NestJs stack with Azure cloud services.",
       achievements: [
         "Built custom Chrome extensions integrated with CRM tools using RESTful APIs and OAuth 2.0",
         "Developed and maintained full-stack features using Angular, NestJs, MongoDB, and Azure Cosmos DB",
@@ -398,8 +407,8 @@ export default function ExperienceTimeline() {
                         <span
                           key={tech}
                           className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full ${
-                            theme === 'dark' 
-                              ? 'bg-gray-700 text-gray-300' 
+                            theme === 'dark'
+                              ? 'bg-gray-700 text-gray-300'
                               : 'bg-gray-200 text-gray-700'
                           }`}
                         >
@@ -408,6 +417,97 @@ export default function ExperienceTimeline() {
                       ))}
                     </div>
                   </div>
+
+                  {/* View AI Context */}
+                  {experienceNarratives[exp.id] && (
+                    <div className="mt-6">
+                      <button
+                        onClick={() => toggleNarrative(exp.id)}
+                        className={`flex items-center gap-1.5 text-xs font-semibold transition-colors ${
+                          theme === 'dark'
+                            ? 'text-cyan-400 hover:text-cyan-300'
+                            : 'text-blue-600 hover:text-blue-700'
+                        }`}
+                      >
+                        <FiZap className="w-3.5 h-3.5" />
+                        {expandedNarratives.has(exp.id) ? "Hide" : "View"} AI Context
+                        <FontAwesomeIcon
+                          icon={expandedNarratives.has(exp.id) ? faChevronUp : faChevronDown}
+                          className="w-3 h-3"
+                        />
+                      </button>
+
+                      {expandedNarratives.has(exp.id) && (() => {
+                        const narrative = experienceNarratives[exp.id];
+                        return (
+                          <div className={`mt-4 pt-4 border-t space-y-4 ${
+                            theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+                          }`}>
+                            <div>
+                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                              }`}>
+                                The Situation
+                              </h5>
+                              <p className={`text-sm leading-relaxed ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                              }`}>
+                                {narrative.situation}
+                              </p>
+                            </div>
+                            <div>
+                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                              }`}>
+                                What I Did
+                              </h5>
+                              <ul className="space-y-1.5">
+                                {narrative.actions.map((action, ai) => (
+                                  <li key={ai} className={`text-sm leading-relaxed flex gap-2 ${
+                                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                                  }`}>
+                                    <span className={`mt-1 shrink-0 ${
+                                      theme === 'dark' ? 'text-blue-400' : 'text-blue-500'
+                                    }`}>&#8226;</span>
+                                    {action}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                              }`}>
+                                Results
+                              </h5>
+                              <ul className="space-y-1.5">
+                                {narrative.results.map((result, ri) => (
+                                  <li key={ri} className={`text-sm leading-relaxed flex gap-2 ${
+                                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                                  }`}>
+                                    <span className="text-emerald-500 mt-1 shrink-0">&#10003;</span>
+                                    {result}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
+                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                              }`}>
+                                Lessons Learned
+                              </h5>
+                              <p className={`text-sm leading-relaxed italic ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                              }`}>
+                                &quot;{narrative.lessonsLearned}&quot;
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

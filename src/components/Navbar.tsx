@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon, FiZap } from "react-icons/fi";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function Navbar() {
@@ -31,7 +31,7 @@ export default function Navbar() {
 
   // Track active section using Intersection Observer
   useEffect(() => {
-    const sections = ["about", "skills", "experience", "certifications", "security-labs", "portfolio", "testimonials", "contact"];
+    const sections = ["about", "skills", "experience", "skills-assessment", "certifications", "security-labs", "portfolio", "fit-check", "testimonials", "contact"];
     
     const observerOptions = {
       root: null,
@@ -117,17 +117,23 @@ export default function Navbar() {
             "Certifications",
             "Security Labs",
             "Portfolio",
+            "Fit Check",
             "Testimonials",
             "Contact",
           ].map((item) => {
             const sectionId = item.toLowerCase().replace(/\s+/g, "-");
             const isActive = activeSection === sectionId;
             const isLabs = item === "Security Labs";
-            const labsClass = isLabs
+            const isAI = item === "Fit Check";
+            const specialClass = isLabs
               ? theme === "dark"
                 ? "text-amber-400 hover:text-amber-300"
                 : "text-amber-600 hover:text-amber-700"
-              : "";
+              : isAI
+                ? theme === "dark"
+                  ? "text-cyan-400 hover:text-cyan-300"
+                  : "text-blue-600 hover:text-blue-700"
+                : "";
             const defaultClass = isActive
               ? theme === "dark"
                 ? "text-white"
@@ -140,13 +146,14 @@ export default function Navbar() {
                 key={item}
                 href={pathname === "/" ? `#${sectionId}` : `/#${sectionId}`}
                 className={`relative px-1.5 py-1 text-xs font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
-                  isLabs ? labsClass : defaultClass
+                  isLabs || isAI ? specialClass : defaultClass
                 }`}
               >
+                {isAI && <FiZap className="inline w-3 h-3 mr-0.5 -mt-0.5" />}
                 {item}
                 {isActive && (
                   <div className={`absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 w-5 h-px ${
-                    isLabs ? "bg-amber-500" : theme === "dark" ? "bg-white" : "bg-gray-900"
+                    isLabs ? "bg-amber-500" : isAI ? (theme === "dark" ? "bg-cyan-400" : "bg-blue-600") : theme === "dark" ? "bg-white" : "bg-gray-900"
                   }`}></div>
                 )}
               </a>
@@ -294,13 +301,15 @@ export default function Navbar() {
                 "Certifications",
                 "Security Labs",
                 "Portfolio",
+                "Fit Check",
                 "Testimonials",
                 "Contact",
               ].map((item, index) => {
                 const sectionId = item.toLowerCase().replace(/\s+/g, "-");
                 const isActive = activeSection === sectionId;
                 const isLabs = item === "Security Labs";
-                const labsMobileClass = isLabs
+                const isAI = item === "Fit Check";
+                const specialMobileClass = isLabs
                   ? theme === "dark"
                     ? isActive
                       ? "text-amber-400 bg-amber-500/20"
@@ -308,7 +317,15 @@ export default function Navbar() {
                     : isActive
                       ? "text-amber-700 bg-amber-100"
                       : "text-amber-600 active:bg-amber-50"
-                  : "";
+                  : isAI
+                    ? theme === "dark"
+                      ? isActive
+                        ? "text-cyan-400 bg-cyan-500/20"
+                        : "text-cyan-400/90 active:bg-cyan-500/10"
+                      : isActive
+                        ? "text-blue-700 bg-blue-100"
+                        : "text-blue-600 active:bg-blue-50"
+                    : "";
                 const defaultMobileClass = isActive
                   ? theme === "dark"
                     ? "text-white bg-gray-800"
@@ -321,13 +338,14 @@ export default function Navbar() {
                     key={item}
                     href={pathname === "/" ? `#${sectionId}` : `/#${sectionId}`}
                     className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
-                      isLabs ? labsMobileClass : defaultMobileClass
+                      isLabs || isAI ? specialMobileClass : defaultMobileClass
                     }`}
                     onClick={toggleMenu}
                     style={{
                       animationDelay: `${index * 50}ms`
                     }}
                   >
+                    {isAI && <FiZap className="inline w-3.5 h-3.5 mr-1.5 -mt-0.5" />}
                     {item}
                   </a>
                 );

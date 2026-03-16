@@ -8,6 +8,8 @@ import TechStackVisual from "../components/TechStackVisual";
 import ExperienceTimeline from "../components/ExperienceTimeline";
 import CertificationsShowcase from "../components/CertificationsShowcase";
 import CybersecurityLabs from "../components/CybersecurityLabs";
+import SkillsAssessment from "../components/SkillsAssessment";
+import FitAssessment from "../components/FitAssessment";
 
 const PortfolioSlider = dynamic(() => import("../components/PortfolioSlider"));
 const Testimonials = dynamic(() => import("../components/Testimonials"));
@@ -20,9 +22,11 @@ export default function Home() {
       <About />
       <TechStackVisual />
       <ExperienceTimeline />
+      <SkillsAssessment />
       <CertificationsShowcase />
       <CybersecurityLabs />
       <PortfolioSlider />
+      <FitAssessment />
       <Testimonials />
       <Contact />
     </div>
