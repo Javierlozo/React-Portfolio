@@ -7,6 +7,7 @@ import { ThemeProvider } from "../contexts/ThemeContext";
 import StructuredData from "../components/StructuredData";
 import ConsoleMessage from "../components/ConsoleMessage";
 import ErrorBoundary from "../components/ErrorBoundary";
+import AIChatButton from "../components/AIChatButton";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -133,6 +134,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <ErrorBoundary>{children}</ErrorBoundary>
           </main>
           <Footer />
+          <AIChatButton />
         </ThemeProvider>
       </body>
     </html>

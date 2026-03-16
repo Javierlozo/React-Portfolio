@@ -157,13 +157,13 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
-            Currently consulting for clients in the US and Spain through{" "}
+            Currently building full-stack applications and architecting serverless AWS solutions at{" "}
             <span className={`font-normal ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              IberiaTech Solutions
+              GDNA
             </span>
-            , while contributing to enterprise platforms at GDNA. Open to full-time and contract opportunities.
+            . Always open to interesting conversations.
           </p>
           
         </div>

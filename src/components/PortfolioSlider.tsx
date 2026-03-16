@@ -12,12 +12,9 @@ import cursorRules from "@/src/public/pictures/cursor-rules.png";
 import gseay from "@/src/public/pictures/gseay.png";
 import africanxt from "@/src/public/pictures/app.africanxt.com_.png";
 import iberiatech from "@/src/public/pictures/www.iberiatechsolutions.com_ (1).png";
-import portfolioHub from "@/src/public/pictures/portfoliohub.png";
-import web1 from "@/src/public/pictures/rental.png";
-import web2 from "@/src/public/pictures/weather.png";
 import web3 from "@/src/public/pictures/langchain.png";
-import web4 from "@/src/public/pictures/Screenshot (117).png";
 import shopEssentialshub from "@/src/public/pictures/www.shopessentialshub.com_.png";
+import talentagent from "@/src/public/pictures/TalentAgent.png";
 
 interface Project {
   id: number;
@@ -107,8 +104,21 @@ export default function PortfolioSlider() {
 
   const independentProjects: Project[] = [
     {
+      id: 14,
+      title: "TalentAgent: AI Job Fit Assessment Platform (2026)",
+      description: "Paste any job description and get an honest 0-100 fit score with strengths, gaps, and interview prep. Includes ghost job detection and a job board with AI scores.",
+      techStack: ["Next.js 15", "Supabase", "OpenAI", "Stripe", "TypeScript", "Tailwind CSS"],
+      image: talentagent,
+      liveLink: "https://portfolio-hub-tawny.vercel.app/",
+      featured: true,
+      problem: "Job seekers waste hours applying to roles that aren't a good fit or are ghost postings.",
+      approach: "Built a full-stack platform with OpenAI for fit scoring, Supabase for data and auth, Stripe for payments, and a job board with pre-scored listings.",
+      outcome: "Live platform that scores fit in 10 seconds, detects ghost jobs, and gives honest 'Don't Apply' signals. Free to use.",
+      role: "Solo builder: design, full-stack development, AI integration, payments, deployment",
+    },
+    {
       id: 13,
-      title: "ShopEssentialsHub: Curated Product Recommendation Platform",
+      title: "ShopEssentialsHub: Curated Product Recommendation Platform (2025)",
       description: "A modern product curation platform with hand-picked Amazon products, reviews, category filtering, and Editor's Choice. Responsive, SEO-optimized, with affiliate integration.",
       techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
       image: shopEssentialshub,
@@ -121,22 +131,8 @@ export default function PortfolioSlider() {
       role: "Design, full-stack development, deployment (Vercel)",
     },
     {
-      id: 12,
-      title: "PortfolioHub: Professional Portfolio Platform",
-      description: "A platform for discovering and connecting with professionals via their portfolios. Browse work, discover talent, and facilitate collaborations.",
-      techStack: ["Next.js 15", "React 19", "TypeScript", "Supabase", "Tailwind CSS", "PLpgSQL"],
-      image: portfolioHub,
-      liveLink: "https://portfolio-hub-tawny.vercel.app/",
-      codeLink: "https://github.com/IberiaTech-Solutions/PortfolioHub",
-      featured: true,
-      problem: "No single place to discover and compare portfolios; recruiters and teams spend time hunting across LinkedIn and personal sites.",
-      approach: "Built end-to-end: auth and profiles in Supabase, PLpgSQL for queries, Next.js 15/React 19 front end. Focus on browse, search, and clear profile presentation.",
-      outcome: "Working platform where users can browse and connect with professionals. Shows backend (Supabase, SQL), front end, and product design.",
-      role: "Full-stack design, backend (Supabase/PLpgSQL), deployment",
-    },
-    {
       id: 11,
-      title: "IberiaTech Solutions: Bilingual Business Website",
+      title: "IberiaTech Solutions: Bilingual Business Website (2025)",
       description: "Modern bilingual (EN/ES) business site with AI features and responsive design. Increased engagement and expanded reach to Spanish-speaking audiences.",
       techStack: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
       image: iberiatech,
@@ -149,7 +145,7 @@ export default function PortfolioSlider() {
     },
     {
       id: 7,
-      title: "Cursor Rules Hub: AI Community Platform",
+      title: "Cursor Rules Hub: AI Community Platform (2025)",
       description: "Community-driven platform for sharing and discovering AI behavior rules for Cursor Editor. Rule browsing, creation tools, and file-pattern matching.",
       techStack: ["Next.js 14", "Supabase", "TypeScript", "Tailwind CSS"],
       image: cursorRules,
@@ -162,7 +158,7 @@ export default function PortfolioSlider() {
     },
     {
       id: 3,
-      title: "YouTube GPT Creator",
+      title: "YouTube GPT Creator (2024)",
       description: "AI-assisted automation for YouTube content workflows using Python and LangChain, reducing manual steps in scripting and planning.",
       techStack: ["Python", "LangChain"],
       image: web3,
@@ -171,45 +167,6 @@ export default function PortfolioSlider() {
       approach: "Built a Python tool using LangChain to automate research and draft scripts from prompts. Integrated with common content workflows.",
       outcome: "Roughly 40% reduction in manual effort for script and planning steps. Demonstrates AI/LLM integration and automation.",
       role: "Backend, AI integration, scripting/automation",
-    },
-    {
-      id: 1,
-      title: "Rental App",
-      description: "User-friendly sports equipment rental app for the Charleston, SC area with real-time availability and secure transactions.",
-      techStack: ["React", "Node.js", "AWS"],
-      image: web1,
-      liveLink: "https://javierlozo.github.io/Rental-App/",
-      codeLink: "https://github.com/Javierlozo/Rental-App",
-      problem: "Local sports equipment rental lacked a simple way to see availability and book online.",
-      approach: "Designed and built a React front end and Node.js backend with availability logic and a clear booking flow. Deployed for demo use.",
-      outcome: "Working demo showing full-stack skills: React, Node, and deployment. Real-time availability and transaction flow.",
-      role: "Design, front-end and backend, deployment",
-    },
-    {
-      id: 2,
-      title: "Weather App",
-      description: "Dynamic weather app for real-time conditions across multiple cities, powered by a reliable REST API.",
-      techStack: ["React", "REST API"],
-      image: web2,
-      liveLink: "https://javierlozo.github.io/WeatherCheck-API/",
-      codeLink: "https://github.com/Javierlozo/WeatherCheck-API",
-      problem: "Need a simple, fast way to check weather in multiple cities without switching sites or apps.",
-      approach: "Built a React SPA that consumes a weather REST API, with city search and clear display of conditions and forecasts.",
-      outcome: "Clean, functional demo of API integration and React state management. Live and open source.",
-      role: "Front-end development, API integration, deployment",
-    },
-    {
-      id: 4,
-      title: "Old Portfolio Page",
-      description: "Early portfolio site to showcase projects and skills, built with React and Node.js. Foundation for this professional site.",
-      techStack: ["React", "Node.js"],
-      image: web4,
-      liveLink: "https://javierlozo.github.io/portfolio/",
-      codeLink: "https://github.com/Javierlozo/portfolio",
-      problem: "Needed a single place to present projects and skills to recruiters and clients.",
-      approach: "Designed and built a React + Node.js portfolio with project cards and a simple, readable layout.",
-      outcome: "Served as the basis for this portfolio and demonstrated early full-stack and deployment skills.",
-      role: "Design, front-end and backend, deployment",
     },
   ];
 
