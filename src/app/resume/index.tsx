@@ -41,7 +41,7 @@ export default function ResumePage() {
         >
           <iframe
             src="/resume/Resume.pdf"
-            title="Luis Lozoya Resume"
+            title="Luis Javier Lozoya Resume"
             className="w-full border-0 h-[calc(100vh-10rem)] min-h-[400px] max-h-[800px]"
           />
         </div>

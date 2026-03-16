@@ -2,7 +2,7 @@ export default function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Luis Lozoya",
+    "name": "Luis Javier Lozoya",
     "jobTitle": "Full Stack Engineer",
     "description": "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
     "url": "https://javierlozo.github.io",

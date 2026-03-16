@@ -229,7 +229,7 @@ export default function Hero() {
             >
               <Image
                 src={photo}
-                alt="Luis Lozoya, Full Stack Engineer"
+                alt="Luis Javier Lozoya, Full Stack Engineer"
                 className="rounded-full object-cover border border-gray-200 dark:border-gray-700 transition-all duration-500"
                 width={256}
                 height={256}
