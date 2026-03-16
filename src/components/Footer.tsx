@@ -96,7 +96,7 @@ export default function Footer() {
           <p className={`text-sm tracking-wide ${
             theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
           }`}>
-            © {new Date().getFullYear()} Luis Lozoya. All rights reserved.
+            © {new Date().getFullYear()} Luis Javier Lozoya. All rights reserved.
           </p>
         </div>
       </div>

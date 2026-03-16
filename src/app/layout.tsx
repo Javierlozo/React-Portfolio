@@ -14,8 +14,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
-    default: "Luis Lozoya | Full Stack Engineer — Security, Cloud, AI",
-    template: "%s | Luis Lozoya"
+    default: "Luis Javier Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    template: "%s | Luis Javier Lozoya"
   },
   description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration. Building scalable web applications and AI-powered solutions for businesses worldwide.",
   keywords: [
@@ -39,9 +39,9 @@ export const metadata = {
     "Frontend Developer",
     "Backend Developer"
   ],
-  authors: [{ name: "Luis Lozoya" }],
-  creator: "Luis Lozoya",
-  publisher: "Luis Lozoya",
+  authors: [{ name: "Luis Javier Lozoya" }],
+  creator: "Luis Javier Lozoya",
+  publisher: "Luis Javier Lozoya",
   formatDetection: {
     email: false,
     address: false,
@@ -52,16 +52,16 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Luis Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    title: "Luis Javier Lozoya | Full Stack Engineer — Security, Cloud, AI",
     description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
     url: 'https://javierlozo.github.io',
-    siteName: 'Luis Lozoya Portfolio',
+    siteName: 'Luis Javier Lozoya Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Luis Lozoya, Software Engineer. Security focused, AI enabled.',
+        alt: 'Luis Javier Lozoya, Software Engineer. Security focused, AI enabled.',
       },
     ],
     locale: 'en_US',
@@ -69,7 +69,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Luis Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    title: "Luis Javier Lozoya | Full Stack Engineer — Security, Cloud, AI",
     description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
     images: ['/og-image.png'],
     creator: '@javierlozo',

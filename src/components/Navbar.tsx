@@ -98,7 +98,7 @@ export default function Navbar() {
         >
           <Image
             src="/favicon.png"
-            alt="Luis Lozoya Portfolio Logo"
+            alt="Luis Javier Lozoya Portfolio Logo"
             width={32}
             height={32}
             priority
@@ -364,7 +364,7 @@ export default function Navbar() {
               <div className="text-center">
                 <div className={`text-xs font-light tracking-widest ${
                   theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
-                }`}>© {new Date().getFullYear()} Luis Lozoya</div>
+                }`}>© {new Date().getFullYear()} Luis Javier Lozoya</div>
               </div>
             </div>
           </div>
