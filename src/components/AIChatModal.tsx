@@ -16,6 +16,10 @@ const STARTER_QUESTIONS = [
   "Tell me about his cybersecurity experience",
   "What projects has he shipped?",
   "What are his honest skill gaps?",
+  "Why should we hire Luis over other candidates?",
+  "What's his experience with cloud and DevOps?",
+  "How does he approach learning new technologies?",
+  "What kind of teams and roles is he looking for?",
 ];
 
 export default function AIChatModal({ onClose }: { onClose: () => void }) {
@@ -46,11 +50,24 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open and handle mobile keyboard
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
+    // On mobile, scroll input into view when keyboard opens
+    const handleResize = () => {
+      if (window.visualViewport) {
+        const modal = document.getElementById("ai-chat-modal");
+        if (modal) {
+          modal.style.height = `${window.visualViewport.height}px`;
+        }
+      }
+    };
+
+    window.visualViewport?.addEventListener("resize", handleResize);
     return () => {
       document.body.style.overflow = "";
+      window.visualViewport?.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -151,11 +168,13 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
 
       {/* Modal */}
       <div
-        className={`relative w-full h-full sm:h-[600px] sm:max-w-lg sm:rounded-2xl border shadow-2xl flex flex-col overflow-hidden ${
+        id="ai-chat-modal"
+        className={`relative w-full h-[100dvh] sm:h-[600px] sm:max-w-lg sm:rounded-2xl border shadow-2xl flex flex-col overflow-hidden ${
           isDark
             ? "bg-gray-900 border-gray-700"
             : "bg-white border-gray-200"
         }`}
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         {/* Header */}
         <div
@@ -196,12 +215,12 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
               >
                 Ask me anything about Luis&apos;s experience, skills, or projects.
               </p>
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {STARTER_QUESTIONS.map((q) => (
                   <button
                     key={q}
                     onClick={() => sendMessage(q)}
-                    className={`text-left text-sm px-3 py-2.5 rounded-lg border transition-colors ${
+                    className={`text-left text-sm px-3 py-2.5 rounded-lg border transition-colors cursor-pointer ${
                       isDark
                         ? "border-gray-700 text-gray-300 hover:bg-gray-800 hover:border-gray-600"
                         : "border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300"
@@ -234,11 +253,11 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
                 {msg.role === "assistant" &&
                   msg.content === "" &&
                   isStreaming && (
-                    <span
-                      className={`inline-block w-2 h-4 animate-pulse rounded-sm ${
-                        isDark ? "bg-gray-400" : "bg-gray-500"
-                      }`}
-                    />
+                    <span className="inline-flex items-center gap-1">
+                      <span className={`w-1.5 h-1.5 rounded-full animate-bounce ${isDark ? "bg-gray-400" : "bg-gray-500"}`} style={{ animationDelay: "0ms" }} />
+                      <span className={`w-1.5 h-1.5 rounded-full animate-bounce ${isDark ? "bg-gray-400" : "bg-gray-500"}`} style={{ animationDelay: "150ms" }} />
+                      <span className={`w-1.5 h-1.5 rounded-full animate-bounce ${isDark ? "bg-gray-400" : "bg-gray-500"}`} style={{ animationDelay: "300ms" }} />
+                    </span>
                   )}
               </div>
             </div>
