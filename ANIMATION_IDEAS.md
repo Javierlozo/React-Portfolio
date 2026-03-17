@@ -368,7 +368,7 @@
 ### Example 1: Typewriter Effect (Hero)
 ```tsx
 const [displayText, setDisplayText] = useState("");
-const fullText = "Luis Lozoya";
+const fullText = "Luis Javier Lozoya";
 
 useEffect(() => {
   let index = 0;
