@@ -1,16 +1,18 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiMenu, FiX, FiSun, FiMoon, FiZap } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon, FiChevronDown } from "react-icons/fi";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [moreOpen, setMoreOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const [hamburgerImageError, setHamburgerImageError] = useState<boolean>(false);
   const { theme, toggleTheme } = useTheme();
+  const moreRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -31,7 +33,7 @@ export default function Navbar() {
 
   // Track active section using Intersection Observer
   useEffect(() => {
-    const sections = ["about", "skills", "experience", "skills-assessment", "certifications", "security-labs", "portfolio", "fit-check", "testimonials", "contact"];
+    const sections = ["about", "experience", "skills-assessment", "certifications", "security-labs", "portfolio", "fit-check", "testimonials", "contact"];
     
     const observerOptions = {
       root: null,
@@ -65,12 +67,38 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => {
       observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Close "More" dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const PRIMARY_LINKS = [
+    { label: "About", id: "about" },
+    { label: "Experience", id: "experience" },
+    { label: "Labs", id: "security-labs" },
+    { label: "Portfolio", id: "portfolio" },
+    { label: "Contact", id: "contact" },
+  ];
+
+  const MORE_LINKS = [
+    { label: "Skills Assessment", id: "skills-assessment" },
+    { label: "Certifications", id: "certifications" },
+    { label: "Fit Check", id: "fit-check" },
+    { label: "Testimonials", id: "testimonials" },
+  ];
 
   return (
     <nav 
@@ -108,57 +136,81 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop Menu - compact (hidden on mobile/tablet, show at xl) */}
-        <div className="hidden xl:flex justify-center items-center flex-grow gap-2 sm:gap-3 xl:gap-4 min-w-0">
-          {[
-            "About",
-            "Skills",
-            "Experience",
-            "Certifications",
-            "Security Labs",
-            "Portfolio",
-            "Fit Check",
-            "Testimonials",
-            "Contact",
-          ].map((item) => {
-            const sectionId = item.toLowerCase().replace(/\s+/g, "-");
-            const isActive = activeSection === sectionId;
-            const isLabs = item === "Security Labs";
-            const isAI = item === "Fit Check";
-            const specialClass = isLabs
+        {/* Desktop Menu */}
+        <div className="hidden xl:flex justify-center items-center flex-grow gap-1 min-w-0">
+          {PRIMARY_LINKS.map((link) => {
+            const isActive = activeSection === link.id;
+            const isLabs = link.id === "security-labs";
+            const colorClass = isLabs
               ? theme === "dark"
                 ? "text-amber-400 hover:text-amber-300"
                 : "text-amber-600 hover:text-amber-700"
-              : isAI
-                ? theme === "dark"
-                  ? "text-cyan-400 hover:text-cyan-300"
-                  : "text-blue-600 hover:text-blue-700"
-                : "";
-            const defaultClass = isActive
-              ? theme === "dark"
-                ? "text-white"
-                : "text-gray-900"
-              : theme === "dark"
-                ? "text-gray-400 hover:text-white"
-                : "text-gray-500 hover:text-gray-900";
+              : isActive
+                ? theme === "dark" ? "text-white" : "text-gray-900"
+                : theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900";
             return (
               <a
-                key={item}
-                href={pathname === "/" ? `#${sectionId}` : `/#${sectionId}`}
-                className={`relative px-1.5 py-1 text-xs font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
-                  isLabs || isAI ? specialClass : defaultClass
-                }`}
+                key={link.id}
+                href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
+                className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${colorClass}`}
               >
-                {isAI && <FiZap className="inline w-3 h-3 mr-0.5 -mt-0.5" />}
-                {item}
+                {link.label}
                 {isActive && (
-                  <div className={`absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 w-5 h-px ${
-                    isLabs ? "bg-amber-500" : isAI ? (theme === "dark" ? "bg-cyan-400" : "bg-blue-600") : theme === "dark" ? "bg-white" : "bg-gray-900"
-                  }`}></div>
+                  <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
+                    isLabs ? "bg-amber-500" : theme === "dark" ? "bg-white" : "bg-gray-900"
+                  }`} />
                 )}
               </a>
             );
           })}
+
+          {/* More dropdown */}
+          <div ref={moreRef} className="relative">
+            <button
+              onClick={() => setMoreOpen(!moreOpen)}
+              className={`flex items-center gap-1 px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                MORE_LINKS.some((l) => activeSection === l.id)
+                  ? theme === "dark" ? "text-white" : "text-gray-900"
+                  : theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900"
+              }`}
+            >
+              More
+              <FiChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`} />
+              {MORE_LINKS.some((l) => activeSection === l.id) && (
+                <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
+                  theme === "dark" ? "bg-white" : "bg-gray-900"
+                }`} />
+              )}
+            </button>
+
+            {moreOpen && (
+              <div
+                className={`absolute top-full right-0 mt-2 w-48 rounded-lg border shadow-lg overflow-hidden ${
+                  theme === "dark"
+                    ? "bg-gray-900 border-gray-700"
+                    : "bg-white border-gray-200"
+                }`}
+              >
+                {MORE_LINKS.map((link) => {
+                  const isActive = activeSection === link.id;
+                  return (
+                    <a
+                      key={link.id}
+                      href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
+                      onClick={() => setMoreOpen(false)}
+                      className={`block px-4 py-2.5 text-sm transition-colors ${
+                        isActive
+                          ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
+                          : theme === "dark" ? "text-gray-300 hover:bg-gray-800 hover:text-white" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Theme Toggle */}
@@ -294,59 +346,49 @@ export default function Navbar() {
                 maxHeight: 'calc(100vh - 200px)',
                 backgroundColor: theme === 'dark' ? 'rgb(17, 24, 39)' : 'rgb(255, 255, 255)'
               }}>
-              {[
-                "About",
-                "Skills",
-                "Experience",
-                "Certifications",
-                "Security Labs",
-                "Portfolio",
-                "Fit Check",
-                "Testimonials",
-                "Contact",
-              ].map((item, index) => {
-                const sectionId = item.toLowerCase().replace(/\s+/g, "-");
-                const isActive = activeSection === sectionId;
-                const isLabs = item === "Security Labs";
-                const isAI = item === "Fit Check";
-                const specialMobileClass = isLabs
+              {PRIMARY_LINKS.map((link, index) => {
+                const isActive = activeSection === link.id;
+                const isLabs = link.id === "security-labs";
+                const colorClass = isLabs
                   ? theme === "dark"
-                    ? isActive
-                      ? "text-amber-400 bg-amber-500/20"
-                      : "text-amber-400/90 active:bg-amber-500/10"
-                    : isActive
-                      ? "text-amber-700 bg-amber-100"
-                      : "text-amber-600 active:bg-amber-50"
-                  : isAI
-                    ? theme === "dark"
-                      ? isActive
-                        ? "text-cyan-400 bg-cyan-500/20"
-                        : "text-cyan-400/90 active:bg-cyan-500/10"
-                      : isActive
-                        ? "text-blue-700 bg-blue-100"
-                        : "text-blue-600 active:bg-blue-50"
-                    : "";
-                const defaultMobileClass = isActive
-                  ? theme === "dark"
-                    ? "text-white bg-gray-800"
-                    : "text-gray-900 bg-gray-100"
-                  : theme === "dark"
-                    ? "text-gray-300 active:bg-gray-800"
-                    : "text-gray-700 active:bg-gray-100";
+                    ? isActive ? "text-amber-400 bg-amber-500/20" : "text-amber-400/90 active:bg-amber-500/10"
+                    : isActive ? "text-amber-700 bg-amber-100" : "text-amber-600 active:bg-amber-50"
+                  : isActive
+                    ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
+                    : theme === "dark" ? "text-gray-300 active:bg-gray-800" : "text-gray-700 active:bg-gray-100";
                 return (
                   <a
-                    key={item}
-                    href={pathname === "/" ? `#${sectionId}` : `/#${sectionId}`}
-                    className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
-                      isLabs || isAI ? specialMobileClass : defaultMobileClass
-                    }`}
+                    key={link.id}
+                    href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
+                    className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
                     onClick={toggleMenu}
-                    style={{
-                      animationDelay: `${index * 50}ms`
-                    }}
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    {isAI && <FiZap className="inline w-3.5 h-3.5 mr-1.5 -mt-0.5" />}
-                    {item}
+                    {link.label}
+                  </a>
+                );
+              })}
+
+              {/* Divider */}
+              <div className={`my-2 mx-3 border-t ${theme === "dark" ? "border-gray-800" : "border-gray-200"}`} />
+              <div className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider ${
+                theme === "dark" ? "text-gray-500" : "text-gray-400"
+              }`}>More</div>
+
+              {MORE_LINKS.map((link, index) => {
+                const isActive = activeSection === link.id;
+                const colorClass = isActive
+                  ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
+                  : theme === "dark" ? "text-gray-300 active:bg-gray-800" : "text-gray-700 active:bg-gray-100";
+                return (
+                  <a
+                    key={link.id}
+                    href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
+                    className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
+                    onClick={toggleMenu}
+                    style={{ animationDelay: `${(PRIMARY_LINKS.length + index) * 50}ms` }}
+                  >
+                    {link.label}
                   </a>
                 );
               })}
