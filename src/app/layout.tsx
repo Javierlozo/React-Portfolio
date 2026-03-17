@@ -8,6 +8,7 @@ import StructuredData from "../components/StructuredData";
 import ConsoleMessage from "../components/ConsoleMessage";
 import ErrorBoundary from "../components/ErrorBoundary";
 import AIChatButton from "../components/AIChatButton";
+import PageTracker from "../components/PageTracker";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -135,6 +136,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </main>
           <Footer />
           <AIChatButton />
+          <PageTracker />
         </ThemeProvider>
       </body>
     </html>
