@@ -16,6 +16,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@supabase/supabase-js": "^2.99.2",
     "@types/node": "^24.0.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
