@@ -52,7 +52,7 @@ export default function ConsoleMessage() {
 
     // Compact modern layout
     console.log(
-      `%c LUIS LOZOYA %c\n%cFull Stack Developer\n`,
+      `%c LUIS JAVIER LOZOYA %c\n%cFull Stack Developer\n`,
       titleStyle,
       "",
       subtitleStyle
