@@ -147,7 +147,7 @@ export default function Navbar() {
                 : "text-amber-600 hover:text-amber-700"
               : isActive
                 ? theme === "dark" ? "text-white" : "text-gray-900"
-                : theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900";
+                : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900";
             return (
               <a
                 key={link.id}
@@ -168,10 +168,11 @@ export default function Navbar() {
           <div ref={moreRef} className="relative">
             <button
               onClick={() => setMoreOpen(!moreOpen)}
+              aria-expanded={moreOpen}
               className={`flex items-center gap-1 px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 cursor-pointer ${
                 MORE_LINKS.some((l) => activeSection === l.id)
                   ? theme === "dark" ? "text-white" : "text-gray-900"
-                  : theme === "dark" ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900"
+                  : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
               }`}
             >
               More
@@ -372,7 +373,7 @@ export default function Navbar() {
               {/* Divider */}
               <div className={`my-2 mx-3 border-t ${theme === "dark" ? "border-gray-800" : "border-gray-200"}`} />
               <div className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider ${
-                theme === "dark" ? "text-gray-500" : "text-gray-400"
+                theme === "dark" ? "text-gray-300" : "text-gray-400"
               }`}>More</div>
 
               {MORE_LINKS.map((link, index) => {
@@ -405,7 +406,7 @@ export default function Navbar() {
             }}>
               <div className="text-center">
                 <div className={`text-xs font-light tracking-widest ${
-                  theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-400'
                 }`}>© {new Date().getFullYear()} Luis Javier Lozoya</div>
               </div>
             </div>

@@ -91,7 +91,7 @@ export default function CertificationsShowcase() {
             Certifications
           </h2>
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Industry certifications validating security and engineering fundamentals
           </p>
@@ -139,7 +139,7 @@ export default function CertificationsShowcase() {
                     {cert.issuer}
                   </span>
                   <div className={`flex items-center gap-1 text-xs ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                   }`}>
                     <FontAwesomeIcon icon={faCalendarAlt} />
                     <span>{cert.date}</span>
@@ -226,7 +226,7 @@ export default function CertificationsShowcase() {
                     {selectedCert.issuer}
                   </span>
                   <div className={`flex items-center gap-2 ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                   }`}>
                     <FontAwesomeIcon icon={faCalendarAlt} />
                     <span className="text-sm sm:text-base">{selectedCert.date}</span>

@@ -21,7 +21,7 @@ export default function Footer() {
 
             {/* Quick CTAs for recruiters */}
             <div className={`flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 mb-6 sm:mb-8 ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               <a
                 href="/resume/Resume.pdf"
@@ -94,7 +94,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className={`text-sm tracking-wide ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
           }`}>
             © {new Date().getFullYear()} Luis Javier Lozoya. All rights reserved.
           </p>

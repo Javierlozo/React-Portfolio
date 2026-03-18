@@ -27,7 +27,7 @@ export default function CybersecurityLabs() {
           </h2>
           <p
             className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-              theme === "dark" ? "text-gray-400" : "text-gray-600"
+              theme === "dark" ? "text-gray-300" : "text-gray-600"
             }`}
           >
             Hands-on labs and evidence of real skill beyond certifications.
@@ -182,7 +182,7 @@ export default function CybersecurityLabs() {
 
         <p
           className={`text-center text-sm mt-8 ${
-            theme === "dark" ? "text-gray-500" : "text-gray-500"
+            theme === "dark" ? "text-gray-300" : "text-gray-500"
           }`}
         >
           Labs are from SANS Cyber Academy.

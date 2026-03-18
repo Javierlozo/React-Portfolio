@@ -67,12 +67,12 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
             {lab.title}
           </h1>
           {lab.role && (
-            <p className={`text-sm mb-4 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{lab.role}</p>
+            <p className={`text-sm mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-500"}`}>{lab.role}</p>
           )}
           {(lab.focus || lab.level || lab.date || lab.artifacts) && (
             <div
               className={`space-y-1 text-sm ${
-                theme === "dark" ? "text-gray-400" : "text-gray-500"
+                theme === "dark" ? "text-gray-300" : "text-gray-500"
               }`}
             >
               {lab.focus && <p><strong className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>Focus:</strong> {lab.focus}</p>}
@@ -180,7 +180,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
         {/* Tools */}
         <section className="mb-10">
           <h2 className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-3 ${
-            theme === "dark" ? "text-gray-400" : "text-gray-500"
+            theme === "dark" ? "text-gray-300" : "text-gray-500"
           }`}>
             <FontAwesomeIcon icon={faWrench} />
             Tools used
@@ -241,8 +241,8 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                         <code>{s.command}</code>
                       </pre>
                       {s.commandBreakdown && (
-                        <div className={`text-xs ${theme === "dark" ? "text-gray-500" : "text-gray-500"}`}>
-                          <p className={`font-medium mb-1 ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>Flags</p>
+                        <div className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+                          <p className={`font-medium mb-1 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>Flags</p>
                           <ul className="space-y-0.5 list-none">
                             {s.commandBreakdown.split("\n").map((line, i) => (
                               <li key={i}><code>{line}</code></li>
