@@ -5,6 +5,14 @@ import { getLabByLegacySlug, getLabPath } from "./data/labs";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Protect /admin routes (except /admin/login)
+  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+    const token = request.cookies.get("admin_token")?.value;
+    if (!token) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+  }
+
   // /labs/[single-segment] → legacy flat URL, redirect to /labs/[course]/[slug]
   const labsMatch = pathname.match(/^\/labs\/([^/]+)$/);
   if (labsMatch) {
@@ -19,5 +27,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/labs/:path*'],
+  matcher: ['/labs/:path*', '/admin/:path*'],
 };

@@ -1,16 +1,26 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
 import { LUIS_SYSTEM_PROMPT } from "@/src/data/ai-context";
+import { rateLimit } from "@/src/lib/rate-limit";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const { success } = rateLimit(`fit:${ip}`, { maxRequests: 10, windowMs: 60 * 1000 });
+    if (!success) {
+      return new Response(JSON.stringify({ error: "Too many requests. Please wait a moment." }), {
+        status: 429,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     const { jobDescription } = await req.json();
 
-    if (!jobDescription || typeof jobDescription !== "string" || jobDescription.trim().length < 50) {
+    if (!jobDescription || typeof jobDescription !== "string" || jobDescription.trim().length < 50 || jobDescription.length > 10000) {
       return new Response(
-        JSON.stringify({ error: "Please provide a job description (at least 50 characters)" }),
+        JSON.stringify({ error: "Please provide a job description (50-10,000 characters)" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
