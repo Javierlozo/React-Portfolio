@@ -1,7 +1,7 @@
 {
   "name": "react-portfolio",
   "engines": {
-    "node": "24.x"
+    "node": ">=20.x"
   },
   "version": "0.1.0",
   "private": true,
