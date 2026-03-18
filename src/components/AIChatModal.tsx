@@ -210,7 +210,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
             <div className="space-y-4">
               <p
                 className={`text-sm text-center ${
-                  isDark ? "text-gray-400" : "text-gray-500"
+                  isDark ? "text-gray-300" : "text-gray-500"
                 }`}
               >
                 Ask me anything about Luis&apos;s experience, skills, or projects.

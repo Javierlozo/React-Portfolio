@@ -100,7 +100,7 @@ export default function TechStackVisual() {
           </h2>
           <p
             className={`text-sm sm:text-lg md:text-xl max-w-3xl mx-auto ${
-              theme === "dark" ? "text-gray-400" : "text-gray-600"
+              theme === "dark" ? "text-gray-300" : "text-gray-600"
             }`}
           >
             Technologies I reach for every day, and the broader toolkit I bring to projects.
@@ -148,7 +148,7 @@ export default function TechStackVisual() {
         <div>
           <h3
             className={`text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 ${
-              theme === "dark" ? "text-gray-500" : "text-gray-400"
+              theme === "dark" ? "text-gray-400" : "text-gray-400"
             }`}
           >
             Also Work With

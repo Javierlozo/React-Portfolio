@@ -206,7 +206,7 @@ export default function ExperienceTimeline() {
             Experience
           </h2>
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             5+ years across startups, agencies, and independent consulting
           </p>
@@ -250,7 +250,7 @@ export default function ExperienceTimeline() {
               >
                 {/* Year Label - Hidden on mobile */}
                 <div className={`absolute -left-2 sm:-left-2 top-6 text-xs font-light tracking-widest hidden sm:block ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                 }`}>
                   {exp.duration.includes(' to ')
                     ? exp.duration.split(' to ')[0].split(' ').pop()
@@ -292,7 +292,7 @@ export default function ExperienceTimeline() {
                             <FontAwesomeIcon 
                               icon={faBuilding} 
                               className={`text-2xl ${
-                                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                               }`} 
                             />
                           </div>
@@ -340,11 +340,11 @@ export default function ExperienceTimeline() {
                             <FontAwesomeIcon 
                               icon={faGlobe} 
                               className={`text-sm ${
-                                theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-400'
                               }`} 
                             />
                             <span className={`text-sm ${
-                              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                              theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                             }`}>
                               {exp.industry}
                             </span>
@@ -354,7 +354,7 @@ export default function ExperienceTimeline() {
                     </div>
 
                     <div className={`text-xs sm:text-sm mt-2 md:mt-0 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                     }`}>
                       <div className="flex items-center gap-2 mb-1">
                         <FontAwesomeIcon icon={faCalendarAlt} />
@@ -445,7 +445,7 @@ export default function ExperienceTimeline() {
                           }`}>
                             <div>
                               <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                               }`}>
                                 The Situation
                               </h5>
@@ -457,7 +457,7 @@ export default function ExperienceTimeline() {
                             </div>
                             <div>
                               <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                               }`}>
                                 What I Did
                               </h5>
@@ -476,7 +476,7 @@ export default function ExperienceTimeline() {
                             </div>
                             <div>
                               <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                               }`}>
                                 Results
                               </h5>
@@ -493,7 +493,7 @@ export default function ExperienceTimeline() {
                             </div>
                             <div>
                               <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                               }`}>
                                 Lessons Learned
                               </h5>

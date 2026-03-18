@@ -4,14 +4,14 @@ import dynamic from "next/dynamic";
 
 import Hero from "../components/Hero";
 import About from "../components/About";
-import TechStackVisual from "../components/TechStackVisual";
-import ExperienceTimeline from "../components/ExperienceTimeline";
-import CertificationsShowcase from "../components/CertificationsShowcase";
-import CybersecurityLabs from "../components/CybersecurityLabs";
-import SkillsAssessment from "../components/SkillsAssessment";
-import FitAssessment from "../components/FitAssessment";
 
+const TechStackVisual = dynamic(() => import("../components/TechStackVisual"));
+const ExperienceTimeline = dynamic(() => import("../components/ExperienceTimeline"));
+const SkillsAssessment = dynamic(() => import("../components/SkillsAssessment"));
+const CertificationsShowcase = dynamic(() => import("../components/CertificationsShowcase"));
+const CybersecurityLabs = dynamic(() => import("../components/CybersecurityLabs"));
 const PortfolioSlider = dynamic(() => import("../components/PortfolioSlider"));
+const FitAssessment = dynamic(() => import("../components/FitAssessment"));
 const Testimonials = dynamic(() => import("../components/Testimonials"));
 const Contact = dynamic(() => import("../components/Contact"));
 

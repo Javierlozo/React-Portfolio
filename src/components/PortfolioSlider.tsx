@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight, faExternalLinkAlt, faCode } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faCode } from "@fortawesome/free-solid-svg-icons";
 
 // Import project images
 import lessUSA from "@/src/public/pictures/Less1.png";
@@ -16,7 +16,7 @@ import web3 from "@/src/public/pictures/langchain.png";
 import shopEssentialshub from "@/src/public/pictures/www.shopessentialshub.com_.png";
 import talentagent from "@/src/public/pictures/TalentAgent.png";
 import coastalMillwork from "@/src/public/pictures/coastal-millwork.png";
-import nevaEstudio from "@/src/public/pictures/neva-estudio.png";
+import nevaEstudio from "@/src/public/pictures/neva.png";
 
 interface Project {
   id: number;
@@ -44,17 +44,6 @@ interface Project {
 export default function PortfolioSlider() {
   const { theme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardPosition, setCardPosition] = useState({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-  }, []);
 
   const clientProjects: Project[] = [
     {
@@ -198,41 +187,6 @@ export default function PortfolioSlider() {
     },
   ];
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % clientProjects.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + clientProjects.length) % clientProjects.length);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  // Magnetic hover effect for portfolio cards (desktop only, no reduced motion)
-  const handleCardMouseMove = (e: React.MouseEvent) => {
-    if (isTouchDevice || prefersReducedMotion || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    
-    const rotateX = (y / rect.height) * -10; // Max 10 degrees
-    const rotateY = (x / rect.width) * 10;
-    
-    setCardPosition({
-      x: x * 0.1,
-      y: y * 0.1,
-      rotateX,
-      rotateY
-    });
-  };
-
-  const handleCardMouseLeave = () => {
-    if (isTouchDevice || prefersReducedMotion) return;
-    setCardPosition({ x: 0, y: 0, rotateX: 0, rotateY: 0 });
-  };
-
   return (
     <section id="portfolio" className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
@@ -244,7 +198,7 @@ export default function PortfolioSlider() {
             Portfolio
           </h2>
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Selected client and independent work with measurable outcomes
           </p>
@@ -257,247 +211,190 @@ export default function PortfolioSlider() {
               Client Work
             </h3>
             <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               Delivered via GDNA, Querri, and direct engagements
             </p>
           </div>
         </div>
 
-        {/* Main Slider */}
-        <div className="relative">
-          {/* Navigation Arrows - smaller on mobile, avoid overlap */}
-          <button
-            onClick={prevSlide}
-            className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full border transition-all duration-300 ${
-              theme === 'dark' 
-                ? 'bg-gray-800/50 backdrop-blur-sm text-white/80 hover:bg-gray-700/70 hover:text-white' 
-                : 'bg-white/50 backdrop-blur-sm text-gray-900/80 hover:bg-gray-100/70 hover:text-gray-900'
-            } shadow-lg`}
-          >
-            <FontAwesomeIcon icon={faChevronLeft} className="text-base sm:text-xl" />
-          </button>
-          
-          <button
-            onClick={nextSlide}
-            className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full border transition-all duration-300 ${
-              theme === 'dark' 
-                ? 'bg-gray-800/50 backdrop-blur-sm text-white/80 hover:bg-gray-700/70 hover:text-white' 
-                : 'bg-white/50 backdrop-blur-sm text-gray-900/80 hover:bg-gray-100/70 hover:text-gray-900'
-            } shadow-lg`}
-          >
-            <FontAwesomeIcon icon={faChevronRight} className="text-base sm:text-xl" />
-          </button>
-
-          {/* Project Display */}
-          <div className="overflow-hidden rounded-2xl">
-            <div 
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {clientProjects.map((project, index) => (
-                <div key={project.id} className="w-full flex-shrink-0">
-                  <div 
-                    ref={index === currentIndex ? cardRef : null}
-                    onMouseMove={index === currentIndex && !isTouchDevice && !prefersReducedMotion ? handleCardMouseMove : undefined}
-                    onMouseLeave={index === currentIndex && !isTouchDevice && !prefersReducedMotion ? handleCardMouseLeave : undefined}
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 p-4 sm:p-6 md:p-8 ${
-                      theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-                    } rounded-2xl shadow-2xl transition-transform ease-out ${
-                      isTouchDevice || prefersReducedMotion ? 'duration-0' : 'duration-300'
+        {/* Split Screen: Left nav + Right detail */}
+        <div className={`grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-0 rounded-2xl overflow-hidden border ${
+          theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+        }`}>
+          {/* Left Panel - Project List */}
+          <nav className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'} lg:border-r ${
+            theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+          }`}>
+            <div className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible">
+              {clientProjects.map((project, index) => {
+                const isActive = index === currentIndex;
+                // Extract short name (before the colon)
+                const shortName = project.title.split(":")[0];
+                return (
+                  <button
+                    key={project.id}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`relative text-left px-4 lg:px-6 py-4 lg:py-5 transition-all duration-200 whitespace-nowrap lg:whitespace-normal flex-shrink-0 lg:flex-shrink border-b last:border-b-0 ${
+                      theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
+                    } ${
+                      isActive
+                        ? theme === 'dark'
+                          ? 'bg-gray-800 text-white'
+                          : 'bg-white text-gray-900'
+                        : theme === 'dark'
+                          ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
+                          : 'text-gray-500 hover:text-gray-900 hover:bg-white/50'
                     }`}
-                    style={{
-                      transform: (index === currentIndex && !isTouchDevice && !prefersReducedMotion)
-                        ? `translate(${cardPosition.x}px, ${cardPosition.y}px) rotateX(${cardPosition.rotateX}deg) rotateY(${cardPosition.rotateY}deg)`
-                        : 'none',
-                      transformStyle: (isTouchDevice || prefersReducedMotion) ? 'flat' : 'preserve-3d',
-                      perspective: (isTouchDevice || prefersReducedMotion) ? 'none' : '1000px'
-                    }}
                   >
-                    {/* Project Image */}
-                    <div className="relative">
-                      <div className="relative w-full h-44 sm:h-56 md:h-64 lg:h-80 overflow-hidden rounded-xl group">
-                        <Image
-                          src={project.image}
-                          alt={`${project.title}, ${project.description}`}
-                          fill
-                          className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                        />
-                        {project.featured && (
-                          <div className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                            Featured
-                          </div>
-                        )}
-                        {/* Image Overlay with Caption */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-end">
-                          <div className="w-full p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                            <div className={`text-sm font-medium ${
-                              theme === 'dark' ? 'text-white' : 'text-white'
-                            }`}>
-                              {project.title}
-                            </div>
-                            <div className={`text-xs ${
-                              theme === 'dark' ? 'text-gray-300' : 'text-gray-200'
-                            }`}>
-                              Click to view details
-                            </div>
-                          </div>
-                        </div>
+                    {/* Active indicator */}
+                    {isActive && (
+                      <span className={`absolute left-0 top-0 bottom-0 w-0.5 ${
+                        theme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
+                      } hidden lg:block`} />
+                    )}
+                    <span className="text-sm font-medium block">{shortName}</span>
+                    <span className={`text-xs mt-0.5 block ${
+                      isActive
+                        ? theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
+                        : theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
+                    } hidden lg:block`}>
+                      {project.techStack.slice(0, 3).join(" / ")}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </nav>
+
+          {/* Right Panel - Project Detail */}
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-5 sm:p-6 md:p-8 lg:p-10`}>
+            {(() => {
+              const project = clientProjects[currentIndex];
+              return (
+                <div className="animate-[fadeIn_0.3s_ease-out]">
+                  {/* Large Image */}
+                  <div className="relative w-full h-48 sm:h-56 md:h-72 lg:h-80 overflow-hidden rounded-xl mb-6 sm:mb-8">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover object-top"
+                    />
+                    {project.featured && (
+                      <div className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+                        Featured
                       </div>
+                    )}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className={`text-xl sm:text-2xl font-thin mb-5 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {project.title}
+                  </h3>
+
+                  {/* Case Study */}
+                  {(project.problem || project.solution || project.impact) && (
+                    <div className={`space-y-4 mb-6 border-l-2 pl-4 ${
+                      theme === 'dark' ? 'border-gray-600' : 'border-gray-300'
+                    }`}>
+                      {project.problem && (
+                        <div>
+                          <span className={`text-xs font-semibold uppercase tracking-wide ${
+                            theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
+                          }`}>Problem</span>
+                          <p className={`text-sm sm:text-base leading-relaxed mt-1 ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                          }`}>{project.problem}</p>
+                        </div>
+                      )}
+                      {project.solution && (
+                        <div>
+                          <span className={`text-xs font-semibold uppercase tracking-wide ${
+                            theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
+                          }`}>Solution</span>
+                          <p className={`text-sm sm:text-base leading-relaxed mt-1 ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                          }`}>{project.solution}</p>
+                        </div>
+                      )}
+                      {project.impact && (
+                        <div>
+                          <span className={`text-xs font-semibold uppercase tracking-wide ${
+                            theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
+                          }`}>Impact</span>
+                          <p className={`text-sm sm:text-base leading-relaxed mt-1 ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                          }`}>{project.impact}</p>
+                        </div>
+                      )}
                     </div>
+                  )}
 
-                    {/* Project Info: Case study format */}
-                    <div className="flex flex-col justify-center">
-                      <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
-                      }`}>
-                        {project.title}
-                      </h3>
+                  {!(project.problem || project.solution || project.impact) && (
+                    <p className={`text-sm sm:text-base mb-6 leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>{project.description}</p>
+                  )}
 
-                      {/* Case study: Problem / Solution / Impact */}
-                      {(project.problem || project.solution || project.impact) && (
-                        <div className={`space-y-3 mb-6 border-l-2 pl-4 ${
-                          theme === 'dark' ? 'border-gray-600' : 'border-gray-300'
-                        }`}>
-                          {project.problem && (
-                            <div>
-                              <span className={`text-xs font-semibold uppercase tracking-wide ${
-                                theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
-                              }`}>
-                                Problem
-                              </span>
-                              <p className={`text-sm sm:text-base leading-relaxed mt-0.5 ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                              }`}>
-                                {project.problem}
-                              </p>
-                            </div>
-                          )}
-                          {project.solution && (
-                            <div>
-                              <span className={`text-xs font-semibold uppercase tracking-wide ${
-                                theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
-                              }`}>
-                                Solution
-                              </span>
-                              <p className={`text-sm sm:text-base leading-relaxed mt-0.5 ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                              }`}>
-                                {project.solution}
-                              </p>
-                            </div>
-                          )}
-                          {project.impact && (
-                            <div>
-                              <span className={`text-xs font-semibold uppercase tracking-wide ${
-                                theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
-                              }`}>
-                                Impact
-                              </span>
-                              <p className={`text-sm sm:text-base leading-relaxed mt-0.5 ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                              }`}>
-                                {project.impact}
-                              </p>
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {!(project.problem || project.solution || project.impact) && (
-                        <p className={`text-sm sm:text-base md:text-lg mb-6 leading-relaxed ${
-                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                        }`}>
-                          {project.description}
-                        </p>
-                      )}
-
-                      {/* Tech */}
-                      <div className="mb-2">
-                        <span className={`text-xs font-semibold uppercase tracking-wide ${
-                          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                        }`}>
-                          Tech
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-8">
-                        {project.techStack.map((tech) => (
-                          <span
-                            key={tech}
-                            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full border transition-all duration-300 hover:scale-105 ${
-                              theme === 'dark' 
-                                ? 'bg-gray-700 text-gray-300 border-gray-600 hover:border-gray-500' 
-                                : 'bg-gray-200 text-gray-700 border-gray-300 hover:border-gray-400'
-                            }`}
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        {project.liveLink && (
-                          <a
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] text-sm sm:text-base transition-all duration-300 border ${
-                              theme === 'dark'
-                                ? 'border-blue-600 text-blue-400 hover:border-blue-500 hover:text-blue-300'
-                                : 'border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700'
-                            }`}
-                          >
-                            <FontAwesomeIcon icon={faExternalLinkAlt} />
-                            <span>View Live</span>
-                          </a>
-                        )}
-                        {project.codeLink && (
-                          <a
-                            href={project.codeLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] text-sm sm:text-base transition-all duration-300 border ${
-                              theme === 'dark'
-                                ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200'
-                                : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
-                            }`}
-                          >
-                            <FontAwesomeIcon icon={faCode} />
-                            <span>View Code</span>
-                          </a>
-                        )}
-                      </div>
+                  {/* Tech Stack */}
+                  <div className="mb-6">
+                    <span className={`text-xs font-semibold uppercase tracking-wide ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
+                    }`}>Tech</span>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
+                      {project.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full border ${
+                            theme === 'dark'
+                              ? 'bg-gray-700 text-gray-300 border-gray-600'
+                              : 'bg-gray-100 text-gray-700 border-gray-200'
+                          }`}
+                        >{tech}</span>
+                      ))}
                     </div>
                   </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap gap-3">
+                    {project.liveLink && (
+                      <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-2 px-5 py-2.5 text-sm transition-all duration-200 border ${
+                          theme === 'dark'
+                            ? 'border-blue-500/50 text-blue-400 hover:border-blue-400 hover:text-blue-300'
+                            : 'border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700'
+                        }`}
+                      >
+                        <FontAwesomeIcon icon={faExternalLinkAlt} className="text-xs" />
+                        <span>View Live</span>
+                      </a>
+                    )}
+                    {project.codeLink && (
+                      <a
+                        href={project.codeLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-2 px-5 py-2.5 text-sm transition-all duration-200 border ${
+                          theme === 'dark'
+                            ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200'
+                            : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
+                        }`}
+                      >
+                        <FontAwesomeIcon icon={faCode} className="text-xs" />
+                        <span>View Code</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
-              ))}
-            </div>
+              );
+            })()}
           </div>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {clientProjects.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? theme === 'dark' ? 'bg-white' : 'bg-gray-900'
-                    : theme === 'dark' ? 'bg-gray-600' : 'bg-gray-300'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Project Counter */}
-        <div className="text-center mt-6 sm:mt-8">
-          <p className={`text-xs sm:text-sm ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-          }`}>
-            Selected Projects
-          </p>
         </div>
 
         {/* Independent Projects Section */}
@@ -509,7 +406,7 @@ export default function PortfolioSlider() {
               Independent Projects
             </h3>
             <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
               Side projects and open-source work with live demos and source code
             </p>
@@ -552,7 +449,7 @@ export default function PortfolioSlider() {
                   )}
                   
                   <p className={`text-xs sm:text-sm leading-relaxed ${
-                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                   }`}>
                     {project.description}
                   </p>
@@ -567,7 +464,7 @@ export default function PortfolioSlider() {
                           <span className={`font-medium ${
                             theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                           }`}>Problem: </span>
-                          <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                          <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
                             {project.problem}
                           </span>
                         </div>
@@ -577,7 +474,7 @@ export default function PortfolioSlider() {
                           <span className={`font-medium ${
                             theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                           }`}>Approach: </span>
-                          <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                          <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
                             {project.approach}
                           </span>
                         </div>
@@ -587,7 +484,7 @@ export default function PortfolioSlider() {
                           <span className={`font-medium ${
                             theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                           }`}>Outcome: </span>
-                          <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                          <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
                             {project.outcome}
                           </span>
                         </div>

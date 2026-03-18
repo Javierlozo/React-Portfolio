@@ -74,7 +74,7 @@ export default function Contact() {
             Contact
           </h2>
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Let&apos;s discuss your next project. Reach out via the form below or connect on{" "}
             <a

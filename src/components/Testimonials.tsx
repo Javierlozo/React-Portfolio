@@ -40,7 +40,7 @@ export default function Testimonials() {
             Testimonials
           </h2>
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Client feedback
           </p>
@@ -80,7 +80,7 @@ export default function Testimonials() {
                       {testimonial.name}
                     </p>
                     <p className={`text-xs sm:text-sm font-light ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
                     }`}>
                       {testimonial.position}
                     </p>
