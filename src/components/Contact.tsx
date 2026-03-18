@@ -18,6 +18,7 @@ export default function Contact() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
@@ -25,6 +26,13 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const now = Date.now();
+    if (now - lastSubmitTime < 60_000) {
+      setSubmitStatus({ type: "error", message: "Please wait a minute before sending another message." });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
@@ -35,6 +43,7 @@ export default function Contact() {
         formData as unknown as Record<string, unknown>,
         process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
       );
+      setLastSubmitTime(Date.now());
       setSubmitStatus({
         type: "success",
         message: "Message sent successfully!",

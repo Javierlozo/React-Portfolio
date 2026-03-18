@@ -37,7 +37,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: `default-src 'self'; script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: blob: *.githubusercontent.com; font-src 'self' fonts.gstatic.com; connect-src 'self' api.emailjs.com api.openai.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';`,
+            value: `default-src 'self'; script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: blob: *.githubusercontent.com; font-src 'self' fonts.gstatic.com; connect-src 'self' api.emailjs.com api.openai.com *.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';`,
           },
         ],
       },

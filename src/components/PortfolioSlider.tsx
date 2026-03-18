@@ -15,6 +15,8 @@ import iberiatech from "@/src/public/pictures/www.iberiatechsolutions.com_ (1).p
 import web3 from "@/src/public/pictures/langchain.png";
 import shopEssentialshub from "@/src/public/pictures/www.shopessentialshub.com_.png";
 import talentagent from "@/src/public/pictures/TalentAgent.png";
+import coastalMillwork from "@/src/public/pictures/coastal-millwork.png";
+import nevaEstudio from "@/src/public/pictures/neva-estudio.png";
 
 interface Project {
   id: number;
@@ -55,6 +57,32 @@ export default function PortfolioSlider() {
   }, []);
 
   const clientProjects: Project[] = [
+    {
+      id: 16,
+      title: "NEVA Estudio: Architecture Firm Website (via IberiaTech Solutions)",
+      description: "Bilingual website for an architecture studio in Gijon, Asturias, Spain. Features a project gallery with image carousel, service modals, contact form, and smooth Framer Motion animations. Built with internationalization support for Spanish and English.",
+      techStack: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "Framer Motion", "next-intl"],
+      image: nevaEstudio,
+      liveLink: "https://neva-estudio.vercel.app",
+      codeLink: "https://github.com/Javierlozo/neva-estudio",
+      featured: true,
+      problem: "Architecture firm needed a professional web presence showcasing their portfolio to attract residential and commercial clients in Asturias.",
+      solution: "Built a bilingual (ES/EN) site with interactive project gallery, service detail modals, and a minimalist design reflecting the studio's architectural aesthetic.",
+      impact: "Professional site live with full internationalization, smooth animations, and a project showcase that highlights 10+ years of architectural work.",
+    },
+    {
+      id: 15,
+      title: "Coastal Millwork & Supply: Commercial Interiors Website (via IberiaTech Solutions)",
+      description: "Full website redesign for an award-winning, full-service commercial architectural interiors contractor in Summerville, SC. Built with Next.js 16, featuring an interactive project gallery, service rail maps, and optimized SEO for local and commercial search visibility.",
+      techStack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS"],
+      image: coastalMillwork,
+      liveLink: "https://coastal-millwork.vercel.app",
+      codeLink: "https://github.com/IberiaTech-Solutions/coastal-millwork",
+      featured: true,
+      problem: "Existing website was outdated and didn't reflect the company's award-winning portfolio or support lead generation.",
+      solution: "Redesigned and rebuilt the site with Next.js for SEO and performance, showcasing notable projects, awards, and services with a modern, professional layout.",
+      impact: "Modern site live with interactive project gallery, improved local SEO, and clear service presentation for commercial clients.",
+    },
     {
       id: 10,
       title: "AfricaNXT: Global Mentorship Platform (via GDNA)",
