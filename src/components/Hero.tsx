@@ -133,7 +133,7 @@ export default function Hero() {
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
-              Full Stack Engineer &middot; Security &middot; Cloud &middot; AI
+              Security-Focused Software Engineer &middot; Cloud &middot; AI
             </h2>
 
             {/* Sub-headline */}
@@ -147,13 +147,13 @@ export default function Hero() {
               <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                5+ years building production web apps with React, Next.js, and AWS. GIAC GFACT certified. Currently delivering cloud-native solutions and AI integrations for clients across the US and Spain.
+                5+ years building and securing production web apps with React, Next.js, and AWS. GIAC certified (GFACT, GSEC in progress). Currently delivering secure, cloud-native applications and AI integrations for clients across the US and Spain.
               </p>
             </div>
 
             {/* Skills - Cascade animation */}
             <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {['React', 'Next.js', 'TypeScript', 'AWS', 'Python', 'Cybersecurity'].map((skill, index) => (
+              {['AppSec', 'AWS', 'React', 'Next.js', 'TypeScript', 'Python'].map((skill, index) => (
                 <span
                   key={skill}
                   className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-light rounded-full border transition-all ease-out ${
@@ -229,7 +229,7 @@ export default function Hero() {
             >
               <Image
                 src={photo}
-                alt="Luis Javier Lozoya, Full Stack Engineer"
+                alt="Luis Javier Lozoya, Security-Focused Software Engineer"
                 className="rounded-full object-cover border border-gray-200 dark:border-gray-700 transition-all duration-500"
                 width={256}
                 height={256}
