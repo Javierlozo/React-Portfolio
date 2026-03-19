@@ -40,6 +40,19 @@ const PRIMARY_SKILLS: TechItem[] = [
 // Secondary: tools and technologies you're familiar with and use regularly
 const SECONDARY_SKILLS: { label: string; items: TechItem[] }[] = [
   {
+    label: "Security",
+    items: [
+      { name: "OWASP Top 10", icon: faShieldAlt },
+      { name: "OWASP LLM Top 10", icon: faShieldAlt },
+      { name: "Threat Modeling", icon: faLock },
+      { name: "Burp Suite", icon: faBug },
+      { name: "Wireshark", icon: faBug },
+      { name: "OWASP ZAP", icon: faShieldAlt },
+      { name: "tcpdump", icon: faBug },
+      { name: "Secure Coding", icon: faLock },
+    ],
+  },
+  {
     label: "Cloud & DevOps",
     items: [
       { name: "Lambda", icon: faAws },
@@ -48,16 +61,6 @@ const SECONDARY_SKILLS: { label: string; items: TechItem[] }[] = [
       { name: "Docker", icon: faDocker },
       { name: "CI/CD", icon: faCog },
       { name: "Git", icon: faGitAlt },
-    ],
-  },
-  {
-    label: "Security",
-    items: [
-      { name: "Wireshark", icon: faBug },
-      { name: "Burp Suite", icon: faBug },
-      { name: "OWASP ZAP", icon: faShieldAlt },
-      { name: "tcpdump", icon: faBug },
-      { name: "Secure Coding", icon: faLock },
     ],
   },
   {

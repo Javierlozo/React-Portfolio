@@ -95,7 +95,7 @@ export default function About() {
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
           >
-            I&apos;m a software engineer with a strong focus on frontend development, cloud technologies, and cybersecurity. I recently earned the{" "}
+            I&apos;m a security-focused software engineer with deep experience in cloud technologies and application security. I recently earned the{" "}
             <span className={`font-normal ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
@@ -157,11 +157,17 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
-            Currently building full-stack applications and architecting serverless AWS solutions at{" "}
+            Currently building and securing cloud-native applications at{" "}
             <span className={`font-normal ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               GDNA
+            </span>
+            , with a focus on secure API design, least-privilege IAM, and production-grade AWS architecture. Currently pursuing{" "}
+            <span className={`font-normal ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              GIAC GSEC
             </span>
             . Always open to interesting conversations.
           </p>
