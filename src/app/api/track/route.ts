@@ -81,6 +81,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: true });
     }
 
+    // Skip bots and monitoring probes
+    const ua = request.headers.get("user-agent") || "";
+    if (
+      !ua ||
+      /bot|crawler|spider|vercel|uptimerobot|pingdom|statuscake|headlesschrome|lighthouse|slurp|facebookexternalhit|twitterbot|linkedinbot|googlebot|bingbot|yandex|baidu|semrush|ahref/i.test(ua)
+    ) {
+      return NextResponse.json({ ok: true });
+    }
+
     const { success } = rateLimit(`track:${ip}`, { maxRequests: 30, windowMs: 60 * 1000 });
     if (!success) {
       return NextResponse.json({ ok: false }, { status: 429 });
@@ -130,6 +139,12 @@ export async function POST(request: NextRequest) {
       const lookup = await lookupIp(ip);
       isp = lookup.isp;
       org = lookup.org;
+    }
+
+    // Skip cloud provider / monitoring traffic
+    const orgLower = (org || isp || "").toLowerCase();
+    if (/amazon|aws|google cloud|microsoft azure|digitalocean|vercel|cloudflare|hetzner/i.test(orgLower)) {
+      return NextResponse.json({ ok: true });
     }
 
     const { error } = await supabase.from("page_views").insert({
