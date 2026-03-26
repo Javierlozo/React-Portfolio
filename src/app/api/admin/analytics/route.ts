@@ -63,6 +63,7 @@ export async function GET(request: NextRequest) {
     : 0;
 
   const recentVisitors = views.slice(0, 100).map((r) => ({
+    id: r.id,
     time: r.created_at,
     path: r.path,
     ip_address: r.ip_address,

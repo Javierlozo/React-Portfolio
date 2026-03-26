@@ -22,6 +22,7 @@ import {
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444", "#ec4899", "#6366f1"];
 
 interface RecentVisitor {
+  id: string;
   time: string;
   path: string;
   ip_address: string | null;
@@ -151,8 +152,9 @@ function deviceIcon(type: string): string {
 
 const PAGE_SIZE = 15;
 
-function RecentVisitorsTable({ visitors, s }: { visitors: RecentVisitor[]; s: ReturnType<typeof useStyles> }) {
+function RecentVisitorsTable({ visitors, s, onDelete }: { visitors: RecentVisitor[]; s: ReturnType<typeof useStyles>; onDelete: (id: string) => void }) {
   const [page, setPage] = useState(0);
+  const [deleting, setDeleting] = useState<string | null>(null);
   if (!visitors.length) return null;
 
   const totalPages = Math.ceil(visitors.length / PAGE_SIZE);
@@ -176,7 +178,8 @@ function RecentVisitorsTable({ visitors, s }: { visitors: RecentVisitor[]; s: Re
               <th className="pb-2 pr-4 font-medium">Page</th>
               <th className="pb-2 pr-4 font-medium">Source</th>
               <th className="pb-2 pr-4 font-medium">Device</th>
-              <th className="pb-2 font-medium">Duration</th>
+              <th className="pb-2 pr-4 font-medium">Duration</th>
+              <th className="pb-2 font-medium"></th>
             </tr>
           </thead>
           <tbody className={`divide-y ${s.divider}`}>
@@ -203,8 +206,36 @@ function RecentVisitorsTable({ visitors, s }: { visitors: RecentVisitor[]; s: Re
                 <td className="py-2.5 pr-4 whitespace-nowrap">
                   {deviceIcon(v.device_type)} {v.browser}/{v.os}
                 </td>
-                <td className={`py-2.5 whitespace-nowrap ${s.subtitle}`}>
+                <td className={`py-2.5 pr-4 whitespace-nowrap ${s.subtitle}`}>
                   {v.session_duration != null ? formatDuration(v.session_duration) : <span className={s.placeholder}>-</span>}
+                </td>
+                <td className="py-2.5 whitespace-nowrap">
+                  <button
+                    onClick={async () => {
+                      setDeleting(v.id);
+                      try {
+                        const res = await fetch("/api/admin/delete-row", {
+                          method: "DELETE",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ id: v.id }),
+                        });
+                        if (res.ok) onDelete(v.id);
+                      } finally {
+                        setDeleting(null);
+                      }
+                    }}
+                    disabled={deleting === v.id}
+                    className={`text-xs px-2 py-1 rounded transition-colors ${
+                      deleting === v.id
+                        ? "opacity-30 cursor-not-allowed"
+                        : s.d
+                          ? "text-gray-500 hover:text-red-400 hover:bg-red-400/10"
+                          : "text-gray-400 hover:text-red-600 hover:bg-red-50"
+                    }`}
+                    title="Delete row"
+                  >
+                    {deleting === v.id ? "..." : "\u2715"}
+                  </button>
                 </td>
               </tr>
             ))}
@@ -345,7 +376,15 @@ export default function AdminDashboard() {
           <MetricCard label="Top Device" value={data.topDevice} s={s} />
         </div>
 
-        <RecentVisitorsTable visitors={data.recentVisitors} s={s} />
+        <RecentVisitorsTable
+          visitors={data.recentVisitors}
+          s={s}
+          onDelete={(id) => {
+            setData((prev) =>
+              prev ? { ...prev, recentVisitors: prev.recentVisitors.filter((v) => v.id !== id), totalViews: prev.totalViews - 1 } : prev
+            );
+          }}
+        />
 
         <ChartCard title="Views Over Time" s={s}>
           <ResponsiveContainer width="100%" height={280}>
