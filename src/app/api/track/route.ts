@@ -10,17 +10,20 @@ const ALLOWED_ORIGINS = [
 ];
 
 function isValidPublicIp(ip: string): boolean {
+  if (ip === "unknown" || ip === "::1") return false;
+  // Private IPv4 ranges
   if (
     ip.startsWith("10.") ||
     ip.startsWith("127.") ||
     ip.startsWith("169.254.") ||
-    ip.startsWith("192.168.") ||
-    ip === "unknown" ||
-    ip === "::1"
+    ip.startsWith("192.168.")
   ) return false;
   const match = ip.match(/^172\.(\d+)\./);
   if (match && parseInt(match[1]) >= 16 && parseInt(match[1]) <= 31) return false;
-  return /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip);
+  // Accept valid IPv4 or IPv6
+  if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) return true;
+  if (ip.includes(":")) return true; // IPv6
+  return false;
 }
 
 function parseUserAgent(ua: string) {
@@ -71,6 +74,13 @@ export async function POST(request: NextRequest) {
     }
 
     const ip = getIp(request);
+
+    // Skip tracking for owner IPs (comma-separated in env var)
+    const excludedIps = (process.env.EXCLUDED_IPS || "").split(",").map((s) => s.trim()).filter(Boolean);
+    if (excludedIps.includes(ip)) {
+      return NextResponse.json({ ok: true });
+    }
+
     const { success } = rateLimit(`track:${ip}`, { maxRequests: 30, windowMs: 60 * 1000 });
     if (!success) {
       return NextResponse.json({ ok: false }, { status: 429 });
