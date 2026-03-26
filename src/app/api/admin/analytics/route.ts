@@ -18,7 +18,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Verify token with Supabase
   const { data: userData, error: authError } = await supabase.auth.getUser(token);
   if (authError || !userData.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -38,12 +37,14 @@ export async function GET(request: NextRequest) {
   const { data: rows, error } = await query.limit(10000);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("Analytics query error:", error);
+    return NextResponse.json({ error: "Failed to load analytics" }, { status: 500 });
   }
 
-  const views = rows || [];
+  const allRows = rows || [];
+  const views = allRows.filter((r) => r.event_type === "page_view" || !r.event_type);
+  const events = allRows.filter((r) => r.event_type && r.event_type !== "page_view" && r.event_type !== "session_end");
 
-  // Time series (daily)
   const dailyMap: Record<string, number> = {};
   for (const row of views) {
     const date = row.created_at?.split("T")[0] || "unknown";
@@ -53,10 +54,53 @@ export async function GET(request: NextRequest) {
     .map(([date, count]) => ({ date, count }))
     .sort((a, b) => a.date.localeCompare(b.date));
 
-  // Top pages
   const topPages = countBy(views, "path").slice(0, 10);
+  const uniqueVisitors = new Set(views.map((r) => r.visitor_id).filter(Boolean)).size;
 
-  // Breakpoint distribution
+  const durations = views.map((r) => r.session_duration).filter((d): d is number => d != null && d > 0);
+  const avgSessionDuration = durations.length > 0
+    ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length)
+    : 0;
+
+  const recentVisitors = views.slice(0, 100).map((r) => ({
+    time: r.created_at,
+    path: r.path,
+    ip_address: r.ip_address,
+    city: r.city,
+    region: r.region,
+    country: r.country,
+    org: r.org || r.isp,
+    browser: r.browser,
+    os: r.os,
+    device_type: r.device_type,
+    referrer: r.referrer,
+    session_duration: r.session_duration,
+    visitor_id: r.visitor_id?.slice(0, 8),
+    language: r.language,
+  }));
+
+  const withOrg = views.filter((r) => r.org || r.isp);
+  const orgMap: Record<string, number> = {};
+  for (const r of withOrg) {
+    const name = r.org || r.isp || "Unknown";
+    orgMap[name] = (orgMap[name] || 0) + 1;
+  }
+  const topOrgs = Object.entries(orgMap)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 15);
+
+  const withCity = views.filter((r) => r.city);
+  const cityMap: Record<string, number> = {};
+  for (const r of withCity) {
+    const label = r.region ? `${r.city}, ${r.region}` : r.city!;
+    cityMap[label] = (cityMap[label] || 0) + 1;
+  }
+  const topCities = Object.entries(cityMap)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+
   const breakpoints = views
     .filter((r) => r.screen_width)
     .map((r) => {
@@ -68,7 +112,6 @@ export async function GET(request: NextRequest) {
     });
   const screenBreakpoints = countBy(breakpoints, "breakpoint" as never);
 
-  // Top referrers (filter out empty)
   const withReferrer = views.filter((r) => r.referrer);
   const referrerMap: Record<string, number> = {};
   for (const r of withReferrer) {
@@ -79,7 +122,6 @@ export async function GET(request: NextRequest) {
     .sort((a, b) => b.count - a.count)
     .slice(0, 10);
 
-  // UTM sources
   const withUtm = views.filter((r) => r.utm_source);
   const utmMap: Record<string, number> = {};
   for (const r of withUtm) {
@@ -90,9 +132,26 @@ export async function GET(request: NextRequest) {
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
 
+  const eventCounts = countBy(events, "event_type");
+  const clickedItems = events
+    .filter((r) => r.event_type === "click" || r.event_type === "download")
+    .map((r) => r.path);
+  const clickMap: Record<string, number> = {};
+  for (const p of clickedItems) {
+    if (p) clickMap[p] = (clickMap[p] || 0) + 1;
+  }
+  const topInteractions = Object.entries(clickMap)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+
+  const topLanguages = countBy(views, "language" as never).slice(0, 8);
+
   return NextResponse.json({
     totalViews: views.length,
+    uniqueVisitors,
     uniquePages: new Set(views.map((r) => r.path)).size,
+    avgSessionDuration,
     topCountry: countBy(views, "country")[0]?.name || "N/A",
     topDevice: countBy(views, "device_type")[0]?.name || "N/A",
     timeSeries,
@@ -101,8 +160,14 @@ export async function GET(request: NextRequest) {
     devices: countBy(views, "device_type"),
     operatingSystems: countBy(views, "os").slice(0, 8),
     countries: countBy(views, "country").slice(0, 10),
+    topCities,
+    topOrgs,
     screenBreakpoints,
     topReferrers,
     utmSources,
+    recentVisitors,
+    eventCounts,
+    topInteractions,
+    topLanguages,
   });
 }

@@ -93,7 +93,7 @@ export default function SkillsAssessment() {
                 </div>
                 <p
                   className={`text-xs mb-5 ${
-                    isDark ? "text-gray-500" : "text-gray-500"
+                    isDark ? "text-gray-500" : "text-gray-600"
                   }`}
                 >
                   {category.description}
@@ -110,7 +110,7 @@ export default function SkillsAssessment() {
                       </p>
                       <p
                         className={`text-xs ${
-                          isDark ? "text-gray-500" : "text-gray-500"
+                          isDark ? "text-gray-500" : "text-gray-600"
                         }`}
                       >
                         {skill.detail}

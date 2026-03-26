@@ -209,7 +209,7 @@ export default function FitAssessment() {
             </button>
           </div>
 
-          {error && <p className="mt-3 text-sm text-rose-400">{error}</p>}
+          {error && <p className={`mt-3 text-sm ${isDark ? "text-rose-400" : "text-rose-600"}`}>{error}</p>}
         </div>
 
         {/* Results */}

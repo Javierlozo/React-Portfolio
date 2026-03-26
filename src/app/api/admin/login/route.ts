@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/src/lib/supabase";
+import { rateLimit } from "@/src/lib/rate-limit";
+import { getIp } from "@/src/lib/get-ip";
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = getIp(request);
+    const { success } = rateLimit(`login:${ip}`, { maxRequests: 5, windowMs: 60 * 1000 });
+    if (!success) {
+      return NextResponse.json({ error: "Too many attempts. Please wait." }, { status: 429 });
+    }
+
     const { email, password } = await request.json();
+
+    if (!email || typeof email !== "string" || !password || typeof password !== "string") {
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 400 });
+    }
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -21,10 +33,10 @@ export async function POST(request: NextRequest) {
 
     response.cookies.set("admin_token", data.session.access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: true,
+      sameSite: "strict",
       path: "/",
-      maxAge: 60 * 60 * 24, // 24 hours
+      maxAge: 60 * 60 * 24,
     });
 
     return response;

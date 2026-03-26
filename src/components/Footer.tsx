@@ -94,7 +94,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className={`text-sm tracking-wide ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
             © {new Date().getFullYear()} Luis Javier Lozoya. All rights reserved.
           </p>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "@/src/contexts/ThemeContext";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,8 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { theme } = useTheme();
+  const dark = theme === "dark";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -37,15 +40,15 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+    <div className={`min-h-screen flex items-center justify-center px-4 ${dark ? "bg-gray-950" : "bg-gray-50"}`}>
       <div className="w-full max-w-sm">
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 shadow-xl">
-          <h1 className="text-2xl font-bold text-white mb-1">Admin</h1>
-          <p className="text-gray-400 text-sm mb-6">Sign in to view analytics</p>
+        <div className={`rounded-2xl p-8 shadow-xl border ${dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200"}`}>
+          <h1 className={`text-2xl font-bold mb-1 ${dark ? "text-white" : "text-gray-900"}`}>Admin</h1>
+          <p className={`text-sm mb-6 ${dark ? "text-gray-400" : "text-gray-500"}`}>Sign in to view analytics</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm text-gray-300 mb-1">
+              <label htmlFor="email" className={`block text-sm mb-1 ${dark ? "text-gray-300" : "text-gray-600"}`}>
                 Email
               </label>
               <input
@@ -54,13 +57,17 @@ export default function AdminLogin() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className={`w-full px-3 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  dark
+                    ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
+                    : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400"
+                }`}
                 placeholder="admin@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm text-gray-300 mb-1">
+              <label htmlFor="password" className={`block text-sm mb-1 ${dark ? "text-gray-300" : "text-gray-600"}`}>
                 Password
               </label>
               <input
@@ -69,7 +76,11 @@ export default function AdminLogin() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className={`w-full px-3 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  dark
+                    ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
+                    : "bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400"
+                }`}
               />
             </div>
 

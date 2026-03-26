@@ -2,13 +2,17 @@ import { NextRequest } from "next/server";
 import OpenAI from "openai";
 import { LUIS_SYSTEM_PROMPT } from "@/src/data/ai-context";
 import { rateLimit } from "@/src/lib/rate-limit";
+import { getIp } from "@/src/lib/get-ip";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+const MAX_MESSAGE_LENGTH = 2000;
+const MAX_MESSAGES = 20;
+
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-    const { success } = rateLimit(`chat:${ip}`, { maxRequests: 20, windowMs: 60 * 1000 });
+    const ip = getIp(req);
+    const { success } = rateLimit(`chat:${ip}`, { maxRequests: 10, windowMs: 60 * 1000 });
     if (!success) {
       return new Response(JSON.stringify({ error: "Too many requests. Please wait a moment." }), {
         status: 429,
@@ -25,8 +29,25 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Limit conversation history to prevent abuse
-    const trimmedMessages = messages.slice(-20);
+    const trimmedMessages = messages.slice(-MAX_MESSAGES).map((msg: { role?: string; content?: string }) => {
+      if (
+        !msg ||
+        typeof msg !== "object" ||
+        typeof msg.role !== "string" ||
+        typeof msg.content !== "string"
+      ) {
+        return null;
+      }
+      const role = msg.role === "assistant" ? "assistant" : "user";
+      return { role, content: msg.content.slice(0, MAX_MESSAGE_LENGTH) };
+    }).filter((msg): msg is { role: "user" | "assistant"; content: string } => msg !== null);
+
+    if (trimmedMessages.length === 0) {
+      return new Response(JSON.stringify({ error: "Invalid message format" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
     const stream = await openai.chat.completions.create({
       model: "gpt-4o-mini",

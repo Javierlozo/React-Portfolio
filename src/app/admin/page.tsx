@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "@/src/contexts/ThemeContext";
+import { HiSun, HiMoon } from "react-icons/hi";
 import {
   BarChart,
   Bar,
@@ -19,9 +21,28 @@ import {
 
 const COLORS = ["#3b82f6", "#8b5cf6", "#06b6d4", "#10b981", "#f59e0b", "#ef4444", "#ec4899", "#6366f1"];
 
+interface RecentVisitor {
+  time: string;
+  path: string;
+  ip_address: string | null;
+  city: string | null;
+  region: string | null;
+  country: string | null;
+  org: string | null;
+  browser: string;
+  os: string;
+  device_type: string;
+  referrer: string | null;
+  session_duration: number | null;
+  visitor_id: string | null;
+  language: string | null;
+}
+
 interface Analytics {
   totalViews: number;
+  uniqueVisitors: number;
   uniquePages: number;
+  avgSessionDuration: number;
   topCountry: string;
   topDevice: string;
   timeSeries: { date: string; count: number }[];
@@ -30,42 +51,188 @@ interface Analytics {
   devices: { name: string; count: number }[];
   operatingSystems: { name: string; count: number }[];
   countries: { name: string; count: number }[];
+  topCities: { name: string; count: number }[];
+  topOrgs: { name: string; count: number }[];
   screenBreakpoints: { name: string; count: number }[];
   topReferrers: { name: string; count: number }[];
   utmSources: { name: string; count: number }[];
+  recentVisitors: RecentVisitor[];
+  eventCounts: { name: string; count: number }[];
+  topInteractions: { name: string; count: number }[];
+  topLanguages: { name: string; count: number }[];
 }
 
-function MetricCard({ label, value }: { label: string; value: string | number }) {
+function useStyles() {
+  const { theme } = useTheme();
+  const d = theme === "dark";
+  return {
+    d,
+    page: d ? "bg-gray-950" : "bg-gray-50",
+    card: d ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200 shadow-sm",
+    header: d ? "border-gray-800 bg-gray-950/80" : "border-gray-200 bg-white/80",
+    title: d ? "text-white" : "text-gray-900",
+    subtitle: d ? "text-gray-400" : "text-gray-500",
+    muted: d ? "text-gray-500" : "text-gray-400",
+    text: d ? "text-gray-300" : "text-gray-700",
+    mono: d ? "text-gray-500" : "text-gray-400",
+    border: d ? "border-gray-800" : "border-gray-200",
+    divider: d ? "divide-gray-800/50" : "divide-gray-100",
+    hover: d ? "hover:bg-gray-800/30" : "hover:bg-gray-50",
+    btnInactive: d ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900",
+    btnBg: d ? "bg-gray-900 border-gray-800" : "bg-gray-100 border-gray-200",
+    paginationBtn: d ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "border-gray-300 text-gray-600 hover:bg-gray-100",
+    grid: d ? "#374151" : "#e5e7eb",
+    axis: d ? "#6b7280" : "#9ca3af",
+    tooltipBg: d ? "#1f2937" : "#ffffff",
+    tooltipBorder: d ? "#374151" : "#e5e7eb",
+    tooltipLabel: d ? "#9ca3af" : "#6b7280",
+    placeholder: d ? "text-gray-600" : "text-gray-300",
+  };
+}
+
+function MetricCard({ label, value, s }: { label: string; value: string | number; s: ReturnType<typeof useStyles> }) {
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-      <p className="text-gray-400 text-sm">{label}</p>
-      <p className="text-2xl font-bold text-white mt-1">{value}</p>
+    <div className={`border rounded-xl p-5 ${s.card}`}>
+      <p className={`text-sm ${s.subtitle}`}>{label}</p>
+      <p className={`text-2xl font-bold mt-1 ${s.title}`}>{value}</p>
     </div>
   );
 }
 
-function ChartCard({ title, children }: { title: string; children: React.ReactNode }) {
+function ChartCard({ title, children, s }: { title: string; children: React.ReactNode; s: ReturnType<typeof useStyles> }) {
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-      <h3 className="text-white font-semibold mb-4">{title}</h3>
+    <div className={`border rounded-xl p-5 ${s.card}`}>
+      <h3 className={`font-semibold mb-4 ${s.title}`}>{title}</h3>
       {children}
     </div>
   );
 }
 
-function TableCard({ title, data }: { title: string; data: { name: string; count: number }[] }) {
+function TableCard({ title, data, s }: { title: string; data: { name: string; count: number }[]; s: ReturnType<typeof useStyles> }) {
   if (!data.length) return null;
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-      <h3 className="text-white font-semibold mb-4">{title}</h3>
+    <div className={`border rounded-xl p-5 ${s.card}`}>
+      <h3 className={`font-semibold mb-4 ${s.title}`}>{title}</h3>
       <div className="space-y-2">
         {data.map((item, i) => (
           <div key={i} className="flex justify-between items-center text-sm">
-            <span className="text-gray-300 truncate mr-4">{item.name}</span>
-            <span className="text-gray-400 font-mono shrink-0">{item.count}</span>
+            <span className={`truncate mr-4 ${s.text}`}>{item.name}</span>
+            <span className={`font-mono shrink-0 ${s.mono}`}>{item.count}</span>
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function formatDuration(seconds: number): string {
+  if (seconds < 60) return `${seconds}s`;
+  const m = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  return sec > 0 ? `${m}m ${sec}s` : `${m}m`;
+}
+
+function timeAgo(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
+
+function deviceIcon(type: string): string {
+  if (type === "mobile") return "\u{1F4F1}";
+  if (type === "tablet") return "\u{1F4CB}";
+  return "\u{1F4BB}";
+}
+
+const PAGE_SIZE = 15;
+
+function RecentVisitorsTable({ visitors, s }: { visitors: RecentVisitor[]; s: ReturnType<typeof useStyles> }) {
+  const [page, setPage] = useState(0);
+  if (!visitors.length) return null;
+
+  const totalPages = Math.ceil(visitors.length / PAGE_SIZE);
+  const start = page * PAGE_SIZE;
+  const visible = visitors.slice(start, start + PAGE_SIZE);
+
+  return (
+    <div className={`border rounded-xl p-5 ${s.card}`}>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className={`font-semibold ${s.title}`}>Recent Visitors</h3>
+        <span className={`text-sm ${s.muted}`}>{visitors.length} total</span>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className={`text-left border-b ${s.border} ${s.subtitle}`}>
+              <th className="pb-2 pr-4 font-medium">When</th>
+              <th className="pb-2 pr-4 font-medium">IP</th>
+              <th className="pb-2 pr-4 font-medium">Location</th>
+              <th className="pb-2 pr-4 font-medium">Organization</th>
+              <th className="pb-2 pr-4 font-medium">Page</th>
+              <th className="pb-2 pr-4 font-medium">Source</th>
+              <th className="pb-2 pr-4 font-medium">Device</th>
+              <th className="pb-2 font-medium">Duration</th>
+            </tr>
+          </thead>
+          <tbody className={`divide-y ${s.divider}`}>
+            {visible.map((v, i) => (
+              <tr key={start + i} className={`${s.text} ${s.hover} transition-colors`}>
+                <td className={`py-2.5 pr-4 whitespace-nowrap ${s.subtitle}`}>
+                  {timeAgo(v.time)}
+                </td>
+                <td className={`py-2.5 pr-4 whitespace-nowrap font-mono text-xs ${s.mono}`}>
+                  {v.ip_address || <span className={s.placeholder}>-</span>}
+                </td>
+                <td className="py-2.5 pr-4 whitespace-nowrap">
+                  {[v.city, v.region, v.country].filter(Boolean).join(", ") || "Unknown"}
+                </td>
+                <td className="py-2.5 pr-4 whitespace-nowrap max-w-[200px] truncate">
+                  {v.org || <span className={s.placeholder}>-</span>}
+                </td>
+                <td className="py-2.5 pr-4 whitespace-nowrap font-mono text-xs text-blue-500 max-w-[150px] truncate">
+                  {v.path}
+                </td>
+                <td className={`py-2.5 pr-4 whitespace-nowrap max-w-[150px] truncate ${s.subtitle}`}>
+                  {v.referrer || "direct"}
+                </td>
+                <td className="py-2.5 pr-4 whitespace-nowrap">
+                  {deviceIcon(v.device_type)} {v.browser}/{v.os}
+                </td>
+                <td className={`py-2.5 whitespace-nowrap ${s.subtitle}`}>
+                  {v.session_duration != null ? formatDuration(v.session_duration) : <span className={s.placeholder}>-</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {totalPages > 1 && (
+        <div className={`flex items-center justify-between mt-4 pt-4 border-t ${s.border}`}>
+          <button
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+            disabled={page === 0}
+            className={`px-3 py-1.5 text-sm rounded-lg border disabled:opacity-30 disabled:cursor-not-allowed transition-colors ${s.paginationBtn}`}
+          >
+            Previous
+          </button>
+          <span className={`text-sm ${s.muted}`}>
+            Page {page + 1} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            disabled={page >= totalPages - 1}
+            className={`px-3 py-1.5 text-sm rounded-lg border disabled:opacity-30 disabled:cursor-not-allowed transition-colors ${s.paginationBtn}`}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -76,6 +243,8 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
+  const s = useStyles();
 
   const fetchData = useCallback(async (d: number) => {
     setLoading(true);
@@ -106,15 +275,15 @@ export default function AdminDashboard() {
 
   if (loading && !data) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
-        <p className="text-gray-400">Loading analytics...</p>
+      <div className={`min-h-screen flex items-center justify-center ${s.page}`}>
+        <p className={s.subtitle}>Loading analytics...</p>
       </div>
     );
   }
 
   if (error && !data) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+      <div className={`min-h-screen flex items-center justify-center ${s.page}`}>
         <p className="text-red-400">{error}</p>
       </div>
     );
@@ -122,14 +291,19 @@ export default function AdminDashboard() {
 
   if (!data) return null;
 
+  const tooltipStyle = {
+    backgroundColor: s.tooltipBg,
+    border: `1px solid ${s.tooltipBorder}`,
+    borderRadius: "8px",
+  };
+
   return (
-    <div className="min-h-screen bg-gray-950">
-      {/* Header */}
-      <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm sticky top-0 z-10">
+    <div className={`min-h-screen ${s.page}`}>
+      <header className={`border-b backdrop-blur-sm sticky top-0 z-10 ${s.header}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-white">Analytics Dashboard</h1>
+          <h1 className={`text-xl font-bold ${s.title}`}>Analytics Dashboard</h1>
           <div className="flex items-center gap-3">
-            <div className="flex bg-gray-900 border border-gray-800 rounded-lg overflow-hidden">
+            <div className={`flex border rounded-lg overflow-hidden ${s.btnBg}`}>
               {[7, 30, 90].map((d) => (
                 <button
                   key={d}
@@ -137,7 +311,7 @@ export default function AdminDashboard() {
                   className={`px-3 py-1.5 text-sm transition-colors ${
                     days === d
                       ? "bg-blue-600 text-white"
-                      : "text-gray-400 hover:text-white"
+                      : s.btnInactive
                   }`}
                 >
                   {d}d
@@ -145,8 +319,15 @@ export default function AdminDashboard() {
               ))}
             </div>
             <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg transition-colors ${s.btnInactive}`}
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <HiSun size={18} /> : <HiMoon size={18} />}
+            </button>
+            <button
               onClick={handleLogout}
-              className="text-sm text-gray-400 hover:text-white transition-colors px-3 py-1.5"
+              className={`text-sm transition-colors px-3 py-1.5 ${s.btnInactive}`}
             >
               Logout
             </button>
@@ -155,131 +336,103 @@ export default function AdminDashboard() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-        {/* Metric Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <MetricCard label="Total Views" value={data.totalViews} />
-          <MetricCard label="Unique Pages" value={data.uniquePages} />
-          <MetricCard label="Top Country" value={data.topCountry} />
-          <MetricCard label="Top Device" value={data.topDevice} />
+        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          <MetricCard label="Total Views" value={data.totalViews} s={s} />
+          <MetricCard label="Unique Visitors" value={data.uniqueVisitors} s={s} />
+          <MetricCard label="Unique Pages" value={data.uniquePages} s={s} />
+          <MetricCard label="Avg. Duration" value={data.avgSessionDuration ? formatDuration(data.avgSessionDuration) : "N/A"} s={s} />
+          <MetricCard label="Top Country" value={data.topCountry} s={s} />
+          <MetricCard label="Top Device" value={data.topDevice} s={s} />
         </div>
 
-        {/* Views Over Time */}
-        <ChartCard title="Views Over Time">
+        <RecentVisitorsTable visitors={data.recentVisitors} s={s} />
+
+        <ChartCard title="Views Over Time" s={s}>
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={data.timeSeries}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis
-                dataKey="date"
-                stroke="#6b7280"
-                fontSize={12}
-                tickFormatter={(v) => v.slice(5)}
-              />
-              <YAxis stroke="#6b7280" fontSize={12} />
-              <Tooltip
-                contentStyle={{ backgroundColor: "#1f2937", border: "1px solid #374151", borderRadius: "8px" }}
-                labelStyle={{ color: "#9ca3af" }}
-                itemStyle={{ color: "#3b82f6" }}
-              />
+              <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
+              <XAxis dataKey="date" stroke={s.axis} fontSize={12} tickFormatter={(v) => v.slice(5)} />
+              <YAxis stroke={s.axis} fontSize={12} />
+              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} itemStyle={{ color: "#3b82f6" }} />
               <Line type="monotone" dataKey="count" stroke="#3b82f6" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Top Pages + Devices */}
         <div className="grid lg:grid-cols-2 gap-6">
-          <ChartCard title="Top Pages">
+          <ChartCard title="Top Pages" s={s}>
             <ResponsiveContainer width="100%" height={280}>
               <BarChart data={data.topPages} layout="vertical" margin={{ left: 60 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis type="number" stroke="#6b7280" fontSize={12} />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  stroke="#6b7280"
-                  fontSize={12}
-                  width={80}
-                  tickFormatter={(v) => (v.length > 12 ? v.slice(0, 12) + "..." : v)}
-                />
-                <Tooltip
-                  contentStyle={{ backgroundColor: "#1f2937", border: "1px solid #374151", borderRadius: "8px" }}
-                  labelStyle={{ color: "#9ca3af" }}
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
+                <XAxis type="number" stroke={s.axis} fontSize={12} />
+                <YAxis type="category" dataKey="name" stroke={s.axis} fontSize={12} width={80} tickFormatter={(v) => (v.length > 12 ? v.slice(0, 12) + "..." : v)} />
+                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} />
                 <Bar dataKey="count" fill="#3b82f6" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
 
-          <ChartCard title="Devices">
+          <ChartCard title="Devices" s={s}>
             <ResponsiveContainer width="100%" height={280}>
               <PieChart>
-                <Pie
-                  data={data.devices}
-                  dataKey="count"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={100}
-                  innerRadius={50}
-                  label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
-                  labelLine={false}
-                  fontSize={12}
-                >
+                <Pie data={data.devices} dataKey="count" nameKey="name" cx="50%" cy="50%" outerRadius={100} innerRadius={50} label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`} labelLine={false} fontSize={12}>
                   {data.devices.map((_, i) => (
                     <Cell key={i} fill={COLORS[i % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip
-                  contentStyle={{ backgroundColor: "#1f2937", border: "1px solid #374151", borderRadius: "8px" }}
-                />
+                <Tooltip contentStyle={tooltipStyle} />
               </PieChart>
             </ResponsiveContainer>
           </ChartCard>
         </div>
 
-        {/* Browsers + OS */}
         <div className="grid lg:grid-cols-2 gap-6">
-          <ChartCard title="Browsers">
+          <TableCard title="Top Organizations / ISPs" data={data.topOrgs} s={s} />
+          <TableCard title="Top Cities" data={data.topCities} s={s} />
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-6">
+          <ChartCard title="Browsers" s={s}>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={data.browsers}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="name" stroke="#6b7280" fontSize={12} />
-                <YAxis stroke="#6b7280" fontSize={12} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: "#1f2937", border: "1px solid #374151", borderRadius: "8px" }}
-                  labelStyle={{ color: "#9ca3af" }}
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
+                <XAxis dataKey="name" stroke={s.axis} fontSize={12} />
+                <YAxis stroke={s.axis} fontSize={12} />
+                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} />
                 <Bar dataKey="count" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
 
-          <ChartCard title="Operating Systems">
+          <ChartCard title="Operating Systems" s={s}>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={data.operatingSystems}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="name" stroke="#6b7280" fontSize={12} />
-                <YAxis stroke="#6b7280" fontSize={12} />
-                <Tooltip
-                  contentStyle={{ backgroundColor: "#1f2937", border: "1px solid #374151", borderRadius: "8px" }}
-                  labelStyle={{ color: "#9ca3af" }}
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
+                <XAxis dataKey="name" stroke={s.axis} fontSize={12} />
+                <YAxis stroke={s.axis} fontSize={12} />
+                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} />
                 <Bar dataKey="count" fill="#06b6d4" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
         </div>
 
-        {/* Countries + Screen Breakpoints */}
         <div className="grid lg:grid-cols-2 gap-6">
-          <TableCard title="Top Countries" data={data.countries} />
-          <TableCard title="Screen Breakpoints" data={data.screenBreakpoints} />
+          <TableCard title="Top Countries" data={data.countries} s={s} />
+          <TableCard title="Screen Breakpoints" data={data.screenBreakpoints} s={s} />
         </div>
 
-        {/* Referrers + UTM */}
         <div className="grid lg:grid-cols-2 gap-6">
-          <TableCard title="Top Referrers" data={data.topReferrers} />
+          <TableCard title="Languages" data={data.topLanguages} s={s} />
+          {data.topInteractions.length > 0 && (
+            <TableCard title="Top Interactions" data={data.topInteractions} s={s} />
+          )}
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-6">
+          <TableCard title="Top Referrers" data={data.topReferrers} s={s} />
           {data.utmSources.length > 0 && (
-            <TableCard title="UTM Campaigns" data={data.utmSources} />
+            <TableCard title="UTM Campaigns" data={data.utmSources} s={s} />
           )}
         </div>
       </div>
