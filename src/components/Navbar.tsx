@@ -8,11 +8,11 @@ import { useTheme } from "../contexts/ThemeContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [moreOpen, setMoreOpen] = useState<boolean>(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>("");
   const [hamburgerImageError, setHamburgerImageError] = useState<boolean>(false);
   const { theme, toggleTheme } = useTheme();
-  const moreRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -33,7 +33,7 @@ export default function Navbar() {
 
   // Track active section using Intersection Observer
   useEffect(() => {
-    const sections = ["about", "experience", "skills-assessment", "certifications", "security-labs", "portfolio", "fit-check", "testimonials", "contact"];
+    const sections = ["about", "experience", "portfolio", "security-labs", "skills-assessment", "certifications", "testimonials", "fit-check", "contact"];
     
     const observerOptions = {
       root: null,
@@ -74,30 +74,47 @@ export default function Navbar() {
     };
   }, []);
 
-  // Close "More" dropdown on click outside
+  // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
-        setMoreOpen(false);
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const PRIMARY_LINKS = [
+  const TOP_LINKS = [
     { label: "About", id: "about" },
     { label: "Experience", id: "experience" },
-    { label: "Labs", id: "security-labs" },
-    { label: "Portfolio", id: "portfolio" },
-    { label: "Contact", id: "contact" },
   ];
 
-  const MORE_LINKS = [
-    { label: "Skills Assessment", id: "skills-assessment" },
-    { label: "Certifications", id: "certifications" },
-    { label: "Fit Check", id: "fit-check" },
-    { label: "Testimonials", id: "testimonials" },
+  const LABS_LINK = { label: "Labs", id: "security-labs" };
+
+  const PORTFOLIO_LINK = { label: "Portfolio", id: "portfolio" };
+
+  const DROPDOWNS = [
+    {
+      label: "Credentials",
+      items: [
+        { label: "Skills Assessment", id: "skills-assessment" },
+        { label: "Certifications", id: "certifications" },
+        { label: "Testimonials", id: "testimonials" },
+      ],
+    },
+  ];
+
+  const CTA_LINK = { label: "Fit Check", id: "fit-check" };
+  const CONTACT_LINK = { label: "Contact", id: "contact" };
+
+  const ALL_LINKS = [
+    ...TOP_LINKS,
+    LABS_LINK,
+    PORTFOLIO_LINK,
+    ...DROPDOWNS.flatMap((d) => d.items),
+    CTA_LINK,
+    CONTACT_LINK,
   ];
 
   return (
@@ -137,81 +154,165 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden xl:flex justify-center items-center flex-grow gap-1 min-w-0">
-          {PRIMARY_LINKS.map((link) => {
+        <div ref={dropdownRef} className="hidden xl:flex justify-center items-center flex-grow gap-1 min-w-0">
+          {TOP_LINKS.map((link) => {
             const isActive = activeSection === link.id;
-            const isLabs = link.id === "security-labs";
-            const colorClass = isLabs
-              ? theme === "dark"
-                ? "text-amber-400 hover:text-amber-300"
-                : "text-amber-600 hover:text-amber-700"
-              : isActive
-                ? theme === "dark" ? "text-white" : "text-gray-900"
-                : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900";
             return (
               <a
                 key={link.id}
                 href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
-                className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${colorClass}`}
+                className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
+                  isActive
+                    ? theme === "dark" ? "text-white" : "text-gray-900"
+                    : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
+                }`}
               >
                 {link.label}
                 {isActive && (
                   <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
-                    isLabs ? "bg-amber-500" : theme === "dark" ? "bg-white" : "bg-gray-900"
+                    theme === "dark" ? "bg-white" : "bg-gray-900"
                   }`} />
                 )}
               </a>
             );
           })}
 
-          {/* More dropdown */}
-          <div ref={moreRef} className="relative">
-            <button
-              onClick={() => setMoreOpen(!moreOpen)}
-              aria-expanded={moreOpen}
-              className={`flex items-center gap-1 px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 cursor-pointer ${
-                MORE_LINKS.some((l) => activeSection === l.id)
-                  ? theme === "dark" ? "text-white" : "text-gray-900"
-                  : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
-              }`}
-            >
-              More
-              <FiChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`} />
-              {MORE_LINKS.some((l) => activeSection === l.id) && (
-                <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
-                  theme === "dark" ? "bg-white" : "bg-gray-900"
-                }`} />
-              )}
-            </button>
-
-            {moreOpen && (
-              <div
-                className={`absolute top-full right-0 mt-2 w-48 rounded-lg border shadow-lg overflow-hidden ${
-                  theme === "dark"
-                    ? "bg-gray-900 border-gray-700"
-                    : "bg-white border-gray-200"
-                }`}
-              >
-                {MORE_LINKS.map((link) => {
-                  const isActive = activeSection === link.id;
-                  return (
-                    <a
-                      key={link.id}
-                      href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
-                      onClick={() => setMoreOpen(false)}
-                      className={`block px-4 py-2.5 text-sm transition-colors ${
-                        isActive
-                          ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
-                          : theme === "dark" ? "text-gray-300 hover:bg-gray-800 hover:text-white" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                      }`}
-                    >
-                      {link.label}
-                    </a>
-                  );
-                })}
-              </div>
+          {/* Labs - top-level highlighted link */}
+          <a
+            href={pathname === "/" ? `#${LABS_LINK.id}` : `/#${LABS_LINK.id}`}
+            className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
+              activeSection === LABS_LINK.id
+                ? theme === "dark" ? "text-amber-400" : "text-amber-600"
+                : theme === "dark" ? "text-amber-400/80 hover:text-amber-300" : "text-amber-600/80 hover:text-amber-700"
+            }`}
+          >
+            {LABS_LINK.label}
+            {activeSection === LABS_LINK.id && (
+              <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px bg-amber-500" />
             )}
-          </div>
+          </a>
+
+          {/* Portfolio - top-level link */}
+          <a
+            href={pathname === "/" ? `#${PORTFOLIO_LINK.id}` : `/#${PORTFOLIO_LINK.id}`}
+            className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
+              activeSection === PORTFOLIO_LINK.id
+                ? theme === "dark" ? "text-white" : "text-gray-900"
+                : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
+            }`}
+          >
+            {PORTFOLIO_LINK.label}
+            {activeSection === PORTFOLIO_LINK.id && (
+              <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
+                theme === "dark" ? "bg-white" : "bg-gray-900"
+              }`} />
+            )}
+          </a>
+
+          {/* Category dropdowns */}
+          {DROPDOWNS.map((dropdown) => {
+            const isOpen = openDropdown === dropdown.label;
+            const hasActive = dropdown.items.some((l) => activeSection === l.id);
+            return (
+              <div key={dropdown.label} className="relative">
+                <button
+                  onClick={() => setOpenDropdown(isOpen ? null : dropdown.label)}
+                  aria-expanded={isOpen}
+                  className={`flex items-center gap-1 px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                    hasActive
+                      ? theme === "dark" ? "text-white" : "text-gray-900"
+                      : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
+                  }`}
+                >
+                  {dropdown.label}
+                  <FiChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                  {hasActive && (
+                    <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
+                      theme === "dark" ? "bg-white" : "bg-gray-900"
+                    }`} />
+                  )}
+                </button>
+
+                {isOpen && (
+                  <div
+                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 rounded-lg border shadow-lg overflow-hidden ${
+                      theme === "dark"
+                        ? "bg-gray-900 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    {dropdown.items.map((link) => {
+                      const isActive = activeSection === link.id;
+                      return (
+                        <a
+                          key={link.id}
+                          href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
+                          onClick={() => setOpenDropdown(null)}
+                          className={`block px-4 py-2.5 text-sm transition-colors ${
+                            isActive
+                              ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
+                              : theme === "dark" ? "text-gray-300 hover:bg-gray-800 hover:text-white" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                          }`}
+                        >
+                          {link.label}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* Blog - separate page link */}
+          <Link
+            href="/blog"
+            className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
+              pathname.startsWith("/blog")
+                ? theme === "dark" ? "text-white" : "text-gray-900"
+                : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
+            }`}
+          >
+            Blog
+            {pathname.startsWith("/blog") && (
+              <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
+                theme === "dark" ? "bg-white" : "bg-gray-900"
+              }`} />
+            )}
+          </Link>
+
+          {/* Fit Check CTA */}
+          <a
+            href={pathname === "/" ? `#${CTA_LINK.id}` : `/#${CTA_LINK.id}`}
+            className={`relative px-3 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap rounded-full border transition-all duration-300 ${
+              activeSection === CTA_LINK.id
+                ? theme === "dark"
+                  ? "border-blue-400 text-blue-400 bg-blue-500/10"
+                  : "border-blue-600 text-blue-600 bg-blue-50"
+                : theme === "dark"
+                  ? "border-gray-700 text-gray-300 hover:border-blue-400 hover:text-blue-400 hover:bg-blue-500/10"
+                  : "border-gray-300 text-gray-500 hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50"
+            }`}
+          >
+            {CTA_LINK.label}
+          </a>
+
+          {/* Contact */}
+          <a
+            href={pathname === "/" ? `#${CONTACT_LINK.id}` : `/#${CONTACT_LINK.id}`}
+            className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
+              activeSection === CONTACT_LINK.id
+                ? theme === "dark" ? "text-white" : "text-gray-900"
+                : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
+            }`}
+          >
+            {CONTACT_LINK.label}
+            {activeSection === CONTACT_LINK.id && (
+              <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
+                theme === "dark" ? "bg-white" : "bg-gray-900"
+              }`} />
+            )}
+          </a>
         </div>
 
         {/* Theme Toggle */}
@@ -339,62 +440,71 @@ export default function Navbar() {
             </div>
             
             {/* Menu Items - App-like list */}
-            <div 
+            <div
               className={`p-4 overflow-y-auto ${
                 theme === 'dark' ? 'bg-gray-900' : 'bg-white'
               }`}
-              style={{ 
+              style={{
                 maxHeight: 'calc(100vh - 200px)',
                 backgroundColor: theme === 'dark' ? 'rgb(17, 24, 39)' : 'rgb(255, 255, 255)'
               }}>
-              {PRIMARY_LINKS.map((link, index) => {
+              {ALL_LINKS.map((link, index) => {
                 const isActive = activeSection === link.id;
                 const isLabs = link.id === "security-labs";
+                const isFitCheck = link.id === "fit-check";
                 const colorClass = isLabs
                   ? theme === "dark"
                     ? isActive ? "text-amber-400 bg-amber-500/20" : "text-amber-400/90 active:bg-amber-500/10"
                     : isActive ? "text-amber-700 bg-amber-100" : "text-amber-600 active:bg-amber-50"
+                  : isFitCheck
+                    ? theme === "dark"
+                      ? isActive ? "text-blue-400 bg-blue-500/20" : "text-blue-400/90 active:bg-blue-500/10"
+                      : isActive ? "text-blue-700 bg-blue-100" : "text-blue-600 active:bg-blue-50"
                   : isActive
                     ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
                     : theme === "dark" ? "text-gray-300 active:bg-gray-800" : "text-gray-700 active:bg-gray-100";
+
+                // Insert category headers
+                const isFirstCredential = link.id === "skills-assessment";
+                const header = isFirstCredential ? "Credentials" : null;
+
                 return (
-                  <a
-                    key={link.id}
-                    href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
-                    className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
-                    onClick={toggleMenu}
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    {link.label}
-                  </a>
+                  <React.Fragment key={link.id}>
+                    {header && (
+                      <>
+                        <div className={`my-2 mx-3 border-t ${theme === "dark" ? "border-gray-800" : "border-gray-200"}`} />
+                        <div className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider ${
+                          theme === "dark" ? "text-gray-500" : "text-gray-400"
+                        }`}>{header}</div>
+                      </>
+                    )}
+                    <a
+                      href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
+                      className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
+                      onClick={toggleMenu}
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      {link.label}
+                    </a>
+                  </React.Fragment>
                 );
               })}
 
-              {/* Divider */}
+              {/* Blog link */}
               <div className={`my-2 mx-3 border-t ${theme === "dark" ? "border-gray-800" : "border-gray-200"}`} />
-              <div className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider ${
-                theme === "dark" ? "text-gray-300" : "text-gray-400"
-              }`}>More</div>
-
-              {MORE_LINKS.map((link, index) => {
-                const isActive = activeSection === link.id;
-                const colorClass = isActive
-                  ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
-                  : theme === "dark" ? "text-gray-300 active:bg-gray-800" : "text-gray-700 active:bg-gray-100";
-                return (
-                  <a
-                    key={link.id}
-                    href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
-                    className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
-                    onClick={toggleMenu}
-                    style={{ animationDelay: `${(PRIMARY_LINKS.length + index) * 50}ms` }}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
+              <Link
+                href="/blog"
+                className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
+                  pathname.startsWith("/blog")
+                    ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
+                    : theme === "dark" ? "text-gray-300 active:bg-gray-800" : "text-gray-700 active:bg-gray-100"
+                }`}
+                onClick={toggleMenu}
+              >
+                Blog
+              </Link>
             </div>
-            
+
             {/* Footer */}
             <div className={`p-6 border-t ${
               theme === 'dark' 

@@ -3,10 +3,10 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Luis Javier Lozoya",
-    "jobTitle": "Full Stack Engineer",
-    "description": "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration.",
-    "url": "https://javierlozo.github.io",
-    "image": "https://javierlozo.github.io/og-image.png",
+    "jobTitle": "Full Stack Engineer - Security, Cloud, AI",
+    "description": "Full Stack Engineer with 5+ years experience building production applications with React, Next.js, AWS, and Python. GIAC GFACT certified. Specializing in security-focused engineering and AI integration.",
+    "url": "https://www.luislozoya.com",
+    "image": "https://www.luislozoya.com/opengraph-image",
     "sameAs": [
       "https://github.com/Javierlozo",
       "https://linkedin.com/in/luis-lozoya",
@@ -20,12 +20,14 @@ export default function StructuredData() {
       "Python",
       "AWS",
       "Node.js",
+      "Cybersecurity",
+      "Network Forensics",
+      "Packet Analysis",
+      "Cloud Security",
       "Artificial Intelligence",
       "Web Development",
       "Cloud Architecture",
       "Supabase",
-      "Svelte",
-      "Squid AI",
       "LangChain",
       "OpenAI"
     ],
@@ -63,7 +65,19 @@ export default function StructuredData() {
         "description": "Cybersecurity education and training"
       }
     ],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "GIAC Foundational Cybersecurity Technologies (GFACT)",
+        "credentialCategory": "Professional Certification",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "GIAC (Global Information Assurance Certification)"
+        }
+      }
+    ],
     "award": [
+      "GIAC GFACT Certification",
       "Coursera Full Stack Development Certificate",
       "System Administration Certificate",
       "TryHackMe Cybersecurity Certifications"

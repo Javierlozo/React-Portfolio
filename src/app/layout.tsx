@@ -9,13 +9,14 @@ import ConsoleMessage from "../components/ConsoleMessage";
 import ErrorBoundary from "../components/ErrorBoundary";
 import AIChatButton from "../components/AIChatButton";
 import PageTracker from "../components/PageTracker";
+import SiteChrome from "../components/SiteChrome";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
-    default: "Luis Javier Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    default: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
     template: "%s | Luis Javier Lozoya"
   },
   description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration. Building scalable web applications and AI-powered solutions for businesses worldwide.",
@@ -48,31 +49,22 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://javierlozo.github.io'),
+  metadataBase: new URL('https://www.luislozoya.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: "Luis Javier Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    title: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
     description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
-    url: 'https://javierlozo.github.io',
+    url: 'https://www.luislozoya.com',
     siteName: 'Luis Javier Lozoya Portfolio',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Luis Javier Lozoya, Software Engineer. Security focused, AI enabled.',
-      },
-    ],
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Luis Javier Lozoya | Full Stack Engineer — Security, Cloud, AI",
+    title: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
     description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
-    images: ['/og-image.png'],
     creator: '@javierlozo',
   },
   robots: {
@@ -86,9 +78,9 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  // verification: {
-  //   google: 'your-google-verification-code',
-  // },
+  verification: {
+    google: '3MISRalS7k_ViK4lL238leBPWqs-UBvJoQ0ay1cnwfo',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -129,13 +121,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           >
             Skip to main content
           </a>
-          <ScrollProgress />
-          <Navbar />
+          <SiteChrome>
+            <ScrollProgress />
+            <Navbar />
+          </SiteChrome>
           <main id="main-content">
             <ErrorBoundary>{children}</ErrorBoundary>
           </main>
-          <Footer />
-          <AIChatButton />
+          <SiteChrome>
+            <Footer />
+            <AIChatButton />
+          </SiteChrome>
           <PageTracker />
         </ThemeProvider>
       </body>

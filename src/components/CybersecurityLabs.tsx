@@ -18,20 +18,52 @@ export default function CybersecurityLabs() {
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <h2
-            className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
-              theme === "dark" ? "text-white border-gray-700" : "text-gray-900 border-gray-200"
-            }`}
-          >
-            Security Labs
-          </h2>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div
+              className={`p-2 rounded-lg ${
+                theme === "dark" ? "bg-amber-500/10 text-amber-400" : "bg-amber-100 text-amber-700"
+              }`}
+            >
+              <FontAwesomeIcon icon={faFlask} className="text-xl" />
+            </div>
+            <h2
+              className={`text-2xl sm:text-3xl md:text-4xl font-thin ${
+                theme === "dark" ? "text-white" : "text-gray-900"
+              }`}
+            >
+              Security Labs
+            </h2>
+            <span
+              className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                theme === "dark" ? "bg-amber-500/20 text-amber-400" : "bg-amber-100 text-amber-700"
+              }`}
+            >
+              {LABS.filter((l) => !l.comingSoon).length} completed
+            </span>
+          </div>
           <p
-            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
+            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-5 ${
               theme === "dark" ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Hands-on labs and evidence of real skill beyond certifications.
+            Hands-on labs with real packet captures, full analysis, and detailed writeups. Evidence of skill beyond certifications.
           </p>
+          <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
+            {["Packet Analysis", "Network Forensics", "tcpdump", "Wireshark", "Incident Response", "Threat Detection"].map(
+              (skill) => (
+                <span
+                  key={skill}
+                  className={`text-xs px-3 py-1 rounded-full ${
+                    theme === "dark"
+                      ? "bg-gray-800 text-gray-400 border border-gray-700"
+                      : "bg-gray-100 text-gray-500 border border-gray-200"
+                  }`}
+                >
+                  {skill}
+                </span>
+              )
+            )}
+          </div>
         </div>
 
         {/* Labs: compact summary cards */}
@@ -145,7 +177,7 @@ export default function CybersecurityLabs() {
                               )}
                             </div>
                           )}
-                          <div className="flex flex-wrap gap-1.5 mb-4">
+                          <div className="flex flex-wrap gap-1.5 mb-2">
                             {lab.tools.slice(0, 4).map((tool) => (
                               <span
                                 key={tool}
@@ -153,10 +185,25 @@ export default function CybersecurityLabs() {
                                   theme === "dark" ? "bg-gray-700 text-gray-300" : "bg-gray-200 text-gray-700"
                                 }`}
                               >
+                                <FontAwesomeIcon icon={faWrench} className="text-[10px] mr-1 opacity-50" />
                                 {tool}
                               </span>
                             ))}
                           </div>
+                          {!lab.comingSoon && lab.skillsDemonstrated && (
+                            <div className="flex flex-wrap gap-1.5 mb-4">
+                              {lab.skillsDemonstrated.slice(0, 3).map((skill) => (
+                                <span
+                                  key={skill}
+                                  className={`px-2 py-0.5 text-xs rounded-full ${
+                                    theme === "dark" ? "bg-amber-500/10 text-amber-300/80" : "bg-amber-50 text-amber-700/80"
+                                  }`}
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                           {!lab.comingSoon && (
                             <Link
                               href={getLabPath(lab)}
