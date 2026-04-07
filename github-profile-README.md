@@ -34,5 +34,5 @@ Building production applications with React, Next.js, AWS, and Python. GIAC GFAC
 ## Get in Touch
 
 - [Portfolio](https://www.luislozoya.com)
-- [LinkedIn](https://linkedin.com/in/luis-lozoya)
+- [LinkedIn](https://www.linkedin.com/in/luisjlozoya)
 - [Blog](https://www.luislozoya.com/blog)

@@ -9,7 +9,7 @@ export default function StructuredData() {
     "image": "https://www.luislozoya.com/opengraph-image",
     "sameAs": [
       "https://github.com/Javierlozo",
-      "https://linkedin.com/in/luis-lozoya",
+      "https://www.linkedin.com/in/luisjlozoya",
       "https://twitter.com/javierlozo"
     ],
     "knowsAbout": [
