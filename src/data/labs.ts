@@ -53,6 +53,8 @@ export interface CybersecurityLab {
   reportDownloadLink?: string;
   reportDownloadLabel?: string;
   screenshots?: LabScreenshot[];
+  /** Original analysis: what this means in practice, what orgs get wrong, your perspective */
+  takeaway?: string[];
   comingSoon?: boolean;
 }
 
@@ -157,6 +159,11 @@ export const LABS: CybersecurityLab[] = [
       "HTTP GET /.env from 135.125.217.54 to 10.130.8.94; server returned 404",
       "HTTP POST /wp-login.php with Hydra user-agent",
       "DNS NS lookup mapped alphainc.ca to AWS nameservers",
+    ],
+    takeaway: [
+      "The /.env probe is one of the most common automated scans on the internet, but most teams only monitor for it at the WAF layer. The real question isn't whether you block it, it's whether you alert on it. A 404 response means the file wasn't there, but the attacker now knows the server is live, running a web framework, and worth further probing. That single failed request often precedes the brute-force attempt that follows minutes later.",
+      "What stood out in this lab was how readable cleartext HTTP traffic is. The WordPress credentials were sitting in the packet payload, fully visible, with no decryption required. This is obvious in theory, but seeing it in a real PCAP changes how you think about HTTPS enforcement. It's not just a compliance checkbox. Any network segment without TLS is functionally broadcasting credentials to anyone with tcpdump access.",
+      "If I were building detection rules from this capture, I'd focus on two signals: any outbound DNS query to a domain immediately followed by HTTP POST to a login endpoint from a different source IP, and any user-agent string containing known tool signatures like Hydra. These are low-noise, high-confidence indicators that most SIEMs can correlate in real time.",
     ],
     screenshots: [
       { src: "/labs/tcpdump-145021.png", alt: "Step 1: Initial packet overview", caption: "tcpdump -n -r investigate.pcap -c 20 -#" },
@@ -307,6 +314,11 @@ export const LABS: CybersecurityLab[] = [
       "3.142.238.241 → 10.130.8.94:80, hundreds of uniform 10-packet connections (port scanning/brute-force)",
       "Successful WordPress login: POST /wp-login.php with Hydra user-agent, admin/#AlphaInc!, 302 → /wp-admin/",
       "Live capture: HTTP object export recovered file.txt from loopback traffic",
+    ],
+    takeaway: [
+      "The conversation statistics view in Wireshark identified the brute-force pattern in under 5 seconds. Hundreds of uniform 10-packet sessions from the same IP to port 80 is unmistakable. But here's the problem: most organizations would only catch this after the fact, in a SIEM query. The gap between 'visible in packet capture' and 'detected in production' is where most breaches live. If your IDS isn't alerting on connection volume anomalies per source IP, you're relying on an analyst opening Wireshark after someone already noticed something wrong.",
+      "Following the HTTP stream that contained the successful login was the most valuable exercise. The 302 redirect to /wp-admin/ with authentication cookies confirmed the attacker was inside. In a real incident, this is the moment the investigation shifts from 'were we targeted?' to 'what did they access?' Most IR playbooks don't emphasize this transition enough. Once you confirm a successful auth, every minute you spend continuing to analyze the brute-force traffic is time the attacker is moving laterally.",
+      "The protocol hierarchy breakdown (HTTP 22.6%, TLS 44.3%) tells an important story: more than half the HTTP traffic was unencrypted. In 2024+, any production environment with that ratio has a fundamental configuration problem. But I've seen this in real environments. Legacy internal apps, misconfigured load balancers, and health check endpoints that 'don't need HTTPS' create exactly this kind of exposure.",
     ],
     screenshots: [
       { src: "/labs/wireshark-093147.png", alt: "Step 1: Initial PCAP inspection", caption: "TCP handshake + GET /.env → 404 (same probe as Lab 1.1)" },
@@ -482,6 +494,11 @@ export const LABS: CybersecurityLab[] = [
       "Port 80: 190MB transferred (HTTP brute-force and web access)",
       "Port 22: SSH access confirmed via NetFlow correlation",
       "No additional attacker ports found, confirming complete attack surface enumeration",
+    ],
+    takeaway: [
+      "265MB on port 8889 is the finding that matters most in this lab, and it's the one that would be hardest to catch in production. Most security groups configure egress rules for known ports: block outbound SSH, restrict HTTP to approved destinations. But port 8889 isn't in any default deny list because it's not a well-known service. The attacker chose it precisely because it falls into the gap between 'explicitly blocked' and 'actively monitored.' The fix isn't blocking port 8889 specifically. It's flipping the egress model: deny all outbound traffic by default, and only allow what's explicitly needed.",
+      "The 6.5-hour attack window raises a practical question: how long until someone notices? In this scenario, the attacker had nearly 7 hours of uninterrupted access. That's enough to exfiltrate an entire database, establish persistence, and pivot to other instances. Most organizations measure their mean-time-to-detect (MTTD) in days, not hours. GuardDuty would have flagged the unusual outbound volume, but only if it was enabled. VPC Flow Logs were there the entire time, recording everything, but nobody was watching in real time.",
+      "Converting the PCAP to NetFlow with nfpcapd proved something important: packet-level and flow-level data tell the same story from different angles. In a real investigation, you often have one or the other, not both. Knowing how to work with both formats and correlate between them is the difference between confirming an attack and missing half the picture. The attacker used HTTP to get in, SSH for interactive access, and port 8889 to pull data out. Flow logs showed the volume, PCAP showed the content. Together, they give you the complete kill chain.",
     ],
     screenshots: [
       { src: "/labs/vpc-flow-logs-115605.png", alt: "Step 1: List VPC flow log files", caption: "579 gzip-compressed VPC flow log files identified" },
@@ -691,6 +708,11 @@ export const LABS: CybersecurityLab[] = [
       "Hashcat brute-force on SHA-512: 854 H/s, 77-year estimated completion",
       "CeWL wordlist: 1,552 words expanded to 4,010,859 with John's mangling rules",
       "Bonus passwords (#AlphaInc!23, #AlphaInc!24) required rule-expanded wordlist to crack",
+    ],
+    takeaway: [
+      "The speed difference between hash types is the real lesson here, not the cracking itself. NTLM at 19,200 p/s vs. SHA-512 crypt at 854 H/s vs. Office 2013 at 168 p/s tells you everything about why hash algorithm choice matters more than password policy. An organization can mandate 16-character passwords, but if Active Directory is still storing NTLM hashes (and it is, by default), an attacker with a domain dump will crack most of them in hours. The first recommendation in any password audit should be 'disable NTLM where possible,' not 'require longer passwords.'",
+      "CeWL is underrated in real engagements. Generic wordlists like rockyou.txt contain millions of entries but miss the most likely passwords: the ones employees create from what they see every day. The company name, product names, office locations, slogans from the website. In this lab, every single password was a variation of '#AlphaInc!' which is literally the organization's name with common substitutions. Azure AD and Entra ID have Custom Banned Password Lists that can block these, but I've rarely seen organizations configure them. It's a 10-minute fix that would have stopped every crack in this lab.",
+      "The brute-force attempt with Hashcat was the most instructive failure. 77 years at 854 H/s on a single CPU. Even with GPU acceleration pushing that to 500K H/s, a 10-character password with mixed character classes would still take months against SHA-512 crypt. This is why password complexity requirements exist for older hash algorithms, but also why the industry is moving toward bcrypt and argon2 with configurable work factors. The right answer isn't 'make passwords longer,' it's 'make hashing slower.' A properly configured argon2 hash turns even a weak password into a computationally expensive target.",
     ],
     screenshots: [
       { src: "/labs/password-auditing-131636.png", alt: "Step 1: Explore lab files", caption: "Lab directory: passwd/shadow files, CeWL wordlist, encrypted Excel, NTLM hash" },

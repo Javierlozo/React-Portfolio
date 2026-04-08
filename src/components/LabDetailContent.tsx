@@ -45,7 +45,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
 
   return (
     <div className={`min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <article className="w-full">
         <Link
           href="/#security-labs"
@@ -344,6 +344,32 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                 </li>
               ))}
             </ul>
+          </section>
+        )}
+
+        {/* Takeaway: original analysis */}
+        {lab.takeaway && lab.takeaway.length > 0 && (
+          <section className={`mb-10 p-5 sm:p-6 rounded-xl border-l-4 ${
+            theme === "dark" ? "bg-gray-800/50 border-amber-500/60" : "bg-amber-50/50 border-amber-500"
+          }`}>
+            <h2 className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-4 ${
+              theme === "dark" ? "text-amber-400" : "text-amber-700"
+            }`}>
+              <FontAwesomeIcon icon={faLightbulb} />
+              What I took away from this
+            </h2>
+            <div className="space-y-4">
+              {lab.takeaway.map((paragraph, idx) => (
+                <p
+                  key={idx}
+                  className={`text-sm sm:text-base leading-relaxed ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </section>
         )}
 
