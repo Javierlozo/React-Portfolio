@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
@@ -25,7 +25,7 @@ interface Experience {
   technologies: string[];
   companyUrl?: string;
   current?: boolean;
-  logo?: any;
+  logo?: StaticImageData;
   industry?: string;
 }
 

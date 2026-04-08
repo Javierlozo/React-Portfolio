@@ -27,7 +27,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
             return (
               <Link
                 key={post.slug}
-                href={`/blog/${post.slug}`}
+                href={post.labPath}
                 className={`group border rounded-xl overflow-hidden transition-all duration-300 ${
                   dark
                     ? "bg-gray-800/50 border-gray-700 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/5"

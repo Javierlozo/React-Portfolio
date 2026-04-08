@@ -20,9 +20,11 @@ import {
   faDatabase,
 } from "@fortawesome/free-solid-svg-icons";
 
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
 interface TechItem {
   name: string;
-  icon: any;
+  icon: IconDefinition;
 }
 
 // Primary: technologies you use daily and would confidently lead a project with

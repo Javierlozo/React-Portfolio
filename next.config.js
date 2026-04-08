@@ -10,6 +10,14 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
+  async redirects() {
+    return [
+      { source: '/blog/tcpdump-traffic-analysis', destination: '/labs/sec401/tcpdump-traffic-analysis', permanent: true },
+      { source: '/blog/wireshark-packet-analysis', destination: '/labs/sec401/wireshark-packet-analysis', permanent: true },
+      { source: '/blog/vpc-flow-logs', destination: '/labs/sec401/vpc-flow-logs', permanent: true },
+      { source: '/blog/password-auditing', destination: '/labs/sec401/password-auditing', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

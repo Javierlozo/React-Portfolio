@@ -52,7 +52,7 @@ function parseUserAgent(ua: string) {
 async function lookupIp(ip: string): Promise<{ isp: string | null; org: string | null }> {
   if (!isValidPublicIp(ip)) return { isp: null, org: null };
   try {
-    const res = await fetch(`http://ip-api.com/json/${ip}?fields=isp,org`, {
+    const res = await fetch(`https://ip-api.com/json/${ip}?fields=isp,org`, {
       signal: AbortSignal.timeout(3000),
     });
     if (!res.ok) return { isp: null, org: null };

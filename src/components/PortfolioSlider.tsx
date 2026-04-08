@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCode } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +23,7 @@ interface Project {
   title: string;
   description: string;
   techStack: string[];
-  image: any;
+  image: StaticImageData;
   liveLink?: string;
   codeLink?: string;
   featured?: boolean;

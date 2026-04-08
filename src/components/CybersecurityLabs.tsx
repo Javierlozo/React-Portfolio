@@ -7,8 +7,45 @@ import {
   faFlask,
   faWrench,
   faArrowRight,
+  faNetworkWired,
+  faCloud,
+  faKey,
 } from "@fortawesome/free-solid-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { LABS, getLabPath } from "../data/labs";
+
+const FOCUS_ICONS: Record<string, IconDefinition> = {
+  "Network Forensics": faNetworkWired,
+  "Cloud Network Forensics": faCloud,
+  "Password Management & Cryptography": faKey,
+};
+
+const FOCUS_GRADIENTS: Record<string, { dark: string; light: string }> = {
+  "Network Forensics": {
+    dark: "from-blue-600/20 to-cyan-600/10",
+    light: "from-blue-100 to-cyan-50",
+  },
+  "Cloud Network Forensics": {
+    dark: "from-violet-600/20 to-blue-600/10",
+    light: "from-violet-100 to-blue-50",
+  },
+  "Password Management & Cryptography": {
+    dark: "from-amber-600/20 to-orange-600/10",
+    light: "from-amber-100 to-orange-50",
+  },
+};
+
+const DEFAULT_GRADIENT = {
+  dark: "from-gray-600/20 to-gray-700/10",
+  light: "from-gray-100 to-gray-50",
+};
+
+const labSkillTags = (() => {
+  const completed = LABS.filter((l) => !l.comingSoon);
+  const focuses = [...new Set(completed.map((l) => l.focus).filter(Boolean))] as string[];
+  const tools = [...new Set(completed.flatMap((l) => l.tools))];
+  return [...new Set([...focuses, ...tools])].slice(0, 10);
+})();
 
 export default function CybersecurityLabs() {
   const { theme } = useTheme();
@@ -49,7 +86,7 @@ export default function CybersecurityLabs() {
             Hands-on labs with real packet captures, full analysis, and detailed writeups. Evidence of skill beyond certifications.
           </p>
           <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
-            {["Packet Analysis", "Network Forensics", "tcpdump", "Wireshark", "Incident Response", "Threat Detection"].map(
+            {labSkillTags.map(
               (skill) => (
                 <span
                   key={skill}
@@ -93,7 +130,7 @@ export default function CybersecurityLabs() {
                     {labsInCourse.map((lab) => (
                       <article
                         key={lab.id}
-                        className={`rounded-2xl border-2 overflow-hidden transition-all duration-300 ${
+                        className={`rounded-2xl border-2 overflow-hidden transition-all duration-300 flex flex-col ${
                           lab.comingSoon ? "opacity-75" : ""
                         } ${
                           theme === "dark"
@@ -101,24 +138,24 @@ export default function CybersecurityLabs() {
                             : "bg-white border-gray-200 hover:border-gray-300"
                         }`}
                       >
-                        <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
-                          <div className="flex items-start gap-3 mb-3">
-                            <div
-                              className={`p-2.5 rounded-xl shrink-0 ${
-                                theme === "dark" ? "bg-gray-700 text-amber-400" : "bg-amber-100 text-amber-700"
-                              }`}
-                            >
-                              <FontAwesomeIcon icon={faFlask} className="text-lg" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <h3 className={`font-medium ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                        {(() => {
+                          const gradient = FOCUS_GRADIENTS[lab.focus ?? ""] ?? DEFAULT_GRADIENT;
+                          return (
+                            <div className={`relative px-5 pt-5 pb-4 bg-gradient-to-br ${theme === "dark" ? gradient.dark : gradient.light}`}>
+                              <FontAwesomeIcon
+                                icon={FOCUS_ICONS[lab.focus ?? ""] ?? faFlask}
+                                className={`absolute top-4 right-4 text-3xl opacity-15 ${
+                                  theme === "dark" ? "text-white" : "text-gray-900"
+                                }`}
+                              />
+                              <span className={`text-[10px] font-semibold uppercase tracking-widest ${
+                                theme === "dark" ? "text-gray-400" : "text-gray-500"
+                              }`}>
+                                {lab.focus ?? "Security"}
+                              </span>
+                              <h3 className={`font-medium mt-1 leading-snug ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
                                 {lab.title}
                               </h3>
-                              {lab.role && (
-                                <p className={`text-xs mt-0.5 ${theme === "dark" ? "text-amber-400/90" : "text-amber-700"}`}>
-                                  {lab.role}
-                                </p>
-                              )}
                               {lab.comingSoon && (
                                 <span
                                   className={`inline-block mt-1.5 text-xs font-medium px-2 py-0.5 rounded ${
@@ -129,11 +166,13 @@ export default function CybersecurityLabs() {
                                 </span>
                               )}
                             </div>
-                          </div>
+                          );
+                        })()}
+                        <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
                           <p className={`text-sm leading-relaxed mb-3 flex-1 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
                             {lab.summary}
                           </p>
-                          <div className="flex flex-wrap gap-1.5 mb-2">
+                          <div className="flex flex-wrap gap-1.5 mb-4">
                             {lab.tools.slice(0, 4).map((tool) => (
                               <span
                                 key={tool}

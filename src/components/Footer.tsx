@@ -64,9 +64,10 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/luisjlozoya/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit Luis on LinkedIn"
                 className={`p-3 min-w-[44px] min-h-[44px] flex items-center justify-center border-2 rounded-full transition-all duration-300 hover:scale-110 ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                  theme === 'dark'
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                 }`}
               >
@@ -76,9 +77,10 @@ export default function Footer() {
                 href="https://github.com/Javierlozo"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit Luis on GitHub"
                 className={`p-3 min-w-[44px] min-h-[44px] flex items-center justify-center border-2 rounded-full transition-all duration-300 hover:scale-110 ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white' 
+                  theme === 'dark'
+                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
                     : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
                 }`}
               >

@@ -33,7 +33,7 @@ export default function Navbar() {
 
   // Track active section using Intersection Observer
   useEffect(() => {
-    const sections = ["about", "experience", "portfolio", "security-labs", "skills-assessment", "certifications", "testimonials", "fit-check", "contact"];
+    const sections = ["about", "experience", "security-labs", "certifications", "portfolio", "fit-check", "testimonials", "contact"];
     
     const observerOptions = {
       root: null,
@@ -98,7 +98,6 @@ export default function Navbar() {
     {
       label: "Credentials",
       items: [
-        { label: "Skills Assessment", id: "skills-assessment" },
         { label: "Certifications", id: "certifications" },
         { label: "Testimonials", id: "testimonials" },
       ],

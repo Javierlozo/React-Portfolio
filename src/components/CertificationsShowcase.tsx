@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -9,15 +9,13 @@ import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes } from "@forta
 import gfact from "@/src/public/certifications/GFACT.png";
 import coursera from "@/src/public/certifications/Coursera.png";
 import systemAdm from "@/src/public/certifications/System Adm.png";
-import thm1 from "@/src/public/certifications/THM-LJHNPB9YI3.png";
-import thm2 from "@/src/public/certifications/THM-TGJRJ0ZZXT.png";
 
 interface Certification {
   id: number;
   title: string;
   issuer: string;
   date: string;
-  image: any;
+  image: StaticImageData;
   verifyLink?: string;
   description: string;
   skills: string[];
@@ -58,26 +56,6 @@ export default function CertificationsShowcase() {
       description: "Comprehensive cybersecurity and system administration program covering security fundamentals, network protection, and infrastructure management.",
       skills: ["Cybersecurity", "System Administration", "Network Security", "Infrastructure", "Security Management"]
     },
-    {
-      id: 4,
-      title: "Complete Beginner, TryHackMe",
-      issuer: "TryHackMe",
-      date: "2023",
-      image: thm1,
-      verifyLink: "https://tryhackme.com/certificate/LJHNPB9YI3",
-      description: "Comprehensive cybersecurity fundamentals covering networking, web application security, and ethical hacking basics.",
-      skills: ["Cybersecurity", "Networking", "Web Security", "Ethical Hacking", "Penetration Testing"]
-    },
-    {
-      id: 5,
-      title: "Pre Security, TryHackMe",
-      issuer: "TryHackMe",
-      date: "2023",
-      image: thm2,
-      verifyLink: "https://tryhackme.com/certificate/TGJRJ0ZZXT",
-      description: "Pre-security training covering basic security concepts, tools, and methodologies for cybersecurity professionals.",
-      skills: ["Security Fundamentals", "Security Tools", "Vulnerability Assessment", "Risk Management", "Security Awareness"]
-    }
   ];
 
   return (
@@ -98,13 +76,17 @@ export default function CertificationsShowcase() {
         </div>
 
         {/* Certifications: full viewport width, single row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 w-full px-4 sm:px-6 md:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           {certifications.map((cert) => (
             <div
               key={cert.id}
               className={`group cursor-pointer transition-all duration-300 hover:scale-105 min-w-0 ${
                 theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-              } rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden`}
+              } rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden ${
+                cert.id === 1
+                  ? theme === 'dark' ? 'ring-2 ring-amber-500/50' : 'ring-2 ring-amber-400/60'
+                  : ''
+              }`}
               onClick={() => setSelectedCert(cert)}
             >
               {/* Certificate Image */}

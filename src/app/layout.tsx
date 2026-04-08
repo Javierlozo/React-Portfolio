@@ -12,7 +12,7 @@ import PageTracker from "../components/PageTracker";
 import SiteChrome from "../components/SiteChrome";
 import { ReactNode } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
   title: {
@@ -60,6 +60,7 @@ export const metadata = {
     siteName: 'Luis Javier Lozoya Portfolio',
     locale: 'en_US',
     type: 'website',
+    images: [{ url: 'https://www.luislozoya.com/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',

@@ -17,6 +17,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 400 });
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 8) {
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 400 });
+    }
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,

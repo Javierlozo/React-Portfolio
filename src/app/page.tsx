@@ -7,9 +7,8 @@ import About from "../components/About";
 
 const TechStackVisual = dynamic(() => import("../components/TechStackVisual"));
 const ExperienceTimeline = dynamic(() => import("../components/ExperienceTimeline"));
-const SkillsAssessment = dynamic(() => import("../components/SkillsAssessment"));
-const CertificationsShowcase = dynamic(() => import("../components/CertificationsShowcase"));
 const CybersecurityLabs = dynamic(() => import("../components/CybersecurityLabs"));
+const CertificationsShowcase = dynamic(() => import("../components/CertificationsShowcase"));
 const PortfolioSlider = dynamic(() => import("../components/PortfolioSlider"));
 const FitAssessment = dynamic(() => import("../components/FitAssessment"));
 const Testimonials = dynamic(() => import("../components/Testimonials"));
@@ -22,9 +21,8 @@ export default function Home() {
       <About />
       <TechStackVisual />
       <ExperienceTimeline />
-      <SkillsAssessment />
-      <CertificationsShowcase />
       <CybersecurityLabs />
+      <CertificationsShowcase />
       <PortfolioSlider />
       <FitAssessment />
       <Testimonials />

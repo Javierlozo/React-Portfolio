@@ -265,7 +265,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                           theme === "dark" ? "border-gray-600" : "border-gray-300"
                         }`}
                       >
-                        <Image src={s.screenshot} alt={s.title} fill className="object-contain" />
+                        <Image src={s.screenshot} alt={s.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 672px" className="object-contain" />
                       </button>
                     </figure>
                   )}
@@ -386,7 +386,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                     theme === "dark" ? "border-gray-700" : "border-gray-300"
                   }`}
                 >
-                  <Image src={shot.src} alt={shot.alt ?? `Screenshot ${idx + 1}`} fill className="object-cover" />
+                  <Image src={shot.src} alt={shot.alt ?? `Screenshot ${idx + 1}`} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className="object-cover" />
                   <span
                     className={`absolute bottom-0 left-0 right-0 text-[10px] text-center py-0.5 font-medium ${
                       theme === "dark" ? "bg-black/70 text-gray-300" : "bg-black/50 text-white"
