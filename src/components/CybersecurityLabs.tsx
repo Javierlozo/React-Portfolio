@@ -133,50 +133,6 @@ export default function CybersecurityLabs() {
                           <p className={`text-sm leading-relaxed mb-3 flex-1 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
                             {lab.summary}
                           </p>
-                          {!lab.comingSoon && lab.whyThisMatters && (
-                            <div
-                              className={`mb-3 p-2.5 rounded-lg text-xs ${
-                                theme === "dark" ? "bg-amber-500/10 text-amber-200/90" : "bg-amber-50 text-amber-900/90"
-                              }`}
-                            >
-                              <span className={`font-medium ${theme === "dark" ? "text-amber-400" : "text-amber-700"}`}>
-                                Why it matters:
-                              </span>{" "}
-                              {lab.whyThisMatters.slice(0, 120)}
-                              {lab.whyThisMatters.length > 120 ? "…" : ""}
-                            </div>
-                          )}
-                          {(lab.focus || lab.level || lab.date) && (
-                            <div className="flex flex-wrap gap-1.5 mb-2">
-                              {lab.focus && (
-                                <span
-                                  className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                                    theme === "dark" ? "bg-amber-500/20 text-amber-300" : "bg-amber-100 text-amber-800"
-                                  }`}
-                                >
-                                  Focus: {lab.focus}
-                                </span>
-                              )}
-                              {lab.level && (
-                                <span
-                                  className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                                    theme === "dark" ? "bg-amber-500/20 text-amber-300" : "bg-amber-100 text-amber-800"
-                                  }`}
-                                >
-                                  Level: {lab.level}
-                                </span>
-                              )}
-                              {lab.date && (
-                                <span
-                                  className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                                    theme === "dark" ? "bg-amber-500/20 text-amber-300" : "bg-amber-100 text-amber-800"
-                                  }`}
-                                >
-                                  Date: {lab.date}
-                                </span>
-                              )}
-                            </div>
-                          )}
                           <div className="flex flex-wrap gap-1.5 mb-2">
                             {lab.tools.slice(0, 4).map((tool) => (
                               <span
@@ -190,27 +146,13 @@ export default function CybersecurityLabs() {
                               </span>
                             ))}
                           </div>
-                          {!lab.comingSoon && lab.skillsDemonstrated && (
-                            <div className="flex flex-wrap gap-1.5 mb-4">
-                              {lab.skillsDemonstrated.slice(0, 3).map((skill) => (
-                                <span
-                                  key={skill}
-                                  className={`px-2 py-0.5 text-xs rounded-full ${
-                                    theme === "dark" ? "bg-amber-500/10 text-amber-300/80" : "bg-amber-50 text-amber-700/80"
-                                  }`}
-                                >
-                                  {skill}
-                                </span>
-                              ))}
-                            </div>
-                          )}
                           {!lab.comingSoon && (
                             <Link
                               href={getLabPath(lab)}
-                              className={`inline-flex items-center gap-2 text-sm font-medium ${
+                              className={`inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
                                 theme === "dark"
-                                  ? "text-amber-400 hover:text-amber-300"
-                                  : "text-amber-700 hover:text-amber-800"
+                                  ? "bg-amber-500/20 text-amber-400 hover:bg-amber-500/30"
+                                  : "bg-amber-100 text-amber-800 hover:bg-amber-200"
                               }`}
                             >
                               Read full write-up

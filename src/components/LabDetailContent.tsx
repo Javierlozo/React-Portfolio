@@ -233,21 +233,24 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                   <p className={`text-sm leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>{s.description}</p>
                   {s.command && (
                     <>
-                      <pre
-                        className={`p-3 sm:p-4 rounded-lg text-xs sm:text-sm overflow-x-auto ${
-                          theme === "dark" ? "bg-gray-900 text-gray-300" : "bg-gray-100 text-gray-800"
-                        }`}
-                      >
-                        <code>{s.command}</code>
+                      <pre className="p-3 sm:p-4 rounded-lg text-xs sm:text-sm overflow-x-auto bg-gray-950 text-green-400">
+                        <code>{s.command.split("\n").map((line, i) => (
+                          <React.Fragment key={i}>
+                            <span className="text-gray-600 select-none">$ </span>{line}{i < s.command!.split("\n").length - 1 ? "\n" : ""}
+                          </React.Fragment>
+                        ))}</code>
                       </pre>
                       {s.commandBreakdown && (
-                        <div className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
-                          <p className={`font-medium mb-1 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>Flags</p>
-                          <ul className="space-y-0.5 list-none">
-                            {s.commandBreakdown.split("\n").map((line, i) => (
-                              <li key={i}><code>{line}</code></li>
-                            ))}
-                          </ul>
+                        <div className={`text-xs mt-2 space-y-0.5 ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
+                          {s.commandBreakdown.split("\n").map((line, i) => {
+                            const [flag, ...desc] = line.split(":");
+                            return (
+                              <div key={i} className="flex gap-1.5">
+                                <code className={`shrink-0 font-medium ${theme === "dark" ? "text-cyan-400/70" : "text-cyan-700"}`}>{flag.trim()}</code>
+                                {desc.length > 0 && <span>{desc.join(":").trim()}</span>}
+                              </div>
+                            );
+                          })}
                         </div>
                       )}
                     </>
@@ -324,15 +327,21 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
 
         {/* Security controls relevant */}
         {lab.securityControlsRelevant && lab.securityControlsRelevant.length > 0 && (
-          <section className="mb-10">
+          <section className={`mb-10 p-4 sm:p-5 rounded-xl ${
+            theme === "dark" ? "bg-blue-500/5" : "bg-blue-50"
+          }`}>
             <h2 className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-3 ${
-              theme === "dark" ? "text-amber-400" : "text-amber-700"
+              theme === "dark" ? "text-blue-400" : "text-blue-700"
             }`}>
+              <FontAwesomeIcon icon={faShieldAlt} />
               Security controls relevant
             </h2>
-            <ul className="list-disc list-inside space-y-1 text-sm">
+            <ul className="space-y-2">
               {lab.securityControlsRelevant.map((control, idx) => (
-                <li key={idx} className={theme === "dark" ? "text-gray-300" : "text-gray-600"}>{control}</li>
+                <li key={idx} className={`flex items-start gap-2 text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+                  <span className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${theme === "dark" ? "bg-blue-400" : "bg-blue-500"}`} />
+                  <span className="leading-relaxed">{control}</span>
+                </li>
               ))}
             </ul>
           </section>

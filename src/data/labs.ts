@@ -244,6 +244,7 @@ export const LABS: CybersecurityLab[] = [
         description:
           "Used Analyze → Display Filter Expression to build a filter for ip.addr == 20.106.124.93. The GUI filter builder shows available fields, operators, and validates the expression before applying. Helpful for constructing complex filters without memorizing syntax.",
         command: "ip.addr == 20.106.124.93",
+        commandBreakdown: "ip.addr: match source or destination IP\n==: exact match operator",
         screenshot: "/labs/wireshark-095448.png",
       },
       {
@@ -251,6 +252,7 @@ export const LABS: CybersecurityLab[] = [
         description:
           "Right-clicked → Follow → HTTP Stream on tcp.stream eq 13299. Revealed a POST to /wp-login.php from a Hydra user-agent with credentials in cleartext. The server responded 302 Found with WordPress authentication cookies and a redirect to /wp-admin/, confirming a successful brute-force login.",
         command: "tcp.stream eq 13299",
+        commandBreakdown: "tcp.stream: isolate a single TCP conversation\neq 13299: stream index from Wireshark's reassembly",
         screenshot: "/labs/wireshark-095941.png",
       },
       {
@@ -264,6 +266,7 @@ export const LABS: CybersecurityLab[] = [
         description:
           "Set up the lab environment: navigated to /sec401/labs/1.2, ran ./lab-1.2 start to launch the local web server, then opened Wireshark with sudo for live capture privileges.",
         command: "cd /sec401/labs/1.2 && ./lab-1.2 start && sudo wireshark 2>/dev/null &",
+        commandBreakdown: "./lab-1.2 start: launch local web server\nsudo wireshark: root privileges for capture\n2>/dev/null &: suppress warnings, run in background",
         screenshot: "/labs/wireshark-100626.png",
       },
       {
@@ -277,6 +280,7 @@ export const LABS: CybersecurityLab[] = [
         description:
           "Applied the 'http' display filter on the live loopback capture. Wireshark showed GET /workbook/ and subsequent requests for CSS, JS, and image assets. Full page load dissected packet by packet. 250 packets captured, 42 displayed after filtering.",
         command: "http",
+        commandBreakdown: "http: display filter showing only HTTP protocol packets\nFilters out TCP handshakes, TLS, DNS, etc.",
         screenshot: "/labs/wireshark-101109.png",
       },
       {
@@ -320,19 +324,179 @@ export const LABS: CybersecurityLab[] = [
   },
   {
     id: 3,
-    courseSlug: "aws",
+    courseSlug: "sec401",
     slug: "vpc-flow-logs",
     legacySlug: "aws-vpc-flow-logs",
-    title: "AWS VPC Flow Logs",
+    title: "Lab 1.3 - AWS VPC Flow Log Analysis",
     course: "SEC401 – Network Forensics",
     role: "Solo, Lab",
-    context: "Cloud network visibility. Goal: capturing and analyzing VPC flow logs for security and troubleshooting.",
-    summary: "Coming soon.",
-    whyThisMatters: "",
-    tools: ["AWS", "VPC", "Flow Logs", "CloudWatch"],
-    steps: ["Coming soon."],
-    outcome: "Coming soon.",
-    comingSoon: true,
+    context:
+      "This lab demonstrates how to analyze AWS VPC Flow Logs to investigate attacker activity at scale. Starting with 579 gzip-compressed log files containing 173,198 flow records, the goal was to extract, filter, and quantify traffic from a known attacker IP (20.106.124.93), determine the attack timeframe, calculate data transfer volumes per service, and convert PCAP data into NetFlow format for comparison analysis.",
+    summary:
+      "Analyzed 173K VPC flow records across 579 log files: isolated 33,232 attacker flows from 20.106.124.93, determined a 6.5-hour attack window, quantified 265MB exfiltrated on port 8889 and 190MB on port 80, and confirmed the full attack surface (HTTP, SSH, 8889) using PCAP-to-NetFlow conversion with nfpcapd/nfdump.",
+    whyThisMatters:
+      "VPC Flow Logs are often the first data source available during a cloud incident. Knowing how to rapidly extract attacker flows from hundreds of compressed log files, calculate data exfiltration volumes, and correlate with PCAP-derived NetFlow is exactly what a SOC analyst or incident responder does when investigating a breach in AWS.",
+    focus: "Cloud Network Forensics",
+    level: "SEC401",
+    date: "Apr 2026",
+    artifacts: "Sanitized screenshots from VPC flow log analysis and NetFlow conversion",
+    tldr: [
+      "Extracted 33,232 attacker flows from 173K records across 579 compressed VPC log files",
+      "Identified 6.5-hour attack window with 265MB exfiltrated on port 8889 and 190MB on port 80",
+      "Confirmed full attack surface (ports 80, 22, 8889) via PCAP-to-NetFlow conversion with nfpcapd/nfdump",
+    ],
+    skillsDemonstrated: [
+      "AWS VPC Flow Log analysis",
+      "Bulk log file processing (zcat, zgrep)",
+      "Attacker flow extraction and filtering",
+      "Data exfiltration quantification",
+      "Timestamp correlation (epoch conversion)",
+      "PCAP-to-NetFlow conversion (nfpcapd/nfdump)",
+      "Network flow analysis",
+      "Attack surface enumeration",
+    ],
+    tools: ["AWS VPC Flow Logs", "zcat", "zgrep", "awk", "sort", "nfpcapd", "nfdump", "CLI"],
+    steps: [
+      "Listed 579 gzip VPC flow log files and identified format with file command",
+      "Decompressed and inspected flow log header and sample records with zcat | head -4",
+      "Counted total flow records across all logs: 173,198",
+      "Extracted attacker flows (20.106.124.93) with zgrep into attacker-flows.log: 33,232 records",
+      "Determined attack timeframe via epoch sort: Sep 28 2023 5:22 PM - 11:59 PM UTC (~6.5 hours)",
+      "Calculated bytes transferred per port: 8889 = 265MB, port 80 = 190MB",
+      "Converted PCAP to NetFlow with nfpcapd, analyzed with nfdump",
+      "Filtered NetFlow for attacker IP: confirmed ports 80 (HTTP), 22 (SSH), 8889 (exfil)",
+      "Excluded all three ports from attacker flows: no additional traffic, confirming full attack surface",
+    ],
+    stepDetails: [
+      {
+        title: "List and identify VPC flow log files",
+        description:
+          "Listed all files in the log directory: 579 gzip-compressed VPC flow log files. Used the file command to confirm they were gzip compressed data from a FAT filesystem, original size ~32KB each.",
+        command: "ls /sec401/labs/1.3/20230928/ | wc -l\nfile /sec401/labs/1.3/20230928/2226771286B0_vpcflowlogs_us-east-2_fl-0272f42338e6eeaaf_20230928T23552_e92fb168.log.gz",
+        commandBreakdown: "wc -l: count files\nfile: identify file type and compression",
+        screenshot: "/labs/vpc-flow-logs-115605.png",
+      },
+      {
+        title: "Inspect flow log format and sample records",
+        description:
+          "Decompressed a log file with zcat and piped to head -4 to see the header and first records. The VPC flow log format includes: version, region, account-id, instance-id, interface-id, type, srcaddr, dstaddr, srcport, dstport, protocol, bytes, packets, tcp-flags, start, end, action, log-status, flow-direction, traffic-path. First records showed 35.203.211.65 being REJECT'd and 10.130.8.94 ACCEPT'd traffic.",
+        command: "zcat file /sec401/labs/1.3/20230928/2226771286B0_vpcflowlogs_us-east-2_fl-0272f42338e6eeaaf_20230928T23552_e92fb168.log.gz | head -4",
+        commandBreakdown: "zcat: decompress and output to stdout\nhead -4: show header + 3 sample records",
+        screenshot: "/labs/vpc-flow-logs-115724.png",
+      },
+      {
+        title: "Count total flow records",
+        description:
+          "Decompressed all 579 log files and counted total lines: 173,198 flow records to investigate.",
+        command: "zcat /sec401/labs/1.3/20230928/*log.gz | wc -l",
+        commandBreakdown: "*log.gz: glob all compressed logs\nwc -l: count total lines",
+        screenshot: "/labs/vpc-flow-logs-115859.png",
+      },
+      {
+        title: "Extract attacker flows",
+        description:
+          "Used zgrep to search all compressed log files for the known attacker IP (20.106.124.93) and redirected matches to attacker-flows.log. Result: 33,232 flow records from the attacker.",
+        command: "zgrep --no-filename 20.106.124.93 /sec401/labs/1.3/20230928/*log.gz > /sec401/labs/1.3/attacker-flows.log\nwc -l /sec401/labs/1.3/attacker-flows.log",
+        commandBreakdown: "zgrep: grep compressed files\n--no-filename: omit file names from output\n> redirect to attacker-flows.log",
+        screenshot: "/labs/vpc-flow-logs-120203.png",
+      },
+      {
+        title: "Determine attack timeframe",
+        description:
+          "Sorted attacker flows by the start-time epoch field (column 15) to find the earliest and latest timestamps. Converted epochs with date -d: the attack ran from Sep 28, 2023 5:22 PM to 11:59 PM UTC, roughly 6.5 hours.",
+        command: "sort -nk 15 /sec401/labs/1.3/attacker-flows.log | head -1\ndate -d @1695921755\nsort -nk 15 /sec401/labs/1.3/attacker-flows.log | tail -1\ndate -d @1695945545",
+        commandBreakdown: "sort -nk 15: numeric sort on column 15 (start epoch)\ndate -d @epoch: convert epoch to human-readable",
+        screenshot: "/labs/vpc-flow-logs-120457.png",
+      },
+      {
+        title: "Quantify data transfer by port",
+        description:
+          "Used awk to filter attacker flows by destination port and sum the bytes field (column 12). Port 8889 transferred 265,183,813 bytes (~265MB) and port 80 transferred 190,703,527 bytes (~190MB). The high volume on port 8889 is a strong indicator of data exfiltration over a non-standard port.",
+        command: "cat attacker-flows.log | awk '$10 == \"8889\"' | awk '{SUM=SUM+$12} END{print \"Total bytes transferred: \"SUM}'\ncat attacker-flows.log | awk '$9 == \"80\"' | awk '{SUM=SUM+$12} END{print \"Total bytes transferred: \"SUM}'",
+        commandBreakdown: "$10 == \"8889\": filter by dst port 8889\n$9 == \"80\": filter by dst port 80\n$12: bytes field\nSUM+$12: running total",
+        screenshot: "/labs/vpc-flow-logs-120852.png",
+      },
+      {
+        title: "Convert PCAP to NetFlow with nfpcapd",
+        description:
+          "Used nfpcapd to convert the investigate.pcap from Lab 1.2 into NetFlow format, outputting to exported-netflow/ directory. This enables flow-level analysis of the same traffic using NetFlow tools.",
+        command: "nfpcapd -r /sec401/labs/1.2/investigate.pcap -w exported-netflow/",
+        commandBreakdown: "-r: read PCAP file\n-w: write NetFlow output directory",
+        screenshot: "/labs/vpc-flow-logs-121229.png",
+      },
+      {
+        title: "Analyze NetFlow with nfdump",
+        description:
+          "Dumped the converted NetFlow data to a text file and opened it. The output shows Date first seen, Duration, Proto, Src/Dst IP:Port, Packets, Bytes, and Flows columns. This structured format makes it easy to filter and correlate with VPC flow log findings.",
+        command: "nfdump -R exported-netflow/ > pcap-derived-netflow.txt",
+        commandBreakdown: "-R: read recursively from directory",
+        screenshot: "/labs/vpc-flow-logs-121431.png",
+      },
+      {
+        title: "Filter NetFlow for attacker on port 80",
+        description:
+          "Filtered the PCAP-derived NetFlow for the attacker IP on port 80. Confirmed HTTP traffic: 20.106.124.93:51278 to 10.130.8.94:80, matching the WordPress brute-force activity found in Labs 1.1 and 1.2.",
+        command: "head -1 pcap-derived-netflow.txt; cat pcap-derived-netflow.txt | grep 20.106.124.93 | head -2",
+        screenshot: "/labs/vpc-flow-logs-121640.png",
+      },
+      {
+        title: "Filter for attacker SSH traffic",
+        description:
+          "Excluded port 80 and filtered for remaining attacker flows. Found SSH connections on port 22 from 20.106.124.93:38504 to 10.130.8.94:22, indicating the attacker also accessed the server via SSH.",
+        command: "head -1 pcap-derived-netflow.txt; cat pcap-derived-netflow.txt | grep 20.106.124.93 | grep -v :80 | head -2",
+        screenshot: "/labs/vpc-flow-logs-121731.png",
+      },
+      {
+        title: "Identify non-standard port activity",
+        description:
+          "Excluded ports 80 and 22, revealing traffic on port 8889: 20.106.124.93:8889 to 10.130.8.94:36072. Port 8889 is not a well-known service (confirmed via /etc/services), making this a likely data exfiltration channel consistent with the 265MB volume found in VPC flow logs.",
+        command: "head -1 pcap-derived-netflow.txt; cat pcap-derived-netflow.txt | grep 20.106.124.93 | grep -v :80 | grep -v :22 | head -2",
+        commandBreakdown: "grep -v: exclude matches\nSequential exclusion isolates unknown services",
+        screenshot: "/labs/vpc-flow-logs-121856.png",
+      },
+      {
+        title: "Confirm complete attack surface",
+        description:
+          "Excluded all three known ports (80, 22, 8889) from attacker flows. Empty result confirmed the attacker used only these three services: HTTP for the initial brute-force, SSH for interactive access, and port 8889 for data exfiltration.",
+        command: "head -1 pcap-derived-netflow.txt; cat pcap-derived-netflow.txt | grep 20.106.124.93 | grep -v :80 | grep -v :22 | grep -v :8889 | head -2",
+        screenshot: "/labs/vpc-flow-logs-121944.png",
+      },
+    ],
+    outcome:
+      "This lab demonstrated how to investigate attacker activity at scale using VPC Flow Logs. Starting from 579 compressed log files with 173K records, I isolated the attacker, mapped their 6.5-hour attack window, quantified data exfiltration volumes, and confirmed the complete attack surface across three services. The PCAP-to-NetFlow conversion bridged packet-level evidence from previous labs with flow-level cloud telemetry, showing how both data sources tell the same story from different angles.",
+    nextStepsInProduction:
+      "If this were production: I'd feed the attacker IP into threat intel platforms for enrichment, check if port 8889 traffic triggered any IDS/IPS alerts, audit what data was accessible from the compromised instance, verify whether the SSH session was used for lateral movement to other instances, and configure VPC Flow Log alerts for anomalous outbound traffic volumes and non-standard ports.",
+    securityControlsRelevant: [
+      "Enable VPC Flow Logs on all subnets and ENIs",
+      "Alert on high-volume outbound traffic to non-standard ports",
+      "Network ACLs restricting egress to approved ports only",
+      "Security group rules limiting SSH access to known IPs",
+      "GuardDuty for automated anomaly detection on flow data",
+      "Centralized log aggregation (CloudWatch, S3, SIEM)",
+    ],
+    keyFindings: [
+      "579 compressed VPC flow log files, 173,198 total flow records",
+      "33,232 flows from attacker IP 20.106.124.93 (~19% of all traffic)",
+      "Attack window: Sep 28, 2023 5:22 PM to 11:59 PM UTC (~6.5 hours)",
+      "Port 8889: 265MB transferred (data exfiltration via non-standard port)",
+      "Port 80: 190MB transferred (HTTP brute-force and web access)",
+      "Port 22: SSH access confirmed via NetFlow correlation",
+      "No additional attacker ports found, confirming complete attack surface enumeration",
+    ],
+    screenshots: [
+      { src: "/labs/vpc-flow-logs-115605.png", alt: "Step 1: List VPC flow log files", caption: "579 gzip-compressed VPC flow log files identified" },
+      { src: "/labs/vpc-flow-logs-115724.png", alt: "Step 2: Inspect flow log format", caption: "zcat | head -4: VPC flow log header and sample REJECT/ACCEPT records" },
+      { src: "/labs/vpc-flow-logs-115859.png", alt: "Step 3: Count total flow records", caption: "173,198 flow records across all 579 log files" },
+      { src: "/labs/vpc-flow-logs-120203.png", alt: "Step 4: Extract attacker flows", caption: "zgrep 20.106.124.93: 33,232 attacker flow records" },
+      { src: "/labs/vpc-flow-logs-120457.png", alt: "Step 5: Determine attack timeframe", caption: "Sep 28 2023 5:22 PM - 11:59 PM UTC (~6.5 hours)" },
+      { src: "/labs/vpc-flow-logs-120852.png", alt: "Step 6: Quantify data transfer", caption: "Port 8889: 265MB, Port 80: 190MB" },
+      { src: "/labs/vpc-flow-logs-121229.png", alt: "Step 7: PCAP to NetFlow conversion", caption: "nfpcapd -r investigate.pcap -w exported-netflow/" },
+      { src: "/labs/vpc-flow-logs-121431.png", alt: "Step 8: NetFlow analysis with nfdump", caption: "Structured flow data: Date, Duration, Proto, Src/Dst, Packets, Bytes" },
+      { src: "/labs/vpc-flow-logs-121640.png", alt: "Step 9: Attacker HTTP flows", caption: "20.106.124.93:51278 to 10.130.8.94:80 (WordPress brute-force)" },
+      { src: "/labs/vpc-flow-logs-121731.png", alt: "Step 10: Attacker SSH flows", caption: "20.106.124.93:38504 to 10.130.8.94:22 (SSH access)" },
+      { src: "/labs/vpc-flow-logs-121856.png", alt: "Step 11: Non-standard port 8889", caption: "20.106.124.93:8889 to 10.130.8.94 (data exfiltration)" },
+      { src: "/labs/vpc-flow-logs-121944.png", alt: "Step 12: Complete attack surface confirmed", caption: "No traffic beyond ports 80, 22, 8889" },
+    ],
   },
 ];
 

@@ -27,6 +27,12 @@ const BLOG_METADATA: Record<string, { title: string; description: string; date: 
       "How to use Wireshark's protocol hierarchy, conversation statistics, and HTTP stream following to investigate a large PCAP, reconstruct a successful WordPress brute-force login, and export HTTP objects from captured traffic.",
     date: "2026-03-10",
   },
+  "vpc-flow-logs": {
+    title: "AWS VPC Flow Log Analysis: Investigating 173K Records to Map an Attacker's Full Kill Chain",
+    description:
+      "A hands-on walkthrough of analyzing AWS VPC Flow Logs at scale: extracting 33K attacker flows from 579 compressed log files, quantifying 265MB of data exfiltration on a non-standard port, determining the attack timeframe, and confirming the complete attack surface using PCAP-to-NetFlow conversion with nfpcapd and nfdump.",
+    date: "2026-04-08",
+  },
 };
 
 /**

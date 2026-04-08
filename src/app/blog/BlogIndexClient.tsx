@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "../../contexts/ThemeContext";
 import type { BlogPost } from "../../data/blog";
 
@@ -10,7 +11,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
 
   return (
     <div className={`min-h-screen pt-20 pb-16 ${dark ? "bg-[#0B1220]" : "bg-gray-50"}`}>
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <header className="mb-12">
           <h1 className={`text-3xl sm:text-4xl font-bold mb-3 ${dark ? "text-white" : "text-gray-900"}`}>
             Blog
@@ -20,53 +21,69 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
           </p>
         </header>
 
-        <div className="space-y-8">
-          {posts.map((post) => (
-            <article
-              key={post.slug}
-              className={`border rounded-xl p-6 transition-colors ${
-                dark
-                  ? "bg-gray-800/50 border-gray-700 hover:border-gray-600"
-                  : "bg-white border-gray-200 hover:border-gray-300"
-              }`}
-            >
-              <time
-                dateTime={post.date}
-                className={`text-sm ${dark ? "text-gray-500" : "text-gray-400"}`}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => {
+            const thumb = post.lab.screenshots?.[0]?.src;
+            return (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className={`group border rounded-xl overflow-hidden transition-all duration-300 ${
+                  dark
+                    ? "bg-gray-800/50 border-gray-700 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/5"
+                    : "bg-white border-gray-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100"
+                }`}
               >
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-              <h2 className={`text-xl font-semibold mt-1 mb-2 ${dark ? "text-white" : "text-gray-900"}`}>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className={`hover:underline ${dark ? "hover:text-blue-400" : "hover:text-blue-600"}`}
-                >
-                  {post.title}
-                </Link>
-              </h2>
-              <p className={`text-sm leading-relaxed mb-4 ${dark ? "text-gray-300" : "text-gray-600"}`}>
-                {post.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.slice(0, 5).map((tag) => (
-                  <span
-                    key={tag}
-                    className={`text-xs px-2.5 py-0.5 rounded-full ${
-                      dark
-                        ? "bg-gray-700 text-gray-300"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
+                {/* Thumbnail */}
+                {thumb && (
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image
+                      src={thumb}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className={`absolute inset-0 ${dark ? "bg-gradient-to-t from-gray-900/80 to-transparent" : "bg-gradient-to-t from-white/60 to-transparent"}`} />
+                  </div>
+                )}
+
+                <div className="p-5">
+                  <time
+                    dateTime={post.date}
+                    className={`text-xs font-medium uppercase tracking-wider ${dark ? "text-amber-400/80" : "text-amber-700"}`}
                   >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </article>
-          ))}
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </time>
+                  <h2 className={`text-lg font-semibold mt-1.5 mb-2 leading-snug transition-colors ${
+                    dark ? "text-white group-hover:text-amber-400" : "text-gray-900 group-hover:text-amber-700"
+                  }`}>
+                    {post.title}
+                  </h2>
+                  <p className={`text-sm leading-relaxed line-clamp-3 mb-4 ${dark ? "text-gray-400" : "text-gray-500"}`}>
+                    {post.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {post.tags.slice(0, 4).map((tag) => (
+                      <span
+                        key={tag}
+                        className={`text-[10px] px-2 py-0.5 rounded-full ${
+                          dark
+                            ? "bg-gray-700 text-gray-400"
+                            : "bg-gray-100 text-gray-500"
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         <div className={`mt-12 pt-8 border-t text-center ${dark ? "border-gray-800" : "border-gray-200"}`}>
