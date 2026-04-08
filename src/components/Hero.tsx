@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import photo from "@/src/public/pictures/Photo-127.jpg";
 import { useTheme } from "../contexts/ThemeContext";
-import AnimatedNumber from "./AnimatedNumber";
 import BorderDrawButton from "./BorderDrawButton";
 
 export default function Hero() {
@@ -208,6 +207,17 @@ export default function Hero() {
               ))}
             </div>
 
+            {/* Credential bar */}
+            <p className={`text-xs sm:text-sm font-light tracking-wide ${
+              skillsVisible ? 'opacity-100' : 'opacity-0'
+            } transition-opacity duration-500 ${
+              theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+            }`}
+              style={{ transitionDelay: skillsVisible ? '400ms' : '0ms' }}
+            >
+              GIAC GFACT Certified {"\u00A0\u00B7\u00A0"} Pursuing GSEC {"\u00A0\u00B7\u00A0"} US Work Authorized
+            </p>
+
             {/* CTA Buttons - Clear actions for recruiters */}
             <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
               <button
@@ -256,27 +266,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Animated Stats Row */}
-        <div className={`mt-12 sm:mt-16 flex justify-center gap-8 sm:gap-12 md:gap-16 ${
-          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-        }`}>
-          {[
-            { value: 5, suffix: "+", label: "Years" },
-            { value: 10, suffix: "+", label: "Projects" },
-            { value: 4, suffix: "", label: "Labs" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <AnimatedNumber
-                value={stat.value}
-                suffix={stat.suffix}
-                className={`text-2xl sm:text-3xl md:text-4xl font-thin ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}
-              />
-              <p className="text-xs sm:text-sm font-light mt-1 uppercase tracking-wider">{stat.label}</p>
-            </div>
-          ))}
-        </div>
       </div>
 
     </section>
