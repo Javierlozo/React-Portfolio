@@ -125,7 +125,7 @@ export default function TechStackVisual() {
             {PRIMARY_SKILLS.map((item) => (
               <div
                 key={item.name}
-                className={`flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 rounded-xl border-2 transition-all duration-300 ${
+                className={`flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 rounded-xl border transition-all duration-300 ${
                   theme === "dark"
                     ? "bg-gray-800/70 border-gray-600 hover:border-gray-500"
                     : "bg-white border-gray-200 hover:border-gray-400"
@@ -153,7 +153,7 @@ export default function TechStackVisual() {
         <div>
           <h3
             className={`text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 ${
-              theme === "dark" ? "text-gray-400" : "text-gray-400"
+              theme === "dark" ? "text-gray-400" : "text-gray-500"
             }`}
           >
             Also Work With

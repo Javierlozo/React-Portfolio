@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { useTheme } from "../contexts/ThemeContext";
+import BorderDrawButton from "./BorderDrawButton";
 
 export default function Footer() {
   const { theme } = useTheme();
@@ -23,39 +24,15 @@ export default function Footer() {
             <div className={`flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 mb-6 sm:mb-8 ${
               theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}>
-              <a
-                href="/resume/Resume.pdf"
-                download
-                className={`text-sm font-light tracking-wide uppercase border px-4 py-2.5 sm:py-2 min-h-[44px] flex items-center justify-center transition-all duration-300 hover:scale-105 ${
-                  theme === 'dark'
-                    ? 'border-gray-600 hover:border-white hover:text-white'
-                    : 'border-gray-300 hover:border-gray-900 hover:text-gray-900'
-                }`}
-              >
+              <BorderDrawButton as="a" href="/resume/Resume.pdf" download>
                 Download Resume
-              </a>
-              <a
-                href="https://github.com/Javierlozo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`text-sm font-light tracking-wide uppercase border px-4 py-2.5 sm:py-2 min-h-[44px] flex items-center justify-center transition-all duration-300 hover:scale-105 ${
-                  theme === 'dark'
-                    ? 'border-gray-600 hover:border-white hover:text-white'
-                    : 'border-gray-300 hover:border-gray-900 hover:text-gray-900'
-                }`}
-              >
+              </BorderDrawButton>
+              <BorderDrawButton as="a" href="https://github.com/Javierlozo" target="_blank" rel="noopener noreferrer">
                 View Code on GitHub
-              </a>
-              <Link
-                href="/#security-labs"
-                className={`text-sm font-light tracking-wide uppercase border px-4 py-2.5 sm:py-2 min-h-[44px] flex items-center justify-center transition-all duration-300 hover:scale-105 ${
-                  theme === 'dark'
-                    ? 'border-gray-600 hover:border-white hover:text-white'
-                    : 'border-gray-300 hover:border-gray-900 hover:text-gray-900'
-                }`}
-              >
+              </BorderDrawButton>
+              <BorderDrawButton as="a" href="/#security-labs">
                 See Security Labs
-              </Link>
+              </BorderDrawButton>
             </div>
             
             {/* Social Links */}

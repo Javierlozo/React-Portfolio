@@ -10,6 +10,8 @@ import ErrorBoundary from "../components/ErrorBoundary";
 import AIChatButton from "../components/AIChatButton";
 import PageTracker from "../components/PageTracker";
 import SiteChrome from "../components/SiteChrome";
+import SmoothScroll from "../components/SmoothScroll";
+import PageTransition from "../components/PageTransition";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -127,13 +129,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Navbar />
           </SiteChrome>
           <main id="main-content">
-            <ErrorBoundary>{children}</ErrorBoundary>
+            <ErrorBoundary>
+              <PageTransition>{children}</PageTransition>
+            </ErrorBoundary>
           </main>
           <SiteChrome>
             <Footer />
             <AIChatButton />
           </SiteChrome>
           <PageTracker />
+          <SmoothScroll />
         </ThemeProvider>
       </body>
     </html>

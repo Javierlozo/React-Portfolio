@@ -3,9 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import photo from "@/src/public/pictures/Photo-127.jpg";
 import { useTheme } from "../contexts/ThemeContext";
+import AnimatedNumber from "./AnimatedNumber";
+import BorderDrawButton from "./BorderDrawButton";
 
 export default function Hero() {
   const { theme } = useTheme();
+  const [scrollY, setScrollY] = useState(0);
   const [nameVisible, setNameVisible] = useState(false);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
   const [paragraphsVisible, setParagraphsVisible] = useState(false);
@@ -19,10 +22,27 @@ export default function Hero() {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
-    
+
     const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Scroll-linked parallax: hero fades as user scrolls down
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   // Animate elements on mount (faster on mobile, instant if reduced motion)
@@ -87,6 +107,11 @@ export default function Hero() {
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Apple-style: content fades and shifts up as user scrolls past
+  const scrollFraction = Math.min(scrollY / (typeof window !== 'undefined' ? window.innerHeight * 0.6 : 600), 1);
+  const heroOpacity = 1 - scrollFraction;
+  const heroTranslateY = scrollFraction * -40;
+
   return (
     <section
       className={`min-h-screen flex flex-col items-center justify-center relative ${
@@ -95,7 +120,14 @@ export default function Hero() {
       id="hero"
     >
       {/* Minimalist Content Container */}
-      <div className="px-4 sm:px-6 md:px-8 max-w-6xl mx-auto pt-20 sm:pt-24 md:pt-20 lg:pt-16 pb-12 sm:pb-0">
+      <div
+        className="px-4 sm:px-6 md:px-8 max-w-6xl mx-auto pt-20 sm:pt-24 md:pt-20 lg:pt-16 pb-12 sm:pb-0"
+        style={{
+          opacity: Math.max(0, heroOpacity),
+          transform: `translateY(${heroTranslateY}px)`,
+          willChange: "transform, opacity",
+        }}
+      >
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Left Side - Text Content */}
@@ -188,27 +220,12 @@ export default function Hero() {
               >
                 View My Work
               </button>
-              <a
-                href="/resume/Resume.pdf"
-                download
-                className={`px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border inline-block ${
-                  theme === 'dark'
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
-                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
-                }`}
-              >
+              <BorderDrawButton as="a" href="/resume/Resume.pdf" download>
                 Resume
-              </a>
-              <button
-                onClick={scrollToContact}
-                className={`px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 border ${
-                  theme === 'dark'
-                    ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
-                    : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
-                }`}
-              >
+              </BorderDrawButton>
+              <BorderDrawButton onClick={scrollToContact}>
                 Contact
-              </button>
+              </BorderDrawButton>
             </div>
           </div>
 
@@ -237,6 +254,28 @@ export default function Hero() {
               />
             </div>
           </div>
+        </div>
+
+        {/* Animated Stats Row */}
+        <div className={`mt-12 sm:mt-16 flex justify-center gap-8 sm:gap-12 md:gap-16 ${
+          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+        }`}>
+          {[
+            { value: 5, suffix: "+", label: "Years" },
+            { value: 10, suffix: "+", label: "Projects" },
+            { value: 4, suffix: "", label: "Labs" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <AnimatedNumber
+                value={stat.value}
+                suffix={stat.suffix}
+                className={`text-2xl sm:text-3xl md:text-4xl font-thin ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}
+              />
+              <p className="text-xs sm:text-sm font-light mt-1 uppercase tracking-wider">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 

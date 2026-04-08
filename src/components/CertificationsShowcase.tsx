@@ -4,6 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useCardTilt } from "../hooks/useCardTilt";
 
 // Import certification images
 import gfact from "@/src/public/certifications/GFACT.png";
@@ -19,6 +20,21 @@ interface Certification {
   verifyLink?: string;
   description: string;
   skills: string[];
+}
+
+function TiltCard({ children, className, onClick }: { children: React.ReactNode; className: string; onClick: () => void }) {
+  const { ref, onMouseMove, onMouseLeave } = useCardTilt(3);
+  return (
+    <div
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+      className={`${className} transition-transform duration-300 ease-out`}
+    >
+      {children}
+    </div>
+  );
 }
 
 export default function CertificationsShowcase() {
@@ -78,9 +94,9 @@ export default function CertificationsShowcase() {
         {/* Certifications: full viewport width, single row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           {certifications.map((cert) => (
-            <div
+            <TiltCard
               key={cert.id}
-              className={`group cursor-pointer transition-all duration-300 hover:scale-105 min-w-0 ${
+              className={`group cursor-pointer min-w-0 ${
                 theme === 'dark' ? 'bg-gray-800' : 'bg-white'
               } rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden ${
                 cert.id === 1
@@ -153,7 +169,7 @@ export default function CertificationsShowcase() {
                   )}
                 </div>
               </div>
-            </div>
+            </TiltCard>
           ))}
         </div>
 

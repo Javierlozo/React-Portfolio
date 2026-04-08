@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import RevealText from "./RevealText";
 
 export default function About() {
   const { theme } = useTheme();
@@ -70,16 +71,23 @@ export default function About() {
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         {/* Minimalist Section Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
-            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
-          }`}>
+          <RevealText
+            as="h2"
+            className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
+              theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
+            }`}
+          >
             About
-          </h2>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
+          </RevealText>
+          <RevealText
+            as="p"
+            delay={200}
+            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}
+          >
             Where software engineering meets security
-          </p>
+          </RevealText>
         </div>
 
         {/* Main Content */}
@@ -89,7 +97,7 @@ export default function About() {
             data-index="0"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} ${
+            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
               visibleElements.has(0)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
@@ -109,7 +117,7 @@ export default function About() {
             data-index="1"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} ${
+            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
               visibleElements.has(1)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
@@ -129,7 +137,7 @@ export default function About() {
             data-index="2"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} ${
+            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
               visibleElements.has(2)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
@@ -150,7 +158,7 @@ export default function About() {
             data-index="3"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} ${
+            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
               visibleElements.has(3)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
