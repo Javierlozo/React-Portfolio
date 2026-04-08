@@ -498,6 +498,219 @@ export const LABS: CybersecurityLab[] = [
       { src: "/labs/vpc-flow-logs-121944.png", alt: "Step 12: Complete attack surface confirmed", caption: "No traffic beyond ports 80, 22, 8889" },
     ],
   },
+  {
+    id: 4,
+    courseSlug: "sec401",
+    slug: "password-auditing",
+    title: "Lab 2.1 – Password Auditing",
+    course: "SEC401 – Password Management & Cryptographic Concepts",
+    role: "Solo, Lab",
+    context:
+      "This lab demonstrates password auditing techniques using John the Ripper and Hashcat against multiple hash types: Microsoft Office encryption, NTLM, and Linux SHA-512 crypt. Starting with a CeWL-generated wordlist scraped from a target website, the goal was to crack passwords from an encrypted Excel spreadsheet, an NTLM hash dump, and Linux /etc/shadow files, then use John's word-mangling rules to expand the wordlist and crack stronger passwords that the base wordlist couldn't reach.",
+    summary:
+      "Cracked passwords across 4 hash types using John the Ripper and Hashcat: extracted and cracked an Office 2013 encrypted Excel file, an NTLM hash, and Linux crypt hashes using a CeWL wordlist. Demonstrated brute-force infeasibility against SHA-512 with Hashcat, then used John's word-mangling rules to expand 1,552 base words into 4M+ candidates to crack passwords the original wordlist missed.",
+    whyThisMatters:
+      "Password auditing is how organizations discover weak credentials before attackers do. Understanding hash types, choosing the right cracking tool and attack mode, and knowing when brute force is infeasible vs. when a smarter wordlist wins are core skills for penetration testers and security auditors. This lab builds that judgment.",
+    focus: "Password Management & Cryptography",
+    level: "SEC401",
+    date: "Apr 2026",
+    artifacts: "Sanitized screenshots from Slingshot Linux lab environment",
+    tldr: [
+      "Cracked Office 2013, NTLM, and Linux SHA-512 crypt passwords using John the Ripper with a CeWL wordlist",
+      "Demonstrated SHA-512 brute-force infeasibility with Hashcat (77-year estimate at 854 H/s)",
+      "Expanded 1,552 base words into 4M+ candidates with John's word-mangling rules to crack two remaining passwords",
+    ],
+    skillsDemonstrated: [
+      "Hash extraction (office2john)",
+      "John the Ripper wordlist attacks",
+      "Hashcat mask attacks",
+      "NTLM hash cracking",
+      "Linux shadow file analysis",
+      "CeWL wordlist reconnaissance",
+      "Word-mangling rule expansion",
+      "Hash type identification",
+    ],
+    tools: ["John the Ripper", "Hashcat", "office2john", "unshadow", "CeWL", "LibreOffice", "CLI"],
+    steps: [
+      "Explored lab files: alphapasswd, alphashadow, bonuspasswd, bonusshadow, cewl-pass.txt, customer-discount.xlsx, ntlm.txt",
+      "Identified customer-discount.xlsx as CDFV2 Encrypted, confirmed password-protected via LibreOffice",
+      "Examined CeWL wordlist (cewl-pass.txt): 1,552 words scraped from target website",
+      "Extracted Office hash with office2john.py: python3 /opt/john/run/office2john.py customer-discount.xlsx > excelhash",
+      "Viewed extracted Office 2013 hash structure",
+      "Cracked Excel password with John: #AlphaInc! (Office 2007/2010/2013 format, 168 p/s)",
+      "Attempted NTLM crack without specifying format: ambiguous hash type warnings (LM vs NT)",
+      "Specified --format=NT to crack NTLM hash: #AlphaInc! (19,200 p/s with MD4)",
+      "Combined Linux passwd/shadow with unshadow: alphapasswd + alphashadow > alphamerge",
+      "Cracked Linux crypt hash with John: #AlphaInc! for alphauser (SHA-512 crypt, 701 p/s)",
+      "Attempted Hashcat brute-force on SHA-512 (mode 1800): mask ?u?l?l?l?l?l?l?l?l?d",
+      "Hashcat status: 854 H/s, estimated 77 years to complete brute-force",
+      "Unshadowed bonus files, attempted CeWL wordlist: 0 passwords cracked",
+      "Generated mangled wordlist with John --rules: 1,552 base words expanded to 4,010,859 candidates",
+      "Verified rule expansion: 2,156 variants of a single word, 4M+ total candidates",
+      "Cracked both bonus passwords with rules-expanded wordlist: #AlphaInc!23 (larry), #AlphaInc!24 (joshua)",
+    ],
+    stepDetails: [
+      {
+        title: "Explore lab files",
+        description:
+          "Listed the lab directory contents: alphapasswd, alphashadow, bonuspasswd, bonusshadow (Linux credential files), cewl-pass.txt (wordlist), customer-discount.xlsx (encrypted spreadsheet), and ntlm.txt (Windows hash). Used the file command to confirm the Excel file was CDFV2 Encrypted.",
+        command: "cd /sec401/labs/2.1/ && ls -l\nfile customer-discount.xlsx",
+        commandBreakdown: "ls -l: detailed file listing with sizes\nfile: identify file type and encryption status",
+        screenshot: "/labs/password-auditing-131636.png",
+      },
+      {
+        title: "Confirm password-protected Excel file",
+        description:
+          "Opened customer-discount.xlsx with LibreOffice to confirm it requires a password. The dialog prompted for a password to decrypt the file, confirming the Office encryption detected by the file command.",
+        screenshot: "/labs/password-auditing-131652.png",
+      },
+      {
+        title: "Examine CeWL wordlist",
+        description:
+          "Opened cewl-pass.txt in gedit. The wordlist contains 1,552 words scraped from the target organization's website using CeWL (Custom Word List generator). Words include company-specific terms like 'SolarGlow', 'Arctic', and social media references. Organization-specific wordlists are far more effective than generic dictionaries because employees often base passwords on familiar terms.",
+        command: "gedit cewl-pass.txt",
+        screenshot: "/labs/password-auditing-131755.png",
+      },
+      {
+        title: "Extract Office hash with office2john",
+        description:
+          "Used office2john.py to extract the password hash from the encrypted Excel file. The script outputs a hash string compatible with John the Ripper. After extraction, ls -l confirms the new excelhash file was created.",
+        command: "python3 /opt/john/run/office2john.py customer-discount.xlsx > excelhash",
+        commandBreakdown: "office2john.py: extracts password hash from Office documents\n> excelhash: redirect hash to file for cracking",
+        screenshot: "/labs/password-auditing-131937.png",
+      },
+      {
+        title: "View extracted Office hash",
+        description:
+          "Inspected the extracted hash. The format shows $office$*2013*100000*256*16* followed by the hash data. Key fields: Office 2013 format, 100,000 PBKDF2 iterations, 256-bit key length. The high iteration count makes brute-force significantly slower than simpler hash types.",
+        command: "cat excelhash",
+        screenshot: "/labs/password-auditing-132029.png",
+      },
+      {
+        title: "Crack Excel password with John",
+        description:
+          "Ran John the Ripper with the CeWL wordlist against the Office hash. John detected Office 2007/2010/2013 format (SHA1 256/256 AVX2 8x / SHA512 256/256 AVX2 4x AES). Cracked the password in under 1 second: #AlphaInc! at 168.4 passwords/second. The low speed reflects the 100,000 PBKDF2 iterations in Office 2013 encryption.",
+        command: "john --wordlist=cewl-pass.txt excelhash",
+        commandBreakdown: "--wordlist=cewl-pass.txt: use CeWL wordlist\nexcelhash: target hash file",
+        screenshot: "/labs/password-auditing-132058.png",
+      },
+      {
+        title: "NTLM hash type ambiguity",
+        description:
+          "Attempted to crack ntlm.txt without specifying a format. John detected hash type 'LM' but warned it could also match dozens of other formats (NT, MD2, MD4, MD5, mscash, ripemd-128, and many more). This demonstrates why specifying the correct format is critical when the hash is ambiguous.",
+        command: "john --wordlist=cewl-pass.txt ntlm.txt",
+        screenshot: "/labs/password-auditing-132355.png",
+      },
+      {
+        title: "Crack NTLM hash with correct format",
+        description:
+          "Specified --format=NT to force NTLM (MD4) interpretation. John loaded 1 password hash and cracked it instantly: #AlphaInc! at 19,200 passwords/second. The dramatic speed difference vs. Office 2013 (19,200 vs. 168 p/s) shows why unsalted, un-iterated hashes like NTLM are trivial to crack.",
+        command: "john --wordlist=cewl-pass.txt ntlm.txt --format=NT",
+        commandBreakdown: "--format=NT: force NTLM (MD4) hash type\nNT hash = MD4(UTF-16LE(password))",
+        screenshot: "/labs/password-auditing-132458.png",
+      },
+      {
+        title: "Combine Linux passwd and shadow files",
+        description:
+          "Used unshadow to merge alphapasswd and alphashadow into a single file suitable for John. The output shows two users: alphauser (UID 1002, $y$ yescrypt hash) and alpha2 (UID 1003, $6$ SHA-512 crypt hash). Different hash prefixes indicate different algorithms.",
+        command: "unshadow alphapasswd alphashadow > alphamerge\ncat alphamerge",
+        commandBreakdown: "unshadow: merge /etc/passwd and /etc/shadow into John-compatible format",
+        screenshot: "/labs/password-auditing-132610.png",
+      },
+      {
+        title: "Crack Linux crypt hash",
+        description:
+          "Ran John with --format=crypt against the merged shadow file. Loaded 2 hashes with different salts (algorithms ranging from descrypt to sha512crypt). Cracked alphauser's password: #AlphaInc! at 701.2 candidates/second. The 5,000 SHA-512 iterations make this slower than NTLM but faster than Office 2013.",
+        command: "john --format=crypt --wordlist=cewl-pass.txt alphamerge",
+        commandBreakdown: "--format=crypt: use generic Unix crypt format\nHandles multiple algorithms (md5crypt, sha256crypt, sha512crypt)",
+        screenshot: "/labs/password-auditing-132715.png",
+      },
+      {
+        title: "Hashcat brute-force attempt on SHA-512",
+        description:
+          "Attempted a brute-force mask attack with Hashcat on the SHA-512 crypt hash. Used mode 1800 (sha512crypt) with attack mode 3 (brute-force) and mask ?u?l?l?l?l?l?l?l?l?d (1 uppercase + 8 lowercase + 1 digit). Hashcat initialized OpenCL on the Intel i7-8750H CPU but hit a token length exception on one hash entry.",
+        command: "hashcat -m 1800 -a 3 alphamerge ?u?l?l?l?l?l?l?l?l?d",
+        commandBreakdown: "-m 1800: SHA-512 crypt hash mode\n-a 3: brute-force/mask attack\n?u: uppercase letter\n?l: lowercase letter\n?d: digit",
+        screenshot: "/labs/password-auditing-132939.png",
+      },
+      {
+        title: "Hashcat status: brute-force infeasible",
+        description:
+          "Pressed 's' for status. Hashcat reported: SHA-512 (Unix) mode, 854 H/s on the CPU, estimated completion in 77 years 177 days. Progress: 45,024 of 2,088,270,645,760 candidates (0.00%). This demonstrates why brute-force is impractical against properly iterated hashes like SHA-512 crypt, especially without GPU acceleration.",
+        screenshot: "/labs/password-auditing-132957.png",
+      },
+      {
+        title: "Bonus challenge: CeWL wordlist fails",
+        description:
+          "Unshadowed the bonus passwd/shadow files and attempted John with the base CeWL wordlist. Result: 0 passwords cracked. The bonus passwords aren't in the original 1,552-word list, meaning they use variations (appended numbers, mixed case, etc.) that require word-mangling rules to discover.",
+        command: "unshadow bonuspasswd bonusshadow > bonus_passwords\njohn --wordlist=cewl-pass.txt bonus_passwords",
+        commandBreakdown: "unshadow: merge bonus credential files\n--wordlist: attempt base CeWL wordlist",
+        screenshot: "/labs/password-auditing-133202.png",
+      },
+      {
+        title: "Generate mangled wordlist with John rules",
+        description:
+          "Used John's --rules flag with --stdout to apply word-mangling transformations (case toggling, number appending, character substitution, etc.) to every word in the CeWL list, redirecting all generated candidates to cewl-rules.txt. This massively expands the effective wordlist without manual effort.",
+        command: "john --wordlist=cewl-pass.txt --rules --stdout > cewl-rules.txt",
+        commandBreakdown: "--rules: enable default word-mangling rules\n--stdout: output candidates instead of cracking\n> cewl-rules.txt: save expanded wordlist",
+        screenshot: "/labs/password-auditing-133315.png",
+      },
+      {
+        title: "Verify rule expansion scale",
+        description:
+          "Compared wordlist sizes: the base cewl-pass.txt had 1,552 lines. After rule expansion, cewl-rules.txt had 4,010,859 lines, a 2,585x increase. Grep confirmed 2,156 variants generated from a single word ('merely'). This shows how rules systematically cover common password mutation patterns.",
+        command: "wc -l cewl-pass.txt\nwc -l cewl-rules.txt\ngrep merely cewl-rules.txt | wc -l",
+        commandBreakdown: "wc -l: count lines (candidates)\ngrep | wc -l: count variants of a specific word",
+        screenshot: "/labs/password-auditing-133535.png",
+      },
+      {
+        title: "Crack bonus passwords with expanded wordlist",
+        description:
+          "Ran John with the rules-expanded wordlist against the bonus hashes. Both passwords cracked in 36 seconds: #AlphaInc!23 (larry) and #AlphaInc!24 (joshua). The base word '#AlphaInc!' was in the original CeWL list, but the appended numbers '23' and '24' required rule-generated variants. This demonstrates why word-mangling rules are essential for real-world password auditing.",
+        command: "john --wordlist=cewl-rules.txt bonus_passwords",
+        commandBreakdown: "--wordlist=cewl-rules.txt: use rules-expanded 4M-candidate wordlist",
+        screenshot: "/labs/password-auditing-133647.png",
+      },
+    ],
+    outcome:
+      "This lab covered the full password auditing workflow: identifying hash types, choosing the right tool and attack mode, and understanding when to switch from brute force to smarter wordlist techniques. The key takeaway was the contrast between hash strengths: NTLM cracked at 19,200 p/s while SHA-512 crypt managed only 854 H/s under brute force, making it computationally infeasible without a targeted wordlist. The CeWL-to-rules pipeline proved that organization-specific wordlists combined with systematic word-mangling rules can crack passwords that resist both dictionary and brute-force attacks.",
+    nextStepsInProduction:
+      "If this were a real engagement: I'd report all cracked credentials to the organization with remediation timelines, recommend enforcing minimum 16-character passphrases and banning company-name-based passwords, check for credential reuse across systems, verify that NTLM authentication is disabled where possible in favor of Kerberos, and recommend migrating from SHA-512 crypt to bcrypt or argon2 with higher work factors.",
+    securityControlsRelevant: [
+      "Enforce strong password policies (length > complexity)",
+      "Ban organization-specific words in passwords (Azure AD Custom Banned Passwords)",
+      "Disable NTLM authentication where possible",
+      "Use modern hash algorithms (bcrypt, argon2) with high work factors",
+      "Regular password auditing with internal red team tools",
+      "MFA on all accounts to reduce credential-only attack impact",
+    ],
+    keyFindings: [
+      "Office 2013: #AlphaInc! cracked at 168 p/s (100K PBKDF2 iterations)",
+      "NTLM: #AlphaInc! cracked at 19,200 p/s (unsalted MD4, trivially fast)",
+      "Linux SHA-512 crypt: #AlphaInc! cracked at 701 p/s (5,000 iterations)",
+      "Hashcat brute-force on SHA-512: 854 H/s, 77-year estimated completion",
+      "CeWL wordlist: 1,552 words expanded to 4,010,859 with John's mangling rules",
+      "Bonus passwords (#AlphaInc!23, #AlphaInc!24) required rule-expanded wordlist to crack",
+    ],
+    screenshots: [
+      { src: "/labs/password-auditing-131636.png", alt: "Step 1: Explore lab files", caption: "Lab directory: passwd/shadow files, CeWL wordlist, encrypted Excel, NTLM hash" },
+      { src: "/labs/password-auditing-131652.png", alt: "Step 2: Password-protected Excel", caption: "LibreOffice prompts for password to open customer-discount.xlsx" },
+      { src: "/labs/password-auditing-131755.png", alt: "Step 3: CeWL wordlist", caption: "1,552 organization-specific words scraped from target website" },
+      { src: "/labs/password-auditing-131937.png", alt: "Step 4: Extract Office hash", caption: "office2john.py customer-discount.xlsx > excelhash" },
+      { src: "/labs/password-auditing-132029.png", alt: "Step 5: Office 2013 hash structure", caption: "$office$*2013*100000*256*16* (100K PBKDF2 iterations)" },
+      { src: "/labs/password-auditing-132058.png", alt: "Step 6: Crack Excel password", caption: "John + CeWL wordlist: #AlphaInc! at 168 p/s" },
+      { src: "/labs/password-auditing-132355.png", alt: "Step 7: NTLM hash type ambiguity", caption: "John warns: LM detected but dozens of formats match" },
+      { src: "/labs/password-auditing-132458.png", alt: "Step 8: Crack NTLM with --format=NT", caption: "#AlphaInc! at 19,200 p/s (MD4, no salt, no iterations)" },
+      { src: "/labs/password-auditing-132610.png", alt: "Step 9: unshadow Linux credentials", caption: "Merged alphapasswd + alphashadow: yescrypt and SHA-512 hashes" },
+      { src: "/labs/password-auditing-132715.png", alt: "Step 10: Crack Linux crypt hash", caption: "John --format=crypt: #AlphaInc! for alphauser at 701 p/s" },
+      { src: "/labs/password-auditing-132939.png", alt: "Step 11: Hashcat brute-force attempt", caption: "hashcat -m 1800 -a 3: SHA-512 mask attack with OpenCL" },
+      { src: "/labs/password-auditing-132957.png", alt: "Step 12: Brute-force infeasible", caption: "854 H/s, estimated 77 years for SHA-512 crypt" },
+      { src: "/labs/password-auditing-133202.png", alt: "Step 13: CeWL wordlist fails on bonus", caption: "0 passwords cracked with base 1,552-word list" },
+      { src: "/labs/password-auditing-133315.png", alt: "Step 14: Generate mangled wordlist", caption: "john --rules --stdout: systematic word transformations" },
+      { src: "/labs/password-auditing-133535.png", alt: "Step 15: Rule expansion scale", caption: "1,552 words expanded to 4,010,859 candidates (2,585x)" },
+      { src: "/labs/password-auditing-133647.png", alt: "Step 16: Crack bonus passwords", caption: "#AlphaInc!23 (larry), #AlphaInc!24 (joshua) in 36 seconds" },
+    ],
+  },
 ];
 
 export function getLabByCourseAndSlug(courseSlug: string, slug: string): CybersecurityLab | undefined {

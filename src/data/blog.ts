@@ -33,6 +33,12 @@ const BLOG_METADATA: Record<string, { title: string; description: string; date: 
       "A hands-on walkthrough of analyzing AWS VPC Flow Logs at scale: extracting 33K attacker flows from 579 compressed log files, quantifying 265MB of data exfiltration on a non-standard port, determining the attack timeframe, and confirming the complete attack surface using PCAP-to-NetFlow conversion with nfpcapd and nfdump.",
     date: "2026-04-08",
   },
+  "password-auditing": {
+    title: "Password Auditing with John the Ripper and Hashcat: Cracking Office, NTLM, and Linux Hashes",
+    description:
+      "A hands-on walkthrough of password auditing across four hash types: extracting and cracking an Office 2013 encrypted spreadsheet, NTLM hashes, and Linux SHA-512 crypt passwords using John the Ripper with a CeWL wordlist, demonstrating brute-force infeasibility with Hashcat, and expanding 1,552 words into 4M+ candidates with word-mangling rules to crack passwords the base wordlist missed.",
+    date: "2026-04-08",
+  },
 };
 
 /**
