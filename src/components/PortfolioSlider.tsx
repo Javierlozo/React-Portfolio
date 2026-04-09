@@ -1,9 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCode } from "@fortawesome/free-solid-svg-icons";
+
+function useReveal(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { threshold, rootMargin: "0px 0px -60px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
 
 // Import project images
 import lessUSA from "@/src/public/pictures/Less1.png";
@@ -44,6 +64,8 @@ interface Project {
 export default function PortfolioSlider() {
   const { theme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { ref: clientRef, visible: clientVisible } = useReveal(0.1);
+  const { ref: indyRef, visible: indyVisible } = useReveal(0.1);
 
   const clientProjects: Project[] = [
     {
@@ -219,9 +241,16 @@ export default function PortfolioSlider() {
         </div>
 
         {/* Split Screen: Left nav + Right detail */}
-        <div className={`grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-0 rounded-2xl overflow-hidden border ${
-          theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-        }`}>
+        <div
+          ref={clientRef}
+          className={`grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-0 rounded-2xl overflow-hidden border transition-all duration-700 ease-out ${
+            theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+          }`}
+          style={{
+            opacity: clientVisible ? 1 : 0,
+            transform: clientVisible ? "translateY(0)" : "translateY(32px)",
+          }}
+        >
           {/* Left Panel - Project List */}
           <nav className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'} lg:border-r ${
             theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
@@ -413,13 +442,18 @@ export default function PortfolioSlider() {
           </div>
 
           {/* Independent Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            {independentProjects.map((project) => (
+          <div ref={indyRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            {independentProjects.map((project, i) => (
               <div
                 key={project.id}
-                className={`p-4 sm:p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl ${
+                className={`p-4 sm:p-6 rounded-2xl shadow-lg transition-all duration-700 ease-out hover:shadow-xl ${
                   theme === 'dark' ? 'bg-gray-800' : 'bg-white'
                 }`}
+                style={{
+                  opacity: indyVisible ? 1 : 0,
+                  transform: indyVisible ? "translateY(0)" : "translateY(28px)",
+                  transitionDelay: `${i * 100}ms`,
+                }}
               >
                 {/* Project Image */}
                 <div className="mb-4 sm:mb-5 md:mb-6 h-36 sm:h-40 md:h-48 overflow-hidden rounded-lg">

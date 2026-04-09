@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -48,10 +48,22 @@ const SECONDARY_SKILLS: { label: string; items: TechItem[] }[] = [
       { name: "OWASP LLM Top 10", icon: faShieldAlt },
       { name: "Threat Modeling", icon: faLock },
       { name: "Burp Suite", icon: faBug },
-      { name: "Wireshark", icon: faBug },
       { name: "OWASP ZAP", icon: faShieldAlt },
-      { name: "tcpdump", icon: faBug },
       { name: "Secure Coding", icon: faLock },
+    ],
+  },
+  {
+    label: "Forensics & IR",
+    items: [
+      { name: "Wireshark", icon: faBug },
+      { name: "tcpdump", icon: faBug },
+      { name: "PCAP Analysis", icon: faBug },
+      { name: "VPC Flow Logs", icon: faShieldAlt },
+      { name: "John the Ripper", icon: faLock },
+      { name: "Hashcat", icon: faLock },
+      { name: "exiftool", icon: faBug },
+      { name: "nfdump", icon: faBug },
+      { name: "DLP", icon: faShieldAlt },
     ],
   },
   {
@@ -84,8 +96,30 @@ const SECONDARY_SKILLS: { label: string; items: TechItem[] }[] = [
   },
 ];
 
+function useReveal(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { threshold, rootMargin: "0px 0px -60px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
 export default function TechStackVisual() {
   const { theme } = useTheme();
+  const { ref: coreRef, visible: coreVisible } = useReveal(0.1);
+  const { ref: secondaryRef, visible: secondaryVisible } = useReveal(0.1);
 
   return (
     <section
@@ -113,7 +147,7 @@ export default function TechStackVisual() {
         </div>
 
         {/* Primary: Core Stack */}
-        <div className="mb-10 sm:mb-14">
+        <div ref={coreRef} className="mb-10 sm:mb-14">
           <h3
             className={`text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 ${
               theme === "dark" ? "text-amber-400" : "text-amber-700"
@@ -122,14 +156,19 @@ export default function TechStackVisual() {
             Core Stack
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-            {PRIMARY_SKILLS.map((item) => (
+            {PRIMARY_SKILLS.map((item, i) => (
               <div
                 key={item.name}
-                className={`flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 rounded-xl border transition-all duration-300 ${
+                className={`flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 rounded-xl border transition-all duration-500 ease-out ${
                   theme === "dark"
                     ? "bg-gray-800/70 border-gray-600 hover:border-gray-500"
                     : "bg-white border-gray-200 hover:border-gray-400"
                 }`}
+                style={{
+                  opacity: coreVisible ? 1 : 0,
+                  transform: coreVisible ? "translateY(0) scale(1)" : "translateY(20px) scale(0.95)",
+                  transitionDelay: `${i * 60}ms`,
+                }}
               >
                 <FontAwesomeIcon
                   icon={item.icon}
@@ -150,7 +189,7 @@ export default function TechStackVisual() {
         </div>
 
         {/* Secondary: Also Work With */}
-        <div>
+        <div ref={secondaryRef}>
           <h3
             className={`text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 ${
               theme === "dark" ? "text-gray-400" : "text-gray-500"
@@ -158,15 +197,20 @@ export default function TechStackVisual() {
           >
             Also Work With
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-            {SECONDARY_SKILLS.map((group) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+            {SECONDARY_SKILLS.map((group, gi) => (
               <div
                 key={group.label}
-                className={`rounded-xl border p-4 sm:p-5 transition-all duration-300 ${
+                className={`rounded-xl border p-4 sm:p-5 transition-all duration-600 ease-out ${
                   theme === "dark"
                     ? "bg-gray-800/30 border-gray-700/60 hover:border-gray-600"
                     : "bg-gray-50/80 border-gray-200 hover:border-gray-300"
                 }`}
+                style={{
+                  opacity: secondaryVisible ? 1 : 0,
+                  transform: secondaryVisible ? "translateY(0)" : "translateY(24px)",
+                  transitionDelay: `${gi * 100}ms`,
+                }}
               >
                 <h4
                   className={`text-xs font-semibold uppercase tracking-wide mb-2.5 pb-2 border-b ${

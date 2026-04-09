@@ -60,6 +60,36 @@ export default function StructuredData() {
     ],
     "alumniOf": [
       {
+        "@type": "CollegeOrUniversity",
+        "name": "IE University",
+        "location": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Segovia",
+            "addressCountry": "ES"
+          }
+        }
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "Purdue University Northwest",
+        "description": "Cybersecurity Path - System Administration"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "JRS Coding School",
+        "location": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "addressCountry": "US"
+          }
+        }
+      },
+      {
         "@type": "EducationalOrganization",
         "name": "SANS Cyber Academy",
         "description": "Cybersecurity education and training"

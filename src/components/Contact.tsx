@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -9,8 +9,29 @@ interface FormData {
   message: string;
 }
 
+function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.15) {
+  const ref = useRef<T>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { threshold, rootMargin: "0px 0px -60px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
 export default function Contact() {
   const { theme } = useTheme();
+  const { ref: formRef, visible: formVisible } = useReveal<HTMLFormElement>(0.1);
   const [formData, setFormData] = useState<FormData>({
     from_name: "",
     reply_to: "",
@@ -93,8 +114,13 @@ export default function Contact() {
         </div>
 
         <form
-          className="max-w-2xl mx-auto space-y-5 sm:space-y-6 md:space-y-8"
+          ref={formRef}
+          className="max-w-2xl mx-auto space-y-5 sm:space-y-6 md:space-y-8 transition-all duration-700 ease-out"
           onSubmit={handleSubmit}
+          style={{
+            opacity: formVisible ? 1 : 0,
+            transform: formVisible ? "translateY(0)" : "translateY(32px)",
+          }}
         >
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
               <div>

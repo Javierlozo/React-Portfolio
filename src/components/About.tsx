@@ -103,13 +103,19 @@ export default function About() {
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
           >
-            I&apos;m a security-focused software engineer with deep experience in cloud technologies and application security. I recently earned the{" "}
+            Originally from Spain with a degree in architectural engineering from{" "}
             <span className={`font-normal ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              GIAC Foundational Cybersecurity Technologies (GFACT) certification
+              IE University
+            </span>
+            . After 6+ years in construction project management, I pivoted into software engineering and never looked back. Now a security-focused engineer with deep experience in cloud technologies and application security, recently earning the{" "}
+            <span className={`font-normal ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              GIAC GFACT certification
             </span>{" "}
-            through the SANS Institute, validating my knowledge across networking, operating systems, cloud platforms, web technologies, and core security principles.
+            through the SANS Institute.
           </p>
           
           <p 

@@ -98,7 +98,7 @@ export default function Navbar() {
     {
       label: "Credentials",
       items: [
-        { label: "Certifications", id: "certifications" },
+        { label: "Credentials", id: "certifications" },
         { label: "Testimonials", id: "testimonials" },
       ],
     },

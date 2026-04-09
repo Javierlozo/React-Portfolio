@@ -39,6 +39,12 @@ const BLOG_METADATA: Record<string, { title: string; description: string; date: 
       "A hands-on walkthrough of password auditing across four hash types: extracting and cracking an Office 2013 encrypted spreadsheet, NTLM hashes, and Linux SHA-512 crypt passwords using John the Ripper with a CeWL wordlist, demonstrating brute-force infeasibility with Hashcat, and expanding 1,552 words into 4M+ candidates with word-mangling rules to crack passwords the base wordlist missed.",
     date: "2026-04-08",
   },
+  "data-loss-prevention": {
+    title: "Data Loss Prevention: Scanning Removable Media for Sensitive Content, Metadata, and GPS Coordinates",
+    description:
+      "A hands-on DLP investigation on removable media: using grep regex to flag files containing classification keywords, extracting document metadata with exiftool to reveal authorship and SECRET markings, and geolocating a photograph by extracting GPS coordinates from embedded EXIF data.",
+    date: "2026-04-08",
+  },
 };
 
 /**

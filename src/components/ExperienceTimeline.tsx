@@ -128,10 +128,10 @@ export default function ExperienceTimeline() {
       position: "Founder",
       location: "Charleston, SC",
       duration: "2024",
-      description: "Independent projects and web development under a personal brand. Built and shipped production sites to explore AI integration, bilingual platforms, and e-commerce.",
+      description: "Web development consultancy building production websites for small businesses. Shipped bilingual platforms, e-commerce sites, and business websites using Next.js, React, and Tailwind CSS.",
       achievements: [
         "Built and launched iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com",
-        "Integrated AI features (LLM-powered content, recommendation logic) into projects",
+        "Designed and developed production sites for small businesses (commercial interiors, architecture)",
         "Full project lifecycle: design, architecture, implementation, deployment"
       ],
       technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AWS", "Node.js"],

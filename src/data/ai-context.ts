@@ -6,16 +6,17 @@ export const LUIS_SYSTEM_PROMPT = `You are an AI assistant representing Luis Jav
 
 Luis Javier Lozoya is a security-focused software engineer based in Charleston, SC, specializing in application security, cloud security, and secure software development. Bilingual (English/Spanish), originally from Spain.
 
-Luis came to the US in 2013 with an architectural engineering degree and a goal of becoming a construction project manager. He earned a CAPM certification and spent 6+ years in construction: from laborer to CNC operator, project manager, project design engineer, and estimator engineer at Coastal Millwork and Supply, where he completed 25+ commercial projects including Mt. Pleasant Town Hall, Volvo Manufacturing, and Google's Charleston office.
+Luis came to the US in 2013 with an Arquitecto Tecnico degree (Bachelor's in Architectural Engineering) from IE University in Segovia, Spain, and a goal of becoming a construction project manager. He earned a CAPM certification and spent 6+ years in construction: from laborer to CNC operator, project manager, project design engineer, and estimator engineer at Coastal Millwork and Supply, where he completed 25+ commercial projects including Mt. Pleasant Town Hall, Volvo Manufacturing, and Google's Charleston office.
 
 In 2019, curiosity about how computers communicate led him to study for CompTIA Network+ (studied but did not certify). That curiosity sparked a career pivot into software engineering. He completed JRS Coding School bootcamp and landed his first engineering role at Interloop in 2021. Since then he has built 5+ years of software engineering experience across startups, agencies, and independent projects.
 
 ## Professional Experience
 
 ### IberiaTech Solutions (Founder, 2024)
-- Independent projects and web development under a personal brand
-- Built and shipped iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com
-- Integrated AI features (LLM-powered content, recommendation logic) into projects
+- Web development consultancy building production websites for small businesses
+- Built and launched iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com
+- Designed and developed production sites for small businesses (commercial interiors, architecture)
+- Full project lifecycle: design, architecture, implementation, deployment
 - Stack: Next.js, React, TypeScript, Tailwind CSS, AWS, Node.js
 
 ### GDNA (Software Engineer Contract, Apr 2024–Present)
@@ -133,21 +134,21 @@ export const experienceNarratives: Record<number, ExperienceNarrative> = {
   1: {
     companyId: 1,
     situation:
-      "After building experience across multiple contract roles, I wanted to ship my own projects. Started IberiaTech Solutions as a personal brand to explore AI integration, bilingual platforms, and e-commerce.",
+      "After building experience across multiple contract roles, I started IberiaTech Solutions as a web development consultancy to build production websites for small businesses.",
     actions: [
-      "Founded IberiaTech Solutions and built the brand from scratch",
+      "Founded IberiaTech Solutions as a web development consultancy",
       "Built and launched iberiatechsolutions.com with full bilingual EN/ES support",
       "Shipped shopessentialshub.com as an e-commerce platform",
-      "Integrated AI-powered features (LLM content generation, recommendation logic) into projects",
+      "Designed and developed production sites for small businesses (commercial interiors, architecture)",
       "Handled the full project lifecycle: design, architecture, implementation, deployment",
     ],
     results: [
-      "Multiple live production sites shipped and running",
+      "Multiple live production sites shipped for real businesses",
       "Hands-on experience with the full business side of software, not just the code",
       "Applied lessons from every previous role into a more complete engineering practice",
     ],
     lessonsLearned:
-      "Building your own projects forces you to care about the full picture. Not just the code, but the design, the deployment, the domain setup, everything. It made me a better engineer because there's no one else to hand off the hard parts to.",
+      "Running a consultancy forces you to care about the full picture. Not just the code, but the client communication, the design, the deployment, the domain setup, everything. It made me a better engineer because there's no one else to hand off the hard parts to.",
   },
   2: {
     companyId: 2,

@@ -1,15 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes, faGraduationCap, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { useCardTilt } from "../hooks/useCardTilt";
 
 // Import certification images
 import gfact from "@/src/public/certifications/GFACT.png";
 import coursera from "@/src/public/certifications/Coursera.png";
 import systemAdm from "@/src/public/certifications/System Adm.png";
+
+// Import education logos
+import pnwLogo from "@/src/public/pictures/pnw-logo.png";
+import harborLogo from "@/src/public/pictures/harbor-logo.png";
+import ieLogo from "@/src/public/pictures/ie-university.png";
 
 interface Certification {
   id: number;
@@ -37,9 +42,71 @@ function TiltCard({ children, className, onClick }: { children: React.ReactNode;
   );
 }
 
+function useReveal(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { threshold, rootMargin: "0px 0px -60px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
+interface Education {
+  id: number;
+  institution: string;
+  degree: string;
+  location: string;
+  duration: string;
+  description: string;
+  logo: StaticImageData;
+}
+
+const EDUCATION: Education[] = [
+  {
+    id: 1,
+    institution: "Purdue University Northwest",
+    degree: "Cybersecurity Path - System Administration",
+    location: "Online",
+    duration: "Mar 2022 - May 2023",
+    description: "Cybersecurity and system administration program covering security fundamentals, network protection, and infrastructure management.",
+    logo: pnwLogo,
+  },
+  {
+    id: 2,
+    institution: "JRS Coding School",
+    degree: "Full Stack Developer",
+    location: "The Harbor Entrepreneur Center, Charleston, SC",
+    duration: "Nov 2019 - Oct 2020",
+    description: "Intensive full-stack development program. Career pivot from construction to software engineering. Landed first engineering role at Interloop within months of completion.",
+    logo: harborLogo,
+  },
+  {
+    id: 3,
+    institution: "IE University",
+    degree: "Arquitecto Tecnico (Bachelor's in Architectural Engineering)",
+    location: "Segovia, Spain",
+    duration: "2006 - 2012",
+    description: "Technical architecture degree covering structural engineering, construction management, and building design. Final thesis: design and construction technical drawings for a hospital. Foundation for project management and analytical thinking that carried into software engineering.",
+    logo: ieLogo,
+  },
+];
+
 export default function CertificationsShowcase() {
   const { theme } = useTheme();
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
+  const { ref: gridRef, visible: gridVisible } = useReveal(0.1);
+  const { ref: eduRef, visible: eduVisible } = useReveal(0.1);
 
   const certifications: Certification[] = [
     {
@@ -82,20 +149,28 @@ export default function CertificationsShowcase() {
           <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
             theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
           }`}>
-            Certifications
+            Certifications & Education
           </h2>
           <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }`}>
-            Industry certifications validating security and engineering fundamentals
+            Industry certifications and academic foundation
           </p>
         </div>
 
         {/* Certifications: full viewport width, single row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
-          {certifications.map((cert) => (
-            <TiltCard
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+          {certifications.map((cert, i) => (
+            <div
               key={cert.id}
+              className="transition-all duration-700 ease-out"
+              style={{
+                opacity: gridVisible ? 1 : 0,
+                transform: gridVisible ? "translateY(0) scale(1)" : "translateY(32px) scale(0.97)",
+                transitionDelay: `${i * 120}ms`,
+              }}
+            >
+            <TiltCard
               className={`group cursor-pointer min-w-0 ${
                 theme === 'dark' ? 'bg-gray-800' : 'bg-white'
               } rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden ${
@@ -170,6 +245,7 @@ export default function CertificationsShowcase() {
                 </div>
               </div>
             </TiltCard>
+            </div>
           ))}
         </div>
 
@@ -280,6 +356,98 @@ export default function CertificationsShowcase() {
             </div>
           </div>
         )}
+
+        {/* Education */}
+        <div className="px-4 sm:px-6 md:px-8">
+          <div className="max-w-4xl mx-auto">
+            {/* Divider */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className={`flex-1 h-px ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`} />
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon
+                  icon={faGraduationCap}
+                  className={`text-sm ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}
+                />
+                <span
+                  className={`text-xs font-semibold uppercase tracking-widest ${
+                    theme === "dark" ? "text-gray-500" : "text-gray-400"
+                  }`}
+                >
+                  Education
+                </span>
+              </div>
+              <div className={`flex-1 h-px ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`} />
+            </div>
+
+            <div ref={eduRef} className="space-y-4">
+              {EDUCATION.map((edu, i) => (
+                <div
+                  key={edu.id}
+                  className={`flex gap-4 sm:gap-6 p-4 sm:p-5 rounded-xl border transition-all duration-600 ease-out ${
+                    theme === "dark"
+                      ? "bg-gray-800/50 border-gray-700/50 hover:border-gray-600/60"
+                      : "bg-white border-gray-200 hover:border-gray-300"
+                  }`}
+                  style={{
+                    opacity: eduVisible ? 1 : 0,
+                    transform: eduVisible ? "translateY(0)" : "translateY(24px)",
+                    transitionDelay: `${i * 100}ms`,
+                  }}
+                >
+                  <div className="hidden sm:flex items-center justify-center w-12 h-12 rounded-xl shrink-0 mt-0.5 bg-white p-1.5 shadow-sm border border-gray-100">
+                    <Image
+                      src={edu.logo}
+                      alt={`${edu.institution} logo`}
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
+                      <h4
+                        className={`text-sm sm:text-base font-medium ${
+                          theme === "dark" ? "text-white" : "text-gray-900"
+                        }`}
+                      >
+                        {edu.degree}
+                      </h4>
+                      <span
+                        className={`text-xs whitespace-nowrap ${
+                          theme === "dark" ? "text-gray-500" : "text-gray-400"
+                        }`}
+                      >
+                        {edu.duration}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
+                      <span
+                        className={`text-xs sm:text-sm font-medium ${
+                          theme === "dark" ? "text-amber-400/80" : "text-amber-700"
+                        }`}
+                      >
+                        {edu.institution}
+                      </span>
+                      <span className={`flex items-center gap-1 text-xs ${
+                        theme === "dark" ? "text-gray-500" : "text-gray-400"
+                      }`}>
+                        <FontAwesomeIcon icon={faMapMarkerAlt} className="text-[9px]" />
+                        {edu.location}
+                      </span>
+                    </div>
+                    <p
+                      className={`text-xs sm:text-sm leading-relaxed ${
+                        theme === "dark" ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    >
+                      {edu.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
