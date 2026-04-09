@@ -12,7 +12,6 @@ import querriLogo from "@/src/public/pictures/querri.png";
 import interloopLogo from "@/src/public/pictures/interloop.jpeg";
 import upstateLogo from "@/src/public/pictures/upstate.jpg";
 import gdnaLogo from "@/src/public/pictures/gdna.ico";
-import itcLogo from "@/src/public/pictures/ITC.png";
 
 interface Experience {
   id: number;
@@ -121,24 +120,6 @@ export default function ExperienceTimeline() {
       current: true,
       logo: gdnaLogo,
       industry: "AWS & Cloud Solutions"
-    },
-    {
-      id: 1,
-      company: "IberiaTech Solutions",
-      position: "Founder",
-      location: "Charleston, SC",
-      duration: "2024",
-      description: "Web development consultancy building production websites for small businesses. Shipped bilingual platforms, e-commerce sites, and business websites using Next.js, React, and Tailwind CSS.",
-      achievements: [
-        "Built and launched iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com",
-        "Designed and developed production sites for small businesses (commercial interiors, architecture)",
-        "Full project lifecycle: design, architecture, implementation, deployment"
-      ],
-      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AWS", "Node.js"],
-      companyUrl: "https://www.iberiatechsolutions.com/",
-      current: false,
-      logo: itcLogo,
-      industry: "Web Development & AI Solutions"
     },
     {
       id: 3,

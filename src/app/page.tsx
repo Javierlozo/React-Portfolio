@@ -11,7 +11,6 @@ const CybersecurityLabs = dynamic(() => import("../components/CybersecurityLabs"
 const CertificationsShowcase = dynamic(() => import("../components/CertificationsShowcase"));
 const PortfolioSlider = dynamic(() => import("../components/PortfolioSlider"));
 const FitAssessment = dynamic(() => import("../components/FitAssessment"));
-const Testimonials = dynamic(() => import("../components/Testimonials"));
 const Contact = dynamic(() => import("../components/Contact"));
 
 export default function Home() {
@@ -25,7 +24,6 @@ export default function Home() {
       <CertificationsShowcase />
       <PortfolioSlider />
       <FitAssessment />
-      <Testimonials />
       <Contact />
     </div>
   );

@@ -1,18 +1,16 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiMenu, FiX, FiSun, FiMoon, FiChevronDown } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string>("");
   const [hamburgerImageError, setHamburgerImageError] = useState<boolean>(false);
   const { theme, toggleTheme } = useTheme();
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -33,7 +31,7 @@ export default function Navbar() {
 
   // Track active section using Intersection Observer
   useEffect(() => {
-    const sections = ["about", "experience", "security-labs", "certifications", "portfolio", "fit-check", "testimonials", "contact"];
+    const sections = ["about", "experience", "security-labs", "certifications", "portfolio", "fit-check", "contact"];
     
     const observerOptions = {
       root: null,
@@ -74,17 +72,6 @@ export default function Navbar() {
     };
   }, []);
 
-  // Close dropdown on click outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setOpenDropdown(null);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   const TOP_LINKS = [
     { label: "About", id: "about" },
     { label: "Experience", id: "experience" },
@@ -94,15 +81,7 @@ export default function Navbar() {
 
   const PORTFOLIO_LINK = { label: "Portfolio", id: "portfolio" };
 
-  const DROPDOWNS = [
-    {
-      label: "Credentials",
-      items: [
-        { label: "Credentials", id: "certifications" },
-        { label: "Testimonials", id: "testimonials" },
-      ],
-    },
-  ];
+  const CREDENTIALS_LINK = { label: "Credentials", id: "certifications" };
 
   const CTA_LINK = { label: "Fit Check", id: "fit-check" };
   const CONTACT_LINK = { label: "Contact", id: "contact" };
@@ -111,7 +90,7 @@ export default function Navbar() {
     ...TOP_LINKS,
     LABS_LINK,
     PORTFOLIO_LINK,
-    ...DROPDOWNS.flatMap((d) => d.items),
+    CREDENTIALS_LINK,
     CTA_LINK,
     CONTACT_LINK,
   ];
@@ -153,7 +132,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div ref={dropdownRef} className="hidden xl:flex justify-center items-center flex-grow gap-1 min-w-0">
+        <div className="hidden xl:flex justify-center items-center flex-grow gap-1 min-w-0">
           {TOP_LINKS.map((link) => {
             const isActive = activeSection === link.id;
             return (
@@ -208,60 +187,22 @@ export default function Navbar() {
             )}
           </a>
 
-          {/* Category dropdowns */}
-          {DROPDOWNS.map((dropdown) => {
-            const isOpen = openDropdown === dropdown.label;
-            const hasActive = dropdown.items.some((l) => activeSection === l.id);
-            return (
-              <div key={dropdown.label} className="relative">
-                <button
-                  onClick={() => setOpenDropdown(isOpen ? null : dropdown.label)}
-                  aria-expanded={isOpen}
-                  className={`flex items-center gap-1 px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 cursor-pointer ${
-                    hasActive
-                      ? theme === "dark" ? "text-white" : "text-gray-900"
-                      : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
-                  }`}
-                >
-                  {dropdown.label}
-                  <FiChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
-                  {hasActive && (
-                    <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
-                      theme === "dark" ? "bg-white" : "bg-gray-900"
-                    }`} />
-                  )}
-                </button>
-
-                {isOpen && (
-                  <div
-                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 rounded-lg border shadow-lg overflow-hidden ${
-                      theme === "dark"
-                        ? "bg-gray-900 border-gray-700"
-                        : "bg-white border-gray-200"
-                    }`}
-                  >
-                    {dropdown.items.map((link) => {
-                      const isActive = activeSection === link.id;
-                      return (
-                        <a
-                          key={link.id}
-                          href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
-                          onClick={() => setOpenDropdown(null)}
-                          className={`block px-4 py-2.5 text-sm transition-colors ${
-                            isActive
-                              ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
-                              : theme === "dark" ? "text-gray-300 hover:bg-gray-800 hover:text-white" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                          }`}
-                        >
-                          {link.label}
-                        </a>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          {/* Credentials - top-level link */}
+          <a
+            href={pathname === "/" ? `#${CREDENTIALS_LINK.id}` : `/#${CREDENTIALS_LINK.id}`}
+            className={`relative px-2 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-all duration-300 ${
+              activeSection === CREDENTIALS_LINK.id
+                ? theme === "dark" ? "text-white" : "text-gray-900"
+                : theme === "dark" ? "text-gray-300 hover:text-white" : "text-gray-500 hover:text-gray-900"
+            }`}
+          >
+            {CREDENTIALS_LINK.label}
+            {activeSection === CREDENTIALS_LINK.id && (
+              <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px ${
+                theme === "dark" ? "bg-white" : "bg-gray-900"
+              }`} />
+            )}
+          </a>
 
           {/* Blog - separate page link */}
           <Link
@@ -463,29 +404,16 @@ export default function Navbar() {
                     ? theme === "dark" ? "text-white bg-gray-800" : "text-gray-900 bg-gray-100"
                     : theme === "dark" ? "text-gray-300 active:bg-gray-800" : "text-gray-700 active:bg-gray-100";
 
-                // Insert category headers
-                const isFirstCredential = link.id === "skills-assessment";
-                const header = isFirstCredential ? "Credentials" : null;
-
                 return (
-                  <React.Fragment key={link.id}>
-                    {header && (
-                      <>
-                        <div className={`my-2 mx-3 border-t ${theme === "dark" ? "border-gray-800" : "border-gray-200"}`} />
-                        <div className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider ${
-                          theme === "dark" ? "text-gray-500" : "text-gray-400"
-                        }`}>{header}</div>
-                      </>
-                    )}
-                    <a
-                      href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
-                      className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
-                      onClick={toggleMenu}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      {link.label}
-                    </a>
-                  </React.Fragment>
+                  <a
+                    key={link.id}
+                    href={pathname === "/" ? `#${link.id}` : `/#${link.id}`}
+                    className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
+                    onClick={toggleMenu}
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {link.label}
+                  </a>
                 );
               })}
 

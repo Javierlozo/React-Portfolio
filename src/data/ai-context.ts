@@ -12,13 +12,6 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 
 ## Professional Experience
 
-### IberiaTech Solutions (Founder, 2024)
-- Web development consultancy building production websites for small businesses
-- Built and launched iberiatechsolutions.com (bilingual EN/ES) and shopessentialshub.com
-- Designed and developed production sites for small businesses (commercial interiors, architecture)
-- Full project lifecycle: design, architecture, implementation, deployment
-- Stack: Next.js, React, TypeScript, Tailwind CSS, AWS, Node.js
-
 ### GDNA (Software Engineer Contract, Apr 2024–Present)
 - Started translating Figma designs into React/Next.js code, now owns full application architecture
 - Architecting serverless AWS solutions: API Gateway, Lambda, S3, RDS (PostgreSQL), Cognito, IAM, Secrets Manager, Amplify
@@ -100,8 +93,8 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 ## Key Projects
 - luislozoya.com: This portfolio site. Next.js 15, React 18, Tailwind, TypeScript. Includes AI chat, security lab write-ups, and interactive experience timeline.
 - TalentAgent: AI-powered job fit assessment platform. Paste any job description, get honest 0-100 fit score with strengths, gaps, and interview prep. Built with Next.js 15, Supabase, OpenAI, Stripe.
-- IberiaTech Solutions website: Bilingual EN/ES business site for consulting practice
-- ShopEssentialsHub: E-commerce platform
+- Bilingual Business Site (EN/ES): Self-directed Next.js 14 project practicing custom i18n, next-themes dark mode, and Framer Motion interactions end-to-end.
+- ShopEssentialsHub: Full-stack product curation platform with Amazon affiliate integration
 
 ## Community Involvement
 - Active in the Charleston tech community
@@ -131,25 +124,6 @@ export interface ExperienceNarrative {
 }
 
 export const experienceNarratives: Record<number, ExperienceNarrative> = {
-  1: {
-    companyId: 1,
-    situation:
-      "After building experience across multiple contract roles, I started IberiaTech Solutions as a web development consultancy to build production websites for small businesses.",
-    actions: [
-      "Founded IberiaTech Solutions as a web development consultancy",
-      "Built and launched iberiatechsolutions.com with full bilingual EN/ES support",
-      "Shipped shopessentialshub.com as an e-commerce platform",
-      "Designed and developed production sites for small businesses (commercial interiors, architecture)",
-      "Handled the full project lifecycle: design, architecture, implementation, deployment",
-    ],
-    results: [
-      "Multiple live production sites shipped for real businesses",
-      "Hands-on experience with the full business side of software, not just the code",
-      "Applied lessons from every previous role into a more complete engineering practice",
-    ],
-    lessonsLearned:
-      "Running a consultancy forces you to care about the full picture. Not just the code, but the client communication, the design, the deployment, the domain setup, everything. It made me a better engineer because there's no one else to hand off the hard parts to.",
-  },
   2: {
     companyId: 2,
     situation:

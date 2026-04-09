@@ -49,11 +49,6 @@ export default function StructuredData() {
     "worksFor": [
       {
         "@type": "Organization",
-        "name": "IberiaTech Solutions",
-        "description": "Consulting brand delivering prototypes and proof-of-concepts for modern web and AI capabilities"
-      },
-      {
-        "@type": "Organization",
         "name": "Global Digital Needs Agency (GDNA)",
         "description": "Contributing to AWS-powered digital platforms and large-scale projects"
       }
