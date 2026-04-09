@@ -1,11 +1,13 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrophy, faGavel, faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import RevealText from "./RevealText";
 
 export default function About() {
   const { theme } = useTheme();
-  const [visibleElements, setVisibleElements] = useState<Set<number>>(new Set([0, 1, 2, 3])); // Start with all visible
+  const [visibleElements, setVisibleElements] = useState<Set<number>>(new Set([0, 1, 2, 3, 4])); // Start with all visible
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const elementRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -185,7 +187,39 @@ export default function About() {
             </span>
             . Always open to interesting conversations.
           </p>
-          
+
+          {/* Community */}
+          <div
+            ref={(el) => { elementRefs.current[4] = el; }}
+            data-index="4"
+            className={`flex flex-wrap gap-3 transition-all ease-out ${
+              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
+            } ${
+              visibleElements.has(4)
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-3 sm:translate-y-6'
+            }`}
+            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '400ms' }}
+          >
+            {[
+              { icon: faTrophy, label: "1st Place, HackOps 2024" },
+              { icon: faGavel, label: "Judge, HarborHack 2024" },
+              { icon: faMicrophone, label: "Speaker, HarborHack 2025" },
+            ].map((item) => (
+              <span
+                key={item.label}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${
+                  theme === 'dark'
+                    ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                    : 'bg-amber-50 text-amber-700 border border-amber-200'
+                }`}
+              >
+                <FontAwesomeIcon icon={item.icon} className="text-[10px]" />
+                {item.label}
+              </span>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
