@@ -307,7 +307,7 @@ function PipelineGroup({
           {completedInGroup}/{labs.length}
         </span>
       </div>
-      <div className="ml-2.5 border-l-2 border-dashed pl-5 space-y-1.5"
+      <div className="ml-2.5 border-l-2 border-dashed pl-3 sm:pl-5 space-y-1.5"
         style={{ borderColor: theme === "dark" ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)" }}
       >
         {labs.map((lab, i) => {
@@ -345,7 +345,7 @@ function PipelineGroup({
                 {lab.title}
               </span>
               <span
-                className={`text-[10px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap ${
+                className={`hidden sm:inline-block text-[10px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap ${
                   theme === "dark" ? "bg-gray-700/50 text-gray-500" : "bg-gray-100 text-gray-400"
                 }`}
               >
@@ -379,7 +379,7 @@ export default function CybersecurityLabs() {
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4">
             <div
               className={`p-2 rounded-lg ${
                 theme === "dark" ? "bg-amber-500/10 text-amber-400" : "bg-amber-100 text-amber-700"

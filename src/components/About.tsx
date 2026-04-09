@@ -192,7 +192,7 @@ export default function About() {
           <div
             ref={(el) => { elementRefs.current[4] = el; }}
             data-index="4"
-            className={`flex flex-wrap gap-3 transition-all ease-out ${
+            className={`flex flex-wrap gap-2 sm:gap-3 transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
             } ${
               visibleElements.has(4)
@@ -208,7 +208,7 @@ export default function About() {
             ].map((item) => (
               <span
                 key={item.label}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium ${
                   theme === 'dark'
                     ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                     : 'bg-amber-50 text-amber-700 border border-amber-200'
