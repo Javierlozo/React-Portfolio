@@ -45,6 +45,30 @@ const BLOG_METADATA: Record<string, { title: string; description: string; date: 
       "A hands-on DLP investigation on removable media: using grep regex to flag files containing classification keywords, extracting document metadata with exiftool to reveal authorship and SECRET markings, and geolocating a photograph by extracting GPS coordinates from embedded EXIF data.",
     date: "2026-04-08",
   },
+  "network-discovery": {
+    title: "Network Discovery with Nmap and ndiff: Host Enumeration, Change Detection, and Post-Scan Triage",
+    description:
+      "A hands-on Nmap workflow against a /24 lab network: host discovery, service/version enumeration, OS fingerprinting, XML baseline comparison with ndiff to surface a new WSGI service between scans, and post-scan pivot with SSH, netstat, iptables, and curl to validate findings at the OS and firewall layer.",
+    date: "2026-04-12",
+  },
+  "web-app-exploitation": {
+    title: "SQL Injection in a PHP Storefront: From LIKE-Clause Probing to Stacked Queries, then WAF Validation",
+    description:
+      "A hands-on web app exploitation walkthrough: discovering a LIKE-clause SQL injection from a leaked stack trace, refining payloads to dump an entire Merchandise table, using stacked queries to enumerate databases and tables via SHOW statements, and then deploying a WAF to confirm the same payloads return HTTP 418 — a full vulnerability lifecycle demo.",
+    date: "2026-04-12",
+  },
+  "hashing-cryptographic-validation": {
+    title: "Hashing and Cryptographic Validation with SHA-256 and GPG: From Hash Integrity to Detecting Tampered Documents",
+    description:
+      "A hands-on walkthrough of cryptographic integrity: proving SHA-256 is content-bound with rename vs. one-byte-edit tests, generating an RSA 3072-bit GPG key, producing detached signatures, importing a third-party public key, catching a tampered Bankruptcy.docx via a BAD signature, reviewing suspicious metadata with exiftool, and restoring a clean backup that verifies cleanly.",
+    date: "2026-04-12",
+  },
+  "ids-snort3-zeek": {
+    title: "Intrusion Detection with Snort3 and Zeek: PCAP Replay, Rule Tuning, BPF Filters, and File Extraction",
+    description:
+      "A hands-on IDS/NSM walkthrough: validating a Snort 3.1.73 configuration, scoping HOME_NET to a /16, replaying investigate.pcap through the community ruleset to surface 294 INDICATOR-SHELLCODE ssh CRC32 overflow alerts from a single attacker IP, pivoting with --bpf, and reprocessing the same PCAP in Zeek with the extract-all-files policy to show how signature IDS and protocol-aware NSM complement each other.",
+    date: "2026-04-12",
+  },
 };
 
 /**

@@ -137,52 +137,6 @@ function useReveal(threshold = 0.15) {
   return { ref, visible };
 }
 
-/** Animated SVG progress ring */
-function ProgressRing({ completed, total, theme }: { completed: number; total: number; theme: string }) {
-  const { ref, visible } = useReveal(0.5);
-  const size = 72;
-  const stroke = 3;
-  const radius = (size - stroke) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const progress = completed / total;
-  const offset = circumference * (1 - (visible ? progress : 0));
-
-  return (
-    <div ref={ref} className="relative inline-flex items-center justify-center">
-      <svg width={size} height={size} className="-rotate-90">
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke={theme === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"}
-          strokeWidth={stroke}
-        />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke={theme === "dark" ? "#f59e0b" : "#b45309"}
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          className="transition-all duration-[1500ms] ease-out"
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className={`text-lg font-semibold leading-none ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
-          {completed}
-        </span>
-        <span className={`text-[10px] ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
-          of {total}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 function LabCard({ lab, theme, index }: { lab: (typeof LABS)[number]; theme: string; index: number }) {
   const { ref, visible } = useReveal();
   const gradient = FOCUS_GRADIENTS[lab.focus ?? ""] ?? DEFAULT_GRADIENT;
@@ -363,7 +317,6 @@ export default function CybersecurityLabs() {
   const { theme } = useTheme();
 
   const completedLabs = LABS.filter((l) => !l.comingSoon);
-  const totalLabs = LABS.length;
 
   // Group ALL labs by course for the pipeline view
   const allByCourse = LABS.reduce<Record<string, typeof LABS>>((acc, lab) => {
@@ -394,7 +347,15 @@ export default function CybersecurityLabs() {
             >
               Security Labs
             </h2>
-            <ProgressRing completed={completedLabs.length} total={totalLabs} theme={theme} />
+            <span
+              className={`text-xs sm:text-sm font-semibold px-3 py-1 rounded-full whitespace-nowrap ${
+                theme === "dark"
+                  ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                  : "bg-amber-50 text-amber-700 border border-amber-200"
+              }`}
+            >
+              {completedLabs.length} labs
+            </span>
           </div>
           <RevealText
             as="p"
@@ -403,7 +364,7 @@ export default function CybersecurityLabs() {
               theme === "dark" ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Hands-on labs with real packet captures, full analysis, and detailed writeups. Evidence of skill beyond certifications.
+            Selected hands-on labs with real packet captures, full analysis, and detailed writeups. Evidence of skill beyond certifications.
           </RevealText>
           <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
             {labSkillTags.map(
