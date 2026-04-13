@@ -69,6 +69,24 @@ const BLOG_METADATA: Record<string, { title: string; description: string; date: 
       "A hands-on IDS/NSM walkthrough: validating a Snort 3.1.73 configuration, scoping HOME_NET to a /16, replaying investigate.pcap through the community ruleset to surface 294 INDICATOR-SHELLCODE ssh CRC32 overflow alerts from a single attacker IP, pivoting with --bpf, and reprocessing the same PCAP in Zeek with the extract-all-files policy to show how signature IDS and protocol-aware NSM complement each other.",
     date: "2026-04-12",
   },
+  "linux-permissions": {
+    title: "Linux Permissions: umask, Mode Bits, and the Sticky Bit Explained with a Docker Lab",
+    description:
+      "A hands-on walkthrough of the Linux permission model: spinning up a Docker lab container, observing default umask 0022 produce 644/755, tightening to umask 0027 for a 640/750 hardening baseline, and demonstrating the /tmp sticky bit (drwxrwxrwt) that protects shared directories from cross-user tampering.",
+    date: "2026-04-13",
+  },
+  "windows-security-policies": {
+    title: "Applying Windows Security Policies with secedit.exe: Analyze, Configure, and Verify Baseline Compliance",
+    description:
+      "A hands-on walkthrough of Windows baseline compliance using secedit.exe /analyze and /configure: comparing a VM to the Alpha basic security template, surfacing MinimumPasswordLength, LockoutBadCount, and MaximumLogSize drift via PowerShell Select-String, applying the template, and re-analyzing to produce before/after audit evidence.",
+    date: "2026-04-13",
+  },
+  "powershell-speed-scale": {
+    title: "PowerShell for Speed and Scale: Fleet-Wide Hunting with Invoke-Command, Event ID 7045, and Get-FileHash",
+    description:
+      "A hands-on PowerShell workflow spanning local process/service enumeration through the object pipeline (Get-Process, Get-Service, Where-Object, Measure-Object, Out-GridView, Export-Csv), remote execution across three alpha-svr hosts with Invoke-Command, and a concrete hunt that surfaces a rogue BrokerSvc running broker.exe as LocalSystem — complete with Event ID 7045 correlation and a SHA-256 suitable for IOC distribution.",
+    date: "2026-04-13",
+  },
 };
 
 /**

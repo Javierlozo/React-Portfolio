@@ -1486,20 +1486,489 @@ export const LABS: CybersecurityLab[] = [
     ],
   },
   {
+    id: 16,
+    courseSlug: "sec401",
+    slug: "windows-security-policies",
+    title: "Lab 5.3 - Applying Windows System Security Policies",
+    course: "SEC401 - Windows Security",
+    role: "Solo, Lab",
+    focus: "Windows Security",
+    level: "SEC401",
+    date: "Apr 2026",
+    artifacts: "Sanitized PowerShell and MMC screenshots from secedit.exe analyze/configure workflow",
+    context:
+      "This lab demonstrates how to baseline a Windows host against a security template, identify policy drift, apply a hardened configuration, and verify the change — using secedit.exe from PowerShell and the Security Templates / Security Configuration and Analysis MMC snap-ins.",
+    summary:
+      "Used secedit.exe to analyze a Windows VM against the Alpha-Win-Wkstn-Basic-Sec-Policy template, surfaced MinimumPasswordLength, LockoutBadCount, and MaximumLogSize mismatches via Select-String on the log, applied the template with /configure, and re-analyzed to confirm the drift was eliminated.",
+    whyThisMatters:
+      "Every Windows hardening program lives or dies on two questions: does this host match the baseline, and can you prove it after the fact? secedit /analyze and /configure are the oldest, simplest answer to both — zero extra tooling required, and the log format is grep-friendly. If you can't drive this workflow from a console you can't scale hardening to more than one host.",
+    tldr: [
+      "secedit /analyze compared a live VM to the Alpha basic security template",
+      "Surfaced 5 Mismatch entries (password length, lockout, event log size) via Select-String",
+      "Applied the template with secedit /configure and re-analyzed to verify",
+    ],
+    skillsDemonstrated: [
+      "Windows security baseline compliance",
+      "secedit.exe analyze/configure workflow",
+      "Security Templates (.inf) and local policy database (.sdb)",
+      "PowerShell log triage with Select-String",
+      "MMC Security Configuration and Analysis snap-in",
+    ],
+    tools: ["secedit.exe", "PowerShell", "Select-String", "MMC", "Security Templates"],
+    steps: [
+      "Review secedit.exe /analyze syntax and required parameters",
+      "Run /analyze against the VM using the Alpha basic security template",
+      "Open the compare log in Notepad and visually review Mismatch entries",
+      "Filter the log with Select-String 'mismatch' to list only drift",
+      "Apply the template with secedit /configure",
+      "Re-analyze and produce a second log for before/after evidence",
+      "Load Security Templates + Security Configuration and Analysis in MMC",
+    ],
+    stepDetails: [
+      {
+        title: "Review secedit.exe /analyze syntax",
+        description:
+          "Ran secedit /analyze with no arguments to print the help text. The workflow needs three things: a database file (/db) to hold the analysis, a configuration template (/cfg) that defines the desired state, and a log file (/log) to record per-setting results.",
+        command: "secedit.exe /analyze",
+        commandBreakdown: "/db: analysis database (.sdb)\n/cfg: security template file (.inf)\n/log: output log path\n/quiet: suppress prompts",
+        screenshot: "/labs/win-policies-110317.png",
+      },
+      {
+        title: "Analyze the VM against the Alpha basic template",
+        description:
+          "Ran secedit /analyze against the Alpha-Win-Wkstn-Basic-Sec-Policy.inf template. The engine compares every setting in the template to the current VM state and writes per-setting results to the compare log. Task completed successfully means the analysis engine ran cleanly — the actual drift findings live in the log.",
+        command: "secedit.exe /analyze /db alpha-basic-policy.sdb /cfg Alpha-Win-Wkstn-Basic-Sec-Policy.inf /log C:\\sec401\\labs\\5.3\\compare-vm-to-alpha-basic-policy.log",
+        screenshot: "/labs/win-policies-110611.png",
+      },
+      {
+        title: "Open the compare log and scan for Mismatch",
+        description:
+          "Opened the log in Notepad and used Find to jump through 'Mismatch' entries. The --Analyze Security Policy-- section shows MinimumPasswordLength as Mismatch while adjacent settings (PasswordHistorySize, MaximumPasswordAge, PasswordComplexity) are Not Configured — meaning the template doesn't define them. LockoutBadCount is also flagged.",
+        command: "notepad C:\\sec401\\labs\\5.3\\compare-vm-to-alpha-basic-policy.log",
+        screenshot: "/labs/win-policies-110704.png",
+      },
+      {
+        title: "Grep the log with Select-String",
+        description:
+          "Piped Get-Content to Select-String 'mismatch' to list only the drift. Five Mismatch lines: MinimumPasswordLength, LockoutBadCount, and MaximumLogSize (x3 — one per event log: Application, Security, System). That's the exact hardening delta the template will apply.",
+        command: "Get-Content .\\compare-vm-to-alpha-basic-policy.log | Select-String 'mismatch'",
+        commandBreakdown: "Get-Content: read file into pipeline\nSelect-String: pattern match (PowerShell's grep)",
+        screenshot: "/labs/win-policies-110748.png",
+      },
+      {
+        title: "Apply the template with secedit /configure",
+        description:
+          "Ran secedit /configure using the same database. /configure is the verb that actually writes the template's settings into local policy. The task completed successfully message means every defined setting in the template was applied.",
+        command: "secedit.exe /configure /db alpha-basic-policy.sdb /log C:\\sec401\\labs\\5.3\\apply-apha-basic-policy-to-vm.log",
+        commandBreakdown: "/configure: apply template settings to the host\n/db: use the prior analysis database (keeps settings consistent)",
+        screenshot: "/labs/win-policies-111118.png",
+      },
+      {
+        title: "Re-analyze to verify the drift is gone",
+        description:
+          "Ran /analyze a second time and wrote the output to recompare-vm-to-alpha-basic-policy.log. Running the compare twice — once before /configure and once after — is the evidence pattern: the second log should show zero Mismatch entries, which proves the template was applied successfully.",
+        command: "secedit.exe /analyze /db alpha-basic-policy.sdb /log C:\\sec401\\labs\\5.3\\recompare-vm-to-alpha-basic-policy.log",
+        screenshot: "/labs/win-policies-111344.png",
+      },
+      {
+        title: "Load the MMC snap-ins",
+        description:
+          "Added Security Templates and Security Configuration and Analysis to an MMC console. The MMC snap-ins are the GUI equivalent of secedit /analyze and /configure — useful for editing .inf templates interactively and for analysts who prefer a tree view. Same engine, different surface.",
+        command: "mmc.exe  (File → Add/Remove Snap-in → Security Templates, Security Configuration and Analysis)",
+        screenshot: "/labs/win-policies-111527.png",
+      },
+    ],
+    outcome:
+      "Demonstrated the full Windows baseline compliance loop: analyze a host against a template, surface the exact drift with Select-String, apply the template, and re-analyze to prove the drift is gone — all from a single PowerShell console with secedit.exe.",
+    nextStepsInProduction:
+      "In a fleet environment, push the .inf template via Group Policy (SCE → Security Settings) instead of running secedit host-by-host. Automate the analyze/configure/reanalyze loop with a PowerShell wrapper so the compare logs land in a central share for audit evidence. Replace the basic template with a CIS Benchmark or Microsoft Security Compliance Toolkit baseline and extend the detection pipeline so any Mismatch on a production host raises a SIEM alert.",
+    securityControlsRelevant: [
+      "Windows security baselines (CIS, Microsoft SCT)",
+      "Group Policy Objects and Local Security Policy",
+      "Password policy (length, history, lockout)",
+      "Event log sizing and retention",
+      "Configuration drift detection and audit evidence",
+    ],
+    keyFindings: [
+      "MinimumPasswordLength did not match the Alpha basic template",
+      "LockoutBadCount did not match the template",
+      "MaximumLogSize mismatched on Application, Security, and System event logs",
+      "Template applied cleanly via secedit /configure",
+      "Re-analysis confirms zero Mismatch entries post-configure",
+    ],
+    takeaway: [
+      "secedit is one of those tools that's been in Windows forever and still does exactly what you want. /analyze and /configure are both idempotent and log-first, which makes them trivially scriptable: run analyze, grep for Mismatch, run configure, run analyze again, diff. That before/after pair of logs is also the cleanest audit artifact you can hand an assessor.",
+      "The Not Configured vs. Mismatch distinction in the log matters. Not Configured means the template is silent on that setting — the host can do whatever it wants. Mismatch means the template has an opinion and the host disagrees. A lot of 'we applied the baseline' incidents trace back to teams not reading this distinction and assuming Not Configured means compliant.",
+      "The real production move is GPO, not host-by-host secedit. But understanding secedit is what makes the GPO debugging tractable — when a policy doesn't apply on one host, dropping to secedit /analyze on that box is the fastest way to see which specific setting didn't take and why.",
+    ],
+    screenshots: [
+      { src: "/labs/win-policies-110317.png", alt: "secedit /analyze syntax", caption: "secedit.exe /analyze — help text and required parameters" },
+      { src: "/labs/win-policies-110611.png", alt: "Analyze against Alpha basic template", caption: "secedit /analyze against Alpha-Win-Wkstn-Basic-Sec-Policy.inf" },
+      { src: "/labs/win-policies-110704.png", alt: "Compare log in Notepad", caption: "MinimumPasswordLength and LockoutBadCount Mismatch entries" },
+      { src: "/labs/win-policies-110748.png", alt: "Select-String mismatch", caption: "Get-Content | Select-String 'mismatch' — 5 drift lines" },
+      { src: "/labs/win-policies-111118.png", alt: "secedit /configure", caption: "Apply template with secedit /configure" },
+      { src: "/labs/win-policies-111344.png", alt: "Re-analyze after configure", caption: "secedit /analyze → recompare log as before/after evidence" },
+      { src: "/labs/win-policies-111527.png", alt: "MMC snap-ins", caption: "Security Templates + Security Configuration and Analysis in MMC" },
+    ],
+  },
+  {
+    id: 17,
+    courseSlug: "sec401",
+    slug: "powershell-speed-scale",
+    title: "Lab 5.4 - Using PowerShell for Speed and Scale",
+    course: "SEC401 - Windows Security",
+    role: "Solo, Lab",
+    focus: "Windows Security",
+    level: "SEC401",
+    date: "Apr 2026",
+    artifacts: "Sanitized PowerShell console screenshots from a 3-host alpha-svr lab fleet",
+    context:
+      "This lab demonstrates how PowerShell scales Windows administration and incident response from a single host to a fleet: working with objects through the pipeline, filtering and measuring results, driving remote command execution with Invoke-Command, and using that same remoting surface to hunt a suspicious service (broker.exe/BrokerSvc) deployed across three servers.",
+    summary:
+      "Used PowerShell cmdlets, the object pipeline, Out-GridView, and Invoke-Command against three remote alpha-svr hosts to enumerate processes and services, then hunted a suspicious BrokerSvc service running broker.exe as LocalSystem and captured its SHA-256 for IOC sharing.",
+    whyThisMatters:
+      "Windows attackers live on the box with the same tools defenders use. Fluency in PowerShell — pipelines, remoting, Get-WinEvent, Get-FileHash — is what lets a blue-team analyst triage a 3-host (or 3000-host) incident without drowning in RDP sessions or GUI clicks. This lab builds exactly that muscle.",
+    tldr: [
+      "Pipelined Get-Process/Get-Service with Where-Object, Measure-Object, Out-GridView, Export-CSV",
+      "Used Invoke-Command with Get-Credential to run remote queries against alpha-svr1/2/3.local",
+      "Hunted a rogue BrokerSvc (broker.exe, LocalSystem, auto-start) and captured its SHA-256",
+    ],
+    skillsDemonstrated: [
+      "PowerShell object pipeline",
+      "Remote command execution (Invoke-Command)",
+      "Service and process enumeration at scale",
+      "Windows Event Log triage (Get-WinEvent 7045)",
+      "File integrity hashing (Get-FileHash)",
+    ],
+    tools: ["PowerShell", "Invoke-Command", "Get-WinEvent", "Get-FileHash", "Out-GridView"],
+    steps: [
+      "Enumerate local processes: Get-Process",
+      "Deep-inspect a process: Get-Process -Name explorer | Select-Object *",
+      "Launch and inspect notepad, then kill it via a stored variable",
+      "Enumerate services, count them, filter to Running, and count again",
+      "Send Get-Service to Out-GridView and Export-Csv for triage",
+      "Tour Get-ChildItem (dir alias) and pipe to Sort-Object CreationTime",
+      "Bootstrap the fleet with start-servers.ps1 and load alpha-servers.txt",
+      "Run Invoke-Command against the fleet with Get-Credential + Basic auth",
+      "Hunt for a suspicious exe across C:\\Windows on all three hosts",
+      "Correlate with Event ID 7045 (service installed) and SHA-256 the binary",
+    ],
+    stepDetails: [
+      {
+        title: "Process overview with Get-Process",
+        description:
+          "Baseline enumeration of every running process with handles, memory (PM/WS), CPU seconds, PID, and ProcessName. This is the PowerShell equivalent of tasklist, but every row is a live object you can pipe into further filters.",
+        command: "Get-Process",
+        screenshot: "/labs/powershell-101645.png",
+      },
+      {
+        title: "Deep property view on a single process",
+        description:
+          "Piped one process into Select-Object -Property * to expose every property the object exposes — FileVersion, Path, Company, HandleCount, WorkingSet, VirtualMemorySize, BasePriority. This is how you learn what you can filter on before writing a Where-Object clause.",
+        command: "Get-Process -Name explorer | Select-Object -Property *",
+        commandBreakdown: "-Name: match by process name\nSelect-Object -Property *: dump every property on the pipeline object",
+        screenshot: "/labs/powershell-101835.png",
+      },
+      {
+        title: "Launch and inspect a process",
+        description:
+          "Started Notepad with Start-Process, then introspected it with Select-Object *. Confirmed the AppX path under C:\\Program Files\\WindowsApps — useful detail when triaging whether a running binary is the Microsoft-signed Store build or a sideloaded copy.",
+        command: "Start-Process notepad.exe\nGet-Process -Name notepad | Select-Object *",
+        screenshot: "/labs/powershell-102038.png",
+      },
+      {
+        title: "Capture a process into a variable",
+        description:
+          "Stored the Notepad process object in $NotepadProc. Variables in PowerShell hold live objects (not strings), so $NotepadProc carries every method and property the process exposes — which is why the next step works.",
+        command: "$NotepadProc = Get-Process -Name notepad\n$NotepadProc",
+        screenshot: "/labs/powershell-102203.png",
+      },
+      {
+        title: "Invoke a method on the stored object",
+        description:
+          "Called .kill() on the stored object to terminate Notepad, then re-queried Get-Process to confirm the process is gone (ObjectNotFound error proves the kill succeeded). This pattern — capture, act, re-verify — is the bread-and-butter of automated incident response.",
+        command: "$NotepadProc.kill()\nGet-Process -Name notepad",
+        screenshot: "/labs/powershell-102336.png",
+      },
+      {
+        title: "Enumerate Windows services",
+        description:
+          "Get-Service returns every service with Status, Name, and DisplayName. Same object-pipeline story as Get-Process — downstream cmdlets operate on service objects, not parsed text.",
+        command: "Get-Service",
+        screenshot: "/labs/powershell-102442.png",
+      },
+      {
+        title: "Count services with Measure-Object",
+        description:
+          "Piped Get-Service to Measure-Object — 278 services installed on this host. Measure-Object is the PowerShell analog to wc -l, except it counts pipeline objects, not lines of text.",
+        command: "Get-Service | Measure-Object",
+        screenshot: "/labs/powershell-102511.png",
+      },
+      {
+        title: "Filter services to only those Running",
+        description:
+          "Where-Object -Property Status -like Running narrows the pipeline to active services. Same object flowing through: Get-Service produces, Where-Object filters.",
+        command: "Get-Service | Where-Object -Property Status -like Running",
+        commandBreakdown: "Where-Object: filter pipeline objects by a predicate\n-Property Status: property to test\n-like Running: comparison (-like is case-insensitive wildcard)",
+        screenshot: "/labs/powershell-102612.png",
+      },
+      {
+        title: "Count the running services",
+        description:
+          "Chained the same filter into Measure-Object — 96 of 278 services are Running. Two cmdlets, one pipeline, zero intermediate files.",
+        command: "Get-Service | Where-Object -Property Status -like Running | Measure-Object",
+        screenshot: "/labs/powershell-102659.png",
+      },
+      {
+        title: "Out-GridView for interactive triage",
+        description:
+          "Piped Get-Service to Out-GridView — a sortable, filterable GUI grid. Out-GridView is a triage tool: you can click-filter to a subset, then send the selection back to the pipeline for further processing.",
+        command: "Get-Service | Out-GridView",
+        screenshot: "/labs/powershell-102750.png",
+      },
+      {
+        title: "Live filter inside Out-GridView",
+        description:
+          "Added a 'Status contains Running' criteria inside Out-GridView to narrow the grid interactively. Useful when you want to poke around without writing the full Where-Object in advance.",
+        command: "Get-Service | Out-GridView",
+        screenshot: "/labs/powershell-102830.png",
+      },
+      {
+        title: "Export to CSV and open in ISE",
+        description:
+          "Dumped every service object to Services.csv with Export-Csv, then opened it in the PowerShell ISE for inspection. Export-Csv serializes every property of every pipeline object — great for offline analysis or evidence preservation.",
+        command: "Get-Service | Export-CSV -Path Services.csv\nise .\\Services.csv",
+        screenshot: "/labs/powershell-102956.png",
+      },
+      {
+        title: "Directory listing and alias discovery",
+        description:
+          "Used dir to list the lab directory, then Get-Alias dir to confirm dir is just an alias for Get-ChildItem. Knowing the underlying cmdlet is what lets you pipe dir into object-aware cmdlets like Sort-Object.",
+        command: "dir\nGet-Alias dir",
+        screenshot: "/labs/powershell-103122.png",
+      },
+      {
+        title: "Inspect a file as an object",
+        description:
+          "Piped one CSV into Format-List * to expose every property on the FileSystemInfo object — PSPath, VersionInfo, BaseName, Length. Same object-pipeline mental model as processes and services: a file is an object with properties, not just a name.",
+        command: "dir .\\Services.csv | Format-List *",
+        screenshot: "/labs/powershell-103151.png",
+      },
+      {
+        title: "Sort directory listing by CreationTime",
+        description:
+          "Piped dir into Sort-Object CreationTime — Services.csv sorts last because it was just created, while the original .ps1 scripts share an older 12/16/2023 timestamp.",
+        command: "dir | Sort-Object CreationTime",
+        screenshot: "/labs/powershell-103447.png",
+      },
+      {
+        title: "Bootstrap the fleet and load the server list",
+        description:
+          "Ran start-servers.ps1 to bring the alpha-svr fleet online, then loaded the server list into a typed array with [string[]]$AlphaServers = Get-Content. Typing matters: [string[]] tells Invoke-Command to treat $AlphaServers as a list of computer names, not one long string.",
+        command: "./start-servers.ps1\n[string[]]$AlphaServers = Get-Content -Path 'C:\\sec401\\labs\\5.4\\alpha-servers.txt'\n$AlphaServers",
+        screenshot: "/labs/powershell-104123.png",
+      },
+      {
+        title: "Invoke-Command across the fleet with credentials",
+        description:
+          "Captured credentials with Get-Credential, then ran Get-CimInstance Win32_OperatingSystem remotely on all three alpha-svr hosts in one call. The output is a single table with a PSComputerName column — Invoke-Command returns deserialized objects from every remote host, merged into one pipeline.",
+        command: "$creds = Get-Credential\ninvoke-command -Authentication Basic -Credential $creds -ComputerName $AlphaServers -command { Get-CimInstance Win32_OperatingSystem | Select-Object CSName, Caption } | Format-Table",
+        commandBreakdown: "-Authentication Basic: simple auth (lab only — use Kerberos/CredSSP in prod)\n-Credential: PSCredential object from Get-Credential\n-ComputerName: array of targets\n-command { ... }: scriptblock executed on every remote host",
+        screenshot: "/labs/powershell-104456.png",
+      },
+      {
+        title: "Negative control: probe for a file that doesn't exist",
+        description:
+          "Ran Get-ChildItem C:\\Windows\\System32\\proxy.exe across the fleet — all three hosts returned PathNotFound. This is a deliberate negative control: it proves Invoke-Command is routing to all three hosts and that the hunt query below isn't silently failing.",
+        command: "invoke-command -Authentication Basic -Credential $creds -ComputerName $AlphaServers -command { Get-ChildItem C:\\Windows\\System32\\proxy.exe } | Format-Table",
+        screenshot: "/labs/powershell-104709.png",
+      },
+      {
+        title: "Fleet-wide enumeration of C:\\Windows\\*.exe",
+        description:
+          "Listed every EXE directly under C:\\Windows on all three hosts. The output reveals the same five binaries on each host — bfsvc.exe, notepad.exe, regedit.exe, write.exe (expected Windows binaries) plus broker.exe with a 10/21/2023 timestamp. broker.exe is not a default Windows binary at that path and shows up on every host — a strong IOC signal.",
+        command: "invoke-command -Authentication Basic -Credential $creds -ComputerName $AlphaServers -command { Get-ChildItem C:\\Windows\\*.exe } | Format-Table",
+        screenshot: "/labs/powershell-104904.png",
+      },
+      {
+        title: "Correlate with Event ID 7045 (service installed)",
+        description:
+          "Entered a remote session on alpha-svr3 and queried the System log for Event ID 7045 (Service Control Manager: a service was installed). Got a direct match: BrokerSvc, c:\\Windows\\broker.exe, user mode service, auto start, running as LocalSystem. That's the full install record — who installed it (SCM context), when (TimeCreated 12/12/2023), and with what privileges (LocalSystem = full admin on the box).",
+        command: "Get-WinEvent -FilterHashtable @{LogName='System'; ID=7045} -MaxEvents 3 | format-list",
+        commandBreakdown: "-FilterHashtable: server-side XPath-equivalent filter (fast)\nLogName: which log to query\nID=7045: Service Control Manager 'a service was installed' event\n-MaxEvents 3: cap results",
+        screenshot: "/labs/powershell-105306.png",
+      },
+      {
+        title: "Hash the suspicious binary for IOC sharing",
+        description:
+          "Ran Get-FileHash -Algorithm SHA256 against C:\\Windows\\broker.exe on the remote host. SHA-256: 646DF7C22A76C92CF6CD83A9B7970C95514047C9431B29909732C62F28963E31. That hash is the shareable IOC: feed it to VirusTotal, add it to a SIEM watchlist, or block it with Defender ASR — it's what turns this single-lab finding into fleet-wide detection content.",
+        command: "Get-FileHash -Algorithm SHA256 C:\\Windows\\broker.exe",
+        commandBreakdown: "-Algorithm SHA256: hash algorithm (MD5/SHA1/SHA256/SHA512 supported)",
+        screenshot: "/labs/powershell-105415.png",
+      },
+    ],
+    outcome:
+      "Demonstrated the full arc of PowerShell for Windows incident response: local enumeration with pipelines, interactive triage with Out-GridView, remote execution across a 3-host fleet with Invoke-Command, and a concrete hunt that surfaced a rogue BrokerSvc running broker.exe as LocalSystem — complete with a SHA-256 suitable for distribution as an IOC.",
+    nextStepsInProduction:
+      "Ship the SHA-256 to the SIEM and EDR as a detection. Pull the full Event ID 7045 history across the fleet to identify every host where BrokerSvc was installed, not just the three in the lab. Quarantine broker.exe, capture a memory image of any host where it's running, and pivot to 4697 (Security log) and Sysmon Event ID 1/7 for process creation and image-load context. Rotate any credentials that could have been harvested from the LocalSystem-privileged service.",
+    securityControlsRelevant: [
+      "PowerShell remoting over WinRM (constrained to signed scriptblocks in prod)",
+      "Service installation auditing (Event ID 7045, 4697)",
+      "File integrity monitoring + SHA-256 IOC sharing",
+      "Endpoint detection (Defender for Endpoint, Sysmon)",
+      "Least-privilege service accounts (no LocalSystem for custom services)",
+    ],
+    keyFindings: [
+      "278 services enumerated on the admin workstation; 96 Running",
+      "broker.exe present on alpha-svr1/2/3.local under C:\\Windows with matching 10/21/2023 timestamp",
+      "Event ID 7045 shows BrokerSvc installed as auto-start user-mode service under LocalSystem",
+      "SHA-256 of broker.exe: 646DF7C22A76C92CF6CD83A9B7970C95514047C9431B29909732C62F28963E31",
+      "Invoke-Command successfully executed against three hosts in parallel from a single console",
+    ],
+    takeaway: [
+      "The object pipeline is the thing that matters in PowerShell, and it's the part that trips up people coming from bash. Get-Service isn't returning lines of text, it's returning ServiceController objects — which is why Where-Object -Property Status works without any parsing and why Export-Csv can serialize every property automatically. Once you internalize that, you stop writing awk-style text hacks and start chaining cmdlets.",
+      "Invoke-Command is where PowerShell stops being a shell and starts being a fleet tool. Being able to fire the same scriptblock at three — or three thousand — hosts and get back one merged object pipeline is what makes hunting feasible at scale. The negative control here (probing a path that doesn't exist) is the muscle I'd want every analyst to build: before you trust a hunt query, confirm it's actually reaching every target.",
+      "The broker.exe finding is a good real-world shape. The binary sits in C:\\Windows (not System32), shows up identically on every host, has a matching 7045 event, and runs as LocalSystem. None of those signals alone would be conclusive, but together they turn a generic 'enumerate EXEs' query into a clean IOC with a hash you can distribute. That's the workflow — enumerate, correlate, hash, share — and PowerShell gives you all of it in one console.",
+    ],
+    screenshots: [
+      { src: "/labs/powershell-101645.png", alt: "Get-Process output", caption: "Get-Process — full process table" },
+      { src: "/labs/powershell-101835.png", alt: "Select-Object -Property * on explorer", caption: "Every property on the Explorer process object" },
+      { src: "/labs/powershell-102038.png", alt: "Start and inspect notepad", caption: "Start-Process notepad.exe; Get-Process -Name notepad | Select *" },
+      { src: "/labs/powershell-102203.png", alt: "Capture process into variable", caption: "$NotepadProc = Get-Process -Name notepad" },
+      { src: "/labs/powershell-102336.png", alt: "Kill process via stored object", caption: "$NotepadProc.kill() — verified by ObjectNotFound on re-query" },
+      { src: "/labs/powershell-102442.png", alt: "Get-Service output", caption: "Get-Service — full service list" },
+      { src: "/labs/powershell-102511.png", alt: "Measure-Object count", caption: "Get-Service | Measure-Object → 278" },
+      { src: "/labs/powershell-102612.png", alt: "Where-Object filter Running", caption: "Get-Service | Where-Object -Property Status -like Running" },
+      { src: "/labs/powershell-102659.png", alt: "Count running services", caption: "96 Running of 278 total" },
+      { src: "/labs/powershell-102750.png", alt: "Out-GridView", caption: "Get-Service | Out-GridView" },
+      { src: "/labs/powershell-102830.png", alt: "Out-GridView filter Running", caption: "Live filter inside Out-GridView" },
+      { src: "/labs/powershell-102956.png", alt: "Export-Csv and open in ISE", caption: "Services.csv opened in Windows PowerShell ISE" },
+      { src: "/labs/powershell-103122.png", alt: "dir and Get-Alias dir", caption: "dir is an alias for Get-ChildItem" },
+      { src: "/labs/powershell-103151.png", alt: "Format-List on a file", caption: "dir .\\Services.csv | Format-List * — every property" },
+      { src: "/labs/powershell-103447.png", alt: "Sort by CreationTime", caption: "dir | Sort-Object CreationTime" },
+      { src: "/labs/powershell-104123.png", alt: "Load alpha-servers.txt", caption: "start-servers.ps1 + typed array Get-Content" },
+      { src: "/labs/powershell-104456.png", alt: "Invoke-Command across fleet", caption: "Win32_OperatingSystem query on alpha-svr1/2/3.local" },
+      { src: "/labs/powershell-104709.png", alt: "Negative control: missing file", caption: "proxy.exe → PathNotFound on all three hosts" },
+      { src: "/labs/powershell-104904.png", alt: "Fleet-wide C:\\Windows\\*.exe", caption: "broker.exe found on every host — IOC candidate" },
+      { src: "/labs/powershell-105306.png", alt: "Event ID 7045 BrokerSvc", caption: "Service Control Manager: BrokerSvc installed, LocalSystem, auto start" },
+      { src: "/labs/powershell-105415.png", alt: "SHA-256 of broker.exe", caption: "Get-FileHash → 646DF7C2…63E31" },
+    ],
+  },
+  {
     id: 18,
     courseSlug: "sec401",
     slug: "linux-permissions",
     title: "Lab 6.1 - Linux Permissions",
     course: "SEC401 - Containers, Linux and Mac Security",
+    role: "Solo, Lab",
     focus: "Linux Security",
     level: "SEC401",
-    context: "",
-    summary: "Linux file and directory permission management and hardening.",
-    whyThisMatters: "",
-    tools: [],
-    steps: [],
-    outcome: "",
-    comingSoon: true,
+    date: "Apr 2026",
+    artifacts: "Sanitized terminal screenshots from a Docker-based permissions lab container",
+    context:
+      "This lab demonstrates the core Linux discretionary access control primitives — file mode bits, umask, and the sticky bit — inside a disposable Docker container. The goal is to understand why default permissions are what they are, how to tighten them for a hardening baseline, and how the sticky bit protects world-writable directories like /tmp from cross-user tampering.",
+    summary:
+      "Spun up a Docker permissions lab, tested default umask 0022 (producing 644/755), tightened to umask 0027 to strip world access (640/750), and demonstrated the /tmp sticky bit (drwxrwxrwt) preventing non-owner delete on a shared directory.",
+    whyThisMatters:
+      "Most Linux privilege escalation findings in CTFs and real audits come down to permissions that should have been tighter. Understanding umask, group-vs-other bits, and the sticky bit is the difference between writing a hardening baseline and copy-pasting one you don't understand. It's also what lets you explain to a dev why their world-readable config file is a finding.",
+    tldr: [
+      "Started a Docker lab container and connected as user annika",
+      "Observed default umask 0022 producing 644 files and 755 directories",
+      "Tightened umask to 0027 (group-readable, world-nothing) and confirmed 640/750 outputs",
+      "Demonstrated the sticky bit on /tmp (drwxrwxrwt) for shared-directory safety",
+    ],
+    skillsDemonstrated: [
+      "Linux file mode bits (owner/group/other)",
+      "umask math and default permission inheritance",
+      "Sticky bit and shared-directory safety",
+      "Container-based lab workflows (docker compose)",
+      "ls -l / ls -ld interpretation",
+    ],
+    tools: ["Linux", "bash", "Docker", "umask", "ls", "chmod"],
+    steps: [
+      "Start the lab container with start_6.1.sh and connect as annika",
+      "Create a file with the default umask and inspect its mode",
+      "Read the current umask (0022) and map it to 644/755",
+      "Change umask to 0027 and confirm new files/dirs drop all world access",
+      "Inspect /tmp and identify the sticky bit (drwxrwxrwt)",
+      "Write a sticky-bit test file inside /tmp to observe per-owner delete semantics",
+    ],
+    stepDetails: [
+      {
+        title: "Start the Docker lab container",
+        description:
+          "Ran start_6.1.sh to bring up the lab-61-permissions-1 container on the lab-61_default network. The 'docker stop/rm requires at least 1 argument' lines are the script safely reporting that no prior container existed to clean up. End state: container Running 2/2.",
+        command: "cd /sec401/labs/6.1\n./start_6.1.sh",
+        screenshot: "/labs/linux-perms-112203.png",
+      },
+      {
+        title: "Connect into the container as annika",
+        description:
+          "Ran connect.sh to drop into a shell inside the container as user annika. Every subsequent command runs inside this disposable container, so nothing touches the host.",
+        command: "./connect.sh",
+        screenshot: "/labs/linux-perms-112213.png",
+      },
+      {
+        title: "Create a file with the default umask",
+        description:
+          "Wrote a line to test_perms.txt with echo, cat-ed it back to confirm content, then ls -l to read the mode. Output: -rw-r--r-- 1 annika annika 7. Owner rw, group r, other r — the canonical 644 you get with umask 0022.",
+        command: "echo annika > test_perms.txt\ncat test_perms.txt\nls -l test_perms.txt",
+        screenshot: "/labs/linux-perms-112304.png",
+      },
+      {
+        title: "Read the current umask",
+        description:
+          "umask prints 0022. The mask works by subtracting bits from the base (666 for files, 777 for dirs): 666 - 022 = 644 for files, 777 - 022 = 755 for dirs. That's why the file above landed on 644 without any chmod.",
+        command: "umask",
+        screenshot: "/labs/linux-perms-113116.png",
+      },
+      {
+        title: "Tighten umask to 0027 and retest",
+        description:
+          "Set umask to 0027 (group read only, world nothing), created a new file and directory, and listed them. Output: -rw-r----- for secure.txt and drwxr-x--- for secure_dir. That's 640/750 — the hardening baseline used by most CIS benchmarks because it cuts world access entirely while keeping same-group collaboration working.",
+        command: "umask 0027\necho annika > secure.txt\nmkdir secure_dir\nls -ld secure*",
+        commandBreakdown: "umask 0027: mask bits = user 0, group 2, other 7\nEffect: files default to 640, dirs to 750",
+        screenshot: "/labs/linux-perms-113302.png",
+      },
+      {
+        title: "Sticky bit on /tmp",
+        description:
+          "Listed /tmp with ls -ld: drwxrwxrwt. The trailing t is the sticky bit — directory is world-writable, but only the file owner (or root) can rename or delete a file inside it. Created /tmp/sticky_bit_test.txt to demonstrate: any user can write to /tmp, but annika's file is protected from deletion by other users in the same container.",
+        command: "ls -ld /tmp\necho \"only annika may rename or delete this file\" > /tmp/sticky_bit_test.txt\nls -l /tmp/sticky_bit_test.txt",
+        commandBreakdown: "drwxrwxrwt: d=dir, rwx (user), rwx (group), rwt (other with sticky)\nt without x would display as T",
+        screenshot: "/labs/linux-perms-113804.png",
+      },
+    ],
+    outcome:
+      "Walked through the full Linux permission model from first principles: default umask → file mode bits → tightened hardening umask → sticky-bit semantics on a shared directory. End state is a working mental model for why 644/755 is the default, why 640/750 is the hardened baseline, and why /tmp is drwxrwxrwt specifically.",
+    nextStepsInProduction:
+      "Set umask 0027 (or 0077 for single-tenant hosts) in /etc/login.defs and /etc/profile so it applies to every interactive session. For service accounts, set the umask in the systemd unit's UMask= directive so spawned processes inherit it. Audit existing sensitive paths (/etc, /var/log, /home) for world-readable files that shouldn't be, and confirm every world-writable directory on the filesystem has the sticky bit — find / -perm -0002 -type d ! -perm -1000 is the one-liner to enforce that.",
+    securityControlsRelevant: [
+      "CIS Linux benchmark: default umask 027",
+      "File permission auditing (find -perm)",
+      "Sticky bit on world-writable directories",
+      "Service-account systemd UMask= hardening",
+      "Group-based collaboration without world access",
+    ],
+    keyFindings: [
+      "Default umask in the lab container is 0022, producing 644 files and 755 dirs",
+      "umask 0027 produces 640 files and 750 dirs — world access eliminated",
+      "/tmp has drwxrwxrwt — world-writable but protected by the sticky bit",
+      "Group-readable mode (640) preserves same-group collaboration",
+    ],
+    takeaway: [
+      "umask is the one Linux setting that silently shapes every file created on the system. Most hardening guides start with 027 without explaining why — the why is that 027 is the tightest mask that still permits same-group collaboration, and most systems have a legitimate reason to preserve group access (shared dev team, service account + admin group, etc.). 077 is tighter but breaks those workflows.",
+      "The sticky bit is a good reminder that Unix permissions aren't just user/group/other — they're a small set of orthogonal tools, and the sticky bit is the one that makes shared directories safe. /tmp, /var/tmp, /dev/shm all rely on it. Any world-writable directory without the sticky bit is a finding worth chasing, because it means any user can delete or rename another user's files inside it.",
+      "The docker-compose lab pattern here is understated but useful. You get a clean, throwaway environment for every permission exercise, no risk of clobbering your host, and the setup script handles the network and container lifecycle. Same pattern scales to reproducing customer bugs or running hostile code — it's the defensive version of the sandbox approach.",
+    ],
+    screenshots: [
+      { src: "/labs/linux-perms-112203.png", alt: "Start lab container", caption: "start_6.1.sh brings up lab-61-permissions-1" },
+      { src: "/labs/linux-perms-112213.png", alt: "Connect as annika", caption: "connect.sh drops into annika@container" },
+      { src: "/labs/linux-perms-112304.png", alt: "Default umask file", caption: "test_perms.txt → 644 (umask 0022)" },
+      { src: "/labs/linux-perms-113116.png", alt: "umask readout", caption: "umask → 0022" },
+      { src: "/labs/linux-perms-113302.png", alt: "Tightened umask 0027", caption: "secure.txt 640, secure_dir 750" },
+      { src: "/labs/linux-perms-113804.png", alt: "Sticky bit on /tmp", caption: "/tmp drwxrwxrwt + sticky_bit_test.txt" },
+    ],
   },
   {
     id: 19,
