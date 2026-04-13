@@ -69,6 +69,12 @@ const BLOG_METADATA: Record<string, { title: string; description: string; date: 
       "A hands-on IDS/NSM walkthrough: validating a Snort 3.1.73 configuration, scoping HOME_NET to a /16, replaying investigate.pcap through the community ruleset to surface 294 INDICATOR-SHELLCODE ssh CRC32 overflow alerts from a single attacker IP, pivoting with --bpf, and reprocessing the same PCAP in Zeek with the extract-all-files policy to show how signature IDS and protocol-aware NSM complement each other.",
     date: "2026-04-12",
   },
+  "linux-logging-auditing": {
+    title: "Linux Logging and Auditing: auditd, aureport, ausearch, and SIGMA Detection with Zircolite",
+    description:
+      "A hands-on walkthrough of the Linux audit pipeline — Best-Practice auditd rules (recon, susp_activity, sssd), aureport --summary and --key triage, ausearch -k with -i for interpreted output, decoding a hex-encoded bash /dev/tcp reverse shell with xxd, and running Zircolite with a SIGMA ruleset to surface 177 Webshell Remote Command Execution events (MITRE T1505.003) from 41k raw audit events.",
+    date: "2026-04-13",
+  },
   "linux-permissions": {
     title: "Linux Permissions: umask, Mode Bits, and the Sticky Bit Explained with a Docker Lab",
     description:
