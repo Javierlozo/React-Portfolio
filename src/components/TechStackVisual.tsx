@@ -155,11 +155,11 @@ export default function TechStackVisual() {
           >
             Core Stack
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
             {PRIMARY_SKILLS.map((item, i) => (
               <div
                 key={item.name}
-                className={`flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 rounded-xl border transition-all duration-500 ease-out ${
+                className={`flex items-center gap-2 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-4 rounded-xl border transition-all duration-500 ease-out ${
                   theme === "dark"
                     ? "bg-gray-800/70 border-gray-600 hover:border-gray-500"
                     : "bg-white border-gray-200 hover:border-gray-400"

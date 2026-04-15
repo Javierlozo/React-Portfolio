@@ -258,7 +258,7 @@ export default function Navbar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 border shrink-0 transition-all duration-300 hover:scale-105 ${
+          className={`flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 border shrink-0 transition-all duration-300 hover:scale-105 ${
             theme === 'dark' 
               ? 'border-gray-700 text-gray-400 hover:border-white hover:text-white' 
               : 'border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900'

@@ -111,36 +111,31 @@ export default function About() {
             }`}>
               IE University
             </span>
-            . After 6+ years in construction project management, I pivoted into software engineering and never looked back. Now a security-focused engineer with deep experience in cloud technologies and application security, recently earning the{" "}
-            <span className={`font-normal ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              GIAC GFACT certification
-            </span>{" "}
-            through the SANS Institute.
+            . I spent nearly 6 years in the commercial construction industry, working in engineering, CAD drafting, and project management, before pivoting into software engineering and never looking back.
           </p>
-          
-          <p 
-            ref={(el) => { elementRefs.current[1] = el; }}
-            data-index="1"
+
+          <p
+            ref={(el) => { elementRefs.current[4] = el; }}
+            data-index="4"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
             } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
-              visibleElements.has(1)
+              visibleElements.has(4)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
-            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(1) ? '0ms' : '100ms' }}
+            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '50ms' }}
           >
-            I bring together real-world software engineering experience and formal security training to design and build applications that are{" "}
+            Now a security-focused engineer with deep experience in cloud technologies and application security, recently earning the{" "}
             <span className={`font-normal ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              secure by design, scalable, and production-ready
-            </span>.
+              GIAC GFACT and GSEC certifications
+            </span>{" "}
+            through the SANS Institute as part of the SANS Cyber Academy scholarship.
           </p>
-          
-          <p 
+
+          <p
             ref={(el) => { elementRefs.current[2] = el; }}
             data-index="2"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
@@ -179,11 +174,11 @@ export default function About() {
             }`}>
               GDNA
             </span>
-            , with a focus on secure API design, least-privilege IAM, and production-grade AWS architecture. Currently pursuing{" "}
+            , with a focus on secure API design, least-privilege IAM, and production-grade AWS architecture. Next up on the certification path:{" "}
             <span className={`font-normal ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              GIAC GSEC
+              GIAC GCIH
             </span>
             . Always open to interesting conversations.
           </p>

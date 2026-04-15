@@ -2,13 +2,13 @@
 
 **Full Stack Engineer | Security, Cloud, AI**
 
-Building production applications with React, Next.js, AWS, and Python. GIAC GFACT certified. Currently training through SANS Cyber Academy with a focus on security-focused engineering.
+Building production applications with React, Next.js, AWS, and Python. GIAC GFACT + GSEC certified. Currently training through the SANS Cyber Academy with a focus on security-focused engineering.
 
 ## What I'm Working On
 
 - Security lab writeups with real packet captures and analysis - [View Labs](https://www.luislozoya.com/#security-labs)
 - AI-powered portfolio with fit assessment and chat - [www.luislozoya.com](https://www.luislozoya.com)
-- Preparing for GPCS, AWS Security, and GSEC certifications
+- Preparing for GCIH, AWS Security, and PWPA certifications
 
 ## Stack
 
@@ -22,6 +22,7 @@ Building production applications with React, Next.js, AWS, and Python. GIAC GFAC
 
 ## Certifications
 
+- GIAC Security Essentials (GSEC)
 - GIAC Foundational Cybersecurity Technologies (GFACT)
 - Coursera Full Stack Development
 - TryHackMe Cybersecurity Path

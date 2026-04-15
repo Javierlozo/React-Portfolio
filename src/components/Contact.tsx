@@ -175,8 +175,8 @@ export default function Contact() {
                   }
                   required
                   disabled={isSubmitting}
-                  rows={6}
-                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent min-h-[120px] ${
+                  rows={4}
+                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent min-h-[96px] sm:min-h-[120px] ${
                     theme === 'dark'
                       ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
                       : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'

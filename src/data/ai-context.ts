@@ -44,10 +44,11 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 - CompTIA Security+
 - AWS Cloud Practitioner
 - Google Cybersecurity Professional Certificate
-- GIAC GFACT (2025)
+- GIAC GSEC - Security Essentials (2026)
+- GIAC GFACT - Foundational Cybersecurity Technologies (2026)
 - Purdue University System Administration Certificate (2023)
 - CAPM (Certified Associate in Project Management, 2014)
-- Currently studying for GIAC GSEC
+- Next in SANS Cyber Academy: SEC504 / GIAC GCIH
 
 ## Cybersecurity Labs
 - Completed hands-on security labs with detailed technical write-ups published on portfolio

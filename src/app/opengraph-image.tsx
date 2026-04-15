@@ -64,7 +64,7 @@ export default function OGImage() {
               marginTop: "16px",
             }}
           >
-            {["React", "Next.js", "AWS", "Python", "TypeScript", "GIAC GFACT"].map(
+            {["React", "Next.js", "AWS", "Python", "TypeScript", "GIAC GSEC"].map(
               (tag) => (
                 <div
                   key={tag}

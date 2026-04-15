@@ -57,7 +57,7 @@ export const metadata = {
   },
   openGraph: {
     title: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
-    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
+    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT + GSEC certified. Open to full-time and contract roles.",
     url: 'https://www.luislozoya.com',
     siteName: 'Luis Javier Lozoya Portfolio',
     locale: 'en_US',
@@ -67,7 +67,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
-    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT certified. Open to full-time and contract roles.",
+    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT + GSEC certified. Open to full-time and contract roles.",
     creator: '@javierlozo',
   },
   robots: {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 
 export interface CheatRow {
@@ -25,6 +25,31 @@ export default function PrintableCheatsheet({
 }) {
   const { theme } = useTheme();
   const [search, setSearch] = useState("");
+  const [busy, setBusy] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const downloadPdf = async () => {
+    if (!contentRef.current || busy) return;
+    setBusy(true);
+    try {
+      const mod = await import("html2pdf.js");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const html2pdf: any = (mod as any).default || mod;
+      await html2pdf()
+        .from(contentRef.current)
+        .set({
+          margin: [0.35, 0.35, 0.35, 0.35],
+          filename: "sec401-cheatsheet.pdf",
+          image: { type: "jpeg", quality: 0.95 },
+          html2canvas: { scale: 2, backgroundColor: "#ffffff", useCORS: true },
+          jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
+          pagebreak: { mode: ["css", "legacy"], avoid: ".cheat-section" },
+        })
+        .save();
+    } finally {
+      setBusy(false);
+    }
+  };
 
   const q = search.trim().toLowerCase();
   const filtered = q
@@ -95,14 +120,15 @@ export default function PrintableCheatsheet({
               </p>
             </div>
             <button
-              onClick={() => window.print()}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              onClick={downloadPdf}
+              disabled={busy}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-wait ${
                 theme === "dark"
                   ? "bg-amber-500/20 text-amber-400 hover:bg-amber-500/30"
                   : "bg-amber-100 text-amber-800 hover:bg-amber-200"
               }`}
             >
-              Print Cheatsheet
+              {busy ? "Generating PDF…" : "Download PDF"}
             </button>
           </div>
 
@@ -120,6 +146,7 @@ export default function PrintableCheatsheet({
             />
           </div>
 
+          <div ref={contentRef}>
           {filtered.map((section) => (
             <section key={section.name} className="cheat-section mb-8">
               <h2 className={`text-lg font-bold mb-2 pb-1 border-b ${theme === "dark" ? "text-amber-400 border-gray-700" : "text-amber-700 border-gray-300"}`}>
@@ -159,6 +186,7 @@ export default function PrintableCheatsheet({
               </table>
             </section>
           ))}
+          </div>
 
           <p className={`text-center text-xs mt-8 no-print ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
             Tip: if you can&apos;t recall what a flag does without looking, drill that tool. CyberLive is timed — muscle memory wins over recall.

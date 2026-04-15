@@ -255,7 +255,7 @@ export default function PortfolioSlider() {
           <nav className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'} lg:border-r ${
             theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
           }`}>
-            <div className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible">
+            <div className="flex flex-col lg:flex-col">
               {clientProjects.map((project, index) => {
                 const isActive = index === currentIndex;
                 // Extract short name (before the colon)
@@ -264,7 +264,7 @@ export default function PortfolioSlider() {
                   <button
                     key={project.id}
                     onClick={() => setCurrentIndex(index)}
-                    className={`relative text-left px-4 lg:px-6 py-4 lg:py-5 transition-all duration-200 whitespace-nowrap lg:whitespace-normal flex-shrink-0 lg:flex-shrink border-b last:border-b-0 ${
+                    className={`relative text-left px-4 lg:px-6 py-4 lg:py-5 transition-all duration-200 border-b last:border-b-0 ${
                       theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
                     } ${
                       isActive

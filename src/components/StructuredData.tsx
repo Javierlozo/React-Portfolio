@@ -4,7 +4,7 @@ export default function StructuredData() {
     "@type": "Person",
     "name": "Luis Javier Lozoya",
     "jobTitle": "Full Stack Engineer - Security, Cloud, AI",
-    "description": "Full Stack Engineer with 5+ years experience building production applications with React, Next.js, AWS, and Python. GIAC GFACT certified. Specializing in security-focused engineering and AI integration.",
+    "description": "Full Stack Engineer with 5+ years experience building production applications with React, Next.js, AWS, and Python. GIAC GFACT + GSEC certified. Specializing in security-focused engineering and AI integration.",
     "url": "https://www.luislozoya.com",
     "image": "https://www.luislozoya.com/opengraph-image",
     "sameAs": [
@@ -93,6 +93,15 @@ export default function StructuredData() {
     "hasCredential": [
       {
         "@type": "EducationalOccupationalCredential",
+        "name": "GIAC Security Essentials (GSEC)",
+        "credentialCategory": "Professional Certification",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "GIAC (Global Information Assurance Certification)"
+        }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
         "name": "GIAC Foundational Cybersecurity Technologies (GFACT)",
         "credentialCategory": "Professional Certification",
         "recognizedBy": {
@@ -102,6 +111,7 @@ export default function StructuredData() {
       }
     ],
     "award": [
+      "GIAC GSEC Certification",
       "GIAC GFACT Certification",
       "Coursera Full Stack Development Certificate",
       "System Administration Certificate",

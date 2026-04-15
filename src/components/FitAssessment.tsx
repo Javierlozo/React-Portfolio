@@ -158,7 +158,7 @@ export default function FitAssessment() {
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}
             placeholder="Paste a job description here..."
-            rows={6}
+            rows={4}
             className={`w-full border rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent ${
               isDark
                 ? "bg-gray-900/50 border-gray-700 text-white placeholder-gray-500 focus:ring-cyan-500"

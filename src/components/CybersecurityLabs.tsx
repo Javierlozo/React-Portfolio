@@ -299,7 +299,7 @@ function PipelineGroup({
                 {lab.title}
               </span>
               <span
-                className={`hidden sm:inline-block text-[10px] font-medium px-2 py-0.5 rounded-full whitespace-nowrap ${
+                className={`inline-block text-[10px] font-medium px-1.5 sm:px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 ${
                   theme === "dark" ? "bg-gray-700/50 text-gray-500" : "bg-gray-100 text-gray-400"
                 }`}
               >
@@ -313,10 +313,31 @@ function PipelineGroup({
   );
 }
 
+const FEATURED_COUNT = 6;
+
+const FEATURED_SLUG_ORDER = [
+  "vpc-flow-logs",
+  "wireshark-packet-analysis",
+  "web-app-exploitation",
+  "tcpdump-traffic-analysis",
+  "password-auditing",
+  "ids-snort3-zeek",
+];
+
 export default function CybersecurityLabs() {
   const { theme } = useTheme();
+  const [showAllLabs, setShowAllLabs] = useState(false);
 
-  const completedLabs = LABS.filter((l) => !l.comingSoon);
+  const completedLabs = LABS.filter((l) => !l.comingSoon).slice().sort((a, b) => {
+    const aIdx = FEATURED_SLUG_ORDER.indexOf(a.slug);
+    const bIdx = FEATURED_SLUG_ORDER.indexOf(b.slug);
+    const aRank = aIdx === -1 ? Number.MAX_SAFE_INTEGER : aIdx;
+    const bRank = bIdx === -1 ? Number.MAX_SAFE_INTEGER : bIdx;
+    if (aRank !== bRank) return aRank - bRank;
+    return a.id - b.id;
+  });
+  const visibleLabs = showAllLabs ? completedLabs : completedLabs.slice(0, FEATURED_COUNT);
+  const hasMoreLabs = completedLabs.length > FEATURED_COUNT;
 
   // Group ALL labs by course for the pipeline view
   const allByCourse = LABS.reduce<Record<string, typeof LABS>>((acc, lab) => {
@@ -386,40 +407,38 @@ export default function CybersecurityLabs() {
 
         {/* Completed labs: full cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-          {completedLabs.map((lab, i) => (
+          {visibleLabs.map((lab, i) => (
             <LabCard key={lab.id} lab={lab} theme={theme} index={i} />
           ))}
         </div>
 
-        {/* Full pipeline: all books with progress */}
-        <div className="mt-14 sm:mt-20">
-          {/* Divider */}
-          <div className="flex items-center gap-4 mb-8 max-w-3xl mx-auto">
-            <div className={`flex-1 h-px ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`} />
-            <span
-              className={`text-xs font-semibold uppercase tracking-widest ${
-                theme === "dark" ? "text-gray-500" : "text-gray-400"
+        {hasMoreLabs && (
+          <div className="mt-8 sm:mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAllLabs((v) => !v)}
+              className={`px-6 py-2.5 text-sm font-medium rounded-lg border transition-all ${
+                theme === "dark"
+                  ? "border-amber-500/60 text-amber-400 hover:bg-amber-500/10"
+                  : "border-amber-600 text-amber-700 hover:bg-amber-50"
               }`}
             >
-              Lab Pipeline
-            </span>
-            <div className={`flex-1 h-px ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`} />
+              {showAllLabs ? "Show less" : `Show all ${completedLabs.length} labs`}
+            </button>
           </div>
+        )}
 
-          <div className="max-w-3xl mx-auto space-y-6">
-            {courseOrder.map((courseKey, gi) => {
-              const labs = allByCourse[courseKey] ?? [];
-              return (
-                <PipelineGroup
-                  key={courseKey}
-                  courseKey={courseKey}
-                  labs={labs}
-                  theme={theme}
-                  groupIndex={gi}
-                />
-              );
-            })}
-          </div>
+        <div className="mt-6 flex justify-center">
+          <a
+            href="/labs/cheatsheet"
+            className={`text-sm font-medium transition-colors ${
+              theme === "dark"
+                ? "text-amber-400/80 hover:text-amber-300"
+                : "text-amber-700 hover:text-amber-800"
+            }`}
+          >
+            Also: SEC401 command cheatsheet →
+          </a>
         </div>
 
         <p

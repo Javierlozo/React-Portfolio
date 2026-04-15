@@ -69,6 +69,18 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
           {lab.role && (
             <p className={`text-sm mb-4 ${theme === "dark" ? "text-gray-300" : "text-gray-500"}`}>{lab.role}</p>
           )}
+          <div className="mb-4">
+            <Link
+              href={`${getLabPath(lab)}/print`}
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                theme === "dark"
+                  ? "bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/30"
+                  : "bg-amber-100 text-amber-800 hover:bg-amber-200 border border-amber-200"
+              }`}
+            >
+              Print command sheet
+            </Link>
+          </div>
           {(lab.focus || lab.level || lab.date || lab.artifacts) && (
             <div
               className={`space-y-1 text-sm ${

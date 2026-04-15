@@ -195,8 +195,8 @@ export default function ExperienceTimeline() {
 
         {/* Timeline */}
         <div className="relative" ref={timelineRef}>
-          {/* Timeline Line - Hidden on mobile, visible from tablet */}
-          <div className={`absolute left-4 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 hidden sm:block ${
+          {/* Timeline Line */}
+          <div className={`absolute left-2 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 block ${
             theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
           }`}>
             {/* Animated progress line */}

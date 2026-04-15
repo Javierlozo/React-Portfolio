@@ -7,6 +7,7 @@ import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes, faGraduationC
 import { useCardTilt } from "../hooks/useCardTilt";
 
 // Import certification images
+import gsec from "@/src/public/certifications/GSEC.png";
 import gfact from "@/src/public/certifications/GFACT.png";
 import coursera from "@/src/public/certifications/Coursera.png";
 import systemAdm from "@/src/public/certifications/System Adm.png";
@@ -111,6 +112,16 @@ export default function CertificationsShowcase() {
   const certifications: Certification[] = [
     {
       id: 1,
+      title: "GIAC Security Essentials (GSEC)",
+      issuer: "SANS Institute",
+      date: "April 2026",
+      image: gsec,
+      verifyLink: "https://www.credly.com/badges/a2483986-24fe-47ec-8c33-b4350fef966f",
+      description: "Validates hands-on skills across network security, cryptography, Windows and Linux hardening, incident response, and cloud security fundamentals. Earned through the SANS SEC401 course as part of the SANS Cyber Academy scholarship.",
+      skills: ["Network Security", "Cryptography", "Incident Response", "Windows Security", "Linux Security", "Cloud Security"]
+    },
+    {
+      id: 2,
       title: "GIAC Foundational Cybersecurity Technologies (GFACT)",
       issuer: "SANS Institute",
       date: "January 2026",
@@ -120,7 +131,7 @@ export default function CertificationsShowcase() {
       skills: ["Cybersecurity", "Networking", "Operating Systems", "Cloud Security", "Web Technologies", "Security Principles"]
     },
     {
-      id: 2,
+      id: 3,
       title: "Introduction to AI",
       issuer: "Google (via Coursera)",
       date: "2025",
@@ -130,7 +141,7 @@ export default function CertificationsShowcase() {
       skills: ["Artificial Intelligence", "AI Applications", "Data Science"]
     },
     {
-      id: 3,
+      id: 4,
       title: "Cybersecurity: System Administration Certificate Program",
       issuer: "Purdue University and Ivy Tech",
       date: "2023",
@@ -159,7 +170,7 @@ export default function CertificationsShowcase() {
         </div>
 
         {/* Certifications: full viewport width, single row */}
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-4 md:gap-6 mb-10 sm:mb-12 md:mb-16 max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
           {certifications.map((cert, i) => (
             <div
               key={cert.id}
@@ -181,7 +192,7 @@ export default function CertificationsShowcase() {
               onClick={() => setSelectedCert(cert)}
             >
               {/* Certificate Image */}
-              <div className="relative h-44 sm:h-48 md:h-52 overflow-hidden">
+              <div className="relative h-32 sm:h-48 md:h-52 overflow-hidden">
                 <Image
                   src={cert.image}
                   alt={`${cert.title} professional certification`}

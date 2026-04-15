@@ -1,13 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "../../contexts/ThemeContext";
 import type { BlogPost } from "../../data/blog";
 
+const INITIAL_COUNT = 3;
+
 export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const { theme } = useTheme();
   const dark = theme === "dark";
+  const [showAll, setShowAll] = useState(false);
+  const visiblePosts = showAll ? posts : posts.slice(0, INITIAL_COUNT);
+  const hasMore = posts.length > INITIAL_COUNT;
 
   return (
     <div className={`min-h-screen pt-20 pb-16 ${dark ? "bg-[#0B1220]" : "bg-gray-50"}`}>
@@ -22,7 +28,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => {
+          {visiblePosts.map((post) => {
             const thumb = post.lab.screenshots?.[0]?.src;
             return (
               <Link
@@ -86,11 +92,22 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
           })}
         </div>
 
-        <div className={`mt-12 pt-8 border-t text-center ${dark ? "border-gray-800" : "border-gray-200"}`}>
-          <p className={`text-sm ${dark ? "text-gray-500" : "text-gray-400"}`}>
-            More posts coming as I complete additional labs and certifications.
-          </p>
-        </div>
+        {hasMore && (
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              className={`px-6 py-2.5 text-sm font-medium rounded-lg border transition-all ${
+                dark
+                  ? "border-amber-500/60 text-amber-400 hover:bg-amber-500/10"
+                  : "border-amber-600 text-amber-700 hover:bg-amber-50"
+              }`}
+            >
+              {showAll ? "Show less" : `Show all ${posts.length} posts`}
+            </button>
+          </div>
+        )}
+
       </div>
     </div>
   );

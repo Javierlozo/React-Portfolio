@@ -178,7 +178,7 @@ export default function Hero() {
               <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                5+ years building and securing production web apps with React, Next.js, and AWS. GIAC certified (GFACT, GSEC in progress). Currently delivering secure, cloud-native applications and AI integrations for clients across the US and Spain.
+                5+ years building and securing production web apps with React, Next.js, and AWS. GIAC certified (GFACT + GSEC). Currently delivering secure, cloud-native applications and AI integrations for clients across the US and Spain.
               </p>
             </div>
 
@@ -215,7 +215,7 @@ export default function Hero() {
             }`}
               style={{ transitionDelay: skillsVisible ? '400ms' : '0ms' }}
             >
-              GIAC GFACT Certified {"\u00A0\u00B7\u00A0"} Pursuing GSEC {"\u00A0\u00B7\u00A0"} US Work Authorized
+              GIAC GFACT + GSEC Certified {"\u00A0\u00B7\u00A0"} Pursuing GCIH {"\u00A0\u00B7\u00A0"} US Work Authorized
             </p>
 
             {/* CTA Buttons - Clear actions for recruiters */}
@@ -230,7 +230,7 @@ export default function Hero() {
               >
                 View My Work
               </button>
-              <BorderDrawButton as="a" href="/resume/Resume.pdf" download>
+              <BorderDrawButton as="a" href="/resume/Resume.pdf" download="Luis Lozoya - Resume.pdf">
                 Resume
               </BorderDrawButton>
               <BorderDrawButton onClick={scrollToContact}>
