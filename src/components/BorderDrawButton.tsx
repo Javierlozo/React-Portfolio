@@ -6,7 +6,7 @@ interface BorderDrawButtonProps {
   children: React.ReactNode;
   as?: "button" | "a";
   href?: string;
-  download?: boolean;
+  download?: boolean | string;
   onClick?: () => void;
   className?: string;
   target?: string;

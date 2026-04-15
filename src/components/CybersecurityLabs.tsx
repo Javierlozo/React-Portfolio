@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -429,7 +430,7 @@ export default function CybersecurityLabs() {
         )}
 
         <div className="mt-6 flex justify-center">
-          <a
+          <Link
             href="/labs/cheatsheet"
             className={`text-sm font-medium transition-colors ${
               theme === "dark"
@@ -438,7 +439,7 @@ export default function CybersecurityLabs() {
             }`}
           >
             Also: SEC401 command cheatsheet →
-          </a>
+          </Link>
         </div>
 
         <p

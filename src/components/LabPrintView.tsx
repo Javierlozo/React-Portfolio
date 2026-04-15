@@ -20,8 +20,9 @@ export default function LabPrintView({ labs, heading, subheading, filename }: Pr
     setBusy(true);
     try {
       const mod = await import("html2pdf.js");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const html2pdf: any = (mod as any).default || mod;
+      const html2pdf = ((mod as { default?: unknown }).default || mod) as () => {
+        from: (el: HTMLElement) => { set: (opts: Record<string, unknown>) => { save: () => Promise<void> } };
+      };
       const safeName =
         filename ||
         (labs.length === 1
