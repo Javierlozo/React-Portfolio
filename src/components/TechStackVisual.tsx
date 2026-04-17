@@ -1,6 +1,5 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReact,
@@ -117,7 +116,6 @@ function useReveal(threshold = 0.15) {
 }
 
 export default function TechStackVisual() {
-  const { theme } = useTheme();
   const { ref: coreRef, visible: coreVisible } = useReveal(0.1);
   const { ref: secondaryRef, visible: secondaryVisible } = useReveal(0.1);
 
@@ -125,45 +123,27 @@ export default function TechStackVisual() {
     <section
       id="skills"
       aria-label="Tech stack overview"
-      className={`py-12 sm:py-16 md:py-20 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}
+      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
-        {/* Header */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2
-            className={`text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight ${
-              theme === "dark" ? "text-white border-gray-700" : "text-gray-900 border-gray-200"
-            }`}
-          >
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
             Tech Stack
           </h2>
-          <p
-            className={`text-sm sm:text-lg md:text-xl max-w-3xl mx-auto ${
-              theme === "dark" ? "text-gray-300" : "text-gray-600"
-            }`}
-          >
+          <p className="text-sm sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
             Technologies I reach for every day, and the broader toolkit I bring to projects.
           </p>
         </div>
 
-        {/* Primary: Core Stack */}
         <div ref={coreRef} className="mb-10 sm:mb-14">
-          <h3
-            className={`text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 ${
-              theme === "dark" ? "text-amber-400" : "text-amber-700"
-            }`}
-          >
+          <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-amber-700 dark:text-amber-400">
             Core Stack
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
             {PRIMARY_SKILLS.map((item, i) => (
               <div
                 key={item.name}
-                className={`flex items-center gap-2 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-4 rounded-xl border transition-all duration-500 ease-out ${
-                  theme === "dark"
-                    ? "bg-gray-800/70 border-gray-600 hover:border-gray-500"
-                    : "bg-white border-gray-200 hover:border-gray-400"
-                }`}
+                className="flex items-center gap-2 sm:gap-3 px-3 py-2.5 sm:px-5 sm:py-4 rounded-xl border transition-all duration-500 ease-out bg-white border-gray-200 hover:border-gray-400 dark:bg-gray-800/70 dark:border-gray-600 dark:hover:border-gray-500"
                 style={{
                   opacity: coreVisible ? 1 : 0,
                   transform: coreVisible ? "translateY(0) scale(1)" : "translateY(20px) scale(0.95)",
@@ -172,15 +152,9 @@ export default function TechStackVisual() {
               >
                 <FontAwesomeIcon
                   icon={item.icon}
-                  className={`text-base sm:text-lg shrink-0 ${
-                    theme === "dark" ? "text-white" : "text-gray-900"
-                  }`}
+                  className="text-base sm:text-lg shrink-0 text-gray-900 dark:text-white"
                 />
-                <span
-                  className={`text-sm sm:text-base font-medium ${
-                    theme === "dark" ? "text-gray-100" : "text-gray-800"
-                  }`}
-                >
+                <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100">
                   {item.name}
                 </span>
               </div>
@@ -188,46 +162,29 @@ export default function TechStackVisual() {
           </div>
         </div>
 
-        {/* Secondary: Also Work With */}
         <div ref={secondaryRef}>
-          <h3
-            className={`text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 ${
-              theme === "dark" ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
+          <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-gray-500 dark:text-gray-400">
             Also Work With
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
             {SECONDARY_SKILLS.map((group, gi) => (
               <div
                 key={group.label}
-                className={`rounded-xl border p-4 sm:p-5 transition-all duration-600 ease-out ${
-                  theme === "dark"
-                    ? "bg-gray-800/30 border-gray-700/60 hover:border-gray-600"
-                    : "bg-gray-50/80 border-gray-200 hover:border-gray-300"
-                }`}
+                className="rounded-xl border p-4 sm:p-5 transition-colors duration-600 ease-out bg-gray-50/80 border-gray-200 hover:border-gray-300 dark:bg-gray-800/30 dark:border-gray-700/60 dark:hover:border-gray-600"
                 style={{
                   opacity: secondaryVisible ? 1 : 0,
                   transform: secondaryVisible ? "translateY(0)" : "translateY(24px)",
                   transitionDelay: `${gi * 100}ms`,
                 }}
               >
-                <h4
-                  className={`text-xs font-semibold uppercase tracking-wide mb-2.5 pb-2 border-b ${
-                    theme === "dark" ? "text-gray-400 border-gray-700" : "text-gray-500 border-gray-200"
-                  }`}
-                >
+                <h4 className="text-xs font-semibold uppercase tracking-wide mb-2.5 pb-2 border-b text-gray-500 border-gray-200 dark:text-gray-400 dark:border-gray-700">
                   {group.label}
                 </h4>
                 <ul className="flex flex-wrap gap-1.5 sm:gap-2" role="list">
                   {group.items.map((item) => (
                     <li key={item.name}>
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
-                          theme === "dark"
-                            ? "bg-gray-700/70 text-gray-300 hover:bg-gray-600"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        }`}
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700/70 dark:text-gray-300 dark:hover:bg-gray-600"
                         title={item.name}
                       >
                         <FontAwesomeIcon icon={item.icon} className="text-[10px] opacity-60 shrink-0" />

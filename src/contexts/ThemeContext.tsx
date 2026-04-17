@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useLayoutEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
 
@@ -10,33 +10,32 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// useLayoutEffect warns on SSR; fall back to useEffect there.
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark');
 
-  useEffect(() => {
-    // Check for saved theme preference or default to dark
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
+  // Sync state to whatever class the pre-hydration inline script set.
+  useIsomorphicLayoutEffect(() => {
+    const html = document.documentElement;
+    setTheme(html.classList.contains('light') ? 'light' : 'dark');
   }, []);
 
   useEffect(() => {
-    // Save theme preference
     localStorage.setItem('theme', theme);
-    
-    // Apply theme to document
+    const html = document.documentElement;
     if (theme === 'light') {
-      document.documentElement.classList.add('light');
-      document.documentElement.classList.remove('dark');
+      html.classList.add('light');
+      html.classList.remove('dark');
     } else {
-      document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
+      html.classList.add('dark');
+      html.classList.remove('light');
     }
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   return (

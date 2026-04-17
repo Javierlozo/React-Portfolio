@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image, { StaticImageData } from "next/image";
-import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FiZap } from "react-icons/fi";
@@ -29,7 +28,6 @@ interface Experience {
 }
 
 export default function ExperienceTimeline() {
-  const { theme } = useTheme();
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const [lineProgress, setLineProgress] = useState(0);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -177,37 +175,22 @@ export default function ExperienceTimeline() {
   ];
 
   return (
-    <section id="experience" className={`py-12 sm:py-16 md:py-20 w-full ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
+    <section id="experience" className="py-12 sm:py-16 md:py-20 w-full bg-[#FAFAF9] dark:bg-[#0B1220]">
       <div className="w-full px-4 sm:px-6 md:px-8 max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16 relative z-10">
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
-            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
-          }`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
             Experience
           </h2>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
             5+ years across startups, agencies, and independent consulting
           </p>
         </div>
 
-        {/* Timeline */}
         <div className="relative" ref={timelineRef}>
-          {/* Timeline Line */}
-          <div className={`absolute left-2 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 block ${
-            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'
-          }`}>
-            {/* Animated progress line */}
-            <div 
-              className={`absolute top-0 left-0 w-full transition-all duration-300 ${
-                theme === 'dark' ? 'bg-gradient-to-b from-blue-500 to-cyan-500' : 'bg-gradient-to-b from-blue-600 to-cyan-600'
-              }`}
-              style={{ 
-                height: `${lineProgress * 100}%`,
-                boxShadow: `0 0 10px ${theme === 'dark' ? 'rgba(59, 130, 246, 0.5)' : 'rgba(37, 99, 235, 0.5)'}`
-              }}
+          <div className="absolute left-2 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 block bg-gray-300 dark:bg-gray-700">
+            <div
+              className="absolute top-0 left-0 w-full transition-all duration-300 bg-gradient-to-b from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500"
+              style={{ height: `${lineProgress * 100}%` }}
             />
           </div>
 
@@ -229,29 +212,20 @@ export default function ExperienceTimeline() {
                   transitionDelay: prefersReducedMotion || !visibleCards.has(index) ? '0ms' : `${index * 100}ms`
                 }}
               >
-                {/* Year Label - Hidden on mobile */}
-                <div className={`absolute -left-2 sm:-left-2 top-6 text-xs font-light tracking-widest hidden sm:block ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                }`}>
+                <div className="absolute -left-2 sm:-left-2 top-6 text-xs font-light tracking-widest hidden sm:block text-gray-500 dark:text-gray-300">
                   {exp.duration.includes(' to ')
                     ? exp.duration.split(' to ')[0].split(' ').pop()
                     : exp.duration.split(' ')[0]
                   }
                 </div>
-                
-                {/* Timeline Dot - Hidden on mobile */}
+
                 <div className={`absolute left-2 sm:left-5 md:left-6 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 sm:border-4 hidden sm:block ${
-                  exp.current 
-                    ? 'bg-blue-500 border-blue-500' 
-                    : theme === 'dark' 
-                      ? 'bg-gray-800 border-gray-600' 
-                      : 'bg-white border-gray-400'
+                  exp.current
+                    ? 'bg-blue-500 border-blue-500'
+                    : 'bg-white border-gray-400 dark:bg-gray-800 dark:border-gray-600'
                 }`}></div>
 
-                {/* Content Card */}
-                <div className={`ml-0 sm:ml-14 md:ml-16 p-3 sm:p-5 md:p-8 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl w-full max-w-5xl ${
-                  theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-                }`}>
+                <div className="ml-0 sm:ml-14 md:ml-16 p-3 sm:p-5 md:p-8 rounded-2xl shadow-lg transition-shadow duration-300 hover:shadow-xl w-full max-w-5xl bg-white dark:bg-gray-800">
                   {/* Header */}
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                     <div className="flex items-start gap-4">
@@ -267,14 +241,10 @@ export default function ExperienceTimeline() {
                             />
                           </div>
                         ) : (
-                          <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center ${
-                            theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'
-                          }`}>
-                            <FontAwesomeIcon 
-                              icon={faBuilding} 
-                              className={`text-2xl ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                              }`} 
+                          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center bg-gray-200 dark:bg-gray-700">
+                            <FontAwesomeIcon
+                              icon={faBuilding}
+                              className="text-2xl text-gray-600 dark:text-gray-300"
                             />
                           </div>
                         )}
@@ -282,9 +252,7 @@ export default function ExperienceTimeline() {
 
                       <div className="flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                          <h3 className={`text-lg sm:text-xl md:text-2xl font-light ${
-                            theme === 'dark' ? 'text-white' : 'text-gray-900'
-                          }`}>
+                          <h3 className="text-lg sm:text-xl md:text-2xl font-light text-gray-900 dark:text-white">
                             {exp.position}
                           </h3>
                           {exp.current && (
@@ -300,17 +268,13 @@ export default function ExperienceTimeline() {
                               href={exp.companyUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`font-semibold hover:underline ${
-                                theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-                              }`}
+                              className="font-semibold hover:underline text-blue-600 dark:text-blue-400"
                             >
                               {exp.company}
                               <FontAwesomeIcon icon={faExternalLinkAlt} className="ml-1 text-sm" />
                             </a>
                           ) : (
-                            <span className={`font-semibold ${
-                              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                            }`}>
+                            <span className="font-semibold text-gray-700 dark:text-gray-300">
                               {exp.company}
                             </span>
                           )}
@@ -318,15 +282,11 @@ export default function ExperienceTimeline() {
 
                         {exp.industry && (
                           <div className="flex items-center gap-2">
-                            <FontAwesomeIcon 
-                              icon={faGlobe} 
-                              className={`text-sm ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-400'
-                              }`} 
+                            <FontAwesomeIcon
+                              icon={faGlobe}
+                              className="text-sm text-gray-400 dark:text-gray-300"
                             />
-                            <span className={`text-sm ${
-                              theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                            }`}>
+                            <span className="text-sm text-gray-500 dark:text-gray-300">
                               {exp.industry}
                             </span>
                           </div>
@@ -334,9 +294,7 @@ export default function ExperienceTimeline() {
                       </div>
                     </div>
 
-                    <div className={`text-xs sm:text-sm mt-2 md:mt-0 ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                    }`}>
+                    <div className="text-xs sm:text-sm mt-2 md:mt-0 text-gray-500 dark:text-gray-300">
                       <div className="flex items-center gap-2 mb-1">
                         <FontAwesomeIcon icon={faCalendarAlt} />
                         <span>{exp.duration}</span>
@@ -348,50 +306,33 @@ export default function ExperienceTimeline() {
                     </div>
                   </div>
 
-                  {/* Description */}
-                  <p className={`text-sm sm:text-base md:text-lg mb-6 leading-relaxed ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
+                  <p className="text-sm sm:text-base md:text-lg mb-6 leading-relaxed text-gray-600 dark:text-gray-300">
                     {exp.description}
                   </p>
 
-                  {/* Achievements */}
                   <div className="mb-6">
-                    <h4 className={`text-base sm:text-lg font-light mb-3 ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
+                    <h4 className="text-base sm:text-lg font-light mb-3 text-gray-900 dark:text-white">
                       Key Achievements:
                     </h4>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, idx) => (
-                        <li key={idx} className={`flex items-start gap-2 sm:gap-3 ${
-                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                        }`}>
-                          <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                            theme === 'dark' ? 'bg-blue-400' : 'bg-blue-500'
-                          }`}></div>
+                        <li key={idx} className="flex items-start gap-2 sm:gap-3 text-gray-600 dark:text-gray-300">
+                          <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-blue-500 dark:bg-blue-400"></div>
                           <span className="text-xs sm:text-sm">{achievement}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* Technologies */}
                   <div>
-                    <h4 className={`text-base sm:text-lg font-light mb-3 ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
+                    <h4 className="text-base sm:text-lg font-light mb-3 text-gray-900 dark:text-white">
                       Technologies Used:
                     </h4>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
                       {exp.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full ${
-                            theme === 'dark'
-                              ? 'bg-gray-700 text-gray-300'
-                              : 'bg-gray-200 text-gray-700'
-                          }`}
+                          className="px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
                         >
                           {tech}
                         </span>
@@ -404,11 +345,7 @@ export default function ExperienceTimeline() {
                     <div className="mt-6">
                       <button
                         onClick={() => toggleNarrative(exp.id)}
-                        className={`flex items-center gap-1.5 text-xs font-semibold transition-colors ${
-                          theme === 'dark'
-                            ? 'text-cyan-400 hover:text-cyan-300'
-                            : 'text-blue-600 hover:text-blue-700'
-                        }`}
+                        className="flex items-center gap-1.5 text-xs font-semibold transition-colors text-blue-600 hover:text-blue-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                       >
                         <FiZap className="w-3.5 h-3.5" />
                         {expandedNarratives.has(exp.id) ? "Hide" : "View"} AI Context
@@ -421,51 +358,35 @@ export default function ExperienceTimeline() {
                       {expandedNarratives.has(exp.id) && (() => {
                         const narrative = experienceNarratives[exp.id];
                         return (
-                          <div className={`mt-4 pt-4 border-t space-y-4 ${
-                            theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-                          }`}>
+                          <div className="mt-4 pt-4 border-t space-y-4 border-gray-200 dark:border-gray-700">
                             <div>
-                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                              }`}>
+                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 The Situation
                               </h5>
-                              <p className={`text-sm leading-relaxed ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                              }`}>
+                              <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
                                 {narrative.situation}
                               </p>
                             </div>
                             <div>
-                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                              }`}>
+                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 What I Did
                               </h5>
                               <ul className="space-y-1.5">
                                 {narrative.actions.map((action, ai) => (
-                                  <li key={ai} className={`text-sm leading-relaxed flex gap-2 ${
-                                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                                  }`}>
-                                    <span className={`mt-1 shrink-0 ${
-                                      theme === 'dark' ? 'text-blue-400' : 'text-blue-500'
-                                    }`}>&#8226;</span>
+                                  <li key={ai} className="text-sm leading-relaxed flex gap-2 text-gray-600 dark:text-gray-300">
+                                    <span className="mt-1 shrink-0 text-blue-500 dark:text-blue-400">&#8226;</span>
                                     {action}
                                   </li>
                                 ))}
                               </ul>
                             </div>
                             <div>
-                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                              }`}>
+                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 Results
                               </h5>
                               <ul className="space-y-1.5">
                                 {narrative.results.map((result, ri) => (
-                                  <li key={ri} className={`text-sm leading-relaxed flex gap-2 ${
-                                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                                  }`}>
+                                  <li key={ri} className="text-sm leading-relaxed flex gap-2 text-gray-600 dark:text-gray-300">
                                     <span className="text-emerald-500 mt-1 shrink-0">&#10003;</span>
                                     {result}
                                   </li>
@@ -473,14 +394,10 @@ export default function ExperienceTimeline() {
                               </ul>
                             </div>
                             <div>
-                              <h5 className={`text-xs font-semibold uppercase tracking-wider mb-1.5 ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                              }`}>
+                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 Lessons Learned
                               </h5>
-                              <p className={`text-sm leading-relaxed italic ${
-                                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                              }`}>
+                              <p className="text-sm leading-relaxed italic text-gray-600 dark:text-gray-300">
                                 &quot;{narrative.lessonsLearned}&quot;
                               </p>
                             </div>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCode } from "@fortawesome/free-solid-svg-icons";
 
@@ -62,7 +61,6 @@ interface Project {
 }
 
 export default function PortfolioSlider() {
-  const { theme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   const { ref: clientRef, visible: clientVisible } = useReveal(0.1);
   const { ref: indyRef, visible: indyVisible } = useReveal(0.1);
@@ -210,84 +208,58 @@ export default function PortfolioSlider() {
   ];
 
   return (
-    <section id="portfolio" className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
+    <section id="portfolio" className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
-        {/* Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
-            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
-          }`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
             Portfolio
           </h2>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 text-gray-600 dark:text-gray-300">
             Selected client and independent work with measurable outcomes
           </p>
 
-          {/* Client Work Subheader */}
           <div className="mb-6 sm:mb-8">
-            <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h3 className="text-xl sm:text-2xl font-thin mb-4 text-gray-900 dark:text-white">
               Client Work
             </h3>
-            <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
+            <p className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
               Delivered via GDNA, Querri, and direct engagements
             </p>
           </div>
         </div>
 
-        {/* Split Screen: Left nav + Right detail */}
         <div
           ref={clientRef}
-          className={`grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-0 rounded-2xl overflow-hidden border transition-all duration-700 ease-out ${
-            theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-          }`}
+          className="grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-0 rounded-2xl overflow-hidden border transition-all duration-700 ease-out border-gray-200 dark:border-gray-700"
           style={{
             opacity: clientVisible ? 1 : 0,
             transform: clientVisible ? "translateY(0)" : "translateY(32px)",
           }}
         >
-          {/* Left Panel - Project List */}
-          <nav className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'} lg:border-r ${
-            theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-          }`}>
+          <nav className="bg-gray-50 dark:bg-gray-900 lg:border-r border-gray-200 dark:border-gray-700">
             <div className="flex flex-col lg:flex-col">
               {clientProjects.map((project, index) => {
                 const isActive = index === currentIndex;
-                // Extract short name (before the colon)
                 const shortName = project.title.split(":")[0];
                 return (
                   <button
                     key={project.id}
                     onClick={() => setCurrentIndex(index)}
-                    className={`relative text-left px-4 lg:px-6 py-4 lg:py-5 transition-all duration-200 border-b last:border-b-0 ${
-                      theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
-                    } ${
+                    className={`relative text-left px-4 lg:px-6 py-4 lg:py-5 transition-colors duration-200 border-b last:border-b-0 border-gray-200 dark:border-gray-800 ${
                       isActive
-                        ? theme === 'dark'
-                          ? 'bg-gray-800 text-white'
-                          : 'bg-white text-gray-900'
-                        : theme === 'dark'
-                          ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-800/50'
-                          : 'text-gray-500 hover:text-gray-900 hover:bg-white/50'
+                        ? 'bg-white text-gray-900 dark:bg-gray-800 dark:text-white'
+                        : 'text-gray-500 hover:text-gray-900 hover:bg-white/50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800/50'
                     }`}
                   >
-                    {/* Active indicator */}
                     {isActive && (
-                      <span className={`absolute left-0 top-0 bottom-0 w-0.5 ${
-                        theme === 'dark' ? 'bg-blue-400' : 'bg-blue-600'
-                      } hidden lg:block`} />
+                      <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-blue-600 dark:bg-blue-400 hidden lg:block" />
                     )}
                     <span className="text-sm font-medium block">{shortName}</span>
-                    <span className={`text-xs mt-0.5 block ${
+                    <span className={`text-xs mt-0.5 block hidden lg:block ${
                       isActive
-                        ? theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                        : theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
-                    } hidden lg:block`}>
+                        ? 'text-gray-500 dark:text-gray-300'
+                        : 'text-gray-400 dark:text-gray-600'
+                    }`}>
                       {project.techStack.slice(0, 3).join(" / ")}
                     </span>
                   </button>
@@ -296,8 +268,7 @@ export default function PortfolioSlider() {
             </div>
           </nav>
 
-          {/* Right Panel - Project Detail */}
-          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} p-5 sm:p-6 md:p-8 lg:p-10`}>
+          <div className="bg-white dark:bg-gray-800 p-5 sm:p-6 md:p-8 lg:p-10">
             {(() => {
               const project = clientProjects[currentIndex];
               return (
@@ -317,88 +288,56 @@ export default function PortfolioSlider() {
                     )}
                   </div>
 
-                  {/* Title */}
-                  <h3 className={`text-xl sm:text-2xl font-thin mb-5 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h3 className="text-xl sm:text-2xl font-thin mb-5 text-gray-900 dark:text-white">
                     {project.title}
                   </h3>
 
-                  {/* Case Study */}
                   {(project.problem || project.solution || project.impact) && (
-                    <div className={`space-y-4 mb-6 border-l-2 pl-4 ${
-                      theme === 'dark' ? 'border-gray-600' : 'border-gray-300'
-                    }`}>
+                    <div className="space-y-4 mb-6 border-l-2 pl-4 border-gray-300 dark:border-gray-600">
                       {project.problem && (
                         <div>
-                          <span className={`text-xs font-semibold uppercase tracking-wide ${
-                            theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
-                          }`}>Problem</span>
-                          <p className={`text-sm sm:text-base leading-relaxed mt-1 ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                          }`}>{project.problem}</p>
+                          <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Problem</span>
+                          <p className="text-sm sm:text-base leading-relaxed mt-1 text-gray-600 dark:text-gray-300">{project.problem}</p>
                         </div>
                       )}
                       {project.solution && (
                         <div>
-                          <span className={`text-xs font-semibold uppercase tracking-wide ${
-                            theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
-                          }`}>Solution</span>
-                          <p className={`text-sm sm:text-base leading-relaxed mt-1 ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                          }`}>{project.solution}</p>
+                          <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Solution</span>
+                          <p className="text-sm sm:text-base leading-relaxed mt-1 text-gray-600 dark:text-gray-300">{project.solution}</p>
                         </div>
                       )}
                       {project.impact && (
                         <div>
-                          <span className={`text-xs font-semibold uppercase tracking-wide ${
-                            theme === 'dark' ? 'text-amber-400' : 'text-amber-700'
-                          }`}>Impact</span>
-                          <p className={`text-sm sm:text-base leading-relaxed mt-1 ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                          }`}>{project.impact}</p>
+                          <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Impact</span>
+                          <p className="text-sm sm:text-base leading-relaxed mt-1 text-gray-600 dark:text-gray-300">{project.impact}</p>
                         </div>
                       )}
                     </div>
                   )}
 
                   {!(project.problem || project.solution || project.impact) && (
-                    <p className={`text-sm sm:text-base mb-6 leading-relaxed ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>{project.description}</p>
+                    <p className="text-sm sm:text-base mb-6 leading-relaxed text-gray-600 dark:text-gray-300">{project.description}</p>
                   )}
 
-                  {/* Tech Stack */}
                   <div className="mb-6">
-                    <span className={`text-xs font-semibold uppercase tracking-wide ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                    }`}>Tech</span>
+                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-300">Tech</span>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
                       {project.techStack.map((tech) => (
                         <span
                           key={tech}
-                          className={`px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full border ${
-                            theme === 'dark'
-                              ? 'bg-gray-700 text-gray-300 border-gray-600'
-                              : 'bg-gray-100 text-gray-700 border-gray-200'
-                          }`}
+                          className="px-2 sm:px-3 py-1 text-xs sm:text-sm font-medium rounded-full border bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600"
                         >{tech}</span>
                       ))}
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
                   <div className="flex flex-wrap gap-3">
                     {project.liveLink && (
                       <a
                         href={project.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center gap-2 px-5 py-2.5 text-sm transition-all duration-200 border ${
-                          theme === 'dark'
-                            ? 'border-blue-500/50 text-blue-400 hover:border-blue-400 hover:text-blue-300'
-                            : 'border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700'
-                        }`}
+                        className="flex items-center gap-2 px-5 py-2.5 text-sm transition-colors duration-200 border border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700 dark:border-blue-500/50 dark:text-blue-400 dark:hover:border-blue-400 dark:hover:text-blue-300"
                       >
                         <FontAwesomeIcon icon={faExternalLinkAlt} className="text-xs" />
                         <span>View Live</span>
@@ -409,11 +348,7 @@ export default function PortfolioSlider() {
                         href={project.codeLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center gap-2 px-5 py-2.5 text-sm transition-all duration-200 border ${
-                          theme === 'dark'
-                            ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200'
-                            : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
-                        }`}
+                        className="flex items-center gap-2 px-5 py-2.5 text-sm transition-colors duration-200 border border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:text-gray-200"
                       >
                         <FontAwesomeIcon icon={faCode} className="text-xs" />
                         <span>View Code</span>
@@ -429,26 +364,19 @@ export default function PortfolioSlider() {
         {/* Independent Projects Section */}
         <div className="mt-12 sm:mt-16">
           <div className="text-center mb-6 sm:mb-8">
-            <h3 className={`text-xl sm:text-2xl font-thin mb-4 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h3 className="text-xl sm:text-2xl font-thin mb-4 text-gray-900 dark:text-white">
               Independent Projects
             </h3>
-            <p className={`text-sm sm:text-base md:text-lg max-w-2xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
+            <p className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
               Side projects and open-source work with live demos and source code
             </p>
           </div>
 
-          {/* Independent Projects Grid */}
           <div ref={indyRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {independentProjects.map((project, i) => (
               <div
                 key={project.id}
-                className={`p-4 sm:p-6 rounded-2xl shadow-lg transition-all duration-700 ease-out hover:shadow-xl ${
-                  theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-                }`}
+                className="p-4 sm:p-6 rounded-2xl shadow-lg transition-shadow duration-700 ease-out hover:shadow-xl bg-white dark:bg-gray-800"
                 style={{
                   opacity: indyVisible ? 1 : 0,
                   transform: indyVisible ? "translateY(0)" : "translateY(28px)",
@@ -466,94 +394,62 @@ export default function PortfolioSlider() {
                   />
                 </div>
 
-                {/* Project Content */}
                 <div className="space-y-3 sm:space-y-4">
-                  <h4 className={`text-base sm:text-lg font-light ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h4 className="text-base sm:text-lg font-light text-gray-900 dark:text-white">
                     {project.title}
                   </h4>
 
                   {project.role && (
-                    <p className={`text-xs font-medium uppercase tracking-wide ${
-                      theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-                    }`}>
+                    <p className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400">
                       Role: {project.role}
                     </p>
                   )}
-                  
-                  <p className={`text-xs sm:text-sm leading-relaxed ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
+
+                  <p className="text-xs sm:text-sm leading-relaxed text-gray-600 dark:text-gray-300">
                     {project.description}
                   </p>
 
-                  {/* Micro-case study: Problem / Approach / Outcome */}
                   {(project.problem || project.approach || project.outcome) && (
-                    <div className={`space-y-2 text-xs sm:text-sm border-l-2 pl-3 ${
-                      theme === 'dark' ? 'border-gray-600' : 'border-gray-300'
-                    }`}>
+                    <div className="space-y-2 text-xs sm:text-sm border-l-2 pl-3 border-gray-300 dark:border-gray-600">
                       {project.problem && (
                         <div>
-                          <span className={`font-medium ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                          }`}>Problem: </span>
-                          <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                            {project.problem}
-                          </span>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Problem: </span>
+                          <span className="text-gray-600 dark:text-gray-300">{project.problem}</span>
                         </div>
                       )}
                       {project.approach && (
                         <div>
-                          <span className={`font-medium ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                          }`}>Approach: </span>
-                          <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                            {project.approach}
-                          </span>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Approach: </span>
+                          <span className="text-gray-600 dark:text-gray-300">{project.approach}</span>
                         </div>
                       )}
                       {project.outcome && (
                         <div>
-                          <span className={`font-medium ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                          }`}>Outcome: </span>
-                          <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
-                            {project.outcome}
-                          </span>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Outcome: </span>
+                          <span className="text-gray-600 dark:text-gray-300">{project.outcome}</span>
                         </div>
                       )}
                     </div>
                   )}
 
-                  {/* Tech Stack */}
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className={`px-2 py-1 text-xs rounded-full ${
-                          theme === 'dark'
-                            ? 'bg-gray-700 text-gray-300'
-                            : 'bg-gray-100 text-gray-600'
-                        }`}
+                        className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
 
-                  {/* Links */}
                   <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
                     {project.liveLink && (
                       <a
                         href={project.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all duration-300 border ${
-                          theme === 'dark'
-                            ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200'
-                            : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
-                        }`}
+                        className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:text-gray-200"
                       >
                         <FontAwesomeIcon icon={faExternalLinkAlt} />
                         <span>View Live</span>
@@ -564,11 +460,7 @@ export default function PortfolioSlider() {
                         href={project.codeLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all duration-300 border ${
-                          theme === 'dark'
-                            ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200'
-                            : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
-                        }`}
+                        className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:text-gray-200"
                       >
                         <FontAwesomeIcon icon={faCode} />
                         <span>View Code</span>

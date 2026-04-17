@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { LABS, getLabPath } from "../data/labs";
-import { useTheme } from "../contexts/ThemeContext";
 
 type Item = {
   id: string;
@@ -19,8 +18,6 @@ export default function CommandPalette() {
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -127,22 +124,16 @@ export default function CommandPalette() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: -8, opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className={`relative w-full max-w-lg rounded-xl overflow-hidden border shadow-2xl ${
-              isDark
-                ? "bg-gray-900/95 border-gray-800 text-gray-100"
-                : "bg-white/95 border-gray-200 text-gray-900"
-            }`}
+            className="relative w-full max-w-lg rounded-xl overflow-hidden border shadow-2xl bg-white/95 border-gray-200 text-gray-900 dark:bg-gray-900/95 dark:border-gray-800 dark:text-gray-100"
           >
-            <div className={`px-4 py-3 border-b ${isDark ? "border-gray-800" : "border-gray-200"}`}>
+            <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-800">
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setActive(0); }}
                 onKeyDown={onInputKey}
                 placeholder="Jump to section, lab, or page…"
-                className={`w-full bg-transparent outline-none text-sm placeholder:opacity-50 ${
-                  isDark ? "text-gray-100" : "text-gray-900"
-                }`}
+                className="w-full bg-transparent outline-none text-sm placeholder:opacity-50 text-gray-900 dark:text-gray-100"
               />
             </div>
             <ul className="max-h-[50vh] overflow-y-auto py-1" role="listbox">
@@ -159,9 +150,7 @@ export default function CommandPalette() {
                     onMouseEnter={() => setActive(i)}
                     onClick={it.action}
                     className={`flex items-center justify-between gap-3 px-4 py-2 text-sm cursor-pointer ${
-                      activeItem
-                        ? isDark ? "bg-gray-800" : "bg-gray-100"
-                        : ""
+                      activeItem ? "bg-gray-100 dark:bg-gray-800" : ""
                     }`}
                   >
                     <span className="flex items-center gap-2 min-w-0">
@@ -181,9 +170,7 @@ export default function CommandPalette() {
                 );
               })}
             </ul>
-            <div className={`flex items-center justify-between px-4 py-2 text-[10px] border-t ${
-              isDark ? "border-gray-800 text-gray-500" : "border-gray-200 text-gray-400"
-            }`}>
+            <div className="flex items-center justify-between px-4 py-2 text-[10px] border-t border-gray-200 text-gray-400 dark:border-gray-800 dark:text-gray-500">
               <span>↑↓ navigate · ↵ select · esc close</span>
               <span className="font-mono">⌘K</span>
             </div>

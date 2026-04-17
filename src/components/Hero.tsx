@@ -2,13 +2,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import photo from "@/src/public/pictures/Photo-127.jpg";
-import { useTheme } from "../contexts/ThemeContext";
 import BorderDrawButton from "./BorderDrawButton";
 import SecurityTerminal from "./SecurityTerminal";
 import SkillOrbit from "./SkillOrbit";
 
 export default function Hero() {
-  const { theme } = useTheme();
   const [scrollY, setScrollY] = useState(0);
   const [nameVisible, setNameVisible] = useState(false);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
@@ -115,9 +113,7 @@ export default function Hero() {
 
   return (
     <section
-      className={`min-h-screen flex flex-col items-center justify-center relative ${
-        theme === 'dark' ? 'bg-transparent' : 'bg-transparent'
-      }`}
+      className="min-h-screen flex flex-col items-center justify-center relative bg-transparent"
       id="hero"
     >
       {/* Minimalist Content Container */}
@@ -134,9 +130,7 @@ export default function Hero() {
           {/* Left Side - Text Content */}
           <div className="text-left space-y-6 sm:space-y-8 order-1">
             {/* Name - Split text animation */}
-            <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight text-gray-900 dark:text-white">
               <span className={`inline-block transition-all ease-out ${
                 prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
               } ${
@@ -159,9 +153,9 @@ export default function Hero() {
             </h1>
 
             {/* Headline - Fade in from bottom */}
-            <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide transition-all ease-out ${
+            <h2 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide transition-all ease-out text-gray-600 dark:text-gray-300 ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
+            } ${
               subtitleVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
@@ -177,9 +171,7 @@ export default function Hero() {
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
-              <p className={`text-sm sm:text-base md:text-lg font-light leading-relaxed ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
+              <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-gray-600 dark:text-gray-300">
                 5+ years building and securing production web apps with React, Next.js, and AWS. GIAC certified (GFACT + GSEC). Currently delivering secure, cloud-native applications and AI integrations for clients across the US and Spain.
               </p>
             </div>
@@ -194,10 +186,8 @@ export default function Hero() {
             </div>
 
             {/* Credential bar */}
-            <p className={`text-xs sm:text-sm font-light tracking-wide ${
+            <p className={`text-xs sm:text-sm font-light tracking-wide transition-opacity duration-500 text-gray-500 dark:text-gray-400 ${
               skillsVisible ? 'opacity-100' : 'opacity-0'
-            } transition-opacity duration-500 ${
-              theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
             }`}
               style={{ transitionDelay: skillsVisible ? '400ms' : '0ms' }}
             >
@@ -208,11 +198,7 @@ export default function Hero() {
             <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
               <button
                 onClick={scrollToPortfolio}
-                className={`px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-all duration-300 ${
-                  theme === 'dark'
-                    ? 'bg-white text-gray-900 hover:bg-gray-200'
-                    : 'bg-gray-900 text-white hover:bg-gray-700'
-                }`}
+                className="px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-colors duration-300 bg-gray-900 text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
               >
                 View My Work
               </button>

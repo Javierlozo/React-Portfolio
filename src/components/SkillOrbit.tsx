@@ -1,23 +1,23 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
-import { useTheme } from "../contexts/ThemeContext";
 
 interface SkillOrbitProps {
   skills: string[];
   className?: string;
 }
 
+const chipClass =
+  "px-3 py-1.5 text-xs font-light rounded-full border inline-block text-gray-600 border-gray-300 bg-white/40 dark:text-gray-300 dark:border-gray-700 dark:bg-gray-900/40";
+
 function MagneticChip({
   label,
   index,
   pointer,
-  isDark,
 }: {
   label: string;
   index: number;
   pointer: { x: number; y: number } | null;
-  isDark: boolean;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const x = useMotionValue(0);
@@ -60,22 +60,13 @@ function MagneticChip({
   }, [pointer, x, y, index]);
 
   return (
-    <motion.span
-      ref={ref}
-      style={{ x: sx, y: sy }}
-      className={`px-3 py-1.5 text-xs font-light rounded-full border inline-block ${
-        isDark
-          ? "text-gray-300 border-gray-700 bg-gray-900/40"
-          : "text-gray-600 border-gray-300 bg-white/40"
-      }`}
-    >
+    <motion.span ref={ref} style={{ x: sx, y: sy }} className={chipClass}>
       {label}
     </motion.span>
   );
 }
 
 export default function SkillOrbit({ skills, className = "" }: SkillOrbitProps) {
-  const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
 
@@ -95,12 +86,7 @@ export default function SkillOrbit({ skills, className = "" }: SkillOrbitProps) 
     return (
       <div className={`flex flex-wrap gap-2 ${className}`}>
         {skills.map((s) => (
-          <span
-            key={s}
-            className={`px-3 py-1.5 text-xs font-light rounded-full border ${
-              theme === "dark" ? "text-gray-400 border-gray-700" : "text-gray-500 border-gray-200"
-            }`}
-          >
+          <span key={s} className={chipClass}>
             {s}
           </span>
         ))}
@@ -111,13 +97,7 @@ export default function SkillOrbit({ skills, className = "" }: SkillOrbitProps) 
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
       {skills.map((s, i) => (
-        <MagneticChip
-          key={s}
-          label={s}
-          index={i}
-          pointer={pointer}
-          isDark={theme === "dark"}
-        />
+        <MagneticChip key={s} label={s} index={i} pointer={pointer} />
       ))}
     </div>
   );

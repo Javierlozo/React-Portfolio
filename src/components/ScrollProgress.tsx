@@ -1,9 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useTheme } from "../contexts/ThemeContext";
 
 export default function ScrollProgress() {
-  const { theme } = useTheme();
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -15,7 +13,7 @@ export default function ScrollProgress() {
     };
 
     window.addEventListener('scroll', updateProgress);
-    updateProgress(); // Initial call
+    updateProgress();
 
     return () => window.removeEventListener('scroll', updateProgress);
   }, []);
@@ -23,14 +21,9 @@ export default function ScrollProgress() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 h-1">
       <div
-        className={`h-full transition-all duration-150 ease-out ${
-          theme === 'dark' 
-            ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500' 
-            : 'bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600'
-        }`}
+        className="h-full transition-all duration-150 ease-out bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 dark:from-blue-500 dark:via-cyan-500 dark:to-teal-500"
         style={{ width: `${scrollProgress}%` }}
       />
     </div>
   );
 }
-

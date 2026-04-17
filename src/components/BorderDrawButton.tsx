@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useTheme } from "../contexts/ThemeContext";
 
 interface BorderDrawButtonProps {
   children: React.ReactNode;
@@ -13,10 +12,10 @@ interface BorderDrawButtonProps {
   rel?: string;
 }
 
-/**
- * Shared secondary button with animated border-draw on hover.
- * Used across Hero, Footer, and Lab cards for consistent styling.
- */
+const textColor =
+  "text-gray-600 group-hover:text-gray-900 dark:text-gray-300 dark:group-hover:text-white";
+const lineColor = "bg-gray-900 dark:bg-white";
+
 export default function BorderDrawButton({
   children,
   as = "button",
@@ -27,16 +26,7 @@ export default function BorderDrawButton({
   target,
   rel,
 }: BorderDrawButtonProps) {
-  const { theme } = useTheme();
-  const dark = theme === "dark";
-
   const baseClass = `relative group px-5 sm:px-8 py-2.5 sm:py-3 text-xs font-light tracking-widest uppercase overflow-hidden inline-flex items-center justify-center gap-2 min-h-[44px] ${className}`;
-
-  const textColor = dark
-    ? "text-gray-300 group-hover:text-white"
-    : "text-gray-600 group-hover:text-gray-900";
-
-  const lineColor = dark ? "bg-white" : "bg-gray-900";
 
   const inner = (
     <>

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import emailjs from "emailjs-com";
-import { useTheme } from "../contexts/ThemeContext";
 
 interface FormData {
   from_name: string;
@@ -29,8 +28,10 @@ function useReveal<T extends HTMLElement = HTMLDivElement>(threshold = 0.15) {
   return { ref, visible };
 }
 
+const inputField =
+  "w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900 dark:border-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-white";
+
 export default function Contact() {
-  const { theme } = useTheme();
   const { ref: formRef, visible: formVisible } = useReveal<HTMLFormElement>(0.1);
   const [formData, setFormData] = useState<FormData>({
     from_name: "",
@@ -84,29 +85,20 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}
+      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
-        {/* Minimalist Section Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
-            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
-          }`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
             Contact
           </h2>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
             Let&apos;s discuss your next project. Reach out via the form below or connect on{" "}
             <a
               href="https://www.linkedin.com/in/luisjlozoya"
               target="_blank"
               rel="noopener noreferrer"
-              className={`transition-colors font-light ${
-                theme === 'dark' 
-                  ? 'text-white hover:text-gray-300' 
-                  : 'text-gray-900 hover:text-gray-600'
-              }`}
+              className="transition-colors font-light text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
             >
               LinkedIn
             </a>
@@ -123,94 +115,68 @@ export default function Contact() {
           }}
         >
           <div className="space-y-4 sm:space-y-5 md:space-y-6">
-              <div>
-                <label htmlFor="from_name" className="sr-only">Your Name</label>
-                <input
-                  id="from_name"
-                  type="text"
-                  name="from_name"
-                  placeholder="Your Name"
-                  value={formData.from_name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, from_name: e.target.value })
-                  }
-                  required
-                  disabled={isSubmitting}
-                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
-                    theme === 'dark'
-                      ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                      : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
-                  }`}
-                />
-              </div>
-              <div>
-                <label htmlFor="reply_to" className="sr-only">Your Email</label>
-                <input
-                  id="reply_to"
-                  type="email"
-                  name="reply_to"
-                  placeholder="Your Email"
-                  value={formData.reply_to}
-                  onChange={(e) =>
-                    setFormData({ ...formData, reply_to: e.target.value })
-                  }
-                  required
-                  disabled={isSubmitting}
-                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors disabled:opacity-50 bg-transparent min-h-[44px] ${
-                    theme === 'dark'
-                      ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                      : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
-                  }`}
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="sr-only">Your Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  required
-                  disabled={isSubmitting}
-                  rows={4}
-                  className={`w-full p-3 sm:p-4 text-base border-b transition-colors resize-none disabled:opacity-50 bg-transparent min-h-[96px] sm:min-h-[120px] ${
-                    theme === 'dark'
-                      ? 'border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-white'
-                      : 'border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-gray-900'
-                  }`}
-                ></textarea>
-              </div>
+            <div>
+              <label htmlFor="from_name" className="sr-only">Your Name</label>
+              <input
+                id="from_name"
+                type="text"
+                name="from_name"
+                placeholder="Your Name"
+                value={formData.from_name}
+                onChange={(e) => setFormData({ ...formData, from_name: e.target.value })}
+                required
+                disabled={isSubmitting}
+                className={inputField}
+              />
             </div>
+            <div>
+              <label htmlFor="reply_to" className="sr-only">Your Email</label>
+              <input
+                id="reply_to"
+                type="email"
+                name="reply_to"
+                placeholder="Your Email"
+                value={formData.reply_to}
+                onChange={(e) => setFormData({ ...formData, reply_to: e.target.value })}
+                required
+                disabled={isSubmitting}
+                className={inputField}
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="sr-only">Your Message</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Your Message"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                required
+                disabled={isSubmitting}
+                rows={4}
+                className={`${inputField} resize-none min-h-[96px] sm:min-h-[120px]`}
+              ></textarea>
+            </div>
+          </div>
 
-            {submitStatus.message && (
-              <div
-                role="status"
-                aria-live="polite"
-                className={`text-center p-4 rounded-lg border ${
-                  submitStatus.type === "success"
-                    ? theme === 'dark'
-                      ? "bg-green-900/20 text-green-400 border-green-500/20"
-                      : "bg-green-50 text-green-600 border-green-200"
-                    : theme === 'dark'
-                      ? "bg-red-900/20 text-red-400 border-red-500/20"
-                      : "bg-red-50 text-red-600 border-red-200"
-                }`}
-              >
-                {submitStatus.message}
-              </div>
-            )}
+          {submitStatus.message && (
+            <div
+              role="status"
+              aria-live="polite"
+              className={`text-center p-4 rounded-lg border ${
+                submitStatus.type === "success"
+                  ? "bg-green-50 text-green-600 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-500/20"
+                  : "bg-red-50 text-red-600 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-500/20"
+              }`}
+            >
+              {submitStatus.message}
+            </div>
+          )}
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full py-3 sm:py-4 px-6 sm:px-8 text-xs sm:text-sm font-light tracking-widest uppercase border transition-all duration-300 disabled:opacity-50 ${
-              theme === 'dark'
-                ? 'border-gray-600 text-gray-300 hover:border-white hover:text-white'
-                : 'border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900'
-            }`}
+            className="w-full py-3 sm:py-4 px-6 sm:px-8 text-xs sm:text-sm font-light tracking-widest uppercase border transition-colors duration-300 disabled:opacity-50 border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 dark:border-gray-600 dark:text-gray-300 dark:hover:border-white dark:hover:text-white"
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </button>

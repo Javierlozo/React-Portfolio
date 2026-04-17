@@ -1,12 +1,10 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy, faGavel, faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import RevealText from "./RevealText";
 
 export default function About() {
-  const { theme } = useTheme();
   const [visibleElements, setVisibleElements] = useState<Set<number>>(new Set([0, 1, 2, 3, 4])); // Start with all visible
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const elementRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -68,25 +66,21 @@ export default function About() {
   return (
     <section
       id="about"
-      className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}
+      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         {/* Minimalist Section Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <RevealText
             as="h2"
-            className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
-              theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
-            }`}
+            className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700"
           >
             About
           </RevealText>
           <RevealText
             as="p"
             delay={200}
-            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}
+            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300"
           >
             Where software engineering meets security
           </RevealText>
@@ -99,37 +93,33 @@ export default function About() {
             data-index="0"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
+            } text-gray-600 dark:text-gray-300 ${
               visibleElements.has(0)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
           >
             Originally from Spain with a degree in architectural engineering from{" "}
-            <span className={`font-normal ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <span className="font-normal text-gray-900 dark:text-white">
               IE University
             </span>
             . I spent nearly 6 years in the commercial construction industry, working in engineering, CAD drafting, and project management, before pivoting into software engineering and never looking back.
           </p>
 
           <p
-            ref={(el) => { elementRefs.current[4] = el; }}
-            data-index="4"
+            ref={(el) => { elementRefs.current[1] = el; }}
+            data-index="1"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
-              visibleElements.has(4)
+            } text-gray-600 dark:text-gray-300 ${
+              visibleElements.has(1)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
-            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '50ms' }}
+            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(1) ? '0ms' : '50ms' }}
           >
             Now a security-focused engineer with deep experience in cloud technologies and application security, recently earning the{" "}
-            <span className={`font-normal ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <span className="font-normal text-gray-900 dark:text-white">
               GIAC GFACT and GSEC certifications
             </span>{" "}
             through the SANS Institute as part of the SANS Cyber Academy scholarship.
@@ -140,7 +130,7 @@ export default function About() {
             data-index="2"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
+            } text-gray-600 dark:text-gray-300 ${
               visibleElements.has(2)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
@@ -148,9 +138,7 @@ export default function About() {
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(2) ? '0ms' : '200ms' }}
           >
             In addition to traditional web development, I work with{" "}
-            <span className={`font-normal ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <span className="font-normal text-gray-900 dark:text-white">
               AI-enabled features, including LLM integrations and automation workflows
             </span>
             , always with a security-aware mindset around data handling, access control, and responsible AI usage.
@@ -161,7 +149,7 @@ export default function About() {
             data-index="3"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} ${
+            } text-gray-600 dark:text-gray-300 ${
               visibleElements.has(3)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
@@ -169,15 +157,11 @@ export default function About() {
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
             Currently building and securing cloud-native applications at{" "}
-            <span className={`font-normal ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <span className="font-normal text-gray-900 dark:text-white">
               GDNA
             </span>
             , with a focus on secure API design, least-privilege IAM, and production-grade AWS architecture. Next up on the certification path:{" "}
-            <span className={`font-normal ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            <span className="font-normal text-gray-900 dark:text-white">
               GIAC GCIH
             </span>
             . Always open to interesting conversations.
@@ -203,11 +187,7 @@ export default function About() {
             ].map((item) => (
               <span
                 key={item.label}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium ${
-                  theme === 'dark'
-                    ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                    : 'bg-amber-50 text-amber-700 border border-amber-200'
-                }`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20"
               >
                 <FontAwesomeIcon icon={item.icon} className="text-[10px]" />
                 {item.label}

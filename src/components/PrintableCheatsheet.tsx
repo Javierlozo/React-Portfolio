@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { useTheme } from "../contexts/ThemeContext";
 
 export interface CheatRow {
   command: string;
@@ -23,7 +22,6 @@ export default function PrintableCheatsheet({
   sections: CheatSection[];
   total: number;
 }) {
-  const { theme } = useTheme();
   const [search, setSearch] = useState("");
   const [busy, setBusy] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -109,25 +107,21 @@ export default function PrintableCheatsheet({
         }
       `}</style>
 
-      <div className={`cheat-root min-h-screen pt-24 pb-8 px-4 sm:px-6 ${theme === "dark" ? "bg-[#0B1220]" : "bg-[#FAFAF9]"}`}>
+      <div className="cheat-root min-h-screen pt-24 pb-8 px-4 sm:px-6 bg-[#FAFAF9] dark:bg-[#0B1220]">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-start justify-between mb-4 no-print">
             <div>
-              <h1 className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 GSEC CyberLive Cheatsheet
               </h1>
-              <p className={`text-sm mt-1 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+              <p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
                 {filteredTotal} commands across {filtered.length} tool groups. Print landscape, 8.5pt. Drill each section until automatic.
               </p>
             </div>
             <button
               onClick={downloadPdf}
               disabled={busy}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-wait ${
-                theme === "dark"
-                  ? "bg-amber-500/20 text-amber-400 hover:bg-amber-500/30"
-                  : "bg-amber-100 text-amber-800 hover:bg-amber-200"
-              }`}
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-60 disabled:cursor-wait bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-500/20 dark:text-amber-400 dark:hover:bg-amber-500/30"
             >
               {busy ? "Generating PDF…" : "Download PDF"}
             </button>
@@ -139,23 +133,19 @@ export default function PrintableCheatsheet({
               placeholder="Search command, flag, purpose..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className={`w-full max-w-sm px-3 py-2 rounded-lg text-sm border outline-none transition-colors ${
-                theme === "dark"
-                  ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:border-amber-500/50"
-                  : "bg-white border-gray-300 text-gray-900 placeholder-gray-400 focus:border-amber-400"
-              }`}
+              className="w-full max-w-sm px-3 py-2 rounded-lg text-sm border outline-none transition-colors bg-white border-gray-300 text-gray-900 placeholder-gray-400 focus:border-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:border-amber-500/50"
             />
           </div>
 
           <div ref={contentRef}>
           {filtered.map((section) => (
             <section key={section.name} className="cheat-section mb-8">
-              <h2 className={`text-lg font-bold mb-2 pb-1 border-b ${theme === "dark" ? "text-amber-400 border-gray-700" : "text-amber-700 border-gray-300"}`}>
-                {section.name} <span className={`font-normal text-sm ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>({section.rows.length})</span>
+              <h2 className="text-lg font-bold mb-2 pb-1 border-b text-amber-700 border-gray-300 dark:text-amber-400 dark:border-gray-700">
+                {section.name} <span className="font-normal text-sm text-gray-400 dark:text-gray-500">({section.rows.length})</span>
               </h2>
               <table className="cheat-table w-full text-sm border-collapse">
                 <thead>
-                  <tr className={`text-left text-xs uppercase tracking-wider ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
+                  <tr className="text-left text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500">
                     <th className="cheat-cmd py-1.5 px-2">Command</th>
                     <th className="cheat-purpose py-1.5 px-2">Purpose</th>
                     <th className="cheat-flags py-1.5 px-2">Key flags</th>
@@ -165,20 +155,20 @@ export default function PrintableCheatsheet({
                   {section.rows.map((row, i) => (
                     <tr
                       key={`${section.name}-${i}`}
-                      className={`border-b ${theme === "dark" ? "border-gray-800/50" : "border-gray-100"}`}
+                      className="border-b border-gray-100 dark:border-gray-800/50"
                     >
-                      <td className={`cheat-cmd py-1.5 px-2 font-mono text-xs whitespace-pre-wrap ${theme === "dark" ? "text-amber-300" : "text-amber-800"}`}>
+                      <td className="cheat-cmd py-1.5 px-2 font-mono text-xs whitespace-pre-wrap text-amber-800 dark:text-amber-300">
                         {row.command}
                       </td>
-                      <td className={`cheat-purpose py-1.5 px-2 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                      <td className="cheat-purpose py-1.5 px-2 text-gray-700 dark:text-gray-300">
                         {row.purpose}
                         {row.labTitle && (
-                          <div className={`text-[10px] mt-0.5 ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>
+                          <div className="text-[10px] mt-0.5 text-gray-400 dark:text-gray-500">
                             {row.labTitle}
                           </div>
                         )}
                       </td>
-                      <td className={`cheat-flags py-1.5 px-2 font-mono text-[11px] whitespace-pre-wrap ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+                      <td className="cheat-flags py-1.5 px-2 font-mono text-[11px] whitespace-pre-wrap text-gray-600 dark:text-gray-400">
                         {row.flags || "—"}
                       </td>
                     </tr>
@@ -189,8 +179,8 @@ export default function PrintableCheatsheet({
           ))}
           </div>
 
-          <p className={`text-center text-xs mt-8 no-print ${theme === "dark" ? "text-gray-600" : "text-gray-400"}`}>
-            Tip: if you can&apos;t recall what a flag does without looking, drill that tool. CyberLive is timed — muscle memory wins over recall.
+          <p className="text-center text-xs mt-8 no-print text-gray-400 dark:text-gray-600">
+            Tip: if you can&apos;t recall what a flag does without looking, drill that tool. CyberLive is timed. Muscle memory wins over recall.
           </p>
         </div>
       </div>

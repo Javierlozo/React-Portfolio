@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import { useTheme } from "../contexts/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes, faGraduationCap, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { useCardTilt } from "../hooks/useCardTilt";
@@ -104,7 +103,6 @@ const EDUCATION: Education[] = [
 ];
 
 export default function CertificationsShowcase() {
-  const { theme } = useTheme();
   const [selectedCert, setSelectedCert] = useState<Certification | null>(null);
   const { ref: gridRef, visible: gridVisible } = useReveal(0.1);
   const { ref: eduRef, visible: eduVisible } = useReveal(0.1);
@@ -153,18 +151,13 @@ export default function CertificationsShowcase() {
   ];
 
   return (
-    <section id="certifications" className={`py-12 sm:py-16 md:py-20 ${theme === 'dark' ? 'bg-[#0B1220]' : 'bg-[#FAFAF9]'}`}>
+    <section id="certifications" className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]">
       <div className="w-full">
-        {/* Header */}
         <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4 sm:px-6 md:px-8">
-          <h2 className={`text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto ${
-            theme === 'dark' ? 'text-white border-gray-700' : 'text-gray-900 border-gray-200'
-          }`}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
             Certifications & Education
           </h2>
-          <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
             Industry certifications and academic foundation
           </p>
         </div>
@@ -182,12 +175,8 @@ export default function CertificationsShowcase() {
               }}
             >
             <TiltCard
-              className={`group cursor-pointer min-w-0 ${
-                theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-              } rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden ${
-                cert.id === 1
-                  ? theme === 'dark' ? 'ring-2 ring-amber-500/50' : 'ring-2 ring-amber-400/60'
-                  : ''
+              className={`group cursor-pointer min-w-0 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden ${
+                cert.id === 1 ? 'ring-2 ring-amber-400/60 dark:ring-amber-500/50' : ''
               }`}
               onClick={() => setSelectedCert(cert)}
             >
@@ -210,46 +199,31 @@ export default function CertificationsShowcase() {
 
               {/* Certificate Info */}
               <div className="p-4 sm:p-5 md:p-6">
-                <h3 className={`text-base sm:text-lg font-light mb-2 line-clamp-2 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
+                <h3 className="text-base sm:text-lg font-light mb-2 line-clamp-2 text-gray-900 dark:text-white">
                   {cert.title}
                 </h3>
-                
+
                 <div className="flex items-center gap-2 mb-3">
-                  <span className={`text-xs sm:text-sm font-medium ${
-                    theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-                  }`}>
+                  <span className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400">
                     {cert.issuer}
                   </span>
-                  <div className={`flex items-center gap-1 text-xs ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                  }`}>
+                  <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-300">
                     <FontAwesomeIcon icon={faCalendarAlt} />
                     <span>{cert.date}</span>
                   </div>
                 </div>
 
-                {/* Skills Preview */}
                 <div className="flex flex-wrap gap-1">
                   {cert.skills.slice(0, 3).map((skill) => (
                     <span
                       key={skill}
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        theme === 'dark' 
-                          ? 'bg-gray-700 text-gray-300' 
-                          : 'bg-gray-200 text-gray-600'
-                      }`}
+                      className="px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                     >
                       {skill}
                     </span>
                   ))}
                   {cert.skills.length > 3 && (
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      theme === 'dark' 
-                        ? 'bg-gray-700 text-gray-300' 
-                        : 'bg-gray-200 text-gray-600'
-                    }`}>
+                    <span className="px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
                       +{cert.skills.length - 3}
                     </span>
                   )}
@@ -266,22 +240,14 @@ export default function CertificationsShowcase() {
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
             {/* Backdrop */}
             <div
-              className={`absolute inset-0 backdrop-blur-sm ${theme === 'dark' ? 'bg-black/80' : 'bg-black/40'}`}
+              className="absolute inset-0 backdrop-blur-sm bg-black/40 dark:bg-black/80"
               onClick={() => setSelectedCert(null)}
             />
-            
-            {/* Modal Content */}
-            <div className={`relative w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto overflow-hidden rounded-lg ${
-              theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-            }`}>
-              {/* Close Button */}
+
+            <div className="relative w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto overflow-hidden rounded-lg bg-white dark:bg-gray-800">
               <button
                 onClick={() => setSelectedCert(null)}
-                className={`absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2 border transition-all duration-300 ${
-                  theme === 'dark' 
-                    ? 'border-gray-600 text-gray-300 hover:border-gray-500 hover:text-gray-200' 
-                    : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700'
-                }`}
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2 border transition-colors duration-300 border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:text-gray-200"
               >
                 <FontAwesomeIcon icon={faTimes} className="text-lg sm:text-xl" />
               </button>
@@ -298,48 +264,33 @@ export default function CertificationsShowcase() {
 
               {/* Certificate Details */}
               <div className="p-4 sm:p-8 overflow-y-auto max-h-[calc(95vh-12rem)] sm:max-h-[calc(90vh-16rem)]">
-                <h3 className={`text-xl sm:text-2xl font-thin mb-3 sm:mb-4 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
+                <h3 className="text-xl sm:text-2xl font-thin mb-3 sm:mb-4 text-gray-900 dark:text-white">
                   {selectedCert.title}
                 </h3>
-                
+
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
-                  <span className={`text-base sm:text-lg font-medium ${
-                    theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-                  }`}>
+                  <span className="text-base sm:text-lg font-medium text-blue-600 dark:text-blue-400">
                     {selectedCert.issuer}
                   </span>
-                  <div className={`flex items-center gap-2 ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-500'
-                  }`}>
+                  <div className="flex items-center gap-2 text-gray-500 dark:text-gray-300">
                     <FontAwesomeIcon icon={faCalendarAlt} />
                     <span className="text-sm sm:text-base">{selectedCert.date}</span>
                   </div>
                 </div>
 
-                <p className={`text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                }`}>
+                <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed text-gray-600 dark:text-gray-300">
                   {selectedCert.description}
                 </p>
 
-                {/* Skills */}
                 <div className="mb-4 sm:mb-6">
-                  <h4 className={`text-base sm:text-lg font-light mb-2 sm:mb-3 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h4 className="text-base sm:text-lg font-light mb-2 sm:mb-3 text-gray-900 dark:text-white">
                     Skills Covered:
                   </h4>
                   <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {selectedCert.skills.map((skill) => (
                       <span
                         key={skill}
-                        className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full ${
-                          theme === 'dark' 
-                            ? 'bg-gray-700 text-gray-300' 
-                            : 'bg-gray-200 text-gray-600'
-                        }`}
+                        className="px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
                       >
                         {skill}
                       </span>
@@ -347,17 +298,12 @@ export default function CertificationsShowcase() {
                   </div>
                 </div>
 
-                {/* Verify Link */}
                 {selectedCert.verifyLink && (
                   <a
                     href={selectedCert.verifyLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base transition-all duration-300 border w-full sm:w-auto ${
-                      theme === 'dark'
-                        ? 'border-blue-600 text-blue-400 hover:border-blue-500 hover:text-blue-300'
-                        : 'border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700'
-                    }`}
+                    className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base transition-colors duration-300 border w-full sm:w-auto border-blue-600 text-blue-600 hover:border-blue-700 hover:text-blue-700 dark:text-blue-400 dark:hover:border-blue-500 dark:hover:text-blue-300"
                   >
                     <FontAwesomeIcon icon={faExternalLinkAlt} />
                     <span>Verify Certificate</span>
@@ -373,32 +319,24 @@ export default function CertificationsShowcase() {
           <div className="max-w-4xl mx-auto">
             {/* Divider */}
             <div className="flex items-center gap-4 mb-8">
-              <div className={`flex-1 h-px ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`} />
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-800" />
               <div className="flex items-center gap-2">
                 <FontAwesomeIcon
                   icon={faGraduationCap}
-                  className={`text-sm ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}
+                  className="text-sm text-gray-500 dark:text-gray-400"
                 />
-                <span
-                  className={`text-xs font-semibold uppercase tracking-widest ${
-                    theme === "dark" ? "text-gray-500" : "text-gray-400"
-                  }`}
-                >
+                <span className="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
                   Education
                 </span>
               </div>
-              <div className={`flex-1 h-px ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`} />
+              <div className="flex-1 h-px bg-gray-200 dark:bg-gray-800" />
             </div>
 
             <div ref={eduRef} className="space-y-4">
               {EDUCATION.map((edu, i) => (
                 <div
                   key={edu.id}
-                  className={`flex gap-4 sm:gap-6 p-4 sm:p-5 rounded-xl border transition-all duration-600 ease-out ${
-                    theme === "dark"
-                      ? "bg-gray-800/50 border-gray-700/50 hover:border-gray-600/60"
-                      : "bg-white border-gray-200 hover:border-gray-300"
-                  }`}
+                  className="flex gap-4 sm:gap-6 p-4 sm:p-5 rounded-xl border transition-colors duration-600 ease-out bg-white border-gray-200 hover:border-gray-300 dark:bg-gray-800/50 dark:border-gray-700/50 dark:hover:border-gray-600/60"
                   style={{
                     opacity: eduVisible ? 1 : 0,
                     transform: eduVisible ? "translateY(0)" : "translateY(24px)",
@@ -416,41 +354,23 @@ export default function CertificationsShowcase() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
-                      <h4
-                        className={`text-sm sm:text-base font-medium ${
-                          theme === "dark" ? "text-white" : "text-gray-900"
-                        }`}
-                      >
+                      <h4 className="text-sm sm:text-base font-medium text-gray-900 dark:text-white">
                         {edu.degree}
                       </h4>
-                      <span
-                        className={`text-xs whitespace-nowrap ${
-                          theme === "dark" ? "text-gray-500" : "text-gray-400"
-                        }`}
-                      >
+                      <span className="text-xs whitespace-nowrap text-gray-500 dark:text-gray-400">
                         {edu.duration}
                       </span>
                     </div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
-                      <span
-                        className={`text-xs sm:text-sm font-medium ${
-                          theme === "dark" ? "text-amber-400/80" : "text-amber-700"
-                        }`}
-                      >
+                      <span className="text-xs sm:text-sm font-medium text-amber-700 dark:text-amber-400/80">
                         {edu.institution}
                       </span>
-                      <span className={`flex items-center gap-1 text-xs ${
-                        theme === "dark" ? "text-gray-500" : "text-gray-400"
-                      }`}>
+                      <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
                         <FontAwesomeIcon icon={faMapMarkerAlt} className="text-[9px]" />
                         {edu.location}
                       </span>
                     </div>
-                    <p
-                      className={`text-xs sm:text-sm leading-relaxed ${
-                        theme === "dark" ? "text-gray-400" : "text-gray-500"
-                      }`}
-                    >
+                    <p className="text-xs sm:text-sm leading-relaxed text-gray-500 dark:text-gray-400">
                       {edu.description}
                     </p>
                   </div>

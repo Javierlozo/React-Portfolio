@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useTheme } from "../contexts/ThemeContext";
 
 type Line = {
   prompt: string;
@@ -53,7 +52,6 @@ const TYPE_SPEED = 28;
 const HOLD_AFTER = 1800;
 
 export default function SecurityTerminal() {
-  const { theme } = useTheme();
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
   const [typed, setTyped] = useState("");
@@ -96,25 +94,15 @@ export default function SecurityTerminal() {
     };
   }, [i, line.command, reduce]);
 
-  const isDark = theme === "dark";
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-      className={`w-full max-w-sm rounded-lg border overflow-hidden font-mono text-[11px] sm:text-xs shadow-xl ${
-        isDark
-          ? "bg-gray-950/80 border-gray-800 backdrop-blur"
-          : "bg-gray-900 border-gray-800"
-      }`}
+      className="w-full max-w-sm rounded-lg border overflow-hidden font-mono text-[11px] sm:text-xs shadow-xl bg-gray-900 border-gray-800 dark:bg-gray-950/80 dark:backdrop-blur"
       aria-label="Security lab command loop"
     >
-      <div
-        className={`flex items-center gap-1.5 px-3 py-2 border-b ${
-          isDark ? "border-gray-800 bg-gray-900/60" : "border-gray-800 bg-gray-800"
-        }`}
-      >
+      <div className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-800 bg-gray-800 dark:bg-gray-900/60">
         <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
         <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
         <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
@@ -154,13 +142,7 @@ export default function SecurityTerminal() {
         </AnimatePresence>
       </div>
 
-      <div
-        className={`flex items-center justify-between px-3 py-1.5 border-t text-[10px] tracking-widest uppercase ${
-          isDark
-            ? "border-gray-800 bg-gray-900/40 text-gray-500"
-            : "border-gray-800 bg-gray-800/80 text-gray-400"
-        }`}
-      >
+      <div className="flex items-center justify-between px-3 py-1.5 border-t text-[10px] tracking-widest uppercase border-gray-800 bg-gray-800/80 text-gray-400 dark:bg-gray-900/40 dark:text-gray-500">
         <span>Lab {i + 1} / {LINES.length}</span>
         <span className="text-emerald-400/80">{line.tag}</span>
       </div>

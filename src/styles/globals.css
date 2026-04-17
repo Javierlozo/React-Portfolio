@@ -2,25 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global focus-visible ring for keyboard navigation */
+/* ---------- Design tokens (terminal-forward palette) ---------- */
+
+:root {
+  --bg: #0B1220;
+  --bg-elev: #0F172A;
+  --fg: #E5E7EB;
+  --fg-muted: #9CA3AF;
+  --border: #1F2937;
+  --accent: #22C55E;           /* terminal green, calmer than neon */
+  --accent-soft: rgba(34, 197, 94, 0.12);
+  --link: #60A5FA;
+  --link-hover: #93C5FD;
+  --scrollbar-thumb: #374151;
+  --scrollbar-track: transparent;
+}
+
+.light {
+  --bg: #FAFAF9;
+  --bg-elev: #FFFFFF;
+  --fg: #1F2937;
+  --fg-muted: #6B7280;
+  --border: #E5E7EB;
+  --accent: #15803D;
+  --accent-soft: rgba(21, 128, 61, 0.10);
+  --link: #2563EB;
+  --link-hover: #1D4ED8;
+  --scrollbar-thumb: #9CA3AF;
+}
+
+/* ---------- Base ---------- */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+a:hover {
+  color: var(--link-hover);
+}
+
+/* ---------- Focus ring ---------- */
+
 *:focus-visible {
-  outline: 2px solid #60a5fa;
+  outline: 2px solid var(--link);
   outline-offset: 2px;
   border-radius: 2px;
 }
-
-/* Remove focus ring for mouse clicks */
 *:focus:not(:focus-visible) {
   outline: none;
 }
 
-html {
-  scroll-behavior: smooth;
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); /* For Firefox */
-}
+/* ---------- Reduced motion ---------- */
 
-/* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -32,1010 +86,59 @@ html {
   }
 }
 
-/* Mobile performance optimizations */
-@media (max-width: 768px) {
-  /* Use GPU acceleration for transforms */
-  [class*="transition"] {
-    will-change: transform, opacity;
-  }
-  
-  /* Reduce animation complexity on mobile */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-}
+/* ---------- Scrollbar (WebKit) ---------- */
 
-/* Modern Mobile App Enhancements */
-@media (max-width: 768px) {
-  /* App-like smooth scrolling */
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-  }
-  
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overscroll-behavior: none;
-    touch-action: pan-y;
-  }
-  
-  /* Ensure fixed positioning works on mobile - MUST be first */
-  nav,
-  nav.fixed,
-  nav[class*="fixed"],
-  #main-navbar {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    max-width: 100vw !important;
-    z-index: 9999 !important;
-    -webkit-transform: translateZ(0) !important;
-    transform: translateZ(0) !important;
-    -webkit-backface-visibility: hidden !important;
-    backface-visibility: hidden !important;
-    will-change: transform !important;
-    margin: 0 !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Ensure html/body don't create stacking context issues */
-  html {
-    overflow-x: hidden !important;
-    position: relative !important;
-    height: 100% !important;
-  }
-  
-  body {
-    overflow-x: hidden !important;
-    position: relative !important;
-    min-height: 100% !important;
-  }
-  
-  /* Ensure ThemeProvider doesn't break fixed positioning */
-  body > div:first-child {
-    position: static !important;
-  }
-  
-  /* Safe area insets for modern phones (notches, home indicators) */
-  body {
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    position: relative;
-    overflow-x: hidden;
-  }
-  
-  /* Improved touch targets - minimum 44x44px for accessibility */
-  button,
-  a,
-  [role="button"],
-  input[type="submit"],
-  input[type="button"] {
-    min-height: 44px;
-    min-width: 44px;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-    touch-action: manipulation;
-  }
-  
-  /* Better touch feedback */
-  button:active,
-  a:active,
-  [role="button"]:active {
-    transform: scale(0.97);
-    transition: transform 0.1s ease-out;
-  }
-  
-  /* Improved scrolling on mobile */
-  html {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-    position: relative;
-    overflow-x: hidden;
-  }
-  
-  /* Better form inputs on mobile */
-  input,
-  textarea,
-  select {
-    font-size: 16px !important; /* Prevents zoom on iOS */
-    -webkit-appearance: none;
-    border-radius: 0;
-  }
-  
-  /* Improved mobile typography */
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-  
-  /* Add padding to main content to account for fixed navbar */
-  main {
-    padding-top: 56px; /* Navbar height on mobile */
-  }
-  
-  /* Better card touch interactions */
-  [class*="card"],
-  [class*="Card"] {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
-    touch-action: manipulation;
-  }
-  
-  /* Improved mobile menu experience - don't override position */
-  nav {
-    padding-left: max(1rem, env(safe-area-inset-left)) !important;
-    padding-right: max(1rem, env(safe-area-inset-right)) !important;
-  }
-  
-  /* Better mobile spacing */
-  section {
-    padding-left: max(0.75rem, env(safe-area-inset-left));
-    padding-right: max(0.75rem, env(safe-area-inset-right));
-  }
-  
-  /* Improved mobile images */
-  img {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-  
-  /* Better mobile links */
-  a {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-    touch-action: manipulation;
-  }
-  
-  /* Improved mobile containers */
-  .container {
-    padding-left: max(0.75rem, env(safe-area-inset-left));
-    padding-right: max(0.75rem, env(safe-area-inset-right));
-  }
-  
-  /* Better mobile modals */
-  [class*="modal"],
-  [class*="Modal"] {
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-    padding-bottom: max(1rem, env(safe-area-inset-bottom));
-  }
-  
-  /* Improved mobile buttons */
-  button {
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  /* Better mobile form fields */
-  input:focus,
-  textarea:focus,
-  select:focus {
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  /* Improved mobile navigation */
-  nav a {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Better mobile grid spacing */
-  .grid {
-    gap: 1rem;
-  }
-  
-  /* Improved mobile flex spacing */
-  .flex {
-    gap: 0.75rem;
-  }
-  
-  /* Better mobile shadows (lighter for performance) */
-  [class*="shadow"] {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* App-like card styles */
-  [class*="card"],
-  [class*="Card"],
-  section > div {
-    border-radius: 16px;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* App-like button styles */
-  button,
-  [role="button"],
-  a[class*="button"] {
-    border-radius: 12px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-  }
-  
-  button:active,
-  [role="button"]:active,
-  a[class*="button"]:active {
-    transform: scale(0.96);
-    opacity: 0.8;
-  }
-  
-  /* App-like input styles */
-  input,
-  textarea {
-    border-radius: 12px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  input:focus,
-  textarea:focus {
-    transform: scale(1.01);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-  
-  /* App-like section spacing */
-  section {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    scroll-margin-top: 80px;
-  }
-  
-  /* App-like smooth page transitions */
-  main {
-    animation: fadeIn 0.3s ease-out;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* App-like modal/overlay styles */
-  [class*="modal"],
-  [class*="Modal"],
-  [class*="overlay"] {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(100%);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  .animate-fadeIn {
-    animation: fadeIn 0.2s ease-out;
-  }
-  
-  /* App-like list items */
-  li {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  li:last-child {
-    border-bottom: none;
-  }
-  
-  /* App-like image loading */
-  img {
-    border-radius: 12px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  img:active {
-    transform: scale(0.98);
-  }
-  
-  /* App-like text selection */
-  ::selection {
-    background-color: rgba(59, 130, 246, 0.3);
-    color: inherit;
-  }
-  
-  /* App-like scrollbar */
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-  }
-  
-  /* App-like focus states */
-  *:focus-visible {
-    outline: 2px solid rgba(59, 130, 246, 0.5);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-  
-  /* App-like hover states (for devices that support hover) */
-  @media (hover: hover) {
-    button:hover,
-    a:hover,
-    [role="button"]:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-  }
-  
-  /* Improved mobile backdrop blur (lighter for performance) */
-  [class*="backdrop-blur"] {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  
-  /* Better mobile transitions */
-  * {
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Improved mobile scrollbars */
-  ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  
-  /* Better mobile focus states */
-  *:focus-visible {
-    outline: 2px solid rgba(59, 130, 246, 0.5);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-  
-  /* Improved mobile text selection */
-  ::selection {
-    background-color: rgba(59, 130, 246, 0.3);
-    color: inherit;
-  }
-  
-  /* Better mobile list items */
-  li {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Improved mobile cards hover states (touch feedback) */
-  [class*="card"]:active,
-  [class*="Card"]:active {
-    transform: scale(0.98);
-    transition: transform 0.1s ease-out;
-  }
-  
-  /* Better mobile navigation */
-  nav button:active {
-    transform: scale(0.95);
-  }
-  
-  /* Improved mobile form submission */
-  form button[type="submit"]:active {
-    transform: scale(0.97);
-  }
-  
-  /* Better mobile image loading */
-  img {
-    content-visibility: auto;
-  }
-  
-  /* Improved mobile section spacing */
-  section {
-    scroll-margin-top: 80px;
-  }
-  
-  /* Better mobile modal animations */
-  [class*="modal"] {
-    animation-duration: 0.2s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Improved mobile menu animations */
-  [class*="menu"] {
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Better mobile slider/carousel */
-  [class*="slider"],
-  [class*="Slider"],
-  [class*="carousel"],
-  [class*="Carousel"] {
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-  }
-  
-  /* Improved mobile button groups */
-  [class*="button-group"],
-  [class*="ButtonGroup"] {
-    gap: 0.5rem;
-  }
-  
-  /* Better mobile spacing utilities */
-  .space-y-4 > * + * {
-    margin-top: 1rem;
-  }
-  
-  .space-y-6 > * + * {
-    margin-top: 1.5rem;
-  }
-  
-  .space-y-8 > * + * {
-    margin-top: 2rem;
-  }
-  
-  /* Improved mobile grid responsiveness */
-  @media (max-width: 640px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  /* Better mobile text sizing */
-  h1 {
-    font-size: clamp(1.875rem, 5vw, 2.5rem);
-  }
-  
-  h2 {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-  }
-  
-  h3 {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-  }
-  
-  /* Improved mobile line heights */
-  p {
-    line-height: 1.6;
-  }
-  
-  /* Better mobile padding */
-  .container {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-  
-  /* Improved mobile margins */
-  .mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* App-like section headers */
-  h1, h2, h3 {
-    letter-spacing: -0.02em;
-    font-weight: 600;
-  }
-  
-  /* Ensure section headers stay visible on mobile */
-  section > div:first-child {
-    position: relative;
-    z-index: 10;
-  }
-  
-  /* Prevent cards from covering headers */
-  section[id="skills"] > div:first-child,
-  section[id="experience"] > div:first-child {
-    z-index: 20;
-    margin-bottom: 2rem;
-  }
-  
-  /* App-like status bar spacing */
-  nav {
-    padding-top: max(1rem, env(safe-area-inset-top));
-  }
-  
-  /* App-like bottom navigation spacing */
-  footer {
-    padding-bottom: max(1rem, env(safe-area-inset-bottom));
-  }
-  
-  /* App-like pull-to-refresh prevention */
-  body {
-    overscroll-behavior-y: contain;
-  }
-}
-
-/* Root Variables for Dark Mode - Tech/Cybersecurity Theme */
-:root {
-  --primary-gradient: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  --secondary-gradient: linear-gradient(135deg, #00ff88 0%, #00cc66 100%);
-  --accent-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-  --cyber-gradient: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
-  --matrix-gradient: linear-gradient(135deg, #00ff00 0%, #008000 100%);
-  --scrollbar-thumb: #00d4ff;
-  --scrollbar-track: #0a0a0a;
-  --glass-bg: rgba(0, 212, 255, 0.05);
-  --glass-border: rgba(0, 212, 255, 0.1);
-}
-
-/* Light Theme Variables */
-.light {
-  --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  --secondary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  --cyber-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  --matrix-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  --scrollbar-thumb: #3b82f6;
-  --scrollbar-track: #f8fafc;
-  --glass-bg: rgba(59, 130, 246, 0.05);
-  --glass-border: rgba(59, 130, 246, 0.1);
-}
-
-/* Professional Background System */
-body {
-  color: #e5e7eb;
-  background: #0B1220;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "JetBrains Mono", monospace;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  -ms-overflow-style: scrollbar; /* IE 10+ */
-  min-height: 100vh;
-}
-
-/* Light Theme Body */
-.light body {
-  color: #1f2937;
-  background: #FAFAF9;
-}
-
-/* Heading styles */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #e5e7eb;
-  font-weight: 700;
-}
-
-.light h1,
-.light h2,
-.light h3,
-.light h4,
-.light h5,
-.light h6 {
-  color: #1f2937;
-}
-
-/* Link styles */
-a {
-  color: #60a5fa;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: #93c5fd;
-  text-decoration: underline;
-}
-
-.light a {
-  color: #2563eb;
-}
-
-.light a:hover {
-  color: #1d4ed8;
-}
-
-/* Button styles */
-.button {
-  background-color: #2563eb; /* Tailwind's 'secondary' color */
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  transition: background-color 0.3s;
-}
-
-.button:hover {
-  background-color: #1f2937; /* Tailwind's 'primary' color */
-}
-
-/* Custom Scrollbar Styles */
-
-/* WebKit-based browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: transparent;
 }
-
-.light ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-}
-
 ::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: var(--fg-muted);
 }
 
-.light ::-webkit-scrollbar-thumb {
-  background: #9ca3af;
+::selection {
+  background-color: var(--accent-soft);
+  color: inherit;
 }
 
-.light ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
-}
-
-/* Add these new animations and utilities after your existing styles */
-
-@keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-}
-
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-/* Modern card styles */
-.glass-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-}
-
-/* After your existing animations, add these new ones */
+/* ---------- Core animations (used across the site) ---------- */
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
 }
 
-/* Utility classes for animations */
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+@keyframes blink {
+  0%, 50%   { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
-.animate-slide-in {
-  animation: slideIn 0.5s ease-out forwards;
-}
+.animate-fadeIn  { animation: fadeIn 0.2s ease-out; }
+.animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+.animate-float   { animation: float 3s ease-in-out infinite; }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
+/* ---------- Terminal text (used by SecurityTerminal + lab code blocks) ---------- */
 
-/* Improved mobile menu styles */
-.mobile-menu-enter {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-.mobile-menu-enter-active {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 200ms ease-out, transform 200ms ease-out;
-}
-
-.mobile-menu-exit {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.mobile-menu-exit-active {
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 200ms ease-out, transform 200ms ease-out;
-}
-
-/* Improved glass effect */
-.glass-morphism {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-/* Add these new animations after your existing ones */
-
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* Add these utility classes */
-.animate-modal {
-  animation: modalFadeIn 0.3s ease-out forwards;
-}
-
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* Gradient text utilities - Tech/Cybersecurity Theme */
-.gradient-text {
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-secondary {
-  background: var(--secondary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-accent {
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-cyber {
-  background: var(--cyber-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-matrix {
-  background: var(--matrix-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Modern button styles - Tech/Cybersecurity Theme */
-.btn-primary {
-  background: var(--primary-gradient);
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
-  border-color: rgba(0, 212, 255, 0.6);
-}
-
-.btn-secondary {
-  background: var(--secondary-gradient);
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.4);
-  border: 1px solid rgba(0, 255, 136, 0.3);
-}
-
-.btn-secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6);
-  border-color: rgba(0, 255, 136, 0.6);
-}
-
-.btn-cyber {
-  background: var(--cyber-gradient);
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
-  border: 1px solid rgba(0, 255, 255, 0.3);
-}
-
-.btn-cyber:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.6);
-  border-color: rgba(0, 255, 255, 0.6);
-}
-
-/* Gradient border utility - Tech Theme */
-.gradient-border {
-  position: relative;
-}
-
-.gradient-border::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: var(--primary-gradient);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.gradient-border-cyber::after {
-  background: var(--cyber-gradient);
-}
-
-.gradient-border-matrix::after {
-  background: var(--matrix-gradient);
-}
-
-/* Subtle Cybersecurity Animations */
-@keyframes subtleGlow {
-  0%, 100% {
-    box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-  }
-}
-
-@keyframes gentlePulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.02);
-    opacity: 1;
-  }
-}
-
-@keyframes slowFloat {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-/* Subtle utility classes */
-.animate-subtle-glow {
-  animation: subtleGlow 4s ease-in-out infinite;
-}
-
-.animate-gentle-pulse {
-  animation: gentlePulse 6s ease-in-out infinite;
-}
-
-.animate-slow-float {
-  animation: slowFloat 8s ease-in-out infinite;
-}
-
-/* Terminal-style text effect */
 .terminal-text {
-  font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
-  color: #00ff00;
-  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-}
-
-/* Enhanced Cybersecurity Effects */
-.cyber-grid {
-  background-image: 
-    linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", Consolas, monospace;
+  color: var(--accent);
 }
 
 .terminal-cursor::after {
@@ -1043,240 +146,46 @@ a:hover {
   animation: blink 1s infinite;
 }
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
+/* ---------- Mobile baseline (focused, no wildcard overrides) ---------- */
 
-.data-stream {
-  position: relative;
-  overflow: hidden;
-}
-
-.data-stream::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #00ffff, transparent);
-  animation: dataFlow 3s linear infinite;
-}
-
-.code-syntax {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  border-left: 3px solid #00ffff;
-}
-
-.cyber-border {
-  position: relative;
-}
-
-.cyber-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  background: linear-gradient(45deg, #00ffff, #0080ff, #00ff88, #00ffff);
-  border-radius: inherit;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: xor;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-}
-
-/* Cybersecurity card styles */
-.cyber-card {
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  box-shadow: 
-    0 8px 32px rgba(0, 212, 255, 0.1),
-    inset 0 1px 0 rgba(0, 212, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
-.cyber-card:hover {
-  border-color: rgba(0, 212, 255, 0.6);
-  box-shadow: 
-    0 12px 40px rgba(0, 212, 255, 0.2),
-    inset 0 1px 0 rgba(0, 212, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-/* Hacker-style input fields */
-.cyber-input {
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(0, 255, 0, 0.3);
-  border-radius: 8px;
-  color: #00ff00;
-  font-family: "JetBrains Mono", monospace;
-  padding: 0.75rem 1rem;
-  transition: all 0.3s ease;
-}
-
-.cyber-input:focus {
-  outline: none;
-  border-color: rgba(0, 255, 0, 0.6);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-}
-
-/* Simplified Cybersecurity Background Effects */
-.cyber-bg {
-  position: relative;
-  overflow: hidden;
-}
-
-.cyber-bg::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(90deg, rgba(0, 255, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(rgba(0, 255, 0, 0.02) 1px, transparent 1px);
-  background-size: 30px 30px;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.cyber-bg::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 25% 25%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-/* Holographic effect */
-.holographic-bg {
-  position: relative;
-  background: linear-gradient(45deg, 
-    rgba(0, 212, 255, 0.1) 0%, 
-    rgba(0, 255, 136, 0.1) 25%, 
-    rgba(0, 255, 255, 0.1) 50%, 
-    rgba(255, 107, 53, 0.1) 75%, 
-    rgba(0, 212, 255, 0.1) 100%);
-  background-size: 400% 400%;
-  animation: holographicShift 10s ease-in-out infinite;
-}
-
-@keyframes holographicShift {
-  0%, 100% {
-    background-position: 0% 50%;
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
   }
-  50% {
-    background-position: 100% 50%;
+
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    overscroll-behavior-y: contain;
   }
-}
 
-/* Data stream effect */
-.data-stream {
-  position: relative;
-  overflow: hidden;
-}
-
-.data-stream::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(0, 255, 0, 0.8) 50%, 
-    transparent 100%);
-  animation: dataFlow 3s linear infinite;
-}
-
-.data-stream::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(0, 212, 255, 0.8) 50%, 
-    transparent 100%);
-  animation: dataFlow 3s linear infinite reverse;
-}
-
-@keyframes dataFlow {
-  0% {
-    left: -100%;
+  /* Prevent iOS zoom on focused inputs */
+  input, textarea, select {
+    font-size: 16px !important;
   }
-  100% {
-    left: 100%;
+
+  /* Minimum touch target for a11y (WCAG 2.5.5) */
+  button,
+  a[role="button"],
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    touch-action: manipulation;
   }
-}
 
-/* Terminal scan lines */
-.terminal-scan {
-  position: relative;
-}
+  /* Fluid headings */
+  h1 { font-size: clamp(1.875rem, 5vw, 2.5rem); }
+  h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+  h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
 
-.terminal-scan::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    transparent 0%,
-    rgba(0, 255, 0, 0.03) 50%,
-    transparent 100%
-  );
-  background-size: 100% 4px;
-  animation: scanLine 2s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes scanLine {
-  0% {
-    transform: translateY(-100%);
+  /* Anchor scroll offset for fixed navbar */
+  section {
+    scroll-margin-top: 80px;
   }
-  100% {
-    transform: translateY(100vh);
+
+  /* Tap highlight off — we use focus-visible rings */
+  a, button, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
   }
-}
-
-/* Cybersecurity status indicators */
-.status-online {
-  color: #00ff00;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-}
-
-.status-warning {
-  color: #ff6b35;
-  text-shadow: 0 0 5px rgba(255, 107, 53, 0.5);
-}
-
-/* Update background orbs colors - Tech/Cybersecurity Theme */
-.bg-gradient-orb-1 {
-  background: #00d4ff;
-}
-
-.bg-gradient-orb-2 {
-  background: #00ff88;
-}
-
-.bg-gradient-orb-3 {
-  background: #00ffff;
 }
