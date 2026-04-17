@@ -86,7 +86,7 @@ function LabCard({ lab, index }: { lab: (typeof LABS)[number]; index: number }) 
             icon={FOCUS_ICONS[lab.focus ?? ""] ?? faFlask}
             className="absolute top-4 right-4 text-3xl opacity-10 text-gray-900 dark:text-white"
           />
-          <span className="text-[10px] font-semibold uppercase tracking-widest text-amber-700 dark:text-amber-400/80">
+          <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-700 dark:text-amber-400/80">
             {lab.focus ?? "Security"}
           </span>
           <h3 className="font-medium mt-1 leading-snug text-gray-900 dark:text-white">
@@ -157,7 +157,7 @@ export default function CybersecurityLabs() {
             >
               Security Labs
             </ScrambleText>
-            <span className="text-xs sm:text-sm font-semibold px-3 py-1 rounded-full whitespace-nowrap bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20">
+            <span className="font-mono text-xs sm:text-sm font-semibold tabular-nums px-3 py-1 rounded-full whitespace-nowrap bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20">
               {completedLabs.length} labs
             </span>
           </div>

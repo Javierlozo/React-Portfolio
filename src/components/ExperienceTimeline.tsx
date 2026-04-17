@@ -211,7 +211,7 @@ export default function ExperienceTimeline() {
                   transitionDelay: prefersReducedMotion || !visibleCards.has(index) ? '0ms' : `${index * 100}ms`
                 }}
               >
-                <div className="absolute -left-2 sm:-left-2 top-6 text-xs font-light tracking-widest hidden sm:block text-gray-500 dark:text-gray-300">
+                <div className="absolute -left-2 sm:-left-2 top-6 font-mono text-xs font-medium tabular-nums tracking-widest hidden sm:block text-gray-500 dark:text-gray-300">
                   {exp.duration.includes(' to ')
                     ? exp.duration.split(' to ')[0].split(' ').pop()
                     : exp.duration.split(' ')[0]
@@ -359,7 +359,7 @@ export default function ExperienceTimeline() {
                         return (
                           <div className="mt-4 pt-4 border-t space-y-4 border-gray-200 dark:border-gray-700">
                             <div>
-                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
+                              <h5 className="font-mono text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 The Situation
                               </h5>
                               <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
@@ -367,7 +367,7 @@ export default function ExperienceTimeline() {
                               </p>
                             </div>
                             <div>
-                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
+                              <h5 className="font-mono text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 What I Did
                               </h5>
                               <ul className="space-y-1.5">
@@ -380,7 +380,7 @@ export default function ExperienceTimeline() {
                               </ul>
                             </div>
                             <div>
-                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
+                              <h5 className="font-mono text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 Results
                               </h5>
                               <ul className="space-y-1.5">
@@ -393,7 +393,7 @@ export default function ExperienceTimeline() {
                               </ul>
                             </div>
                             <div>
-                              <h5 className="text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
+                              <h5 className="font-mono text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 Lessons Learned
                               </h5>
                               <p className="text-sm leading-relaxed italic text-gray-600 dark:text-gray-300">

@@ -136,7 +136,7 @@ export default function TechStackVisual() {
         </div>
 
         <div ref={coreRef} className="mb-10 sm:mb-14">
-          <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-amber-700 dark:text-amber-400">
+          <h3 className="font-mono text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-amber-700 dark:text-amber-400">
             Core Stack
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
@@ -163,7 +163,7 @@ export default function TechStackVisual() {
         </div>
 
         <div ref={secondaryRef}>
-          <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-gray-500 dark:text-gray-400">
+          <h3 className="font-mono text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-gray-500 dark:text-gray-400">
             Also Work With
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
@@ -177,7 +177,7 @@ export default function TechStackVisual() {
                   transitionDelay: `${gi * 100}ms`,
                 }}
               >
-                <h4 className="text-xs font-semibold uppercase tracking-wide mb-2.5 pb-2 border-b text-gray-500 border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                <h4 className="font-mono text-xs font-semibold uppercase tracking-wide mb-2.5 pb-2 border-b text-gray-500 border-gray-200 dark:text-gray-400 dark:border-gray-700">
                   {group.label}
                 </h4>
                 <ul className="flex flex-wrap gap-1.5 sm:gap-2" role="list">

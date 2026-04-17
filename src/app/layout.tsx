@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ScrollProgress from "../components/ScrollProgress";
@@ -15,7 +15,18 @@ import PageTransition from "../components/PageTransition";
 import CommandPalette from "../components/CommandPalette";
 import { ReactNode } from "react";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
+});
 
 export const metadata = {
   title: {
@@ -120,7 +131,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
       </head>
-      <body className={`${inter.className} min-h-screen transition-colors duration-300`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans min-h-screen transition-colors duration-300`}>
         <StructuredData />
         <ConsoleMessage />
         <ThemeProvider>

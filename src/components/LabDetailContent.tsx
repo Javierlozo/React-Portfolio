@@ -31,7 +31,7 @@ function getAdjacentLabs(currentId: number) {
 }
 
 const sectionHeading =
-  "flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400";
+  "flex items-center gap-2 font-mono text-sm font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400";
 
 const bodyText = "text-gray-600 dark:text-gray-300";
 

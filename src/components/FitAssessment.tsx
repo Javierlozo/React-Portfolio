@@ -121,7 +121,7 @@ export default function FitAssessment() {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="text-xs font-semibold uppercase tracking-widest mb-3 text-blue-600 dark:text-cyan-400">
+          <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-blue-600 dark:text-cyan-400">
             Fit Check
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-4 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
