@@ -64,35 +64,40 @@ interface Analytics {
   topLanguages: { name: string; count: number }[];
 }
 
-function useStyles() {
+// Static Tailwind class bag (no React hook required; `dark:` handles theme)
+const s = {
+  page: "bg-gray-50 dark:bg-gray-950",
+  card: "bg-white border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-800",
+  header: "border-gray-200 bg-white/80 dark:border-gray-800 dark:bg-gray-950/80",
+  title: "text-gray-900 dark:text-white",
+  subtitle: "text-gray-500 dark:text-gray-400",
+  muted: "text-gray-400 dark:text-gray-500",
+  text: "text-gray-700 dark:text-gray-300",
+  mono: "text-gray-400 dark:text-gray-500",
+  border: "border-gray-200 dark:border-gray-800",
+  divider: "divide-gray-100 dark:divide-gray-800/50",
+  hover: "hover:bg-gray-50 dark:hover:bg-gray-800/30",
+  btnInactive: "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white",
+  btnBg: "bg-gray-100 border-gray-200 dark:bg-gray-900 dark:border-gray-800",
+  paginationBtn:
+    "border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800",
+  placeholder: "text-gray-300 dark:text-gray-600",
+} as const;
+
+// Hook for Recharts hex values (these must be JS strings, not CSS classes)
+function useChartColors() {
   const { theme } = useTheme();
   const d = theme === "dark";
   return {
-    d,
-    page: d ? "bg-gray-950" : "bg-gray-50",
-    card: d ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200 shadow-sm",
-    header: d ? "border-gray-800 bg-gray-950/80" : "border-gray-200 bg-white/80",
-    title: d ? "text-white" : "text-gray-900",
-    subtitle: d ? "text-gray-400" : "text-gray-500",
-    muted: d ? "text-gray-500" : "text-gray-400",
-    text: d ? "text-gray-300" : "text-gray-700",
-    mono: d ? "text-gray-500" : "text-gray-400",
-    border: d ? "border-gray-800" : "border-gray-200",
-    divider: d ? "divide-gray-800/50" : "divide-gray-100",
-    hover: d ? "hover:bg-gray-800/30" : "hover:bg-gray-50",
-    btnInactive: d ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-900",
-    btnBg: d ? "bg-gray-900 border-gray-800" : "bg-gray-100 border-gray-200",
-    paginationBtn: d ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "border-gray-300 text-gray-600 hover:bg-gray-100",
     grid: d ? "#374151" : "#e5e7eb",
     axis: d ? "#6b7280" : "#9ca3af",
     tooltipBg: d ? "#1f2937" : "#ffffff",
     tooltipBorder: d ? "#374151" : "#e5e7eb",
     tooltipLabel: d ? "#9ca3af" : "#6b7280",
-    placeholder: d ? "text-gray-600" : "text-gray-300",
   };
 }
 
-function MetricCard({ label, value, s }: { label: string; value: string | number; s: ReturnType<typeof useStyles> }) {
+function MetricCard({ label, value }: { label: string; value: string | number }) {
   return (
     <div className={`border rounded-xl p-5 ${s.card}`}>
       <p className={`text-sm ${s.subtitle}`}>{label}</p>
@@ -101,7 +106,7 @@ function MetricCard({ label, value, s }: { label: string; value: string | number
   );
 }
 
-function ChartCard({ title, children, s }: { title: string; children: React.ReactNode; s: ReturnType<typeof useStyles> }) {
+function ChartCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className={`border rounded-xl p-5 ${s.card}`}>
       <h3 className={`font-semibold mb-4 ${s.title}`}>{title}</h3>
@@ -110,7 +115,7 @@ function ChartCard({ title, children, s }: { title: string; children: React.Reac
   );
 }
 
-function TableCard({ title, data, s }: { title: string; data: { name: string; count: number }[]; s: ReturnType<typeof useStyles> }) {
+function TableCard({ title, data }: { title: string; data: { name: string; count: number }[] }) {
   if (!data.length) return null;
   return (
     <div className={`border rounded-xl p-5 ${s.card}`}>
@@ -153,7 +158,7 @@ function deviceIcon(type: string): string {
 
 const PAGE_SIZE = 15;
 
-function RecentVisitorsTable({ visitors, s, onDelete }: { visitors: RecentVisitor[]; s: ReturnType<typeof useStyles>; onDelete: (id: string) => void }) {
+function RecentVisitorsTable({ visitors, onDelete }: { visitors: RecentVisitor[]; onDelete: (id: string) => void }) {
   const [page, setPage] = useState(0);
   const [deleting, setDeleting] = useState<string | null>(null);
   if (!visitors.length) return null;
@@ -229,9 +234,7 @@ function RecentVisitorsTable({ visitors, s, onDelete }: { visitors: RecentVisito
                     className={`text-xs px-2 py-1 rounded transition-colors ${
                       deleting === v.id
                         ? "opacity-30 cursor-not-allowed"
-                        : s.d
-                          ? "text-gray-500 hover:text-red-400 hover:bg-red-400/10"
-                          : "text-gray-400 hover:text-red-600 hover:bg-red-50"
+                        : "text-gray-400 hover:text-red-600 hover:bg-red-50 dark:text-gray-500 dark:hover:text-red-400 dark:hover:bg-red-400/10"
                     }`}
                     title="Delete row"
                   >
@@ -276,7 +279,7 @@ export default function AdminDashboard() {
   const [error, setError] = useState("");
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
-  const s = useStyles();
+  const chart = useChartColors();
 
   const fetchData = useCallback(async (d: number) => {
     setLoading(true);
@@ -324,8 +327,8 @@ export default function AdminDashboard() {
   if (!data) return null;
 
   const tooltipStyle = {
-    backgroundColor: s.tooltipBg,
-    border: `1px solid ${s.tooltipBorder}`,
+    backgroundColor: chart.tooltipBg,
+    border: `1px solid ${chart.tooltipBorder}`,
     borderRadius: "8px",
   };
 
@@ -369,17 +372,16 @@ export default function AdminDashboard() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-          <MetricCard label="Total Views" value={data.totalViews} s={s} />
-          <MetricCard label="Unique Visitors" value={data.uniqueVisitors} s={s} />
-          <MetricCard label="Unique Pages" value={data.uniquePages} s={s} />
-          <MetricCard label="Avg. Duration" value={data.avgSessionDuration ? formatDuration(data.avgSessionDuration) : "N/A"} s={s} />
-          <MetricCard label="Top Country" value={data.topCountry} s={s} />
-          <MetricCard label="Top Device" value={data.topDevice} s={s} />
+          <MetricCard label="Total Views" value={data.totalViews} />
+          <MetricCard label="Unique Visitors" value={data.uniqueVisitors} />
+          <MetricCard label="Unique Pages" value={data.uniquePages} />
+          <MetricCard label="Avg. Duration" value={data.avgSessionDuration ? formatDuration(data.avgSessionDuration) : "N/A"} />
+          <MetricCard label="Top Country" value={data.topCountry} />
+          <MetricCard label="Top Device" value={data.topDevice} />
         </div>
 
         <RecentVisitorsTable
           visitors={data.recentVisitors}
-          s={s}
           onDelete={(id) => {
             setData((prev) =>
               prev ? { ...prev, recentVisitors: prev.recentVisitors.filter((v) => v.id !== id), totalViews: prev.totalViews - 1 } : prev
@@ -387,32 +389,32 @@ export default function AdminDashboard() {
           }}
         />
 
-        <ChartCard title="Views Over Time" s={s}>
+        <ChartCard title="Views Over Time" >
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={data.timeSeries}>
-              <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
-              <XAxis dataKey="date" stroke={s.axis} fontSize={12} tickFormatter={(v) => v.slice(5)} />
-              <YAxis stroke={s.axis} fontSize={12} />
-              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} itemStyle={{ color: "#3b82f6" }} />
+              <CartesianGrid strokeDasharray="3 3" stroke={chart.grid} />
+              <XAxis dataKey="date" stroke={chart.axis} fontSize={12} tickFormatter={(v) => v.slice(5)} />
+              <YAxis stroke={chart.axis} fontSize={12} />
+              <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: chart.tooltipLabel }} itemStyle={{ color: "#3b82f6" }} />
               <Line type="monotone" dataKey="count" stroke="#3b82f6" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </ChartCard>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <ChartCard title="Top Pages" s={s}>
+          <ChartCard title="Top Pages" >
             <ResponsiveContainer width="100%" height={280}>
               <BarChart data={data.topPages} layout="vertical" margin={{ left: 60 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
-                <XAxis type="number" stroke={s.axis} fontSize={12} />
-                <YAxis type="category" dataKey="name" stroke={s.axis} fontSize={12} width={80} tickFormatter={(v) => (v.length > 12 ? v.slice(0, 12) + "..." : v)} />
-                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chart.grid} />
+                <XAxis type="number" stroke={chart.axis} fontSize={12} />
+                <YAxis type="category" dataKey="name" stroke={chart.axis} fontSize={12} width={80} tickFormatter={(v) => (v.length > 12 ? v.slice(0, 12) + "..." : v)} />
+                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: chart.tooltipLabel }} />
                 <Bar dataKey="count" fill="#3b82f6" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
 
-          <ChartCard title="Devices" s={s}>
+          <ChartCard title="Devices" >
             <ResponsiveContainer width="100%" height={280}>
               <PieChart>
                 <Pie data={data.devices} dataKey="count" nameKey="name" cx="50%" cy="50%" outerRadius={100} innerRadius={50} label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`} labelLine={false} fontSize={12}>
@@ -427,30 +429,30 @@ export default function AdminDashboard() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <TableCard title="Top Organizations / ISPs" data={data.topOrgs} s={s} />
-          <TableCard title="Top Cities" data={data.topCities} s={s} />
+          <TableCard title="Top Organizations / ISPs" data={data.topOrgs} />
+          <TableCard title="Top Cities" data={data.topCities} />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <ChartCard title="Browsers" s={s}>
+          <ChartCard title="Browsers" >
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={data.browsers}>
-                <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
-                <XAxis dataKey="name" stroke={s.axis} fontSize={12} />
-                <YAxis stroke={s.axis} fontSize={12} />
-                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chart.grid} />
+                <XAxis dataKey="name" stroke={chart.axis} fontSize={12} />
+                <YAxis stroke={chart.axis} fontSize={12} />
+                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: chart.tooltipLabel }} />
                 <Bar dataKey="count" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
 
-          <ChartCard title="Operating Systems" s={s}>
+          <ChartCard title="Operating Systems" >
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={data.operatingSystems}>
-                <CartesianGrid strokeDasharray="3 3" stroke={s.grid} />
-                <XAxis dataKey="name" stroke={s.axis} fontSize={12} />
-                <YAxis stroke={s.axis} fontSize={12} />
-                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: s.tooltipLabel }} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chart.grid} />
+                <XAxis dataKey="name" stroke={chart.axis} fontSize={12} />
+                <YAxis stroke={chart.axis} fontSize={12} />
+                <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: chart.tooltipLabel }} />
                 <Bar dataKey="count" fill="#06b6d4" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -458,21 +460,21 @@ export default function AdminDashboard() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <TableCard title="Top Countries" data={data.countries} s={s} />
-          <TableCard title="Screen Breakpoints" data={data.screenBreakpoints} s={s} />
+          <TableCard title="Top Countries" data={data.countries} />
+          <TableCard title="Screen Breakpoints" data={data.screenBreakpoints} />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <TableCard title="Languages" data={data.topLanguages} s={s} />
+          <TableCard title="Languages" data={data.topLanguages} />
           {data.topInteractions.length > 0 && (
-            <TableCard title="Top Interactions" data={data.topInteractions} s={s} />
+            <TableCard title="Top Interactions" data={data.topInteractions} />
           )}
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          <TableCard title="Top Referrers" data={data.topReferrers} s={s} />
+          <TableCard title="Top Referrers" data={data.topReferrers} />
           {data.utmSources.length > 0 && (
-            <TableCard title="UTM Campaigns" data={data.utmSources} s={s} />
+            <TableCard title="UTM Campaigns" data={data.utmSources} />
           )}
         </div>
       </div>
