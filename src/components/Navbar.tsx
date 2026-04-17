@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
 
 type NavLink = { label: string; id: string };
@@ -171,7 +172,7 @@ export default function Navbar() {
           aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
           aria-pressed={theme === "dark"}
         >
-          {theme === "dark" ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
+          {theme === "dark" ? <FontAwesomeIcon icon={faSun} className="w-4 h-4" /> : <FontAwesomeIcon icon={faMoon} className="w-4 h-4" />}
         </button>
 
         {/* Hamburger */}
@@ -182,9 +183,9 @@ export default function Navbar() {
           aria-expanded={isOpen}
         >
           {isOpen ? (
-            <FiX className="w-7 h-7 transition-colors duration-300 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" />
+            <FontAwesomeIcon icon={faXmark} className="w-7 h-7 transition-colors duration-300 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" />
           ) : hamburgerImageError ? (
-            <FiMenu className="w-7 h-7 transition-colors duration-300 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" />
+            <FontAwesomeIcon icon={faBars} className="w-7 h-7 transition-colors duration-300 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" />
           ) : (
             <Image
               src="/hamburger.png"
@@ -219,7 +220,7 @@ export default function Navbar() {
                     aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
                     aria-pressed={theme === "dark"}
                   >
-                    {theme === "dark" ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
+                    {theme === "dark" ? <FontAwesomeIcon icon={faSun} className="w-4 h-4" /> : <FontAwesomeIcon icon={faMoon} className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={toggleMenu}

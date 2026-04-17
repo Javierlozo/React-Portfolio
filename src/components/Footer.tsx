@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import { FaLinkedinIn, FaGithub } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
 import BorderDrawButton from "./BorderDrawButton";
 
 const socialLink =
@@ -36,7 +37,7 @@ export default function Footer() {
                 aria-label="Visit Luis on LinkedIn"
                 className={socialLink}
               >
-                <FaLinkedinIn className="text-xl" />
+                <FontAwesomeIcon icon={faLinkedinIn} className="text-xl" />
               </a>
               <a
                 href="https://github.com/Javierlozo"
@@ -45,7 +46,7 @@ export default function Footer() {
                 aria-label="Visit Luis on GitHub"
                 className={socialLink}
               >
-                <FaGithub className="text-xl" />
+                <FontAwesomeIcon icon={faGithub} className="text-xl" />
               </a>
             </div>
           </div>

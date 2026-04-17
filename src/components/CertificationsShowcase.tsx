@@ -6,15 +6,15 @@ import { faExternalLinkAlt, faCertificate, faCalendarAlt, faTimes, faGraduationC
 import { useCardTilt } from "../hooks/useCardTilt";
 
 // Import certification images
-import gsec from "@/src/public/certifications/GSEC.png";
-import gfact from "@/src/public/certifications/GFACT.png";
-import coursera from "@/src/public/certifications/Coursera.png";
-import systemAdm from "@/src/public/certifications/System Adm.png";
+import gsec from "@/src/assets/certifications/GSEC.png";
+import gfact from "@/src/assets/certifications/GFACT.png";
+import coursera from "@/src/assets/certifications/Coursera.png";
+import systemAdm from "@/src/assets/certifications/System Adm.png";
 
 // Import education logos
-import pnwLogo from "@/src/public/pictures/pnw-logo.png";
-import harborLogo from "@/src/public/pictures/harbor-logo.png";
-import ieLogo from "@/src/public/pictures/ie-university.png";
+import pnwLogo from "@/src/assets/pictures/pnw-logo.png";
+import harborLogo from "@/src/assets/pictures/harbor-logo.png";
+import ieLogo from "@/src/assets/pictures/ie-university.png";
 
 interface Certification {
   id: number;

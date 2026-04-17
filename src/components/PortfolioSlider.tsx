@@ -25,17 +25,17 @@ function useReveal(threshold = 0.15) {
 }
 
 // Import project images
-import lessUSA from "@/src/public/pictures/Less1.png";
-import querri from "@/src/public/pictures/querri1.png";
-import cursorRules from "@/src/public/pictures/cursor-rules.png";
-import gseay from "@/src/public/pictures/gseay.png";
-import africanxt from "@/src/public/pictures/app.africanxt.com_.png";
-import iberiatech from "@/src/public/pictures/www.iberiatechsolutions.com_ (1).png";
-import web3 from "@/src/public/pictures/langchain.png";
-import shopEssentialshub from "@/src/public/pictures/www.shopessentialshub.com_.png";
-import talentagent from "@/src/public/pictures/TalentAgent.png";
-import coastalMillwork from "@/src/public/pictures/coastal-millwork.png";
-import nevaEstudio from "@/src/public/pictures/neva.png";
+import lessUSA from "@/src/assets/pictures/Less1.png";
+import querri from "@/src/assets/pictures/querri1.png";
+import cursorRules from "@/src/assets/pictures/cursor-rules.png";
+import gseay from "@/src/assets/pictures/gseay.png";
+import africanxt from "@/src/assets/pictures/app.africanxt.com_.png";
+import iberiatech from "@/src/assets/pictures/www.iberiatechsolutions.com_ (1).png";
+import web3 from "@/src/assets/pictures/langchain.png";
+import shopEssentialshub from "@/src/assets/pictures/www.shopessentialshub.com_.png";
+import talentagent from "@/src/assets/pictures/TalentAgent.png";
+import coastalMillwork from "@/src/assets/pictures/coastal-millwork.png";
+import nevaEstudio from "@/src/assets/pictures/neva.png";
 
 interface Project {
   id: number;

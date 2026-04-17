@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import photo from "@/src/public/pictures/Photo-127.jpg";
+import photo from "@/src/assets/pictures/Photo-127.jpg";
 import BorderDrawButton from "./BorderDrawButton";
 import SecurityTerminal from "./SecurityTerminal";
 import SkillOrbit from "./SkillOrbit";

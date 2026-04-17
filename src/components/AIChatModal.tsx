@@ -2,8 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { FiZap } from "react-icons/fi";
+import { faXmark, faPaperPlane, faBolt } from "@fortawesome/free-solid-svg-icons";
 
 interface Message {
   role: "user" | "assistant";
@@ -168,7 +167,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
       >
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white/95 dark:border-gray-700 dark:bg-gray-900/95">
           <div className="flex items-center gap-2">
-            <FiZap className="w-5 h-5 text-blue-600 dark:text-cyan-400" />
+            <FontAwesomeIcon icon={faBolt} className="w-5 h-5 text-blue-600 dark:text-cyan-400" />
             <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
               Ask AI About Luis
             </h2>

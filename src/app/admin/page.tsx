@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/src/contexts/ThemeContext";
-import { HiSun, HiMoon } from "react-icons/hi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import {
   BarChart,
   Bar,
@@ -354,7 +355,7 @@ export default function AdminDashboard() {
               className={`p-2 rounded-lg transition-colors ${s.btnInactive}`}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? <HiSun size={18} /> : <HiMoon size={18} />}
+              {theme === "dark" ? <FontAwesomeIcon icon={faSun} className="w-[18px] h-[18px]" /> : <FontAwesomeIcon icon={faMoon} className="w-[18px] h-[18px]" />}
             </button>
             <button
               onClick={handleLogout}

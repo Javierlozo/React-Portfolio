@@ -2,15 +2,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { FiZap } from "react-icons/fi";
+import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe, faChevronDown, faChevronUp, faBolt } from "@fortawesome/free-solid-svg-icons";
 import { experienceNarratives } from "../data/ai-context";
 
 // Import company logos
-import querriLogo from "@/src/public/pictures/querri.png";
-import interloopLogo from "@/src/public/pictures/interloop.jpeg";
-import upstateLogo from "@/src/public/pictures/upstate.jpg";
-import gdnaLogo from "@/src/public/pictures/gdna.ico";
+import querriLogo from "@/src/assets/pictures/querri.png";
+import interloopLogo from "@/src/assets/pictures/interloop.jpeg";
+import upstateLogo from "@/src/assets/pictures/upstate.jpg";
+import gdnaLogo from "@/src/assets/pictures/gdna.ico";
 
 interface Experience {
   id: number;
@@ -347,7 +346,7 @@ export default function ExperienceTimeline() {
                         onClick={() => toggleNarrative(exp.id)}
                         className="flex items-center gap-1.5 text-xs font-semibold transition-colors text-blue-600 hover:text-blue-700 dark:text-cyan-400 dark:hover:text-cyan-300"
                       >
-                        <FiZap className="w-3.5 h-3.5" />
+                        <FontAwesomeIcon icon={faBolt} className="w-3.5 h-3.5" />
                         {expandedNarratives.has(exp.id) ? "Hide" : "View"} AI Context
                         <FontAwesomeIcon
                           icon={expandedNarratives.has(exp.id) ? faChevronUp : faChevronDown}
