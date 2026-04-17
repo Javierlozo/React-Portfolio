@@ -99,7 +99,7 @@ export default function SecurityTerminal() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-      className="w-full max-w-sm rounded-lg border overflow-hidden font-mono text-[11px] sm:text-xs shadow-xl bg-gray-900 border-gray-800 dark:bg-gray-950/80 dark:backdrop-blur"
+      className="w-full max-w-sm sm:max-w-md lg:max-w-lg rounded-lg border overflow-hidden font-mono text-[11px] sm:text-xs shadow-2xl shadow-black/40 bg-gray-900 border-gray-800 dark:bg-gray-950/80 dark:backdrop-blur"
       aria-label="Security lab command loop"
     >
       <div className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-800 bg-gray-800 dark:bg-gray-900/60">
@@ -143,7 +143,13 @@ export default function SecurityTerminal() {
       </div>
 
       <div className="flex items-center justify-between px-3 py-1.5 border-t text-[10px] tracking-widest uppercase border-gray-800 bg-gray-800/80 text-gray-400 dark:bg-gray-900/40 dark:text-gray-500">
-        <span>Lab {i + 1} / {LINES.length}</span>
+        <span className="flex items-center gap-1.5">
+          <span className="relative flex w-1.5 h-1.5" aria-hidden>
+            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+            <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          </span>
+          Lab {i + 1} / {LINES.length}
+        </span>
         <span className="text-emerald-400/80">{line.tag}</span>
       </div>
     </motion.div>
