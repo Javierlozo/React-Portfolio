@@ -43,7 +43,7 @@ export default function PageTracker() {
       }),
     }).catch(() => {});
 
-    const handleUnload = () => {
+    const sendSessionEnd = () => {
       const duration = Math.round((Date.now() - startTime) / 1000);
       if (duration > 0) {
         sendBeacon({
@@ -55,12 +55,14 @@ export default function PageTracker() {
       }
     };
 
-    window.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") handleUnload();
-    });
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") sendSessionEnd();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      window.removeEventListener("visibilitychange", handleUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 

@@ -7,7 +7,7 @@ import SecurityTerminal from "./SecurityTerminal";
 import SkillOrbit from "./SkillOrbit";
 
 export default function Hero() {
-  const [scrollY, setScrollY] = useState(0);
+  const [scrollFraction, setScrollFraction] = useState(0);
   const [nameVisible, setNameVisible] = useState(false);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
   const [paragraphsVisible, setParagraphsVisible] = useState(false);
@@ -35,7 +35,8 @@ export default function Hero() {
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
+          const denom = window.innerHeight * 0.6;
+          setScrollFraction(denom > 0 ? Math.min(window.scrollY / denom, 1) : 0);
           ticking = false;
         });
       }
@@ -107,7 +108,6 @@ export default function Hero() {
   };
 
   // Apple-style: content fades and shifts up as user scrolls past
-  const scrollFraction = Math.min(scrollY / (typeof window !== 'undefined' ? window.innerHeight * 0.6 : 600), 1);
   const heroOpacity = 1 - scrollFraction;
   const heroTranslateY = scrollFraction * -40;
 
