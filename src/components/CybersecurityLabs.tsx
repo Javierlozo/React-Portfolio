@@ -23,6 +23,7 @@ import {
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { LABS, getLabPath } from "../data/labs";
 import RevealText from "./RevealText";
+import ScrambleText from "./ScrambleText";
 import BorderDrawButton from "./BorderDrawButton";
 
 const FOCUS_ICONS: Record<string, IconDefinition> = {
@@ -143,6 +144,11 @@ function LabCard({ lab, theme, index }: { lab: (typeof LABS)[number]; theme: str
   const gradient = FOCUS_GRADIENTS[lab.focus ?? ""] ?? DEFAULT_GRADIENT;
   const glowColor = GLOW_COLORS[lab.focus ?? ""] ?? "from-gray-500 via-gray-400 to-gray-500";
 
+  const peekCommands = (lab.stepDetails ?? [])
+    .map((s) => s.command)
+    .filter((c): c is string => Boolean(c))
+    .slice(0, 2);
+
   return (
     <div
       ref={ref}
@@ -179,6 +185,21 @@ function LabCard({ lab, theme, index }: { lab: (typeof LABS)[number]; theme: str
             <h3 className={`font-medium mt-1 leading-snug ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
               {lab.title}
             </h3>
+            {peekCommands.length > 0 && (
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-3 bottom-2 rounded-md overflow-hidden font-mono text-[10px] leading-tight bg-gray-950/95 text-gray-100 border border-gray-800 shadow-xl opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out"
+              >
+                <div className="px-2 py-1 space-y-0.5">
+                  {peekCommands.map((cmd, idx) => (
+                    <div key={idx} className="flex items-baseline gap-1.5 truncate">
+                      <span className="text-emerald-400 shrink-0">$</span>
+                      <span className="truncate">{cmd}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
           <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
             <p className={`text-sm leading-relaxed mb-3 flex-1 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
@@ -362,13 +383,14 @@ export default function CybersecurityLabs() {
             >
               <FontAwesomeIcon icon={faFlask} className="text-xl" />
             </div>
-            <h2
-              className={`text-2xl sm:text-3xl md:text-4xl font-thin ${
+            <ScrambleText
+              as="h2"
+              className={`text-2xl sm:text-3xl md:text-4xl font-thin font-mono ${
                 theme === "dark" ? "text-white" : "text-gray-900"
               }`}
             >
               Security Labs
-            </h2>
+            </ScrambleText>
             <span
               className={`text-xs sm:text-sm font-semibold px-3 py-1 rounded-full whitespace-nowrap ${
                 theme === "dark"

@@ -12,6 +12,7 @@ import PageTracker from "../components/PageTracker";
 import SiteChrome from "../components/SiteChrome";
 import SmoothScroll from "../components/SmoothScroll";
 import PageTransition from "../components/PageTransition";
+import CommandPalette from "../components/CommandPalette";
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -139,6 +140,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </SiteChrome>
           <PageTracker />
           <SmoothScroll />
+          <CommandPalette />
         </ThemeProvider>
       </body>
     </html>

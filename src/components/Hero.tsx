@@ -4,6 +4,8 @@ import Image from "next/image";
 import photo from "@/src/public/pictures/Photo-127.jpg";
 import { useTheme } from "../contexts/ThemeContext";
 import BorderDrawButton from "./BorderDrawButton";
+import SecurityTerminal from "./SecurityTerminal";
+import SkillOrbit from "./SkillOrbit";
 
 export default function Hero() {
   const { theme } = useTheme();
@@ -182,29 +184,13 @@ export default function Hero() {
               </p>
             </div>
 
-            {/* Skills - Cascade animation */}
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {['AppSec', 'AWS', 'React', 'Next.js', 'TypeScript', 'Python'].map((skill, index) => (
-                <span
-                  key={skill}
-                  className={`px-2 sm:px-3 py-1 sm:py-1.5 text-xs font-light rounded-full border transition-all ease-out ${
-                    prefersReducedMotion ? 'duration-0' : 'duration-300 sm:duration-500'
-                  } ${
-                    theme === 'dark' 
-                      ? 'text-gray-400 border-gray-700 bg-transparent' 
-                      : 'text-gray-500 border-gray-200 bg-transparent'
-                  } ${
-                    skillsVisible 
-                      ? 'opacity-100 translate-y-0 scale-100' 
-                      : 'opacity-0 translate-y-2 sm:translate-y-4 scale-95 sm:scale-90'
-                  }`}
-                  style={{
-                    transitionDelay: prefersReducedMotion || !skillsVisible ? '0ms' : `${index * 50}ms`
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
+            {/* Skills - Magnetic orbit */}
+            <div
+              className={`transition-opacity duration-700 ${
+                skillsVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <SkillOrbit skills={["AppSec", "AWS", "React", "Next.js", "TypeScript", "Python"]} />
             </div>
 
             {/* Credential bar */}
@@ -240,8 +226,8 @@ export default function Hero() {
           </div>
 
           {/* Right Side - Profile Image with magnetic effect */}
-          <div className="flex justify-center lg:justify-end order-2">
-            <div 
+          <div className="flex flex-col items-center lg:items-end gap-6 sm:gap-8 order-2">
+            <div
               ref={imageRef}
               onMouseMove={!isTouchDevice ? handleMouseMove : undefined}
               onMouseLeave={!isTouchDevice ? handleMouseLeave : undefined}
@@ -249,8 +235,8 @@ export default function Hero() {
                 isTouchDevice ? 'duration-0' : 'duration-300'
               }`}
               style={{
-                transform: isTouchDevice 
-                  ? 'none' 
+                transform: isTouchDevice
+                  ? 'none'
                   : `translate(${imagePosition.x}px, ${imagePosition.y}px)`
               }}
             >
@@ -263,6 +249,7 @@ export default function Hero() {
                 priority
               />
             </div>
+            <SecurityTerminal />
           </div>
         </div>
 
