@@ -54,6 +54,15 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    if (!isOpen) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen]);
+
+  useEffect(() => {
     const sections = ["about", "experience", "security-labs", "certifications", "portfolio", "fit-check", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
@@ -97,7 +106,7 @@ export default function Navbar() {
   return (
     <nav
       id="main-navbar"
-      className="py-2 sm:py-3 px-3 sm:px-4 fixed w-full z-[100] top-0 left-0 right-0 transition-colors duration-300 bg-white/90 backdrop-blur-sm border-b border-gray-200 dark:bg-black/90 dark:border-gray-800"
+      className="py-2 sm:py-3 px-3 sm:px-4 fixed w-full z-nav top-0 left-0 right-0 transition-colors duration-300 bg-surface-elevated border-b border-divider"
     >
       <div className="container mx-auto flex justify-between items-center max-w-7xl gap-2">
         <Link
@@ -155,8 +164,8 @@ export default function Navbar() {
             href={sectionHref(CTA_LINK.id)}
             className={`relative px-3 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap rounded-full border transition-colors duration-300 ${
               activeSection === CTA_LINK.id
-                ? "border-blue-600 text-blue-600 bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:bg-blue-500/10"
-                : "border-gray-300 text-gray-500 hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-400 dark:hover:text-blue-400 dark:hover:bg-blue-500/10"
+                ? "border-green-700 text-green-700 bg-green-50 dark:border-green-400 dark:text-green-400 dark:bg-green-500/10"
+                : "border-gray-300 text-gray-500 hover:border-green-700 hover:text-green-700 hover:bg-green-50 dark:border-gray-700 dark:text-gray-300 dark:hover:border-green-400 dark:hover:text-green-400 dark:hover:bg-green-500/10"
             }`}
           >
             {CTA_LINK.label}
@@ -201,8 +210,14 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] xl:hidden bg-white/90 backdrop-blur-lg dark:bg-black/90">
-          <div className="absolute inset-0 animate-fadeIn z-0" onClick={toggleMenu} />
+        <div className="fixed inset-0 z-modal xl:hidden bg-black/50">
+          <button
+            type="button"
+            tabIndex={-1}
+            aria-label="Close menu"
+            className="absolute inset-0 animate-fadeIn z-0 cursor-default"
+            onClick={toggleMenu}
+          />
           <div
             className="absolute right-0 top-0 h-full w-full max-w-sm sm:max-w-md md:max-w-lg border-l shadow-2xl z-10 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-800"
             style={{ animation: "slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}

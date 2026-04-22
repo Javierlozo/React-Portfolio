@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 
 interface SkillOrbitProps {
@@ -7,38 +7,41 @@ interface SkillOrbitProps {
   className?: string;
 }
 
+type Pointer = { x: number; y: number } | null;
+
 const chipClass =
   "px-3 py-1.5 text-xs font-light rounded-full border inline-block text-gray-600 border-gray-300 bg-white/40 dark:text-gray-300 dark:border-gray-700 dark:bg-gray-900/40";
 
 function MagneticChip({
   label,
   index,
-  pointer,
+  pointerRef,
+  running,
 }: {
   label: string;
   index: number;
-  pointer: { x: number; y: number } | null;
+  pointerRef: MutableRefObject<Pointer>;
+  running: boolean;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 180, damping: 18, mass: 0.4 });
   const sy = useSpring(y, { stiffness: 180, damping: 18, mass: 0.4 });
-  const driftRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (!running) return;
     let raf = 0;
     const seed = index * 1.37;
     const loop = () => {
       const t = performance.now() / 1000;
-      driftRef.current = {
-        x: Math.sin(t * 0.6 + seed) * 2.5,
-        y: Math.cos(t * 0.5 + seed) * 2.5,
-      };
+      const driftX = Math.sin(t * 0.6 + seed) * 2.5;
+      const driftY = Math.cos(t * 0.5 + seed) * 2.5;
+      const pointer = pointerRef.current;
 
       if (!pointer || !ref.current) {
-        x.set(driftRef.current.x);
-        y.set(driftRef.current.y);
+        x.set(driftX);
+        y.set(driftY);
       } else {
         const rect = ref.current.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
@@ -50,14 +53,14 @@ function MagneticChip({
         const pull = dist < radius ? (1 - dist / radius) * 18 : 0;
         const nx = dist === 0 ? 0 : dx / dist;
         const ny = dist === 0 ? 0 : dy / dist;
-        x.set(driftRef.current.x + nx * pull);
-        y.set(driftRef.current.y + ny * pull);
+        x.set(driftX + nx * pull);
+        y.set(driftY + ny * pull);
       }
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
-  }, [pointer, x, y, index]);
+  }, [running, index, pointerRef, x, y]);
 
   return (
     <motion.span ref={ref} style={{ x: sx, y: sy }} className={chipClass}>
@@ -68,13 +71,19 @@ function MagneticChip({
 
 export default function SkillOrbit({ skills, className = "" }: SkillOrbitProps) {
   const reduce = useReducedMotion();
-  const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
+  const pointerRef = useRef<Pointer>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(true);
 
   useEffect(() => {
     if (reduce) return;
-    const onMove = (e: PointerEvent) => setPointer({ x: e.clientX, y: e.clientY });
-    const onLeave = () => setPointer(null);
-    window.addEventListener("pointermove", onMove);
+    const onMove = (e: PointerEvent) => {
+      pointerRef.current = { x: e.clientX, y: e.clientY };
+    };
+    const onLeave = () => {
+      pointerRef.current = null;
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerleave", onLeave);
     return () => {
       window.removeEventListener("pointermove", onMove);
@@ -82,9 +91,19 @@ export default function SkillOrbit({ skills, className = "" }: SkillOrbitProps) 
     };
   }, [reduce]);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const io = new IntersectionObserver(([entry]) => {
+      setOnScreen(entry.isIntersecting);
+    });
+    io.observe(container);
+    return () => io.disconnect();
+  }, []);
+
   if (reduce) {
     return (
-      <div className={`flex flex-wrap gap-2 ${className}`}>
+      <div ref={containerRef} className={`flex flex-wrap gap-2 ${className}`}>
         {skills.map((s) => (
           <span key={s} className={chipClass}>
             {s}
@@ -95,9 +114,15 @@ export default function SkillOrbit({ skills, className = "" }: SkillOrbitProps) 
   }
 
   return (
-    <div className={`flex flex-wrap gap-2 ${className}`}>
+    <div ref={containerRef} className={`flex flex-wrap gap-2 ${className}`}>
       {skills.map((s, i) => (
-        <MagneticChip key={s} label={s} index={i} pointer={pointer} />
+        <MagneticChip
+          key={s}
+          label={s}
+          index={i}
+          pointerRef={pointerRef}
+          running={onScreen}
+        />
       ))}
     </div>
   );

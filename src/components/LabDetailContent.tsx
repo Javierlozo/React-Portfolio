@@ -134,7 +134,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
           </div>
 
           {lab.whyThisMatters && (
-            <div className="mb-10 p-4 sm:p-5 rounded-xl border-l-4 bg-amber-50 border-amber-500 dark:bg-amber-500/10 dark:border-amber-500/60">
+            <div className="mb-10 p-4 sm:p-5 rounded-xl bg-amber-50 dark:bg-amber-500/10">
               <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-2 text-amber-700 dark:text-amber-400">
                 <FontAwesomeIcon icon={faExclamationTriangle} />
                 Why this matters
@@ -203,7 +203,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                               const [flag, ...desc] = line.split(":");
                               return (
                                 <div key={i} className="flex gap-1.5">
-                                  <code className="shrink-0 font-medium text-cyan-700 dark:text-cyan-400/70">{flag.trim()}</code>
+                                  <code className="shrink-0 font-medium text-emerald-700 dark:text-emerald-400/70">{flag.trim()}</code>
                                   {desc.length > 0 && <span>{desc.join(":").trim()}</span>}
                                 </div>
                               );
@@ -246,7 +246,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                 {lab.keyFindings.map((f, idx) => (
                   <div
                     key={idx}
-                    className="p-3 sm:p-4 rounded-xl border-l-4 text-sm leading-relaxed bg-amber-50 border-amber-400 text-gray-800 dark:bg-amber-500/10 dark:border-amber-500/50 dark:text-gray-200"
+                    className="p-3 sm:p-4 rounded-xl text-sm leading-relaxed bg-amber-50 text-gray-800 dark:bg-amber-500/10 dark:text-gray-200"
                   >
                     {f}
                   </div>
@@ -271,15 +271,15 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
           </section>
 
           {lab.securityControlsRelevant && lab.securityControlsRelevant.length > 0 && (
-            <section className="mb-10 p-4 sm:p-5 rounded-xl bg-blue-50 dark:bg-blue-500/5">
-              <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-3 text-blue-700 dark:text-blue-400">
+            <section className="mb-10 p-4 sm:p-5 rounded-xl bg-green-50 dark:bg-green-500/5">
+              <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide mb-3 text-green-700 dark:text-green-400">
                 <FontAwesomeIcon icon={faShieldAlt} />
                 Security controls relevant
               </h2>
               <ul className="space-y-2">
                 {lab.securityControlsRelevant.map((control, idx) => (
                   <li key={idx} className={`flex items-start gap-2 text-sm ${bodyText}`}>
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 bg-blue-500 dark:bg-blue-400" />
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 bg-green-700 dark:bg-green-400" />
                     <span className="leading-relaxed">{control}</span>
                   </li>
                 ))}
@@ -288,7 +288,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
           )}
 
           {lab.takeaway && lab.takeaway.length > 0 && (
-            <section className="mb-10 p-5 sm:p-6 rounded-xl border-l-4 bg-amber-50/50 border-amber-500 dark:bg-gray-800/50 dark:border-amber-500/60">
+            <section className="mb-10">
               <h2 className={`${sectionHeading} mb-4`}>
                 <FontAwesomeIcon icon={faLightbulb} />
                 What I took away from this

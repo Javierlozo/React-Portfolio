@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faPaperPlane, faBolt } from "@fortawesome/free-solid-svg-icons";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 interface Message {
   role: "user" | "assistant";
@@ -26,6 +27,9 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
   const [isStreaming, setIsStreaming] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap(modalRef, true);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -154,7 +158,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center">
+    <div className="fixed inset-0 z-modal flex items-end sm:items-center justify-center">
       <div
         className="absolute inset-0 backdrop-blur-sm bg-black/40 dark:bg-black/60"
         onClick={onClose}
@@ -162,18 +166,23 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
 
       <div
         id="ai-chat-modal"
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="ai-chat-heading"
         className="relative w-full h-[100dvh] sm:h-[600px] sm:max-w-lg sm:rounded-2xl border shadow-2xl flex flex-col overflow-hidden bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white/95 dark:border-gray-700 dark:bg-gray-900/95">
           <div className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faBolt} className="w-5 h-5 text-blue-600 dark:text-cyan-400" />
-            <h2 className="text-sm font-semibold text-gray-900 dark:text-white">
+            <FontAwesomeIcon icon={faBolt} className="w-5 h-5 text-green-700 dark:text-green-400" />
+            <h2 id="ai-chat-heading" className="text-sm font-semibold text-gray-900 dark:text-white">
               Ask AI About Luis
             </h2>
           </div>
           <button
             onClick={onClose}
+            aria-label="Close chat"
             className="p-1.5 rounded-lg transition-colors hover:bg-gray-100 text-gray-500 hover:text-gray-900 dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white"
           >
             <FontAwesomeIcon icon={faXmark} className="w-5 h-5" />
@@ -208,7 +217,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                   msg.role === "user"
-                    ? "bg-blue-500 text-white rounded-br-md dark:bg-blue-600"
+                    ? "bg-green-700 text-white rounded-br-md dark:bg-green-500 dark:text-gray-900"
                     : "bg-gray-100 text-gray-800 rounded-bl-md dark:bg-gray-800 dark:text-gray-200"
                 }`}
               >
@@ -216,10 +225,14 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
                 {msg.role === "assistant" &&
                   msg.content === "" &&
                   isStreaming && (
-                    <span className="inline-flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full animate-bounce bg-gray-500 dark:bg-gray-400" style={{ animationDelay: "0ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full animate-bounce bg-gray-500 dark:bg-gray-400" style={{ animationDelay: "150ms" }} />
-                      <span className="w-1.5 h-1.5 rounded-full animate-bounce bg-gray-500 dark:bg-gray-400" style={{ animationDelay: "300ms" }} />
+                    <span
+                      className="inline-flex items-center gap-1"
+                      role="status"
+                      aria-label="Assistant is typing"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full animate-typing-dot bg-gray-500 dark:bg-gray-400" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full animate-typing-dot bg-gray-500 dark:bg-gray-400" style={{ animationDelay: "200ms" }} />
+                      <span className="w-1.5 h-1.5 rounded-full animate-typing-dot bg-gray-500 dark:bg-gray-400" style={{ animationDelay: "400ms" }} />
                     </span>
                   )}
               </div>
@@ -240,12 +253,12 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
               onKeyDown={handleKeyDown}
               placeholder="Ask about Luis's experience..."
               rows={1}
-              className="flex-1 border rounded-xl px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:ring-cyan-500"
+              className="flex-1 border rounded-xl px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-green-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:ring-green-500"
             />
             <button
               type="submit"
               disabled={!input.trim() || isStreaming}
-              className="p-2.5 rounded-xl text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-600 dark:bg-cyan-600 dark:hover:bg-cyan-700"
+              className="p-2.5 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-green-700 hover:bg-green-800 text-white dark:bg-green-500 dark:hover:bg-green-400 dark:text-gray-900"
             >
               <FontAwesomeIcon icon={faPaperPlane} className="w-4 h-4" />
             </button>

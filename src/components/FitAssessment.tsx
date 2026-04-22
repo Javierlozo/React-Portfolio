@@ -121,7 +121,7 @@ export default function FitAssessment() {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-blue-600 dark:text-cyan-400">
+          <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-green-700 dark:text-green-400">
             Fit Check
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-4 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
@@ -143,7 +143,7 @@ export default function FitAssessment() {
             onChange={(e) => setJobDescription(e.target.value)}
             placeholder="Paste a job description here..."
             rows={4}
-            className="w-full border rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-blue-500 dark:bg-gray-900/50 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:ring-cyan-500"
+            className="w-full border rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-green-700 dark:bg-gray-900/50 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:ring-green-500"
           />
           <div className="flex items-center justify-between mt-3">
             <span className="text-[10px] text-gray-400 dark:text-gray-600">
@@ -152,7 +152,7 @@ export default function FitAssessment() {
             <button
               onClick={handleAssess}
               disabled={loading || jobDescription.trim().length < 50}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 dark:from-cyan-500 dark:to-blue-600 dark:hover:from-cyan-600 dark:hover:to-blue-700"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-green-700 hover:bg-green-800 text-white dark:bg-green-500 dark:hover:bg-green-400 dark:text-gray-900"
             >
               {loading ? (
                 <>
@@ -222,14 +222,14 @@ export default function FitAssessment() {
             </div>
 
             {result.interviewTips.length > 0 && (
-              <div className="rounded-xl border p-5 bg-blue-50 border-blue-200 dark:bg-cyan-500/10 dark:border-cyan-500/20">
-                <h4 className="text-sm font-semibold mb-3 text-blue-700 dark:text-cyan-400">
+              <div className="rounded-xl border p-5 bg-green-50 border-green-200 dark:bg-green-500/10 dark:border-green-500/20">
+                <h4 className="text-sm font-semibold mb-3 text-green-700 dark:text-green-400">
                   Interview Tips
                 </h4>
                 <ul className="space-y-2">
                   {result.interviewTips.map((tip, i) => (
                     <li key={i} className={bodyListItem}>
-                      <span className="text-blue-500 dark:text-cyan-400">&#9733;</span>
+                      <span className="text-green-700 dark:text-green-400">&#9733;</span>
                       {tip}
                     </li>
                   ))}

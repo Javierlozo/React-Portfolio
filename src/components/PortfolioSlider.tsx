@@ -252,7 +252,7 @@ export default function PortfolioSlider() {
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-blue-600 dark:bg-blue-400 hidden lg:block" />
+                      <span className="absolute left-0 top-0 bottom-0 w-0.5 bg-green-700 dark:bg-green-400 hidden lg:block" />
                     )}
                     <span className="text-sm font-medium block">{shortName}</span>
                     <span className={`text-xs mt-0.5 block hidden lg:block ${
@@ -282,7 +282,7 @@ export default function PortfolioSlider() {
                       className="object-cover object-top"
                     />
                     {project.featured && (
-                      <div className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+                      <div className="absolute top-4 left-4 bg-green-700 text-white dark:bg-green-500 dark:text-gray-900 px-3 py-1 rounded-full text-xs font-medium">
                         Featured
                       </div>
                     )}
@@ -293,7 +293,7 @@ export default function PortfolioSlider() {
                   </h3>
 
                   {(project.problem || project.solution || project.impact) && (
-                    <div className="space-y-4 mb-6 border-l-2 pl-4 border-gray-300 dark:border-gray-600">
+                    <div className="space-y-4 mb-6">
                       {project.problem && (
                         <div>
                           <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Problem</span>
@@ -400,7 +400,7 @@ export default function PortfolioSlider() {
                   </h4>
 
                   {project.role && (
-                    <p className="text-xs font-medium uppercase tracking-wide text-blue-600 dark:text-blue-400">
+                    <p className="text-xs font-medium uppercase tracking-wide text-green-700 dark:text-green-400">
                       Role: {project.role}
                     </p>
                   )}
@@ -410,7 +410,7 @@ export default function PortfolioSlider() {
                   </p>
 
                   {(project.problem || project.approach || project.outcome) && (
-                    <div className="space-y-2 text-xs sm:text-sm border-l-2 pl-3 border-gray-300 dark:border-gray-600">
+                    <div className="space-y-2 text-xs sm:text-sm">
                       {project.problem && (
                         <div>
                           <span className="font-medium text-gray-700 dark:text-gray-300">Problem: </span>

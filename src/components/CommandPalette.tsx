@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { LABS, getLabPath } from "../data/labs";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 type Item = {
   id: string;
@@ -17,7 +18,11 @@ export default function CommandPalette() {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const prevFocusRef = useRef<HTMLElement | null>(null);
   const router = useRouter();
+
+  useFocusTrap(dialogRef, open);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -35,9 +40,13 @@ export default function CommandPalette() {
 
   useEffect(() => {
     if (open) {
+      prevFocusRef.current = document.activeElement as HTMLElement | null;
       setQuery("");
       setActive(0);
       requestAnimationFrame(() => inputRef.current?.focus());
+    } else if (prevFocusRef.current) {
+      prevFocusRef.current.focus();
+      prevFocusRef.current = null;
     }
   }, [open]);
 
@@ -108,17 +117,19 @@ export default function CommandPalette() {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-start justify-center pt-[14vh] px-4"
+          className="fixed inset-0 z-modal flex items-start justify-center pt-[14vh] px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
           onClick={() => setOpen(false)}
-          role="dialog"
-          aria-label="Command palette"
         >
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Command palette"
             onClick={(e) => e.stopPropagation()}
             initial={{ y: -8, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}

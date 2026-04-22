@@ -13,6 +13,30 @@ module.exports = {
         mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
         burtons: 'burtons',
       },
+      colors: {
+        surface: {
+          DEFAULT: 'var(--bg)',
+          elevated: 'var(--bg-elev)',
+        },
+        content: {
+          DEFAULT: 'var(--fg)',
+          muted: 'var(--fg-muted)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          soft: 'var(--accent-soft)',
+        },
+        divider: 'var(--border)',
+        link: {
+          DEFAULT: 'var(--link)',
+          hover: 'var(--link-hover)',
+        },
+      },
+      zIndex: {
+        nav: '100',
+        modal: '200',
+        toast: '300',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

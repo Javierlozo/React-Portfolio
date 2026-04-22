@@ -31,7 +31,7 @@ export default function ImageLightbox({ src, alt, caption, isOpen, onClose }: Im
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-black/90"
+      className="fixed inset-0 z-modal flex items-center justify-center p-4 sm:p-6 bg-black/90"
       onClick={onClose}
       role="dialog"
       aria-modal="true"

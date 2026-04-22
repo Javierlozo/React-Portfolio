@@ -30,30 +30,31 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata = {
   title: {
-    default: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
+    default: "Luis Javier Lozoya | Security Engineer · AppSec & Cloud",
     template: "%s | Luis Javier Lozoya"
   },
-  description: "Senior Full Stack Engineer with 5+ years experience. Expert in React, Next.js, AWS, Python, and AI integration. Building scalable web applications and AI-powered solutions for businesses worldwide.",
+  description: "GIAC GSEC + GFACT certified software engineer. 5+ years building and securing React, Next.js, and AWS apps. Open to AppSec, DevSecOps, and cloud security roles.",
   keywords: [
-    "Full Stack Developer",
-    "React Developer",
-    "Next.js Developer", 
+    "Application Security Engineer",
+    "AppSec Engineer",
+    "Security Engineer",
+    "DevSecOps Engineer",
+    "Cloud Security Engineer",
+    "Web Application Security",
+    "Penetration Testing",
+    "OWASP Top 10",
+    "GIAC GSEC",
+    "GIAC GFACT",
+    "AWS Security",
     "AWS Engineer",
-    "Python Developer",
-    "Web Development",
-    "Cloud Architecture",
-    "JavaScript",
-    "TypeScript",
-    "Node.js",
-    "Supabase",
-    "Svelte",
-    "Squid AI",
-    "LangChain",
-    "OpenAI",
-    "Portfolio",
+    "Full Stack Engineer",
     "Software Engineer",
-    "Frontend Developer",
-    "Backend Developer"
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Python",
+    "Node.js",
+    "Charleston SC"
   ],
   authors: [{ name: "Luis Javier Lozoya" }],
   creator: "Luis Javier Lozoya",
@@ -68,8 +69,8 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
-    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT + GSEC certified. Open to full-time and contract roles.",
+    title: "Luis Javier Lozoya | Security Engineer · AppSec & Cloud",
+    description: "GIAC GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
     url: 'https://www.luislozoya.com',
     siteName: 'Luis Javier Lozoya Portfolio',
     locale: 'en_US',
@@ -78,8 +79,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Luis Javier Lozoya | Full Stack Engineer - Security, Cloud, AI",
-    description: "Full Stack Engineer with 5+ years building production apps with React, Next.js, AWS, and Python. GIAC GFACT + GSEC certified. Open to full-time and contract roles.",
+    title: "Luis Javier Lozoya | Security Engineer · AppSec & Cloud",
+    description: "GIAC GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
     creator: '@javierlozo',
   },
   robots: {
@@ -137,7 +138,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ThemeProvider>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[200] focus:px-4 focus:py-2 focus:bg-white focus:text-gray-900 focus:rounded focus:shadow-lg focus:text-sm focus:font-medium"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-modal focus:px-4 focus:py-2 focus:bg-white focus:text-gray-900 focus:rounded focus:shadow-lg focus:text-sm focus:font-medium"
           >
             Skip to main content
           </a>

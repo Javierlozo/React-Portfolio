@@ -1,291 +1,322 @@
 # Design System: Luis Lozoya Portfolio
 
-> Source of truth for all visual and interaction decisions across the portfolio.
+> Source of truth for visual and interaction decisions across the portfolio.
+> Describes the code as it exists — not aspirations. Edit when behavior changes.
 
 ---
 
 ## 1. Brand Identity
 
-**Personality:** Technical, modern, security-focused, approachable
-**Tone:** Professional with a cybersecurity edge -- clean enough for recruiters, technical enough for engineers
+**Personality:** Security-focused, technical, calm-confident, recruiter-legible.
+**Tone:** Terminal-adjacent rather than neon-cyber. Clean enough to scan in 10 seconds, technical enough that an engineer trusts the taste.
+**Positioning:** "Security-Focused Software Engineer." Primary audience = AppSec / DevSecOps recruiters and hiring managers.
 
 ---
 
 ## 2. Color System
 
-### Dark Mode (Default)
+### Tokens (source of truth: `src/styles/globals.css`)
 
-| Role | Token | Hex | Usage |
-|------|-------|-----|-------|
-| Background | `--bg-primary` | `#0B1220` | Page background |
-| Surface | `--bg-surface` | `#0F172A` | Cards, panels |
-| Surface Elevated | `--bg-elevated` | `#1E293B` | Hover states, modals |
-| Border | `--border-default` | `#334155` | Dividers, card borders |
-| Text Primary | `--text-primary` | `#F8FAFC` | Headings, body |
-| Text Secondary | `--text-secondary` | `#94A3B8` | Muted labels, captions |
-| Text Tertiary | `--text-tertiary` | `#64748B` | Placeholders |
-| Cyan (Primary Accent) | `--accent-cyan` | `#00D4FF` | Links, primary actions, highlights |
-| Cyan Hover | `--accent-cyan-hover` | `#00B8E6` | Interactive hover state |
-| Green (Secondary Accent) | `--accent-green` | `#00FF88` | Success, secondary CTA, terminal |
-| Orange (Tertiary Accent) | `--accent-orange` | `#FF6B35` | Warnings, badges, emphasis |
-| Blue (CTA) | `--accent-blue` | `#2563EB` | Buttons, call-to-action |
+Every color in the product should resolve to one of these variables. Components are allowed to reach for raw Tailwind `gray-*` where no token applies, but new work should prefer the semantic Tailwind alias (§ 2c).
 
-### Light Mode
+#### Dark (default)
 
-| Role | Token | Hex | Usage |
-|------|-------|-----|-------|
-| Background | `--bg-primary` | `#FAFAF9` | Page background |
-| Surface | `--bg-surface` | `#FFFFFF` | Cards, panels |
-| Surface Elevated | `--bg-elevated` | `#F1F5F9` | Hover states |
-| Border | `--border-default` | `#E2E8F0` | Dividers, card borders |
-| Text Primary | `--text-primary` | `#0F172A` | Headings, body |
-| Text Secondary | `--text-secondary` | `#475569` | Muted labels |
-| Text Tertiary | `--text-tertiary` | `#94A3B8` | Placeholders |
-| Blue (Primary Accent) | `--accent-cyan` | `#3B82F6` | Links, primary actions |
-| Emerald (Secondary) | `--accent-green` | `#10B981` | Success states |
-| Amber (Tertiary) | `--accent-orange` | `#F59E0B` | Warnings, badges |
-| Blue (CTA) | `--accent-blue` | `#1D4ED8` | Buttons |
+| Role | Variable | Value | Usage |
+|------|----------|-------|-------|
+| Page | `--bg` | `#0B1220` | Page background |
+| Surface | `--bg-elev` | `#0F172A` | Cards, panels |
+| Text | `--fg` | `#E5E7EB` | Body text, headings |
+| Text (muted) | `--fg-muted` | `#9CA3AF` | Labels, captions, placeholders |
+| Divider | `--border` | `#1F2937` | Borders, rules |
+| Accent | `--accent` | `#22C55E` | Brand accent (terminal green) |
+| Accent (soft) | `--accent-soft` | `rgba(34,197,94,0.12)` | Tinted backgrounds, chips |
+| Link | `--link` | `#60A5FA` | Inline links, blue-semantic actions |
+| Link (hover) | `--link-hover` | `#93C5FD` | Link hover state |
 
-### Gradients
+#### Light
 
-| Name | Value | Usage |
-|------|-------|-------|
-| Primary | `135deg, #00D4FF -> #0099CC` | Headings, hero text, primary focus |
-| Secondary | `135deg, #00FF88 -> #00CC66` | Skill badges, success states |
-| Accent | `135deg, #FF6B35 -> #F7931E` | CTAs, highlight badges |
-| Cyber | `135deg, #00FFFF -> #0080FF` | Terminal elements, cyber cards |
-| Matrix | `135deg, #00FF00 -> #008000` | Lab/security-themed elements |
+| Role | Variable | Value |
+|------|----------|-------|
+| Page | `--bg` | `#FAFAF9` |
+| Surface | `--bg-elev` | `#FFFFFF` |
+| Text | `--fg` | `#1F2937` |
+| Text (muted) | `--fg-muted` | `#6B7280` |
+| Divider | `--border` | `#E5E7EB` |
+| Accent | `--accent` | `#15803D` |
+| Accent (soft) | `--accent-soft` | `rgba(21,128,61,0.10)` |
+| Link | `--link` | `#2563EB` |
+| Link (hover) | `--link-hover` | `#1D4ED8` |
 
-### Contrast Requirements
+### Semantic meaning
 
-- Body text on dark: minimum 7:1 (WCAG AAA)
-- Body text on light: minimum 4.5:1 (WCAG AA)
-- Large headings: minimum 3:1
-- Interactive elements: visible focus ring at all times
+- **Green (`--accent`)** — brand accent. Primary CTA, section labels, active-state indicators, success states, code/terminal prompts.
+- **Blue (`--link`)** — link color. Actual hyperlinks, disclosure toggles, external-link actions. Never as a brand accent or decorative fill.
+- **Amber** (`amber-50/50`, `amber-500/10`) — emphasis callouts only ("Why this matters", "Key findings"). Tint-only, no border stripe.
+- **Grays** — everything else. Inverted monochrome is the default primary-button treatment.
+
+### Semantic Tailwind tokens (`tailwind.config.js`)
+
+New components should prefer these over raw Tailwind grays. They resolve to the variables above and theme-switch automatically.
+
+| Class | Resolves to |
+|-------|-------------|
+| `bg-surface` / `text-surface` | `var(--bg)` |
+| `bg-surface-elevated` | `var(--bg-elev)` |
+| `text-content` | `var(--fg)` |
+| `text-content-muted` | `var(--fg-muted)` |
+| `bg-accent` / `text-accent` / `border-accent` | `var(--accent)` |
+| `bg-accent-soft` | `var(--accent-soft)` |
+| `border-divider` | `var(--border)` |
+| `text-link` / `text-link-hover` | `var(--link)` / `var(--link-hover)` |
+
+### Contrast
+
+- Body on dark: 11:1 (AAA). Body on light: 9:1 (AAA).
+- Green primary button: `#15803D` on white = 4.9:1 (AA); `#22C55E` on `gray-900` = 8.4:1 (AAA).
+- Never put gray text on a colored fill. Use a shade of the fill color (e.g. `text-green-900` on `bg-green-50`).
 
 ---
 
 ## 3. Typography
 
-### Font Stack
+### Fonts
 
-| Role | Font | Fallback | Weight Range |
-|------|------|----------|--------------|
-| Primary (Headings + Body) | Inter | -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif | 300-700 |
-| Monospace (Code/Terminal) | JetBrains Mono | Fira Code, Consolas, monospace | 400-600 |
+| Role | Family | Loaded via |
+|------|--------|------------|
+| UI + body | Inter (variable) | `next/font/google` in `layout.tsx` → `--font-inter` |
+| Monospace | JetBrains Mono (400/500/600) | `next/font/google` in `layout.tsx` → `--font-mono` |
+
+Monospace is reserved for: terminal UI, code snippets, section labels in lab pages, keyboard hints, flag values.
 
 ### Scale
 
-| Element | Size | Weight | Line Height | Letter Spacing |
-|---------|------|--------|-------------|----------------|
-| Display (Hero) | `clamp(2.5rem, 6vw, 4rem)` | 700 | 1.1 | -0.03em |
-| H1 | `clamp(1.875rem, 5vw, 2.5rem)` | 700 | 1.2 | -0.02em |
-| H2 | `clamp(1.5rem, 4vw, 2rem)` | 700 | 1.3 | -0.02em |
-| H3 | `clamp(1.25rem, 3vw, 1.5rem)` | 600 | 1.4 | -0.01em |
-| Body | 16px (1rem) | 400 | 1.6 | 0 |
-| Body Small | 14px (0.875rem) | 400 | 1.5 | 0 |
-| Caption | 12px (0.75rem) | 500 | 1.4 | 0.02em |
-| Code | 14px (0.875rem) | 400 | 1.6 | 0 |
+Headings use fluid `clamp()` on the public marketing pages; the `globals.css` mobile block resets h1/h2/h3 at `<768px` to prevent text that's too large on phones.
+
+| Element | Size |
+|---------|------|
+| Hero display | `clamp(1.875rem, 5vw, 2.5rem)` + desktop overrides via Tailwind (`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl`) |
+| h1 | `clamp(1.875rem, 5vw, 2.5rem)` mobile, `text-3xl/4xl` desktop |
+| h2 | `clamp(1.5rem, 4vw, 2rem)` mobile |
+| h3 | `clamp(1.25rem, 3vw, 1.5rem)` mobile |
+| Body | `16px` (iOS zoom threshold — enforced globally in the mobile CSS block) |
+| Body small | `14px` |
+| Caption / label | `12px`, mono, uppercase, tracking-widest |
 
 ### Rules
 
-- Maximum line length: 65-75 characters
-- Minimum body text on mobile: 16px (prevents iOS zoom)
-- Gradient text for headings only, never body text
-- Monospace reserved for code snippets, terminal UI, and lab content
-
-### Recommended Upgrade (Optional)
-
-For a more distinctive look, consider switching to:
-- **Headings:** Space Grotesk (geometric, tech-forward)
-- **Body:** Inter or DM Sans (stays readable)
+- Max line length for long-form body: ~65-75ch. Lab writeups set this via container max-widths.
+- Never set long body passages in uppercase. All-caps is reserved for short section labels (mono, tracking-widest).
+- **Gradient text is banned.** No `background-clip: text` anywhere.
 
 ---
 
-## 4. Spacing System
+## 4. Spacing
 
-Based on a 4px base unit:
+Uses Tailwind's default 4pt scale (`p-1` = 4px, `p-2` = 8px, etc.). No custom `--space-*` variables.
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--space-1` | 4px | Tight gaps, icon padding |
-| `--space-2` | 8px | Inline spacing, small gaps |
-| `--space-3` | 12px | Form field padding |
-| `--space-4` | 16px | Card padding, standard gap |
-| `--space-6` | 24px | Section inner padding |
-| `--space-8` | 32px | Component spacing |
-| `--space-12` | 48px | Section gaps |
-| `--space-16` | 64px | Major section breaks |
-| `--space-24` | 96px | Hero section padding |
+Common patterns:
+- Card padding: `p-4 sm:p-5` or `p-5 sm:p-6`
+- Section vertical rhythm: `mb-10` between sections inside a page
+- Stack spacing: `space-y-4` between sibling content blocks
 
-### Layout Constraints
+### Layout max-widths
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--max-width-content` | 1280px (max-w-7xl) | Main content container |
-| `--max-width-text` | 768px (max-w-3xl) | Readable text blocks |
-| `--max-width-narrow` | 640px (max-w-2xl) | Forms, modals |
+| Context | Class |
+|---------|-------|
+| Main container | `max-w-6xl mx-auto` (Hero) |
+| Readable prose | `max-w-3xl` (About) |
+| Form / narrow | `max-w-lg` or `max-w-md` |
+
+Section scroll-anchor offset is 80px (matches fixed navbar height) — set in the `globals.css` mobile block.
 
 ---
 
-## 5. Component Patterns
+## 5. Components
 
-### Glass Card (Primary Surface)
+### Primary CTA button
 
-```css
-backdrop-filter: blur(12px);
-background: rgba(255, 255, 255, 0.05);   /* dark mode */
-background: rgba(255, 255, 255, 0.80);   /* light mode */
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 12px;
+Inverted monochrome. This is the site's primary action pattern (Hero "View My Work"):
+
+```tsx
+className="px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase
+  bg-gray-900 text-white hover:bg-gray-700
+  dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200
+  transition-colors duration-300"
 ```
 
-### Cyber Card (Themed Surface)
+### Accent button (brand green)
 
-```css
-background: rgba(0, 212, 255, 0.03);
-border: 1px solid rgba(0, 212, 255, 0.15);
-border-radius: 8px;
+Used for AI Chat button, Fit Check submit, AI modal send. Solid fill, no gradient.
+
+```tsx
+className="bg-green-700 hover:bg-green-800 text-white
+  dark:bg-green-500 dark:hover:bg-green-400 dark:text-gray-900"
 ```
 
-### Buttons
+Text color flips dark-on-green in dark mode — reads as a terminal-prompt color.
 
-| Variant | Background | Text | Border |
-|---------|-----------|------|--------|
-| Primary | `--accent-blue` | white | none |
-| Secondary | transparent | `--accent-cyan` | 1px `--accent-cyan` |
-| Cyber | `rgba(0, 212, 255, 0.1)` | `--accent-cyan` | 1px `--accent-cyan` |
-| Ghost | transparent | `--text-secondary` | none |
+### Border-draw button
 
-### Interaction States
+Used for secondary actions (Resume, Contact). See `BorderDrawButton.tsx`. Animates a 1px border-in on hover.
 
-| State | Treatment |
-|-------|-----------|
-| Hover | Lighten background 10%, shift border color |
-| Active | Scale 0.98 |
-| Focus | 2px ring offset, `--accent-cyan` color |
-| Disabled | opacity 0.5, cursor not-allowed |
-| Loading | Pulse animation on button, disable click |
+### Text input / textarea
 
----
+```tsx
+className="border rounded-xl px-3 py-2.5 text-sm
+  bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400
+  focus:outline-none focus:ring-2 focus:border-transparent focus:ring-green-700
+  dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500
+  dark:focus:ring-green-500"
+```
 
-## 6. Animation & Motion
+Focus ring matches brand accent to pair visually with the adjacent accent button.
 
-### Timing
+### Chips / pills
 
-| Type | Duration | Easing |
-|------|----------|--------|
-| Micro-interaction | 150ms | ease-out |
-| State change | 200ms | ease-in-out |
-| Enter/appear | 300ms | cubic-bezier(0.4, 0, 0.2, 1) |
-| Page transition | 400ms | cubic-bezier(0.4, 0, 0.2, 1) |
-| Ambient/float | 6-8s | ease-in-out (infinite) |
+Flat tint + 1px border. `bg-white/40 dark:bg-gray-900/40 border-gray-300 dark:border-gray-700`. Used in the SkillOrbit magnetic skills.
 
-### Motion Principles
+### Emphasis callouts (tint only)
 
-- Use `transform` and `opacity` only for animations (GPU-accelerated)
-- Never animate `width`, `height`, `top`, `left`
-- Scroll-triggered animations via AOS: fade-up, fade-in
-- Always respect `prefers-reduced-motion: reduce`
-- Hover scale limited to 1.02 max to avoid layout shift
+No border stripes. Amber tint for "Why this matters" / "Key findings"; green tint for security-controls sections. Heading inside the box carries the semantic color.
 
-### Signature Animations
+### Cards
 
-| Name | Usage | Duration |
-|------|-------|----------|
-| `animate-blob` | Background decorative blobs | 7s |
-| `animate-float` | Subtle element floating | 6s |
-| `animate-subtle-glow` | Card glow on hover | 3s |
-| `animate-fade-in` | Section entrance | 0.6s |
-| `animate-slide-in` | Card reveal | 0.3s |
-| `terminal-cursor` | Blinking cursor in terminal UI | 1s step |
+Simple: `rounded-xl bg-surface-elevated border border-divider p-5`. No nested cards. No decorative drop shadows.
 
 ---
 
-## 7. Effects Library
+## 6. Motion
 
-| Effect | Implementation | Usage |
-|--------|---------------|-------|
-| Glassmorphism | `backdrop-filter: blur(12px)` + semi-transparent bg | Cards, modals, navbar |
-| Gradient Text | `background-clip: text` + gradient | Section headings |
-| Glow | `box-shadow: 0 0 20px rgba(0,212,255,0.15)` | Hover cards, active states |
-| Gradient Border | `border-image` or pseudo-element gradient | Featured cards, CTAs |
-| Shimmer | Animated gradient sweep | Loading states |
-| Scan Lines | `::before` with repeating-linear-gradient | Terminal/lab sections |
+### Keyframes (source of truth: `src/styles/globals.css`)
+
+| Name | Duration | Purpose |
+|------|----------|---------|
+| `fadeIn` | 0.2s–0.6s | Section entrance, element reveal |
+| `float` | 3s infinite | Subtle ambient motion (decorative) |
+| `blink` | 1s step-infinite | Terminal cursor |
+| `typingPulse` | 1.2s ease-out infinite | AI "thinking" indicator (3 dots) |
+| `clip-reveal` | 0.8s ease-out | Scroll-triggered content reveal |
+| `slideInRight` | 0.3s | Mobile menu slide-in |
+
+### Easing
+
+Default: `cubic-bezier(0.22, 1, 0.36, 1)` (ease-out-quint). Also acceptable: `cubic-bezier(0.16, 1, 0.3, 1)` (ease-out-expo) for confident entrances.
+
+**Bounce and elastic curves are banned.** They feel dated.
+
+### Rules
+
+- Animate `transform` and `opacity` only — never `width`/`height`/`top`/`left`.
+- `prefers-reduced-motion` globally collapses all animation and transition durations to 0.01ms (`globals.css` mobile block applies to desktop too via the media query).
+- Exit animations are ~75% of entrance duration.
+- Hover scale: never exceed `1.05`.
+
+### Performance notes
+
+- `SkillOrbit.tsx` uses a `useRef`-backed pointer tracker (not state) so 6 chips don't cause an 1800-teardown-per-second rAF-restart cascade during hover. See § 10.
+- Hero parallax uses rAF-throttled scroll listener.
+
+---
+
+## 7. Effects
+
+| Effect | Used for | Notes |
+|--------|----------|-------|
+| Glassmorphism | Navbar (`bg-white/90 backdrop-blur-sm`), mobile menu, modals, modal backdrops | Limited to frame elements — never card fills |
+| Solid accent fills | Buttons, progress bar, timeline line, featured badges | No gradients in brand usage |
+| Tinted callouts | Lab page emphasis boxes | `bg-{color}-50` light / `bg-{color}-500/10` dark |
+
+### Banned
+
+- **Gradient text** (`bg-clip-text` + gradient)
+- **Side-stripe borders** > 1px (`border-l-2+`, `border-r-2+` with color)
+- **Blue → purple, blue → cyan, cyan → teal gradients** (AI-palette tells)
+- **`dark:text-cyan-*`, `dark:bg-cyan-*`** — the cyan-on-dark palette
 
 ---
 
 ## 8. Iconography
 
-| Source | Usage |
-|--------|-------|
-| FontAwesome (Solid) | UI actions (arrows, close, menu) |
-| FontAwesome (Brands) | Tech logos (GitHub, LinkedIn, etc.) |
-| React Icons | Supplementary icons |
-
-### Rules
-
-- No emojis as UI icons
-- Consistent sizing: 20px (sm), 24px (md), 32px (lg)
-- Icons paired with text should be vertically centered
-- Interactive icons need 44x44px minimum touch target
+- FontAwesome Solid for UI actions (close, bolt, shield, etc.)
+- FontAwesome Brands for tech logos
+- All icon-only buttons carry `aria-label`
+- Touch targets enforced to 44×44px via `globals.css` mobile block
 
 ---
 
-## 9. Responsive Breakpoints
+## 9. Responsive breakpoints
 
-| Name | Width | Target |
-|------|-------|--------|
-| Mobile | < 640px | Phones |
-| Tablet | 640-1023px | Tablets, small laptops |
-| Desktop | 1024-1439px | Laptops |
-| Wide | >= 1440px | External monitors |
+Tailwind defaults. Key breakpoints in use:
 
-### Mobile-Specific Rules
+| Name | Width | Notes |
+|------|-------|-------|
+| Mobile | `<640px` | One-column, 16px body min, overflow-x hidden |
+| `sm` | `≥640px` | Two-column grids allowed |
+| `md` | `≥768px` | Hero splits to 2-column |
+| `lg` | `≥1024px` | Desktop layout: sidebar + primary |
+| `xl` | `≥1280px` | Navbar expands from hamburger to horizontal |
 
-- Touch targets: 44x44px minimum
-- Safe area insets for notched devices
-- Reduced animation complexity
-- Stack horizontal layouts vertically
-- Full-width cards (no side padding less than 16px)
-
----
-
-## 10. Z-Index Scale
-
-| Layer | Value | Usage |
-|-------|-------|-------|
-| Base | 0 | Default content |
-| Card hover | 10 | Elevated cards |
-| Sticky header | 20 | Navbar |
-| Dropdown | 30 | Menus, tooltips |
-| Modal backdrop | 40 | Overlay |
-| Modal | 50 | Dialog content |
-| Toast | 60 | Notifications |
-| AI Chat | 70 | Chat widget (always accessible) |
+Mobile-specific rules in `globals.css`:
+- `overflow-x: hidden` on `html, body`
+- `overscroll-behavior-y: contain`
+- Safe-area insets on body padding
+- `font-size: 16px !important` on inputs (prevents iOS zoom)
+- 44px min-height on buttons and `[role="button"]`
 
 ---
 
-## 11. Accessibility Checklist
+## 10. Accessibility
 
-- [x] Color contrast ratios meet WCAG AA (4.5:1 body, 3:1 large)
-- [x] Focus rings visible on all interactive elements
-- [x] `prefers-reduced-motion` disables non-essential animation
-- [x] Semantic HTML (`nav`, `main`, `section`, `article`)
-- [x] Alt text on all meaningful images
-- [x] `aria-label` on icon-only buttons
-- [x] Tab order follows visual reading order
-- [x] Form inputs have associated labels
-- [x] Skip-to-content link available
+### Implemented
+
+- Semantic HTML (`<nav>`, `<main>`, `<section>`, `<article>`, `<button>`).
+- Skip-to-content link in layout.
+- Focus-visible outline: `outline: 2px solid var(--link); outline-offset: 2px`. Non-keyboard focus has no outline.
+- `prefers-reduced-motion` collapses all animation.
+- All `next/image` have `alt`. All icon-only buttons have `aria-label`.
+- Forms use `<label htmlFor>` (sr-only when the placeholder suffices visually).
+
+### Modal pattern
+
+All modals (`AIChatModal`, `CommandPalette`, `ImageLightbox`) implement:
+- `role="dialog"` + `aria-modal="true"`
+- Either `aria-labelledby` (referenced heading) or `aria-label` (palette)
+- Escape-to-close
+- Initial focus set (input or first interactive)
+- Focus trap via `src/hooks/useFocusTrap.ts`
+- Focus restoration to trigger on close (`AIChatButton` uses a `buttonRef`; `CommandPalette` saves `document.activeElement` on open)
+- Body scroll lock while open
+
+### AI typing indicator
+
+`AIChatModal` uses `role="status"` + `aria-label="Assistant is typing"` on the 3-dot pulse so screen readers announce the state.
 
 ---
 
-## 12. Anti-Patterns to Avoid
+## 11. Z-index
 
-- Excessive animation that distracts from content
-- Neon colors on body text (reserve for accents only)
-- Glass effects with insufficient contrast in light mode
-- Layout shifts from hover scale transforms > 1.02
-- Mixing more than 3 accent colors in a single view
-- Inconsistent border-radius across components
-- Z-index values without a defined scale
+Semantic scale defined in `tailwind.config.js`:
+
+| Class | Value | Used by |
+|-------|-------|---------|
+| `z-50` (Tailwind default) | 50 | AIChatButton (floating action) |
+| `z-nav` | 100 | Navbar |
+| `z-modal` | 200 | AIChatModal, CommandPalette, ImageLightbox, Navbar mobile menu |
+| `z-toast` | 300 | (reserved for future toasts) |
+
+New components should use the semantic classes. Avoid arbitrary `z-[N]`.
+
+---
+
+## 12. Anti-patterns (hard stops)
+
+1. **Gradient text.** No `background-clip: text` + gradient. Use weight/size for emphasis instead.
+2. **Side-stripe borders.** No `border-l-2+` or `border-r-2+` with a colored accent. Use tinted backgrounds + typographic labels instead.
+3. **AI palette.** No cyan-on-dark (`dark:text-cyan-400`, `dark:bg-cyan-*`, `from-cyan-* to-blue-*`). No blue→purple gradients.
+4. **Bounce / elastic easing.** Use `ease-out-quint` / `ease-out-expo` decelerations.
+5. **Gray text on colored backgrounds.** Use a shade of the fill color.
+6. **Pure black / pure white.** Always tint neutrals.
+7. **Nested cards.** Flatten hierarchy with spacing.
+8. **Hero-metric templates.** No "big number, small label" stat rows (none in use today — keep it that way).
+9. **Monospace as "technical vibe" body text.** Reserve mono for terminals, labels, code, and keyboard hints.
+10. **Animating layout properties.** Transform + opacity only.

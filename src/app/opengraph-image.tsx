@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Luis Javier Lozoya - Full Stack Engineer, Security Focused";
+export const alt = "Luis Javier Lozoya - Security Engineer, AppSec and Cloud";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -31,7 +31,7 @@ export default function OGImage() {
             style={{
               fontSize: 20,
               fontWeight: 600,
-              color: "#3b82f6",
+              color: "#22c55e",
               letterSpacing: "3px",
               textTransform: "uppercase",
             }}
@@ -55,7 +55,7 @@ export default function OGImage() {
               lineHeight: 1.4,
             }}
           >
-            Full Stack Engineer | Security, Cloud, AI
+            Security Engineer · AppSec · Cloud · AI
           </div>
           <div
             style={{

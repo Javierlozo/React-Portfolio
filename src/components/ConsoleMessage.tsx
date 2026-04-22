@@ -52,7 +52,7 @@ export default function ConsoleMessage() {
 
     // Compact modern layout
     console.log(
-      `%c LUIS JAVIER LOZOYA %c\n%cFull Stack Developer\n`,
+      `%c LUIS JAVIER LOZOYA %c\n%cSecurity-Focused Software Engineer\n`,
       titleStyle,
       "",
       subtitleStyle
@@ -65,7 +65,7 @@ export default function ConsoleMessage() {
     );
 
     console.log(
-      `%cEXPERIENCE%c 5+ years building scalable web apps & AI solutions`,
+      `%cEXPERIENCE%c 5+ years building and securing production web apps`,
       sectionHeaderStyle,
       textStyle
     );

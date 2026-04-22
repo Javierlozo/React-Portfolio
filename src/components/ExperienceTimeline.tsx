@@ -188,7 +188,7 @@ export default function ExperienceTimeline() {
         <div className="relative" ref={timelineRef}>
           <div className="absolute left-2 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 block bg-gray-300 dark:bg-gray-700">
             <div
-              className="absolute top-0 left-0 w-full transition-all duration-300 bg-gradient-to-b from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500"
+              className="absolute top-0 left-0 w-full transition-all duration-300 bg-green-700 dark:bg-green-500"
               style={{ height: `${lineProgress * 100}%` }}
             />
           </div>
@@ -220,7 +220,7 @@ export default function ExperienceTimeline() {
 
                 <div className={`absolute left-2 sm:left-5 md:left-6 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 sm:border-4 hidden sm:block ${
                   exp.current
-                    ? 'bg-blue-500 border-blue-500'
+                    ? 'bg-green-700 border-green-700 dark:bg-green-500 dark:border-green-500'
                     : 'bg-white border-gray-400 dark:bg-gray-800 dark:border-gray-600'
                 }`}></div>
 
@@ -316,7 +316,7 @@ export default function ExperienceTimeline() {
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, idx) => (
                         <li key={idx} className="flex items-start gap-2 sm:gap-3 text-gray-600 dark:text-gray-300">
-                          <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-blue-500 dark:bg-blue-400"></div>
+                          <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-green-700 dark:bg-green-400"></div>
                           <span className="text-xs sm:text-sm">{achievement}</span>
                         </li>
                       ))}
@@ -344,7 +344,7 @@ export default function ExperienceTimeline() {
                     <div className="mt-6">
                       <button
                         onClick={() => toggleNarrative(exp.id)}
-                        className="flex items-center gap-1.5 text-xs font-semibold transition-colors text-blue-600 hover:text-blue-700 dark:text-cyan-400 dark:hover:text-cyan-300"
+                        className="flex items-center gap-1.5 text-xs font-semibold transition-colors text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                       >
                         <FontAwesomeIcon icon={faBolt} className="w-3.5 h-3.5" />
                         {expandedNarratives.has(exp.id) ? "Hide" : "View"} AI Context
