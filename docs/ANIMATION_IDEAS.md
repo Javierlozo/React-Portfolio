@@ -43,13 +43,13 @@
 #### A. **Typewriter Effect** (Text Reveal) ❌ Not Implemented
 ```tsx
 // Animate the name appearing letter by letter
-"Luis Lozoya" → appears character by character with cursor
+"Luis Javier Lozoya" → appears character by character with cursor
 ```
 
 #### B. **Split Text Animation** ✅ IMPLEMENTED
 ```tsx
 // Each word animates in from different directions
-"Luis Lozoya" → words slide in from opposite sides
+"Luis Javier Lozoya" → words slide in from opposite sides
 // Staggered fade-in for subtitle, paragraphs, and skill tags
 ```
 

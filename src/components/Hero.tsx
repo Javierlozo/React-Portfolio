@@ -134,20 +134,28 @@ export default function Hero() {
               <span className={`inline-block transition-all ease-out ${
                 prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
               } ${
-                nameVisible 
-                  ? 'opacity-100 translate-x-0' 
+                nameVisible
+                  ? 'opacity-100 translate-x-0'
                   : 'opacity-0 -translate-x-4 sm:-translate-x-8'
               }`}>
                 Luis
               </span>
               <span className="inline-block mx-2 sm:mx-3"> </span>
+              <span className={`inline-block transition-opacity ease-out ${
+                prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
+              } ${
+                nameVisible ? 'opacity-100' : 'opacity-0'
+              }`} style={{ transitionDelay: prefersReducedMotion ? '0ms' : '150ms' }}>
+                Javier
+              </span>
+              <span className="inline-block mx-2 sm:mx-3"> </span>
               <span className={`inline-block transition-all ease-out ${
                 prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
               } ${
-                nameVisible 
-                  ? 'opacity-100 translate-x-0' 
+                nameVisible
+                  ? 'opacity-100 translate-x-0'
                   : 'opacity-0 translate-x-4 sm:translate-x-8'
-              }`} style={{ transitionDelay: prefersReducedMotion ? '0ms' : '200ms' }}>
+              }`} style={{ transitionDelay: prefersReducedMotion ? '0ms' : '300ms' }}>
                 Lozoya
               </span>
             </h1>
@@ -202,7 +210,7 @@ export default function Hero() {
               >
                 View My Work
               </button>
-              <BorderDrawButton as="a" href="/resume/Resume.pdf" download="Luis Lozoya - Resume.pdf">
+              <BorderDrawButton as="a" href="/resume/Resume.pdf" download="Luis Javier Lozoya - Resume.pdf">
                 Resume
               </BorderDrawButton>
               <BorderDrawButton onClick={scrollToContact}>

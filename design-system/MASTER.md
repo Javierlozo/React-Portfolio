@@ -1,4 +1,4 @@
-# Design System: Luis Lozoya Portfolio
+# Design System: Luis Javier Lozoya Portfolio
 
 > Source of truth for visual and interaction decisions across the portfolio.
 > Describes the code as it exists — not aspirations. Edit when behavior changes.

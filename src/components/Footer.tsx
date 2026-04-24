@@ -18,7 +18,7 @@ export default function Footer() {
             </h4>
 
             <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-gray-600 dark:text-gray-300">
-              <BorderDrawButton as="a" href="/resume/Resume.pdf" download="Luis Lozoya - Resume.pdf">
+              <BorderDrawButton as="a" href="/resume/Resume.pdf" download="Luis Javier Lozoya - Resume.pdf">
                 Download Resume
               </BorderDrawButton>
               <BorderDrawButton as="a" href="https://github.com/Javierlozo" target="_blank" rel="noopener noreferrer">
