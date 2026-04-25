@@ -99,18 +99,20 @@ const BLOG_METADATA: Record<string, { title: string; description: string; date: 
  * Each blog post wraps a lab with an SEO-friendly title and description
  * targeting search queries recruiters and practitioners actually use.
  */
-export const BLOG_POSTS: BlogPost[] = LABS.filter((l) => !l.comingSoon).map((lab) => {
-  const mapping = BLOG_METADATA[lab.slug];
-  return {
-    slug: lab.slug,
-    title: mapping?.title ?? lab.title,
-    description: mapping?.description ?? lab.summary,
-    date: mapping?.date ?? "2026-02-01",
-    tags: [...(lab.tools || []), ...(lab.skillsDemonstrated?.slice(0, 3) || [])],
-    lab,
-    labPath: getLabPath(lab),
-  };
-});
+export const BLOG_POSTS: BlogPost[] = LABS.filter((l) => !l.comingSoon)
+  .map((lab) => {
+    const mapping = BLOG_METADATA[lab.slug];
+    return {
+      slug: lab.slug,
+      title: mapping?.title ?? lab.title,
+      description: mapping?.description ?? lab.summary,
+      date: mapping?.date ?? "2026-02-01",
+      tags: [...(lab.tools || []), ...(lab.skillsDemonstrated?.slice(0, 3) || [])],
+      lab,
+      labPath: getLabPath(lab),
+    };
+  })
+  .sort((a, b) => b.date.localeCompare(a.date));
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
