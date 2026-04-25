@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import photo from "@/src/assets/pictures/Photo-127.jpg";
 import BorderDrawButton from "./BorderDrawButton";
 import SecurityTerminal from "./SecurityTerminal";
-import SkillOrbit from "./SkillOrbit";
 
 export default function Hero() {
   const [scrollFraction, setScrollFraction] = useState(0);
@@ -12,9 +11,7 @@ export default function Hero() {
   const [subtitleVisible, setSubtitleVisible] = useState(false);
   const [paragraphsVisible, setParagraphsVisible] = useState(false);
   const [skillsVisible, setSkillsVisible] = useState(false);
-  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
-  const imageRef = useRef<HTMLDivElement>(null);
-  
+
   // Check for reduced motion preference
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -74,27 +71,6 @@ export default function Hero() {
     };
   }, [prefersReducedMotion]);
 
-  // Detect if device supports hover (desktop) vs touch (mobile)
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
-  }, []);
-
-  // Magnetic hover effect for profile image (desktop only)
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isTouchDevice || !imageRef.current) return;
-    const rect = imageRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    setImagePosition({ x: x * 0.15, y: y * 0.15 });
-  };
-
-  const handleMouseLeave = () => {
-    if (isTouchDevice) return;
-    setImagePosition({ x: 0, y: 0 });
-  };
-  
   const scrollToPortfolio = () => {
     document
       .getElementById("portfolio")
@@ -168,7 +144,7 @@ export default function Hero() {
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
-              Security-Focused Software Engineer &middot; Cloud &middot; AI
+              Built things in construction. Now I build software and try to break it.
             </h2>
 
             {/* Sub-headline */}
@@ -180,17 +156,8 @@ export default function Hero() {
                 : 'opacity-0 translate-y-2 sm:translate-y-4'
             }`}>
               <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-gray-600 dark:text-gray-300">
-                5+ years building and securing production web apps with React, Next.js, and AWS. GIAC certified (GFACT + GSEC). Currently delivering secure, cloud-native applications and AI integrations for clients across the US and Spain.
+                Five years writing React and Next.js on AWS, increasingly on the security side. GIAC certified (GFACT + GSEC). Currently working with clients in the US and Spain.
               </p>
-            </div>
-
-            {/* Skills - Magnetic orbit */}
-            <div
-              className={`transition-opacity duration-700 ${
-                skillsVisible ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <SkillOrbit skills={["AppSec", "AWS", "React", "Next.js", "TypeScript", "Python"]} />
             </div>
 
             {/* Credential bar */}
@@ -219,25 +186,13 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Side - Profile Image with magnetic effect */}
+          {/* Right Side - Profile Image */}
           <div className="flex flex-col items-center lg:items-end gap-6 sm:gap-8 order-2">
-            <div
-              ref={imageRef}
-              onMouseMove={!isTouchDevice ? handleMouseMove : undefined}
-              onMouseLeave={!isTouchDevice ? handleMouseLeave : undefined}
-              className={`w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 transition-transform ease-out ${
-                isTouchDevice ? 'duration-0' : 'duration-300'
-              }`}
-              style={{
-                transform: isTouchDevice
-                  ? 'none'
-                  : `translate(${imagePosition.x}px, ${imagePosition.y}px)`
-              }}
-            >
+            <div className="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64">
               <Image
                 src={photo}
                 alt="Luis Javier Lozoya, Security-Focused Software Engineer"
-                className="rounded-full object-cover border border-gray-200 dark:border-gray-700 transition-all duration-500"
+                className="rounded-full object-cover border border-gray-200 dark:border-gray-700"
                 width={256}
                 height={256}
                 priority

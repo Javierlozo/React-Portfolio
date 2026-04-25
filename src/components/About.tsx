@@ -82,7 +82,7 @@ export default function About() {
             delay={200}
             className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300"
           >
-            Where software engineering meets security
+            Six years in construction. Now writing code and breaking it.
           </RevealText>
         </div>
 
@@ -99,11 +99,11 @@ export default function About() {
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
           >
-            Originally from Spain with a degree in architectural engineering from{" "}
+            I'm from Spain. I studied architectural engineering at{" "}
             <span className="font-normal text-gray-900 dark:text-white">
               IE University
             </span>
-            . I spent nearly 6 years in the commercial construction industry, working in engineering, CAD drafting, and project management, before pivoting into software engineering and never looking back.
+            {" "}and spent almost 6 years in commercial construction (structural detailing, CAD, project management) before switching to software.
           </p>
 
           <p
@@ -118,11 +118,11 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(1) ? '0ms' : '50ms' }}
           >
-            Now a security-focused engineer with deep experience in cloud technologies and application security, recently earning the{" "}
+            Now I work on the security side of web and cloud. I went through the SANS Cyber Academy scholarship and came out with the{" "}
             <span className="font-normal text-gray-900 dark:text-white">
               GIAC GFACT and GSEC certifications
-            </span>{" "}
-            through the SANS Institute as part of the SANS Cyber Academy scholarship.
+            </span>
+            .
           </p>
 
           <p
@@ -137,11 +137,11 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(2) ? '0ms' : '200ms' }}
           >
-            In addition to traditional web development, I work with{" "}
+            Most of my recent work mixes web development with LLM features. I'm currently running a{" "}
             <span className="font-normal text-gray-900 dark:text-white">
-              AI-enabled features, including LLM integrations and automation workflows
+              prompt-injection lab
             </span>
-            , always with a security-aware mindset around data handling, access control, and responsible AI usage.
+            {" "}against a chatbot I built, testing how well the usual defenses hold up in practice.
           </p>
           
           <p
@@ -156,15 +156,15 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
-            Currently building and securing cloud-native applications at{" "}
+            Day job is at{" "}
             <span className="font-normal text-gray-900 dark:text-white">
               GDNA
             </span>
-            , with a focus on secure API design, least-privilege IAM, and production-grade AWS architecture. Next up on the certification path:{" "}
+            , building cloud-native apps on AWS. Next cert on my list is{" "}
             <span className="font-normal text-gray-900 dark:text-white">
               GIAC GCIH
             </span>
-            . Always open to interesting conversations.
+            .
           </p>
 
           {/* Community */}

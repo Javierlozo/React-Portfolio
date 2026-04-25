@@ -21,7 +21,6 @@ import {
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { LABS, getLabPath } from "../data/labs";
 import RevealText from "./RevealText";
-import ScrambleText from "./ScrambleText";
 import BorderDrawButton from "./BorderDrawButton";
 
 
@@ -151,12 +150,9 @@ export default function CybersecurityLabs() {
             <div className="p-2 rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400">
               <FontAwesomeIcon icon={faFlask} className="text-xl" />
             </div>
-            <ScrambleText
-              as="h2"
-              className="text-2xl sm:text-3xl md:text-4xl font-thin font-mono text-gray-900 dark:text-white"
-            >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin font-mono text-gray-900 dark:text-white">
               Security Labs
-            </ScrambleText>
+            </h2>
             <span className="font-mono text-xs sm:text-sm font-semibold tabular-nums px-3 py-1 rounded-full whitespace-nowrap bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20">
               {completedLabs.length} labs
             </span>

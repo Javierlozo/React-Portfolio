@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ScrollProgress from "../components/ScrollProgress";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import StructuredData from "../components/StructuredData";
 import ConsoleMessage from "../components/ConsoleMessage";
@@ -11,7 +10,6 @@ import AIChatButton from "../components/AIChatButton";
 import PageTracker from "../components/PageTracker";
 import SiteChrome from "../components/SiteChrome";
 import SmoothScroll from "../components/SmoothScroll";
-import PageTransition from "../components/PageTransition";
 import CommandPalette from "../components/CommandPalette";
 import { ReactNode } from "react";
 
@@ -143,13 +141,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             Skip to main content
           </a>
           <SiteChrome>
-            <ScrollProgress />
             <Navbar />
           </SiteChrome>
           <main id="main-content">
-            <ErrorBoundary>
-              <PageTransition>{children}</PageTransition>
-            </ErrorBoundary>
+            <ErrorBoundary>{children}</ErrorBoundary>
           </main>
           <SiteChrome>
             <Footer />
