@@ -20,6 +20,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { LABS, getLabPath } from "../data/labs";
+import { BLOG_METADATA } from "../data/blog";
 import RevealText from "./RevealText";
 import BorderDrawButton from "./BorderDrawButton";
 
@@ -137,7 +138,9 @@ export default function CybersecurityLabs() {
     const aRank = aIdx === -1 ? Number.MAX_SAFE_INTEGER : aIdx;
     const bRank = bIdx === -1 ? Number.MAX_SAFE_INTEGER : bIdx;
     if (aRank !== bRank) return aRank - bRank;
-    return a.id - b.id;
+    const aDate = BLOG_METADATA[a.slug]?.date ?? "";
+    const bDate = BLOG_METADATA[b.slug]?.date ?? "";
+    return bDate.localeCompare(aDate);
   });
   const visibleLabs = showAllLabs ? completedLabs : completedLabs.slice(0, FEATURED_COUNT);
   const hasMoreLabs = completedLabs.length > FEATURED_COUNT;

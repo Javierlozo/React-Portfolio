@@ -14,7 +14,7 @@ export interface BlogPost {
  * SEO-optimized titles and descriptions for each lab.
  * These target long-tail search queries.
  */
-const BLOG_METADATA: Record<string, { title: string; description: string; date: string }> = {
+export const BLOG_METADATA: Record<string, { title: string; description: string; date: string }> = {
   "tcpdump-traffic-analysis": {
     title: "Analyzing Network Traffic with tcpdump: Detecting Brute Force Attacks and .env Probing",
     description:
