@@ -53,7 +53,7 @@ export async function callModel(input: GatewayCallInput): Promise<GatewayCallOut
     abortSignal: AbortSignal.timeout(60_000),
   });
 
-  const gatewayMeta = extractGatewayCost(result.response?.providerMetadata);
+  const gatewayMeta = extractGatewayCost(result.providerMetadata);
 
   return {
     text: result.text,
