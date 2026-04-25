@@ -99,7 +99,7 @@ export default function About() {
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
           >
-            I'm from Spain. I studied architectural engineering at{" "}
+            I&apos;m from Spain. I studied architectural engineering at{" "}
             <span className="font-normal text-gray-900 dark:text-white">
               IE University
             </span>
@@ -137,7 +137,7 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(2) ? '0ms' : '200ms' }}
           >
-            Most of my recent work mixes web development with LLM features. I'm currently running a{" "}
+            Most of my recent work mixes web development with LLM features. I&apos;m currently running a{" "}
             <span className="font-normal text-gray-900 dark:text-white">
               prompt-injection lab
             </span>
