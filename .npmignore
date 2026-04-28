@@ -1,0 +1,9 @@
+# This repo is the personal portfolio at luislozoya.com.
+# It is NEVER meant to be published to npm.
+# package.json has "private": true; this file is defense in depth.
+#
+# If "private": true is ever removed by accident, npm publish will pack
+# zero files instead of leaking the source tree, .claude/ settings, admin
+# auth handlers, system prompts, lab screenshots, etc.
+
+*

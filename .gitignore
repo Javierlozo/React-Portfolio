@@ -37,3 +37,7 @@ next-env.d.ts
 
 # strategy docs (local only)
 /docs/strategy/
+
+# Claude Code local-only settings (machine-specific permissions, file paths)
+.claude/settings.local.json
+.claude/.credentials.json
