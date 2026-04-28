@@ -98,7 +98,7 @@ export default function LlmAuditPage() {
               llm-audit
             </span>
           </h1>
-          <p className="text-lg sm:text-xl leading-relaxed mb-6 text-gray-700 dark:text-gray-300 max-w-3xl">
+          <p className="text-lg sm:text-xl leading-relaxed mb-6 text-gray-700 dark:text-gray-300">
             Static analysis for TypeScript and JavaScript LLM applications.
             <span className="block mt-1 text-gray-500 dark:text-gray-400">
               OWASP LLM Top 10 at commit time. A complement to Semgrep&apos;s
@@ -110,7 +110,7 @@ export default function LlmAuditPage() {
           </p>
 
           {/* Quick demo */}
-          <div className="overflow-hidden rounded-xl border border-amber-300 bg-gray-950 shadow-md dark:border-amber-500/40 max-w-3xl">
+          <div className="overflow-hidden rounded-xl border border-amber-300 bg-gray-950 shadow-md dark:border-amber-500/40">
             <div className="flex items-center justify-between px-4 py-2.5 bg-gray-900 border-b border-amber-500/30">
               <div className="flex items-center gap-2">
                 <FontAwesomeIcon
@@ -130,14 +130,14 @@ export default function LlmAuditPage() {
 npx llm-audit demo           # all 5 rules vs bundled vulnerable fixtures`}</code>
             </pre>
           </div>
-          <p className="text-sm mt-2 text-gray-500 dark:text-gray-400 max-w-3xl">
+          <p className="text-sm mt-2 text-gray-500 dark:text-gray-400">
             No install in your repo, no config file, no flags. Real findings on
             real intentionally-vulnerable code so you can see what the rules
             catch before deciding to adopt.
           </p>
 
           {/* Full install */}
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-950 shadow-sm dark:border-gray-800 max-w-3xl mt-5">
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-950 shadow-sm dark:border-gray-800 mt-5">
             <div className="flex items-center gap-2 px-4 py-2.5 bg-gray-900 border-b border-gray-800">
               <FontAwesomeIcon
                 icon={faTerminal}
@@ -186,51 +186,31 @@ npx llm-audit scan           # run on your own code`}</code>
         </header>
 
         {/* Why */}
-        <section className="mb-14">
+        <section className="mb-16">
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-4 text-amber-700 dark:text-amber-400">
             Why this exists
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-            <div className="rounded-xl bg-white border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700/80 p-5">
-              <p className="font-semibold text-gray-900 dark:text-white mb-2">
-                AI assistants reproduce a small, predictable set of LLM-app
-                bugs.
-              </p>
-              <p className="leading-relaxed">
-                Hardcoded keys. Untrusted input flowing into the
-                <code className="mx-1 px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">
-                  system
-                </code>
-                role. Model output piped into{" "}
-                <code className="mx-1 px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">
-                  eval
-                </code>
-                . The new web-app classics.
-              </p>
-            </div>
-            <div className="rounded-xl bg-white border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700/80 p-5">
-              <p className="font-semibold text-gray-900 dark:text-white mb-2">
-                Existing OSS SAST tools are Python-only.
-              </p>
-              <p className="leading-relaxed">
-                Semgrep&apos;s official{" "}
-                <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">
-                  p/ai-best-practices
-                </code>{" "}
-                ships 27 rules. Zero of them target JavaScript or TypeScript.
-                Run it on a Next.js + Vercel AI SDK repo: it returns nothing.
-              </p>
-            </div>
-            <div className="rounded-xl bg-white border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700/80 p-5">
-              <p className="font-semibold text-gray-900 dark:text-white mb-2">
-                llm-audit fills that niche.
-              </p>
-              <p className="leading-relaxed">
-                Five rules in v0, mapped explicitly to OWASP LLM Top 10. Runs
-                at pre-commit and in CI as a Semgrep rule pack with a thin npm
-                CLI on top.
-              </p>
-            </div>
+          <div className="space-y-4 text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            <p>
+              AI coding assistants reproduce a small, predictable set of
+              LLM-application bugs. Hardcoded keys. Untrusted input flowing
+              into the <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">system</code> role.
+              Model output piped into{" "}
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">eval</code>.
+              The new web-app classics.
+            </p>
+            <p>
+              The strongest existing rule pack, Semgrep&apos;s official{" "}
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">p/ai-best-practices</code>,
+              ships 27 rules. Zero of them target JavaScript or TypeScript.
+              Run it on a Next.js + Vercel AI SDK repo and it returns nothing.
+            </p>
+            <p>
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">llm-audit</code>{" "}
+              fills that niche. Five rules in v0, mapped explicitly to OWASP
+              LLM Top 10, distributed as a Semgrep pack with a thin npm CLI
+              on top. Runs at pre-commit and in CI.
+            </p>
           </div>
         </section>
 
@@ -239,7 +219,7 @@ npx llm-audit scan           # run on your own code`}</code>
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-2 text-amber-700 dark:text-amber-400">
             Rules in v0
           </h2>
-          <p className="text-sm sm:text-base mb-8 text-gray-600 dark:text-gray-400 max-w-3xl">
+          <p className="text-sm sm:text-base mb-8 text-gray-600 dark:text-gray-400">
             Each rule below shows the shape it catches and the canonical fix.
             Click through to{" "}
             <a
@@ -381,6 +361,48 @@ npx llm-audit init`}</code>
               </p>
             </div>
           </div>
+        </section>
+
+        {/* Agent integration */}
+        <section className="mb-16">
+          <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-4 text-amber-700 dark:text-amber-400">
+            Use with AI coding assistants
+          </h2>
+          <div className="space-y-4 text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-5">
+            <p>
+              The bugs <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">llm-audit</code> catches
+              are mostly produced <em>by</em> AI coding assistants, so the
+              highest-leverage place to invoke it is inside the assistant
+              itself. The package ships a project-local{" "}
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">SKILL.md</code>{" "}
+              for Claude Code, Cursor, Codex CLI, and any tool that reads the
+              universal skills format. Drop it into your repo with one
+              command:
+            </p>
+          </div>
+
+          <pre className="m-0 mb-5 overflow-x-auto p-4 text-sm leading-relaxed text-gray-100 font-mono bg-gray-950 rounded-lg">
+            <code>npx llm-audit init --skill-only</code>
+          </pre>
+
+          <p className="text-base leading-relaxed mb-5 text-gray-700 dark:text-gray-300">
+            The skill autoloads when the agent edits LLM-integrated code or
+            before commits that touch it, tells it when to invoke{" "}
+            <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">npx llm-audit scan --json</code>,
+            and gives it the canonical fix per OWASP entry. If you&apos;d
+            rather not commit a <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">.claude/skills/</code>{" "}
+            file, paste an equivalent instruction into your agent rules
+            (<code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">CLAUDE.md</code>,{" "}
+            <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">.cursorrules</code>,{" "}
+            <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">AGENTS.md</code>);
+            see the README for the snippet.
+          </p>
+
+          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+            The JSON envelope is a stable contract (<code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">schemaVersion: 1</code>),
+            so agents can rely on the field names without breaking on a
+            future release.
+          </p>
         </section>
 
         {/* Roadmap */}
