@@ -9,7 +9,6 @@ import {
   faArrowLeft,
   faArrowRight,
   faClock,
-  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 
 function extractCodeLanguage(children: React.ReactNode): string | undefined {
@@ -179,7 +178,7 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
 
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-3xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <article className="w-full">
           <Link
             href="/blog"
@@ -189,10 +188,10 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
           </Link>
 
           <header className="mb-8 sm:mb-10">
-            <p className="font-mono text-xs font-semibold uppercase tracking-wide mb-3 text-amber-700 dark:text-amber-400">
+            <p className="text-sm font-medium mb-1 text-amber-700 dark:text-amber-400/80">
               Writing
             </p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium leading-tight mb-4 text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl font-medium leading-tight mb-4 text-gray-900 dark:text-white">
               {post.title}
             </h1>
             {post.description && (
@@ -211,15 +210,11 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
               </span>
             </div>
             {post.tags.length > 0 && (
-              <div className="flex flex-wrap items-center gap-2 mt-5">
-                <FontAwesomeIcon
-                  icon={faTag}
-                  className="text-xs text-gray-400 dark:text-gray-500"
-                />
+              <div className="flex flex-wrap gap-1.5 mt-4">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-1 text-xs font-medium rounded-full bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30"
+                    className="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
                   >
                     {tag}
                   </span>
@@ -232,10 +227,9 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
             className="
               prose prose-slate dark:prose-invert max-w-none
               prose-headings:scroll-mt-24
-              prose-h2:font-mono prose-h2:text-base prose-h2:uppercase prose-h2:tracking-wide prose-h2:font-semibold
+              prose-h2:font-mono prose-h2:text-sm prose-h2:uppercase prose-h2:tracking-wide prose-h2:font-semibold
               prose-h2:text-amber-700 dark:prose-h2:text-amber-400
-              prose-h2:mt-12 prose-h2:mb-4 prose-h2:pb-2
-              prose-h2:border-b prose-h2:border-amber-200/60 dark:prose-h2:border-amber-500/20
+              prose-h2:mt-12 prose-h2:mb-4
               prose-h3:text-gray-900 dark:prose-h3:text-white prose-h3:font-semibold prose-h3:text-lg
               prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
               prose-strong:text-gray-900 dark:prose-strong:text-white

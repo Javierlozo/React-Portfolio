@@ -64,13 +64,13 @@ The reason:
 
 Other open-source projects tell the same story:
 
-- **[HeadyZhang/agent-audit](https://github.com/HeadyZhang/agent-audit)** — Python only, scans `.py` files
-- **[SunWeb3Sec/llm-sast-scanner](https://github.com/SunWeb3Sec/llm-sast-scanner)** — a Claude Code skill, not a scanner; generic SAST not LLM-app-specific
-- **Promptfoo Code Scanning** — closed product, language coverage not publicly disclosed
+- **[HeadyZhang/agent-audit](https://github.com/HeadyZhang/agent-audit)**: Python only, scans `.py` files.
+- **[SunWeb3Sec/llm-sast-scanner](https://github.com/SunWeb3Sec/llm-sast-scanner)**: a Claude Code skill, not a scanner. Generic SAST, not LLM-app-specific.
+- **Promptfoo Code Scanning**: closed product, language coverage not publicly disclosed.
 
 Commercial vendors (Snyk, Checkmarx, Veracode, Sonar, CodeQL) do **not** publicly market a first-party LLM Top 10 rule pack as of April 2026.
 
-The TS/JS niche is genuinely open, even though Next.js + Vercel AI SDK + OpenAI JS + Anthropic JS is where a large share of new LLM application code ships.
+The TS/JS niche is open, even though Next.js + Vercel AI SDK + OpenAI JS + Anthropic JS is where a large share of new LLM application code ships.
 
 ---
 
@@ -102,7 +102,7 @@ semgrep --config /path/to/llm-audit/rules src --metrics=off
 
 > **Found.** 5 rules, 70 files, **1 finding.**
 >
-> `src/app/api/fit-assessment/route.ts:61` — `model-output-parsed-without-schema` (LLM02)
+> `src/app/api/fit-assessment/route.ts:61`. Rule: `model-output-parsed-without-schema` (LLM02).
 
 The vulnerable code:
 
@@ -203,9 +203,9 @@ This is desirable. The canonical `Schema.safeParse(JSON.parse(content))` shape i
 | Low false-positive rate | 0 false positives across 69 of 70 files |
 | Rule message is actionable | The fix the message recommended was exactly what I applied |
 
-It also taught me something more useful than the table: **my own portfolio shipped LLM02 for some unknown amount of time.** The graceful fallback masked it at runtime. A prompt-injection-aware reader of my own code would have caught it. I did not. The tool did.
+It also taught me something more useful than the table: **my own portfolio shipped LLM02 for an unknown stretch of time.** The graceful fallback masked it at runtime. A prompt-injection-aware reader would have caught it. I did not. The tool did.
 
-That is the point of static analysis. It catches the shape that humans miss because the surrounding code makes it look fine.
+That's why static analysis pays for itself. It catches the shapes a human misses when the code around them looks fine.
 
 ---
 
@@ -224,4 +224,4 @@ npx llm-audit scan                  # run it
 
 The v1 plan is seven more rules covering tool-call allowlists, retrieval-context boundaries, system-prompt leakage in client bundles, sensitive context inclusion, model output rendered as markdown without sanitization, and a couple of AI-code-smell checks. PRs welcome.
 
-If you ship LLM features in TypeScript or JavaScript, I would genuinely like to know whether this catches anything in your repo. Open an [issue](https://github.com/Javierlozo/llm-audit/issues) or message me. The rule pack is only useful insofar as it finds real bugs in real codebases, and the only way it gets better is more dogfood.
+If you ship LLM features in TypeScript or JavaScript, I want to know whether this catches anything in your repo. Open an [issue](https://github.com/Javierlozo/llm-audit/issues) or message me. The rule pack is only useful when it finds real bugs in real codebases, and the only way it gets better is more dogfood.

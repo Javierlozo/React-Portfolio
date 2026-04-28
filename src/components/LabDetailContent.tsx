@@ -115,7 +115,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                 {lab.skillsDemonstrated.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-1 text-xs font-medium rounded-full bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30"
+                    className="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
                   >
                     {skill}
                   </span>
@@ -164,7 +164,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
               {lab.tools.map((tool) => (
                 <span
                   key={tool}
-                  className="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                  className="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
                 >
                   {tool}
                 </span>
