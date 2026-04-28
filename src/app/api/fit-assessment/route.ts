@@ -1,10 +1,23 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
+import { z } from "zod";
 import { LUIS_SYSTEM_PROMPT } from "@/src/data/ai-context";
 import { rateLimit } from "@/src/lib/rate-limit";
 import { getIp } from "@/src/lib/get-ip";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const FitAssessmentSchema = z
+  .object({
+    score: z.number().int().min(0).max(100),
+    verdict: z.string().max(200),
+    summary: z.string().max(2000),
+    strengths: z.array(z.string().max(500)).max(10),
+    gaps: z.array(z.string().max(500)).max(10),
+    recommendation: z.string().max(2000),
+    interviewTips: z.array(z.string().max(500)).max(10),
+  })
+  .strict();
 
 export async function POST(req: NextRequest) {
   try {
@@ -57,25 +70,31 @@ ${jobDescription.slice(0, 5000)}`;
 
     const content = completion.choices[0]?.message?.content || "";
 
+    let parsed: ReturnType<typeof FitAssessmentSchema.safeParse> | null = null;
     try {
-      const result = JSON.parse(content);
-      return new Response(JSON.stringify(result), {
+      parsed = FitAssessmentSchema.safeParse(JSON.parse(content));
+    } catch {
+      parsed = null;
+    }
+
+    if (parsed?.success) {
+      return new Response(JSON.stringify(parsed.data), {
         headers: { "Content-Type": "application/json" },
       });
-    } catch {
-      return new Response(
-        JSON.stringify({
-          score: 0,
-          verdict: "Unable to assess",
-          summary: content,
-          strengths: [],
-          gaps: [],
-          recommendation: "Could not parse the assessment. Please try again.",
-          interviewTips: [],
-        }),
-        { headers: { "Content-Type": "application/json" } }
-      );
     }
+
+    return new Response(
+      JSON.stringify({
+        score: 0,
+        verdict: "Unable to assess",
+        summary: content.slice(0, 2000),
+        strengths: [],
+        gaps: [],
+        recommendation: "Could not parse the assessment. Please try again.",
+        interviewTips: [],
+      }),
+      { headers: { "Content-Type": "application/json" } }
+    );
   } catch (error) {
     console.error("Fit assessment error:", error);
     return new Response(JSON.stringify({ error: "Failed to assess fit" }), {
