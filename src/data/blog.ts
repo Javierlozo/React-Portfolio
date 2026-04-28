@@ -1,6 +1,9 @@
 import { LABS, getLabPath, type CybersecurityLab } from "./labs";
 
-export interface BlogPost {
+export type BlogPost = LabBackedBlogPost | StandaloneBlogPost;
+
+export interface LabBackedBlogPost {
+  kind: "lab";
   slug: string;
   title: string;
   description: string;
@@ -8,6 +11,17 @@ export interface BlogPost {
   tags: string[];
   lab: CybersecurityLab;
   labPath: string;
+}
+
+export interface StandaloneBlogPost {
+  kind: "mdx";
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string[];
+  thumbnail?: string;
+  href: string;
 }
 
 /**
@@ -99,10 +113,13 @@ export const BLOG_METADATA: Record<string, { title: string; description: string;
  * Each blog post wraps a lab with an SEO-friendly title and description
  * targeting search queries recruiters and practitioners actually use.
  */
-export const BLOG_POSTS: BlogPost[] = LABS.filter((l) => !l.comingSoon)
+export const LAB_POSTS: LabBackedBlogPost[] = LABS.filter(
+  (l) => !l.comingSoon
+)
   .map((lab) => {
     const mapping = BLOG_METADATA[lab.slug];
     return {
+      kind: "lab" as const,
       slug: lab.slug,
       title: mapping?.title ?? lab.title,
       description: mapping?.description ?? lab.summary,
@@ -114,6 +131,6 @@ export const BLOG_POSTS: BlogPost[] = LABS.filter((l) => !l.comingSoon)
   })
   .sort((a, b) => b.date.localeCompare(a.date));
 
-export function getBlogPost(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((p) => p.slug === slug);
+export function getBlogPostHref(post: BlogPost): string {
+  return post.kind === "lab" ? post.labPath : post.href;
 }

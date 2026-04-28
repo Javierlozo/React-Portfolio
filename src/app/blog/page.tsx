@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import { BLOG_POSTS } from "../../data/blog";
+import { getAllBlogPosts } from "../../lib/blog-server";
 import BlogIndexClient from "./BlogIndexClient";
 
 export const metadata: Metadata = {
@@ -26,5 +25,5 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndex() {
-  return <BlogIndexClient posts={BLOG_POSTS} />;
+  return <BlogIndexClient posts={getAllBlogPosts()} />;
 }

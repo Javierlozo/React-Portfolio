@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { BlogPost } from "../../data/blog";
+import { getBlogPostHref } from "../../data/blog";
 
 const INITIAL_COUNT = 3;
 
@@ -26,11 +27,14 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visiblePosts.map((post) => {
-            const thumb = post.lab.screenshots?.[0]?.src;
+            const thumb =
+              post.kind === "lab"
+                ? post.lab.screenshots?.[0]?.src
+                : post.thumbnail;
             return (
               <Link
                 key={post.slug}
-                href={post.labPath}
+                href={getBlogPostHref(post)}
                 className="group border rounded-xl overflow-hidden transition-colors duration-300 bg-white border-gray-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 dark:bg-gray-800/50 dark:border-gray-700 dark:hover:border-amber-500/50 dark:hover:shadow-amber-500/5"
               >
                 {thumb && (
