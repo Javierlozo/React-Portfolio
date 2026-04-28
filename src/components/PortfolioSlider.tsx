@@ -38,6 +38,7 @@ import coastalMillwork from "@/src/assets/pictures/coastal-millwork.png";
 import nevaEstudio from "@/src/assets/pictures/neva.png";
 import tinta from "@/src/assets/pictures/tinta.png";
 import axis from "@/src/assets/pictures/axis.png";
+import llmAudit from "@/src/assets/pictures/llm.png";
 
 interface Project {
   id: number;
@@ -118,6 +119,20 @@ export default function PortfolioSlider() {
   ];
 
   const independentProjects: Project[] = [
+    {
+      id: 19,
+      title: "llm-audit: Static Analysis for TypeScript LLM Apps (2026)",
+      description: "OWASP LLM Top 10 at commit time. A Semgrep rule pack and npm CLI for catching the security failure modes AI coding assistants quietly introduce in TS/JS LLM applications. Live on npm.",
+      techStack: ["Semgrep", "TypeScript", "Node.js", "OWASP LLM Top 10", "npm", "GitHub Actions"],
+      image: llmAudit,
+      liveLink: "/llm-audit",
+      codeLink: "https://github.com/Javierlozo/llm-audit",
+      featured: true,
+      problem: "AI coding assistants reproduce a small, predictable set of security failures in LLM-integrated code: untrusted input flowing into the LLM `system` role, model output piped into `eval` or `dangerouslySetInnerHTML`, hardcoded API keys, JSON.parse on raw model output. Existing OSS SAST tooling (Semgrep `p/ai-best-practices`, agent-audit) is Python-only. The TypeScript and JavaScript ecosystem (Vercel AI SDK, Next.js Server Actions, OpenAI / Anthropic JS SDKs) was uncovered.",
+      approach: "Built a focused Semgrep rule pack mapped explicitly to OWASP LLM Top 10, distributed via npm with a thin CLI that wires up a husky pre-commit hook and a GitHub Action workflow. Five rules in v0, each with vulnerable + safe fixtures, exercised by a test runner. Released under MIT.",
+      outcome: "Live on npm at version 0.0.2 with a self-audit and full documentation. Caught a real LLM02 (Insecure Output Handling) bug in this very portfolio's recruiter-fit endpoint and shipped the fix in the same session.",
+      role: "Solo build: rules, CLI, fixtures, distribution, docs, self-audit. v1 plan adds 7 more rules.",
+    },
     {
       id: 18,
       title: "Axis: Exit Planning SaaS for Financial Advisors (2026)",
@@ -454,23 +469,23 @@ export default function PortfolioSlider() {
                   </p>
 
                   {(project.problem || project.approach || project.outcome) && (
-                    <div className="space-y-2 text-xs sm:text-sm">
+                    <div className="space-y-3 sm:space-y-4">
                       {project.problem && (
                         <div>
-                          <span className="font-medium text-gray-700 dark:text-gray-300">Problem: </span>
-                          <span className="text-gray-600 dark:text-gray-300">{project.problem}</span>
+                          <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Problem</span>
+                          <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">{project.problem}</p>
                         </div>
                       )}
                       {project.approach && (
                         <div>
-                          <span className="font-medium text-gray-700 dark:text-gray-300">Approach: </span>
-                          <span className="text-gray-600 dark:text-gray-300">{project.approach}</span>
+                          <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Approach</span>
+                          <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">{project.approach}</p>
                         </div>
                       )}
                       {project.outcome && (
                         <div>
-                          <span className="font-medium text-gray-700 dark:text-gray-300">Outcome: </span>
-                          <span className="text-gray-600 dark:text-gray-300">{project.outcome}</span>
+                          <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Outcome</span>
+                          <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">{project.outcome}</p>
                         </div>
                       )}
                     </div>

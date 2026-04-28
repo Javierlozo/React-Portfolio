@@ -19,7 +19,7 @@ export interface LlmAuditRule {
 export const LLM_AUDIT_RULES: LlmAuditRule[] = [
   {
     id: "untrusted-input-in-system-prompt",
-    owasp: "LLM01 — Prompt Injection",
+    owasp: "LLM01: Prompt Injection",
     cwe: ["CWE-77", "CWE-94"],
     severity: "ERROR",
     oneLine:
@@ -53,7 +53,7 @@ export async function safe(req: any) {
   },
   {
     id: "untrusted-input-concatenated-into-prompt-template",
-    owasp: "LLM01 — Prompt Injection",
+    owasp: "LLM01: Prompt Injection",
     cwe: ["CWE-77"],
     severity: "ERROR",
     oneLine:
@@ -89,7 +89,7 @@ export async function safe(req: any) {
   },
   {
     id: "llm-output-insecure-handling",
-    owasp: "LLM02 — Insecure Output Handling",
+    owasp: "LLM02: Insecure Output Handling",
     cwe: ["CWE-79", "CWE-94", "CWE-78"],
     severity: "ERROR",
     oneLine:
@@ -120,7 +120,7 @@ export async function safe(el: HTMLElement) {
   },
   {
     id: "model-output-parsed-without-schema",
-    owasp: "LLM02 — Insecure Output Handling",
+    owasp: "LLM02: Insecure Output Handling",
     cwe: ["CWE-20"],
     severity: "WARNING",
     oneLine:
@@ -156,7 +156,7 @@ export async function safe() {
   },
   {
     id: "hardcoded-llm-api-key",
-    owasp: "LLM06 — Sensitive Information Disclosure",
+    owasp: "LLM06: Sensitive Information Disclosure",
     cwe: ["CWE-798"],
     severity: "ERROR",
     oneLine:

@@ -13,7 +13,7 @@ import {
 import { LLM_AUDIT_RULES } from "../../data/llm-audit-rules";
 
 export const metadata: Metadata = {
-  title: "llm-audit — Static Analysis for TypeScript LLM Applications",
+  title: "llm-audit: Static Analysis for TypeScript LLM Applications",
   description:
     "A Semgrep rule pack for OWASP LLM Top 10 in TypeScript and JavaScript. Catches the security failure modes AI coding assistants quietly introduce. MIT, runs at commit time.",
   keywords: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://www.luislozoya.com/llm-audit" },
   openGraph: {
-    title: "llm-audit — Static Analysis for TypeScript LLM Applications",
+    title: "llm-audit: Static Analysis for TypeScript LLM Applications",
     description:
       "OWASP LLM Top 10 at commit time. The TS/JS niche Semgrep's official AI pack does not cover.",
     url: "https://www.luislozoya.com/llm-audit",
@@ -109,22 +109,48 @@ export default function LlmAuditPage() {
             </span>
           </p>
 
-          {/* Install */}
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-950 shadow-sm dark:border-gray-800 max-w-3xl">
+          {/* Quick demo */}
+          <div className="overflow-hidden rounded-xl border border-amber-300 bg-gray-950 shadow-md dark:border-amber-500/40 max-w-3xl">
+            <div className="flex items-center justify-between px-4 py-2.5 bg-gray-900 border-b border-amber-500/30">
+              <div className="flex items-center gap-2">
+                <FontAwesomeIcon
+                  icon={faTerminal}
+                  className="text-amber-400 text-xs"
+                />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-amber-300">
+                  see it work in 5 seconds
+                </span>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-gray-500">
+                shell
+              </span>
+            </div>
+            <pre className="m-0 overflow-x-auto p-4 text-[13px] leading-relaxed text-gray-100 font-mono">
+              <code>{`brew install semgrep         # one-time
+npx llm-audit demo           # all 5 rules vs bundled vulnerable fixtures`}</code>
+            </pre>
+          </div>
+          <p className="text-sm mt-2 text-gray-500 dark:text-gray-400 max-w-3xl">
+            No install in your repo, no config file, no flags. Real findings on
+            real intentionally-vulnerable code so you can see what the rules
+            catch before deciding to adopt.
+          </p>
+
+          {/* Full install */}
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-950 shadow-sm dark:border-gray-800 max-w-3xl mt-5">
             <div className="flex items-center gap-2 px-4 py-2.5 bg-gray-900 border-b border-gray-800">
               <FontAwesomeIcon
                 icon={faTerminal}
                 className="text-amber-500/80 text-xs"
               />
               <span className="font-mono text-[10px] uppercase tracking-widest text-gray-400">
-                install
+                adopt in your project
               </span>
             </div>
             <pre className="m-0 overflow-x-auto p-4 text-[13px] leading-relaxed text-gray-100 font-mono">
-              <code>{`brew install semgrep
-npm i -D llm-audit
-npx llm-audit init
-npx llm-audit scan`}</code>
+              <code>{`npm i -D llm-audit
+npx llm-audit init           # writes .husky/pre-commit + GH Action
+npx llm-audit scan           # run on your own code`}</code>
             </pre>
           </div>
 
@@ -234,7 +260,7 @@ npx llm-audit scan`}</code>
                 className="rounded-2xl bg-white border border-gray-200 dark:bg-gray-800/40 dark:border-gray-700/80 p-5 sm:p-7"
               >
                 <header className="mb-5">
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-3">
                     <span
                       className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-semibold uppercase tracking-wider ${
                         rule.severity === "ERROR"
@@ -244,8 +270,15 @@ npx llm-audit scan`}</code>
                     >
                       {rule.severity}
                     </span>
-                    <span className="text-xs px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30">
-                      {rule.owasp}
+                    <span className="inline-flex items-baseline gap-2">
+                      <span className="text-xs px-2.5 py-1 rounded-full font-mono font-semibold tracking-wider bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30">
+                        {rule.owasp.split(":")[0].trim()}
+                      </span>
+                      {rule.owasp.includes(":") && (
+                        <span className="text-xs text-gray-600 dark:text-gray-400">
+                          {rule.owasp.split(":").slice(1).join(":").trim()}
+                        </span>
+                      )}
                     </span>
                     {rule.cwe.map((cwe) => (
                       <span
@@ -305,21 +338,29 @@ npx llm-audit scan`}</code>
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-4 text-amber-700 dark:text-amber-400">
             Use it in your repo
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="rounded-xl bg-white border border-amber-300 dark:bg-gray-800/50 dark:border-amber-500/30 p-5">
+              <p className="font-mono text-[10px] font-semibold uppercase tracking-wider mb-2 text-amber-700 dark:text-amber-400">
+                Try the rules in 5 seconds
+              </p>
+              <pre className="m-0 overflow-x-auto p-3 text-[13px] leading-relaxed bg-gray-950 text-gray-100 rounded-lg font-mono">
+                <code>npx llm-audit demo</code>
+              </pre>
+              <p className="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                Runs all 5 rules against the bundled vulnerable fixtures. No
+                project setup, no config. Requires Semgrep on PATH.
+              </p>
+            </div>
             <div className="rounded-xl bg-white border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700/80 p-5">
               <p className="font-mono text-[10px] font-semibold uppercase tracking-wider mb-2 text-amber-700 dark:text-amber-400">
-                One-shot scan, no install
+                One-shot scan of your repo
               </p>
               <pre className="m-0 overflow-x-auto p-3 text-[13px] leading-relaxed bg-gray-950 text-gray-100 rounded-lg font-mono">
                 <code>npx llm-audit scan</code>
               </pre>
               <p className="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                Runs the rule pack against the current directory. Requires
-                Semgrep on PATH (
-                <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">
-                  brew install semgrep
-                </code>
-                ).
+                Runs the rule pack against the current directory. Useful as a
+                pre-adoption check on a real codebase.
               </p>
             </div>
             <div className="rounded-xl bg-white border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700/80 p-5">
@@ -400,8 +441,7 @@ npx llm-audit init`}</code>
                 Building llm-audit
               </Link>
               <span className="text-gray-500 dark:text-gray-400">
-                {" "}
-                — the announcement post, including how it found a real LLM02
+                . The announcement post, including how it found a real LLM02
                 bug in this very portfolio.
               </span>
             </li>
@@ -415,8 +455,7 @@ npx llm-audit init`}</code>
                 Competitive landscape
               </a>
               <span className="text-gray-500 dark:text-gray-400">
-                {" "}
-                — empirical comparison vs Semgrep&apos;s p/ai-best-practices
+                . Empirical comparison vs Semgrep&apos;s p/ai-best-practices
                 and other OSS / commercial options.
               </span>
             </li>
@@ -430,8 +469,7 @@ npx llm-audit init`}</code>
                 AI failure modes
               </a>
               <span className="text-gray-500 dark:text-gray-400">
-                {" "}
-                — long-form rationale for why AI assistants reproduce each of
+                . Long-form rationale for why AI assistants reproduce each of
                 these patterns.
               </span>
             </li>
@@ -445,8 +483,7 @@ npx llm-audit init`}</code>
                 Self-audit
               </a>
               <span className="text-gray-500 dark:text-gray-400">
-                {" "}
-                — the project&apos;s own security review, with findings and
+                . The project&apos;s own security review, with findings and
                 fixes shipped in 0.0.2.
               </span>
             </li>
