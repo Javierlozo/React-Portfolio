@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import type { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,6 +11,105 @@ import {
   faClock,
   faTag,
 } from "@fortawesome/free-solid-svg-icons";
+
+function extractCodeLanguage(children: React.ReactNode): string | undefined {
+  const child = Array.isArray(children) ? children[0] : children;
+  if (
+    child &&
+    typeof child === "object" &&
+    "props" in child &&
+    child.props &&
+    typeof (child as { props: { className?: unknown } }).props.className ===
+      "string"
+  ) {
+    const className = (child as { props: { className: string } }).props.className;
+    const match = className.match(/language-(\S+)/);
+    if (match) return match[1];
+  }
+  return undefined;
+}
+
+const markdownComponents: Components = {
+  pre: ({ children }) => {
+    const language = extractCodeLanguage(children);
+    return (
+      <div className="not-prose my-7 overflow-hidden rounded-xl border border-gray-200 bg-gray-950 shadow-sm dark:border-gray-800">
+        <div className="flex items-center justify-between px-4 py-2.5 bg-gray-900 border-b border-gray-800">
+          <div className="flex items-center gap-1.5">
+            <span className="block h-3 w-3 rounded-full bg-[#ff5f57]" />
+            <span className="block h-3 w-3 rounded-full bg-[#febc2e]" />
+            <span className="block h-3 w-3 rounded-full bg-[#28c840]" />
+          </div>
+          {language && (
+            <span className="font-mono text-[10px] uppercase tracking-widest text-gray-400">
+              {language}
+            </span>
+          )}
+        </div>
+        <pre className="m-0 overflow-x-auto p-4 sm:p-5 text-[13px] sm:text-sm leading-relaxed text-gray-100 [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit [&>code]:font-mono">
+          {children}
+        </pre>
+      </div>
+    );
+  },
+  img: ({ alt, src, ...rest }) => {
+    const url = typeof src === "string" ? src : "";
+    const altText = alt ?? "";
+    const isBadge = url.includes("shields.io");
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        {...rest}
+        src={url}
+        alt={altText}
+        loading="lazy"
+        className={
+          isBadge
+            ? "not-prose inline-block align-middle h-5 mr-1.5 mb-1.5 rounded-sm"
+            : undefined
+        }
+      />
+    );
+  },
+  hr: () => (
+    <div
+      className="not-prose my-12 flex items-center justify-center gap-3"
+      aria-hidden="true"
+    >
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-300/60 dark:via-amber-500/40 to-transparent" />
+      <span className="h-1.5 w-1.5 rounded-full bg-amber-400 dark:bg-amber-500" />
+      <span className="h-px flex-1 bg-gradient-to-l from-transparent via-amber-300/60 dark:via-amber-500/40 to-transparent" />
+    </div>
+  ),
+  blockquote: ({ children }) => (
+    <blockquote className="not-prose my-6 rounded-xl border-l-4 border-amber-500 bg-amber-50/70 dark:bg-amber-500/10 dark:border-amber-400 p-4 sm:p-5 [&_p]:m-0 [&_p+p]:mt-3 [&_p]:text-gray-800 dark:[&_p]:text-gray-200 [&_p]:leading-relaxed [&_strong]:text-amber-900 dark:[&_strong]:text-amber-300 [&_a]:text-amber-700 dark:[&_a]:text-amber-300 [&_a]:underline [&_a]:underline-offset-2 [&_code]:bg-amber-100 dark:[&_code]:bg-amber-500/20 [&_code]:text-amber-900 dark:[&_code]:text-amber-200 [&_code]:px-1 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-[0.875em]">
+      {children}
+    </blockquote>
+  ),
+  table: ({ children }) => (
+    <div className="not-prose my-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
+      <table className="min-w-full text-sm">{children}</table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-gray-50 dark:bg-gray-800/60">{children}</thead>
+  ),
+  th: ({ children }) => (
+    <th className="text-left font-semibold text-gray-900 dark:text-white px-4 py-2.5 border-b border-gray-200 dark:border-gray-700 first:pl-5 last:pr-5">
+      {children}
+    </th>
+  ),
+  tr: ({ children }) => (
+    <tr className="border-b border-gray-100 dark:border-gray-800 last:border-0">
+      {children}
+    </tr>
+  ),
+  td: ({ children }) => (
+    <td className="px-4 py-2.5 text-gray-700 dark:text-gray-300 align-top first:pl-5 last:pr-5">
+      {children}
+    </td>
+  ),
+};
 import { getStandalonePost, getStandalonePosts } from "../../../lib/blog-mdx";
 
 interface Params {
@@ -145,10 +245,6 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
               prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
               prose-code:before:content-none prose-code:after:content-none
               prose-code:font-medium prose-code:text-[0.875em]
-              prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 prose-pre:text-gray-100
-              prose-pre:border prose-pre:border-gray-800
-              prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto
-              [&_pre_code]:bg-transparent [&_pre_code]:text-gray-100 [&_pre_code]:p-0
               prose-blockquote:border-l-amber-500 prose-blockquote:bg-amber-50/50
               dark:prose-blockquote:bg-amber-500/5
               prose-blockquote:rounded-r prose-blockquote:py-1
@@ -162,7 +258,12 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
               prose-img:rounded-lg
             "
           >
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={markdownComponents}
+            >
+              {post.body}
+            </ReactMarkdown>
           </div>
 
           {(prev || next) && (
