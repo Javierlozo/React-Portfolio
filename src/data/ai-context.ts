@@ -93,7 +93,7 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 
 ## Key Projects
 - luislozoya.com: This portfolio site. Next.js 15, React 18, Tailwind, TypeScript. Includes AI chat, security lab write-ups, and interactive experience timeline.
-- TalentAgent: AI-powered job fit assessment platform. Paste any job description, get honest 0-100 fit score with strengths, gaps, and interview prep. Built with Next.js 15, Supabase, OpenAI, Stripe.
+- TalentAgent: AI job fit platform Luis built end-to-end and uses as the substrate for applying OWASP LLM Top 10 hardening patterns: untrusted-input delimiting, system-prompt isolation, output validation, server-side score clamps. Same patterns shipped in this portfolio's Fit Check API after llm-audit caught an LLM02 (Insecure Output Handling) issue. Built with Next.js 15, Supabase, OpenAI, Stripe.
 - Bilingual Business Site (EN/ES): Self-directed Next.js 14 project practicing custom i18n, next-themes dark mode, and Framer Motion interactions end-to-end.
 - ShopEssentialsHub: Full-stack product curation platform with Amazon affiliate integration
 

@@ -104,6 +104,24 @@ const PROJECTS: Project[] = [
     role: "Solo security research: attack design, evaluation harness, mitigation patterns, writeups",
   },
   {
+    id: 14,
+    category: "security",
+    title: "TalentAgent: AI Job Fit Platform with Hardened LLM Endpoints (2026)",
+    description:
+      "An LLM-integrated SaaS I built end-to-end. Beyond the product itself, it's the place I apply the hardening patterns codified in llm-audit: untrusted-input delimiting, system-prompt isolation, output validation, server-side score clamps.",
+    techStack: ["Next.js 15", "OpenAI", "Supabase", "Stripe", "OWASP LLM Top 10", "TypeScript"],
+    image: talentagent,
+    liveLink: "https://portfolio-hub-tawny.vercel.app/",
+    featured: true,
+    problem:
+      "LLM-integrated apps inherit a class of attacks (prompt injection, insecure output handling, system-prompt leakage) that traditional pen tests miss. Most apps ship with informal defenses and hope.",
+    approach:
+      "Built TalentAgent as both a real product and a place to apply the OWASP LLM Top 10 patterns. Untrusted job descriptions are wrapped in clear data delimiters with explicit no-instruction rules; verdict shapes are enforced via Zod enums; scores are clamped server-side; OpenAI calls use response_format JSON. The same hardening pattern shipped in this portfolio's Fit Check API after llm-audit caught an LLM02 (Insecure Output Handling) issue.",
+    outcome:
+      "Live platform scoring fit in 10 seconds with hardened LLM endpoints. Free to use, no auth required for core flow.",
+    role: "Solo: design, full-stack development, LLM integration, security hardening (input delimiting, output validation, score clamps), Stripe, deployment.",
+  },
+  {
     id: 10,
     category: "security",
     title: "AfricaNXT: Global Mentorship Platform (via GDNA)",
@@ -156,23 +174,6 @@ const PROJECTS: Project[] = [
     outcome:
       "Live bilingual gallery at tinta.gallery showing 8 originals priced $300-$450. Operates as a DBA under IberiaTech Solutions LLC.",
     role: "Solo build: concept, design, full-stack development, deployment",
-  },
-  {
-    id: 14,
-    category: "other",
-    title: "TalentAgent: AI Job Fit Assessment Platform (2026)",
-    description:
-      "Paste any job description and get an honest 0-100 fit score with strengths, gaps, and interview prep. Includes ghost job detection and a job board with AI scores.",
-    techStack: ["Next.js 15", "Supabase", "OpenAI", "Stripe", "TypeScript", "Tailwind CSS"],
-    image: talentagent,
-    liveLink: "https://portfolio-hub-tawny.vercel.app/",
-    featured: true,
-    problem: "Job seekers waste hours applying to roles that aren't a good fit or are ghost postings.",
-    approach:
-      "Built a full-stack platform with OpenAI for fit scoring, Supabase for data and auth, Stripe for payments, and a job board with pre-scored listings.",
-    outcome:
-      "Live platform that scores fit in 10 seconds, detects ghost jobs, and gives honest 'Don't Apply' signals. Free to use.",
-    role: "Solo builder: design, full-stack development, AI integration, payments, deployment",
   },
   {
     id: 8,
