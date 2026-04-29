@@ -165,7 +165,7 @@ export default function CybersecurityLabs() {
             delay={200}
             className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-5 text-gray-600 dark:text-gray-300"
           >
-            Selected hands-on labs with real packet captures, full analysis, and detailed writeups. Evidence of skill beyond certifications.
+            Hands-on labs with real captures and full writeups.
           </RevealText>
           <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
             {labSkillTags.map((skill) => (

@@ -82,7 +82,7 @@ export default function About() {
             delay={200}
             className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300"
           >
-            Six years in construction. Now writing code and breaking it.
+            Current work, then the path that got me here.
           </RevealText>
         </div>
 
@@ -99,11 +99,11 @@ export default function About() {
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
           >
-            I&apos;m from Spain. I studied architectural engineering at{" "}
+            These days, most of my work mixes web development with LLM features. Right now I&apos;m running a{" "}
             <span className="font-normal text-gray-900 dark:text-white">
-              IE University
+              prompt-injection lab
             </span>
-            {" "}and spent almost 6 years in commercial construction (structural detailing, CAD, project management) before switching to software.
+            {" "}against a chatbot I built, testing how well the usual defenses hold up under realistic attack patterns. Findings live at /ai-playground.
           </p>
 
           <p
@@ -118,11 +118,11 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(1) ? '0ms' : '50ms' }}
           >
-            Now I work on the security side of web and cloud. I went through the SANS Cyber Academy scholarship and came out with the{" "}
+            By day I&apos;m at{" "}
             <span className="font-normal text-gray-900 dark:text-white">
-              GIAC GFACT and GSEC certifications
+              GDNA
             </span>
-            .
+            , building cloud-native apps on AWS. The interesting parts sit on the boundary between feature development and security: input validation, auth flows, S3 policies, secrets handling, and figuring out where things break when no one&apos;s watching.
           </p>
 
           <p
@@ -137,11 +137,11 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(2) ? '0ms' : '200ms' }}
           >
-            Most of my recent work mixes web development with LLM features. I&apos;m currently running a{" "}
+            My security path started with the SANS Cyber Academy scholarship, which got me the{" "}
             <span className="font-normal text-gray-900 dark:text-white">
-              prompt-injection lab
+              GIAC GFACT and GSEC certifications
             </span>
-            {" "}against a chatbot I built, testing how well the usual defenses hold up in practice.
+            . Next on the list is GIAC GCIH.
           </p>
           
           <p
@@ -156,13 +156,9 @@ export default function About() {
             }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
-            Day job is at{" "}
+            Before software: I&apos;m from Spain, six years in commercial construction (structural detailing, CAD, project management). Studied architectural engineering at{" "}
             <span className="font-normal text-gray-900 dark:text-white">
-              GDNA
-            </span>
-            , building cloud-native apps on AWS. Next cert on my list is{" "}
-            <span className="font-normal text-gray-900 dark:text-white">
-              GIAC GCIH
+              IE University
             </span>
             .
           </p>

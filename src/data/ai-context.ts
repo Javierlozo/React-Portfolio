@@ -68,7 +68,7 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 - Git, GitHub
 - REST API Design
 - Linux CLI, Bash scripting
-- Security Fundamentals (OWASP, secure coding)
+- Security Fundamentals (threat modeling, secure coding)
 
 ### Moderate (Project Experience)
 - Python (scripting, automation, security tools)
@@ -218,7 +218,7 @@ export const skillsAssessment: SkillCategory[] = [
       { name: "AWS", detail: "API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify, CDK. Daily at GDNA" },
       { name: "Git & GitHub", detail: "Branching, PRs, CI/CD, code review" },
       { name: "Linux CLI", detail: "Daily driver, scripting, server admin" },
-      { name: "Security Fundamentals", detail: "OWASP Top 10, OWASP LLM Top 10, threat modeling, secure coding, SAST/DAST" },
+      { name: "Security Fundamentals", detail: "OWASP LLM Top 10 (via llm-audit), threat modeling, secure coding, SAST/DAST" },
     ],
   },
   {

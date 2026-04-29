@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import Hero from "../components/Hero";
 import About from "../components/About";
 
-const TechStackVisual = dynamic(() => import("../components/TechStackVisual"));
 const ExperienceTimeline = dynamic(() => import("../components/ExperienceTimeline"));
 const CybersecurityLabs = dynamic(() => import("../components/CybersecurityLabs"));
 const CertificationsShowcase = dynamic(() => import("../components/CertificationsShowcase"));
@@ -18,9 +17,8 @@ export default function Home() {
     <div className="relative min-h-screen">
       <Hero />
       <About />
-      <TechStackVisual />
-      <ExperienceTimeline />
       <CybersecurityLabs />
+      <ExperienceTimeline />
       <CertificationsShowcase />
       <PortfolioSlider />
       <FitAssessment />

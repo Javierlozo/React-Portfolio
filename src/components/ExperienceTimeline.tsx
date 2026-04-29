@@ -108,8 +108,8 @@ export default function ExperienceTimeline() {
       duration: "Apr 2024 to Present",
       description: "Started translating Figma designs into React/Next.js code. Evolved into owning full application architecture, API design, and database design on AWS.",
       achievements: [
-        "Architecting serverless AWS solutions: API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify",
-        "Designing APIs, front-end architecture, and database schemas for client applications",
+        "Architecting serverless AWS apps: Cognito-backed auth flows, scoped IAM per Lambda, Secrets Manager for credentials, S3 bucket policies, RDS, API Gateway, Amplify",
+        "Designing APIs, database schemas, and front-end architecture for client applications",
         "Running weekly client meetings to demo progress and incorporate feedback"
       ],
       technologies: ["AWS API Gateway", "Lambda", "S3", "RDS", "Cognito", "IAM", "Secrets Manager", "Amplify", "React", "TypeScript", "Next.js", "PostgreSQL"],

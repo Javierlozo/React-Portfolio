@@ -43,10 +43,8 @@ const nextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
           },
-          {
-            key: 'Content-Security-Policy',
-            value: `default-src 'self'; script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: blob: *.githubusercontent.com img.shields.io; font-src 'self' fonts.gstatic.com; connect-src 'self' api.emailjs.com api.openai.com *.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self';`,
-          },
+          // Content-Security-Policy is set per-request in src/middleware.ts so the
+          // nonce can rotate. Keep static-only headers here.
         ],
       },
     ]

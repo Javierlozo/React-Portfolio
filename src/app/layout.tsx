@@ -12,6 +12,7 @@ import SiteChrome from "../components/SiteChrome";
 import SmoothScroll from "../components/SmoothScroll";
 import CommandPalette from "../components/CommandPalette";
 import { ReactNode } from "react";
+import { headers } from "next/headers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -97,7 +98,9 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -125,6 +128,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
+          nonce={nonce}
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: `try{var t=localStorage.getItem('theme');var c=t==='light'?'light':'dark';document.documentElement.classList.add(c);}catch(e){document.documentElement.classList.add('dark');}`,
           }}

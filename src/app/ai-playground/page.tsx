@@ -18,7 +18,7 @@ export default function AiPlaygroundPage() {
           against production LLMs.
         </h1>
 
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-gray-400 sm:text-lg">
+        <p className="mt-6 text-base leading-relaxed text-gray-400 sm:text-lg">
           A reproducible red-team study of prompt-injection techniques mapped to the
           OWASP LLM Top 10 and MITRE ATLAS, tested across frontier and budget-tier
           models via Vercel AI Gateway. Each attack ships with a defensive mitigation
