@@ -166,7 +166,7 @@ export async function safe() {
     vulnerable: `import OpenAI from "openai";
 
 export const openai = new OpenAI({
-  apiKey: "sk-proj-AAAA1111BBBB2222CCCC3333DDDD4444",
+  apiKey: "sk-proj-***",
 });`,
     safe: `import OpenAI from "openai";
 import { z } from "zod";
