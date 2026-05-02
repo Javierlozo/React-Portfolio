@@ -41,3 +41,4 @@ next-env.d.ts
 # Claude Code local-only settings (machine-specific permissions, file paths)
 .claude/settings.local.json
 .claude/.credentials.json
+.claude/skills/
