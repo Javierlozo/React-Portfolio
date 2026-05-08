@@ -10,7 +10,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "attacks": "node --env-file=.env.local --import tsx scripts/run-attacks.ts"
+    "attacks": "node --env-file=.env.local --import tsx scripts/run-attacks.ts",
+    "sync:notes": "node scripts/sync-notes.mjs",
+    "notes:publish": "npm run sync:notes && git add content/notes && (git diff --cached --quiet content/notes || git commit -m 'Sync notes') && git push"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",

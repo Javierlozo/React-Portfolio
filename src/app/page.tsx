@@ -8,6 +8,7 @@ import About from "../components/About";
 const LearningPath = dynamic(() => import("../components/LearningPath"));
 const ExperienceTimeline = dynamic(() => import("../components/ExperienceTimeline"));
 const CybersecurityLabs = dynamic(() => import("../components/CybersecurityLabs"));
+const NotesTeaser = dynamic(() => import("../components/NotesTeaser"));
 const CertificationsShowcase = dynamic(() => import("../components/CertificationsShowcase"));
 const PortfolioSlider = dynamic(() => import("../components/PortfolioSlider"));
 const FitAssessment = dynamic(() => import("../components/FitAssessment"));
@@ -20,6 +21,7 @@ export default function Home() {
       <LearningPath />
       <About />
       <CybersecurityLabs />
+      <NotesTeaser />
       <ExperienceTimeline />
       <CertificationsShowcase />
       <PortfolioSlider />

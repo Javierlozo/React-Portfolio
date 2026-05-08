@@ -148,6 +148,17 @@ export default function Navbar() {
           <SectionLink link={PORTFOLIO_LINK} />
           <SectionLink link={CREDENTIALS_LINK} />
 
+          {/* Notes — separate page */}
+          <Link
+            href="/notes"
+            className={`${linkBase} ${
+              pathname.startsWith("/notes") ? linkActive : linkInactive
+            }`}
+          >
+            Notes
+            {pathname.startsWith("/notes") && <div className={underline} />}
+          </Link>
+
           {/* Blog — separate page */}
           <Link
             href="/blog"
@@ -283,6 +294,17 @@ export default function Navbar() {
               })}
 
               <div className="my-2 mx-3 border-t border-gray-200 dark:border-gray-800" />
+              <Link
+                href="/notes"
+                className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
+                  pathname.startsWith("/notes")
+                    ? "text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-800"
+                    : "text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
+                }`}
+                onClick={toggleMenu}
+              >
+                Notes
+              </Link>
               <Link
                 href="/blog"
                 className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${

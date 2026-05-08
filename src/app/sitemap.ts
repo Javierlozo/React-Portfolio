@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next'
 import { LABS, getLabPath } from '../data/labs'
 import { getStandalonePosts } from '../lib/blog-mdx'
+import { getAllNoteParams } from '../lib/notes-mdx'
+import { NOTES_REPOS } from '../data/notes'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.luislozoya.com'
@@ -38,6 +40,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/notes`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    ...NOTES_REPOS.map((r) => ({
+      url: `${baseUrl}/notes/${r.repoName}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
+    ...getAllNoteParams().map((p) => ({
+      url: `${baseUrl}/notes/${p.repo}/${p.section}/${p.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
     ...standalonePostEntries,
     ...labEntries,
   ]
