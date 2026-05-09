@@ -13,7 +13,7 @@ export default function AiPlaygroundPage() {
           / ai-playground &mdash; llm red team lab
         </div>
 
-        <h1 className="mt-6 text-3xl font-semibold leading-tight text-gray-50 sm:text-4xl md:text-5xl">
+        <h1 className="mt-6 text-3xl font-thin tracking-tight leading-tight text-gray-50 sm:text-4xl md:text-5xl">
           Prompt injection research <br className="hidden sm:inline" />
           against production LLMs.
         </h1>

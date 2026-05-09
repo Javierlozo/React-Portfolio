@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBookOpen,
@@ -88,9 +89,13 @@ function RepoCard({ repo }: { repo: NotesRepo }) {
       />
 
       <div className="relative flex items-start gap-4 mb-4">
-        <div className="p-2.5 rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 shrink-0">
-          <FontAwesomeIcon icon={repo.icon} className="text-lg" />
-        </div>
+        <Image
+          src={repo.logoUrl}
+          alt={`${repo.name} badge`}
+          width={64}
+          height={64}
+          className="shrink-0 w-16 h-16 rounded-lg object-contain"
+        />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-1.5">
             <span
@@ -164,7 +169,7 @@ export default function NotesPage() {
             <FontAwesomeIcon icon={faBookOpen} className="mr-2" />
             Learning in public · {activeCount} active
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
             AppSec{" "}
             <span className="font-mono text-amber-600 dark:text-amber-400">
               Notes

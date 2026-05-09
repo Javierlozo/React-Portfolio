@@ -66,7 +66,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                 {lab.course}
               </p>
             )}
-            <h1 className="text-2xl sm:text-3xl font-medium mb-4 text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight mb-4 text-gray-900 dark:text-white">
               {lab.title}
             </h1>
             {lab.role && (

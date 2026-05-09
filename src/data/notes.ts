@@ -1,6 +1,3 @@
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { faBug, faSpider } from "@fortawesome/free-solid-svg-icons";
-
 export type NotesRepoStatus = "in-progress" | "upcoming" | "done";
 
 export interface NotesSection {
@@ -17,22 +14,22 @@ export interface NotesRepo {
   blurb: string;
   repoUrl: string;
   repoName: string;
-  icon: IconDefinition;
+  logoUrl: string;
   sections: NotesSection[];
 }
 
 export const NOTES_REPOS: NotesRepo[] = [
   {
     slug: "tcm-pbb",
-    name: "TCM Practical Bug Bounty",
+    name: "TCM Practical Bug Bounty (PBB)",
     shortName: "TCM PBB",
-    cert: "Preps for the PWPA cert",
+    cert: "Practical Web Pentest Associate (PWPA) prep",
     status: "in-progress",
     blurb:
       "TCM Security's practical web pentest course. Methodology, hands-on labs, full attack chains. I'm currently in the reconnaissance section.",
     repoUrl: "https://github.com/Javierlozo/tcm-pwpa-notes",
     repoName: "tcm-pwpa-notes",
-    icon: faBug,
+    logoUrl: "/logos/pwpa.png",
     sections: [
       { slug: "01-recon", title: "Reconnaissance" },
       { slug: "02-auth-attacks", title: "Auth & Authorization" },
@@ -48,13 +45,13 @@ export const NOTES_REPOS: NotesRepo[] = [
     slug: "portswigger-academy",
     name: "PortSwigger Web Security Academy",
     shortName: "PortSwigger Academy",
-    cert: "Working toward BSCP",
+    cert: "Burp Suite Certified Practitioner (BSCP) prep",
     status: "in-progress",
     blurb:
       "PortSwigger's free web security academy. Apprentice → Practitioner → Expert. Currently grinding the server-side track at Apprentice level.",
     repoUrl: "https://github.com/Javierlozo/portswigger-academy-notes",
     repoName: "portswigger-academy-notes",
-    icon: faSpider,
+    logoUrl: "/logos/BSCP.png",
     sections: [
       { slug: "server-side", title: "Server-side" },
       { slug: "client-side", title: "Client-side" },

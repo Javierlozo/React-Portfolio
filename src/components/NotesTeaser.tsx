@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { NOTES_REPOS } from "../data/notes";
@@ -23,7 +24,7 @@ export default function NotesTeaser() {
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest mb-1.5 text-amber-700 dark:text-amber-400">
                 Learning in public
               </p>
-              <h2 className="text-2xl sm:text-3xl font-thin font-mono leading-tight text-gray-900 dark:text-white">
+              <h2 className="text-2xl sm:text-3xl font-thin leading-tight text-gray-900 dark:text-white">
                 AppSec Notes
               </h2>
             </div>
@@ -41,12 +42,16 @@ export default function NotesTeaser() {
                 key={repo.slug}
                 className="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-3 flex items-center gap-3"
               >
-                <div className="p-2 rounded-md bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 shrink-0">
-                  <FontAwesomeIcon icon={repo.icon} className="text-sm" />
-                </div>
+                <Image
+                  src={repo.logoUrl}
+                  alt={`${repo.name} badge`}
+                  width={56}
+                  height={56}
+                  className="shrink-0 w-14 h-14 rounded-md object-contain"
+                />
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                    {repo.shortName}
+                    {repo.name}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                     {repo.cert}

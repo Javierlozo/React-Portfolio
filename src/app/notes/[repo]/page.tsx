@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -84,9 +85,13 @@ export default async function RepoPage({ params }: Props) {
 
         <header className="mb-8 sm:mb-10">
           <div className="flex items-start gap-4 mb-5">
-            <div className="p-3 rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 shrink-0">
-              <FontAwesomeIcon icon={r.icon} className="text-xl" />
-            </div>
+            <Image
+              src={r.logoUrl}
+              alt={`${r.name} badge`}
+              width={80}
+              height={80}
+              className="shrink-0 w-20 h-20 rounded-xl object-contain"
+            />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2 mb-1.5">
                 <span
@@ -98,7 +103,7 @@ export default async function RepoPage({ params }: Props) {
                   {r.cert}
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight text-gray-900 dark:text-white">
                 {r.name}
               </h1>
             </div>

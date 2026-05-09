@@ -93,7 +93,7 @@ export default function LlmAuditPage() {
             <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
             Open source · MIT · v0.0.2
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
             <span className="font-mono text-amber-600 dark:text-amber-400">
               llm-audit
             </span>

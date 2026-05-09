@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenNib } from "@fortawesome/free-solid-svg-icons";
 import type { BlogPost } from "../../data/blog";
 import { getBlogPostHref } from "../../data/blog";
 
@@ -14,14 +16,21 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const hasMore = posts.length > INITIAL_COUNT;
 
   return (
-    <div className="min-h-screen pt-20 pb-16 bg-gray-50 dark:bg-[#0B1220]">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
-        <header className="mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3 text-gray-900 dark:text-white">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+        <header className="mb-12 sm:mb-16">
+          <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
+            <FontAwesomeIcon icon={faPenNib} className="mr-2" />
+            Writing · {posts.length} {posts.length === 1 ? "post" : "posts"}
+          </p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
             Blog
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            Security lab writeups and technical deep dives.
+          <p className="text-lg sm:text-xl leading-relaxed mb-6 text-gray-700 dark:text-gray-300">
+            Lab writeups and technical deep dives.
+            <span className="block mt-1 text-gray-500 dark:text-gray-400">
+              What I learned, written down so I&apos;ll remember it.
+            </span>
           </p>
         </header>
 

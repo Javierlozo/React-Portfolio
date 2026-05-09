@@ -178,7 +178,7 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
 
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         <article className="w-full">
           <Link
             href="/blog"
@@ -191,7 +191,7 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
             <p className="text-sm font-medium mb-1 text-amber-700 dark:text-amber-400/80">
               Writing
             </p>
-            <h1 className="text-2xl sm:text-3xl font-medium leading-tight mb-4 text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight leading-tight mb-4 text-gray-900 dark:text-white">
               {post.title}
             </h1>
             {post.description && (
