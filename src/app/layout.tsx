@@ -113,14 +113,31 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           rel="icon"
           type="image/png"
           sizes="32x32"
+          href="/favicon-light-32x32.png"
+          media="(prefers-color-scheme: light)"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-light-16x16.png"
+          media="(prefers-color-scheme: light)"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
           href="/favicon-32x32.png"
+          media="(prefers-color-scheme: dark)"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
           href="/favicon-16x16.png"
+          media="(prefers-color-scheme: dark)"
         />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#1f2937" />
         <meta name="msapplication-TileColor" content="#1f2937" />

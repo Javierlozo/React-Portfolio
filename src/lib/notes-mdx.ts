@@ -10,6 +10,7 @@ export interface NoteFile {
   slug: string;
   title: string;
   source?: string;
+  order?: number;
   body: string;
 }
 
@@ -22,6 +23,7 @@ export interface NoteSection {
 interface Frontmatter {
   title?: string;
   source?: string;
+  order?: number;
 }
 
 function readNote(repo: string, section: string, file: string): NoteFile | null {
@@ -37,6 +39,7 @@ function readNote(repo: string, section: string, file: string): NoteFile | null 
     slug,
     title: fm.title ?? slug,
     source: fm.source,
+    order: fm.order,
     body: content,
   };
 }
@@ -67,7 +70,12 @@ export function getNotesInSection(repo: string, section: string): NoteFile[] {
     .filter((f) => /\.mdx?$/.test(f))
     .map((f) => readNote(repo, section, f))
     .filter((n): n is NoteFile => n !== null)
-    .sort((a, b) => a.title.localeCompare(b.title));
+    .sort((a, b) => {
+      const ao = a.order ?? Number.POSITIVE_INFINITY;
+      const bo = b.order ?? Number.POSITIVE_INFINITY;
+      if (ao !== bo) return ao - bo;
+      return a.title.localeCompare(b.title);
+    });
 }
 
 export function getNote(

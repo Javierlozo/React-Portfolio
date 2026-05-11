@@ -1,5 +1,6 @@
 ---
 title: "Directory Enumeration and Brute Forcing"
+order: 2
 source: "https://github.com/Javierlozo/tcm-pwpa-notes/blob/main/01-recon/directory-enumeration.md"
 ---
 

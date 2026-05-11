@@ -1,5 +1,6 @@
 ---
 title: "Fingerprinting Web Technologies"
+order: 1
 source: "https://github.com/Javierlozo/tcm-pwpa-notes/blob/main/01-recon/fingerprinting-web-technologies.md"
 ---
 

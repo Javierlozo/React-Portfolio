@@ -115,12 +115,20 @@ export default function Navbar() {
           className="cursor-pointer hover:scale-105 transition-transform duration-300 shrink-0 block"
         >
           <Image
-            src="/favicon.png"
+            src="/light.png"
             alt="Luis Javier Lozoya Portfolio Logo"
-            width={32}
-            height={32}
+            width={115}
+            height={82}
             priority
-            className="rounded-full border-2 border-gray-200 dark:border-gray-700"
+            className="block dark:hidden h-11 w-auto"
+          />
+          <Image
+            src="/dark.png"
+            alt="Luis Javier Lozoya Portfolio Logo"
+            width={153}
+            height={149}
+            priority
+            className="hidden dark:block h-11 w-auto"
           />
         </Link>
 
