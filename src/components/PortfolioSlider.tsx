@@ -155,7 +155,7 @@ const PROJECTS: Project[] = [
       "Multi-tenant SaaS in the clarity-app codebase. Each advisor gets a personalized assessment link to share with business owner clients. The assessment covers readiness, value gaps, and transferability risks. Advisors are notified on submission and review results in their dashboard to guide the next conversation.",
     outcome:
       "Subscription model at $99/mo with cancel-anytime terms. Pitch to advisors: get the exit-planning conversation started before someone else does.",
-    role: "Technical co-founder alongside a business development partner. I lead product design, technical architecture, and full-stack development.",
+    role: "Founding engineer working with the founder. I lead product design, technical architecture, and full-stack development.",
   },
   {
     id: 17,

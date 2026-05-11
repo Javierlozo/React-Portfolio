@@ -116,7 +116,7 @@ export default function Hero() {
               style={{ transitionDelay: delay(600) }}
             >
               <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-gray-600 dark:text-gray-300">
-                Five years writing React and Next.js on AWS, now focused on application security. Currently working with clients in the US and Spain.
+                Five years writing React and Next.js on AWS, now focused on application security.
               </p>
             </div>
 
