@@ -20,7 +20,7 @@ export interface LearningPathData {
 }
 
 export const learningPath: LearningPathData = {
-  lastUpdated: "2026-05-08",
+  lastUpdated: "2026-05-11",
   staleAfterDays: 30,
   current: [
     {
@@ -47,7 +47,7 @@ export const learningPath: LearningPathData = {
       status: "in-progress",
       meta: "Apprentice level, working toward BSCP",
       progress: {
-        current: 8,
+        current: 10,
         total: 61,
         unit: "Apprentice labs",
       },
