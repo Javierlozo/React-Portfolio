@@ -3,8 +3,8 @@ title: "Authentication"
 source: "https://github.com/Javierlozo/portswigger-academy-notes/blob/main/server-side/authentication.md"
 topic: "https://portswigger.net/web-security/authentication"
 order: 3
-labsDone: 10
-labsTotal: 10
+labsDone: 2
+labsTotal: 2
 ---
 
 ## What is authentication?

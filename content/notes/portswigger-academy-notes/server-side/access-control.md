@@ -3,8 +3,8 @@ title: "Access Control"
 source: "https://github.com/Javierlozo/portswigger-academy-notes/blob/main/server-side/access-control.md"
 topic: "https://portswigger.net/web-security/access-control"
 order: 2
-labsDone: 12
-labsTotal: 12
+labsDone: 5
+labsTotal: 5
 ---
 
 ## What is access control?

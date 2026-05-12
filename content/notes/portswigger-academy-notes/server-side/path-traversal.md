@@ -3,6 +3,7 @@ title: "Path Traversal"
 source: "https://github.com/Javierlozo/portswigger-academy-notes/blob/main/server-side/path-traversal.md"
 topic: "https://portswigger.net/web-security/file-path-traversal"
 order: 1
+labsDone: 1
 ---
 
 ## What is path traversal?
