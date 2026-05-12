@@ -3,7 +3,7 @@ title: "Authentication"
 source: "https://github.com/Javierlozo/portswigger-academy-notes/blob/main/server-side/authentication.md"
 topic: "https://portswigger.net/web-security/authentication"
 order: 3
-labsDone: 9
+labsDone: 10
 labsTotal: 10
 ---
 
@@ -219,3 +219,20 @@ Goal: find a valid username by spotting which login response differs from the re
 ![My Account page after logging in with the enumerated credentials](/notes/portswigger-academy-notes/username-enum-success.png "Lab solved")
 
 **Takeaway:** the app didn't return different error *text*. Length alone gave it away. Always sort Intruder results by Length and Status before reading any individual response.
+
+### Lab: 2FA simple bypass
+
+**Apprentice · Solved**
+
+[PortSwigger lab](https://portswigger.net/web-security/authentication/multi-factor/lab-2fa-simple-bypass)
+
+Goal: access Carlos's account page when you have his password but not his 2FA code.
+
+Given: `wiener:peter` (my account), `carlos:montoya` (victim).
+
+1. Logged in as `wiener` and completed the full 2FA flow to land on `/my-account`. Noted that the post-2FA URL is just `/my-account`, not gated by anything beyond the prior step.
+2. Logged out.
+3. Logged in as `carlos:montoya`. The app sent me to the 2FA verification page at `/login2`.
+4. Instead of submitting a code, manually changed the URL to `/my-account`. App loaded Carlos's account page. Lab solved.
+
+**Takeaway:** textbook "Bypassing 2FA via flawed logic" (covered above). The app validated that step 1 (password) succeeded but never verified that step 2 (code) was completed before serving the post-auth page. The 2FA challenge was a UX gate, not a security check. Always test post-auth URLs directly when an app forces you through a verification page.
