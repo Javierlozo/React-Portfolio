@@ -195,6 +195,11 @@ export default async function RepoPage({ params }: Props) {
                         <span className="flex-1 text-sm sm:text-base font-medium text-gray-900 dark:text-white">
                           {note.title}
                         </span>
+                        {note.labsTotal !== undefined && (
+                          <span className="font-mono text-[11px] tabular-nums px-2 py-0.5 rounded-full border border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-300 shrink-0">
+                            {note.labsDone ?? 0} / {note.labsTotal} labs
+                          </span>
+                        )}
                         <FontAwesomeIcon
                           icon={faArrowRight}
                           className="text-xs text-gray-400 group-hover:text-amber-500 transition-colors"

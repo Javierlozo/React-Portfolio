@@ -10,7 +10,10 @@ export interface NoteFile {
   slug: string;
   title: string;
   source?: string;
+  topic?: string;
   order?: number;
+  labsDone?: number;
+  labsTotal?: number;
   body: string;
 }
 
@@ -23,7 +26,11 @@ export interface NoteSection {
 interface Frontmatter {
   title?: string;
   source?: string;
+  topic?: string;
   order?: number;
+  labsDone?: number;
+  labsTotal?: number;
+  draft?: boolean;
 }
 
 function readNote(repo: string, section: string, file: string): NoteFile | null {
@@ -32,6 +39,7 @@ function readNote(repo: string, section: string, file: string): NoteFile | null 
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
   const fm = data as Frontmatter;
+  if (fm.draft) return null;
   const slug = file.replace(/\.mdx?$/, "");
   return {
     repo,
@@ -39,7 +47,10 @@ function readNote(repo: string, section: string, file: string): NoteFile | null 
     slug,
     title: fm.title ?? slug,
     source: fm.source,
+    topic: fm.topic,
     order: fm.order,
+    labsDone: fm.labsDone,
+    labsTotal: fm.labsTotal,
     body: content,
   };
 }

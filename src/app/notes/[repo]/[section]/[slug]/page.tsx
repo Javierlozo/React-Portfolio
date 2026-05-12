@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
   getAllNoteParams,
@@ -60,6 +64,19 @@ function readingTimeMinutes(body: string): number {
   return Math.max(1, Math.round(words / 220));
 }
 
+function extractH2Headings(body: string): { text: string; slug: string }[] {
+  const matches = Array.from(body.matchAll(/^##\s+(.+?)\s*$/gm));
+  return matches.map((m) => {
+    const text = m[1].trim();
+    const slug = text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
+    return { text, slug };
+  });
+}
+
 function getAdjacent(repo: string, section: string, slug: string) {
   const notes = getNotesInSection(repo, section);
   const idx = notes.findIndex((n) => n.slug === slug);
@@ -76,6 +93,7 @@ export default async function NotePage({ params }: Props) {
   const r = findRepo(repo);
   const s = findSection(repo, section);
   const minutes = readingTimeMinutes(note.body);
+  const headings = extractH2Headings(note.body);
   const { prev, next } = getAdjacent(repo, section, slug);
 
   return (
@@ -100,6 +118,20 @@ export default async function NotePage({ params }: Props) {
             </h1>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
               <span>{minutes} min read</span>
+              {note.topic && (
+                <>
+                  <span className="text-gray-300 dark:text-gray-600">·</span>
+                  <a
+                    href={note.topic}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex items-center gap-1.5 hover:text-amber-700 dark:hover:text-amber-300"
+                  >
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                    PortSwigger topic
+                  </a>
+                </>
+              )}
               {note.source && (
                 <>
                   <span className="text-gray-300 dark:text-gray-600">·</span>
@@ -116,6 +148,35 @@ export default async function NotePage({ params }: Props) {
               )}
             </div>
           </header>
+
+          {headings.length > 2 && (
+            <nav
+              aria-label="On this page"
+              className="not-prose mb-12 rounded-2xl border border-gray-200 dark:border-gray-700/70 bg-white dark:bg-gray-800/40 p-5 sm:p-6"
+            >
+              <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-400 mb-4">
+                On this page
+              </p>
+              <ol className="space-y-2.5">
+                {headings.map((h, i) => (
+                  <li
+                    key={h.slug}
+                    className="flex items-baseline gap-3 text-sm sm:text-base"
+                  >
+                    <span className="font-mono text-xs text-gray-400 dark:text-gray-500 tabular-nums shrink-0 w-6">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <a
+                      href={`#${h.slug}`}
+                      className="text-gray-700 dark:text-gray-300 hover:text-amber-700 dark:hover:text-amber-400 transition-colors"
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
 
           <NoteMarkdown body={note.body} />
 
