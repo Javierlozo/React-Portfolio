@@ -4,6 +4,7 @@ source: "https://github.com/Javierlozo/portswigger-academy-notes/blob/main/serve
 topic: "https://portswigger.net/web-security/file-path-traversal"
 order: 1
 labsDone: 1
+labsTotal: 1
 ---
 
 ## What is path traversal?
