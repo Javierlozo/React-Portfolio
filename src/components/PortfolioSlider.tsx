@@ -105,21 +105,21 @@ const PROJECTS: Project[] = [
   },
   {
     id: 14,
-    category: "security",
-    title: "TalentAgent: AI Job Fit Platform with Hardened LLM Endpoints (2026)",
+    category: "other",
+    title: "TalentAgent: AI Job-Fit Platform (2026)",
     description:
-      "An LLM-integrated SaaS I built end-to-end. Beyond the product itself, it's the place I apply the hardening patterns codified in llm-audit: untrusted-input delimiting, system-prompt isolation, output validation, server-side score clamps.",
-    techStack: ["Next.js 15", "OpenAI", "Supabase", "Stripe", "OWASP LLM Top 10", "TypeScript"],
+      "An LLM-integrated SaaS I built solo, end-to-end: paste any job description and get a 0-100 fit score with strengths, gaps, and an honest apply / don't-apply call in seconds.",
+    techStack: ["Next.js 15", "OpenAI", "Supabase", "Stripe", "TypeScript", "Chrome Extension"],
     image: talentagent,
-    liveLink: "https://portfolio-hub-tawny.vercel.app/",
+    codeLink: "https://github.com/Javierlozo/PortfolioHub",
     featured: true,
     problem:
-      "LLM-integrated apps inherit a class of attacks (prompt injection, insecure output handling, system-prompt leakage) that traditional pen tests miss. Most apps ship with informal defenses and hope.",
+      "Job seekers burn hours on applications that were never a realistic fit, and most 'fit' tools just keyword-match a resume against a posting instead of giving an honest read.",
     approach:
-      "Built TalentAgent as both a real product and a place to apply the OWASP LLM Top 10 patterns. Untrusted job descriptions are wrapped in clear data delimiters with explicit no-instruction rules; verdict shapes are enforced via Zod enums; scores are clamped server-side; OpenAI calls use response_format JSON. The same hardening pattern shipped in this portfolio's Fit Check API after llm-audit caught an LLM02 (Insecure Output Handling) issue.",
+      "Built TalentAgent as a complete full-stack product: a Fit Check endpoint backed by OpenAI gpt-4o-mini, a job browser pulling Adzuna / RemoteOK / Arbeitnow with ghost-job detection, an AI portfolio agent that answers questions from an imported resume or GitHub profile, interview-prep generation, and a Chrome extension for checking fit directly on LinkedIn and Indeed. Supabase auth, per-user rate limiting, and Stripe billing scaffolding are wired in.",
     outcome:
-      "Live platform scoring fit in 10 seconds with hardened LLM endpoints. Free to use, no auth required for core flow.",
-    role: "Solo: design, full-stack development, LLM integration, security hardening (input delimiting, output validation, score clamps), Stripe, deployment.",
+      "A complete full-stack LLM product with the frontend deployed on Vercel. The planned next iteration applies the OWASP LLM Top 10 hardening patterns from my llm-audit project — input delimiting, output validation, server-side score clamps — to the Fit Check endpoint.",
+    role: "Solo: design, full-stack development, LLM integration, Stripe, deployment.",
   },
   {
     id: 10,
