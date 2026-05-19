@@ -14,7 +14,6 @@ import web3 from "@/src/assets/pictures/langchain.png";
 import shopEssentialshub from "@/src/assets/pictures/shopessentials.png";
 import talentagent from "@/src/assets/pictures/TalentAgent.png";
 import tinta from "@/src/assets/pictures/tinta.png";
-import axis from "@/src/assets/pictures/axis.png";
 import llmAudit from "@/src/assets/pictures/llm.png";
 import aiPlayground from "@/src/assets/pictures/llm2.png";
 
@@ -138,25 +137,6 @@ const PROJECTS: Project[] = [
   },
 
   // ===== Other Work =====
-  {
-    id: 18,
-    category: "other",
-    title: "Axis: Exit Planning SaaS for Financial Advisors (2026)",
-    description:
-      "Subscription platform that lets financial advisors initiate strategic exit planning conversations with business owner clients earlier in the relationship. $99/mo, no contracts, cancel anytime.",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Stripe"],
-    image: axis,
-    liveLink: "https://clarity-app-git-marketing-editorial-pass-iberia-tech-solutions.vercel.app/",
-    codeLink: "https://github.com/IberiaTech-Solutions/clarity-app",
-    featured: true,
-    problem:
-      "Financial advisors typically enter exit planning conversations late, after a sale becomes urgent. By then, other specialists have taken the seat at the table.",
-    approach:
-      "Multi-tenant SaaS in the clarity-app codebase. Each advisor gets a personalized assessment link to share with business owner clients. The assessment covers readiness, value gaps, and transferability risks. Advisors are notified on submission and review results in their dashboard to guide the next conversation.",
-    outcome:
-      "Subscription model at $99/mo with cancel-anytime terms. Pitch to advisors: get the exit-planning conversation started before someone else does.",
-    role: "Founding engineer working with the founder. I lead product design, technical architecture, and full-stack development.",
-  },
   {
     id: 17,
     category: "other",
