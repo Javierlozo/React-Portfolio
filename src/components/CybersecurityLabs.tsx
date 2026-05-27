@@ -129,19 +129,34 @@ const FEATURED_SLUG_ORDER = [
   "ids-snort3-zeek",
 ];
 
+type Course = "sec401" | "sec504";
+
+const COURSE_LABELS: Record<Course, string> = {
+  sec401: "SEC401",
+  sec504: "SEC504",
+};
+
 export default function CybersecurityLabs() {
+  const [activeCourse, setActiveCourse] = useState<Course>("sec401");
   const [showAllLabs, setShowAllLabs] = useState(false);
 
-  const completedLabs = LABS.filter((l) => !l.comingSoon).slice().sort((a, b) => {
-    const aIdx = FEATURED_SLUG_ORDER.indexOf(a.slug);
-    const bIdx = FEATURED_SLUG_ORDER.indexOf(b.slug);
-    const aRank = aIdx === -1 ? Number.MAX_SAFE_INTEGER : aIdx;
-    const bRank = bIdx === -1 ? Number.MAX_SAFE_INTEGER : bIdx;
-    if (aRank !== bRank) return aRank - bRank;
-    const aDate = BLOG_METADATA[a.slug]?.date ?? "";
-    const bDate = BLOG_METADATA[b.slug]?.date ?? "";
-    return bDate.localeCompare(aDate);
-  });
+  const allCompletedLabs = LABS.filter((l) => !l.comingSoon);
+  const sec401Count = allCompletedLabs.filter((l) => l.courseSlug === "sec401").length;
+  const sec504Count = allCompletedLabs.filter((l) => l.courseSlug === "sec504").length;
+
+  const completedLabs = allCompletedLabs
+    .filter((l) => l.courseSlug === activeCourse)
+    .slice()
+    .sort((a, b) => {
+      const aIdx = FEATURED_SLUG_ORDER.indexOf(a.slug);
+      const bIdx = FEATURED_SLUG_ORDER.indexOf(b.slug);
+      const aRank = aIdx === -1 ? Number.MAX_SAFE_INTEGER : aIdx;
+      const bRank = bIdx === -1 ? Number.MAX_SAFE_INTEGER : bIdx;
+      if (aRank !== bRank) return aRank - bRank;
+      const aDate = BLOG_METADATA[a.slug]?.date ?? "";
+      const bDate = BLOG_METADATA[b.slug]?.date ?? "";
+      return bDate.localeCompare(aDate);
+    });
   const visibleLabs = showAllLabs ? completedLabs : completedLabs.slice(0, FEATURED_COUNT);
   const hasMoreLabs = completedLabs.length > FEATURED_COUNT;
 
@@ -157,7 +172,7 @@ export default function CybersecurityLabs() {
               Security Labs
             </h2>
             <span className="font-mono text-xs sm:text-sm font-semibold tabular-nums px-3 py-1 rounded-full whitespace-nowrap bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20">
-              {completedLabs.length} labs
+              {allCompletedLabs.length} labs
             </span>
           </div>
           <RevealText
@@ -179,6 +194,34 @@ export default function CybersecurityLabs() {
           </div>
         </div>
 
+        <div className="flex justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
+          {(["sec401", "sec504"] as const).map((course) => {
+            const isActive = activeCourse === course;
+            const count = course === "sec401" ? sec401Count : sec504Count;
+            return (
+              <button
+                key={course}
+                onClick={() => {
+                  setActiveCourse(course);
+                  setShowAllLabs(false);
+                }}
+                aria-pressed={isActive}
+                className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-amber-600 text-white dark:bg-amber-500 dark:text-gray-900"
+                    : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
+                }`}
+              >
+                <FontAwesomeIcon icon={faFlask} className="text-xs" />
+                {COURSE_LABELS[course]}
+                <span className={`text-xs ${isActive ? "opacity-80" : "opacity-50"}`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
           {visibleLabs.map((lab, i) => (
             <LabCard key={lab.id} lab={lab} index={i} />
@@ -197,14 +240,16 @@ export default function CybersecurityLabs() {
           </div>
         )}
 
-        <div className="mt-6 flex justify-center">
-          <Link
-            href="/labs/cheatsheet"
-            className="text-sm font-medium transition-colors text-amber-700 hover:text-amber-800 dark:text-amber-400/80 dark:hover:text-amber-300"
-          >
-            Also: SEC401 command cheatsheet →
-          </Link>
-        </div>
+        {activeCourse === "sec401" && (
+          <div className="mt-6 flex justify-center">
+            <Link
+              href="/labs/cheatsheet"
+              className="text-sm font-medium transition-colors text-amber-700 hover:text-amber-800 dark:text-amber-400/80 dark:hover:text-amber-300"
+            >
+              Also: SEC401 command cheatsheet →
+            </Link>
+          </div>
+        )}
 
         <p className="text-center text-sm mt-10 text-gray-500 dark:text-gray-400">
           Labs are from SANS Cyber Academy.

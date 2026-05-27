@@ -107,6 +107,18 @@ export const BLOG_METADATA: Record<string, { title: string; description: string;
       "A hands-on PowerShell workflow spanning local process/service enumeration through the object pipeline (Get-Process, Get-Service, Where-Object, Measure-Object, Out-GridView, Export-Csv), remote execution across three alpha-svr hosts with Invoke-Command, and a concrete hunt that surfaces a rogue BrokerSvc running broker.exe as LocalSystem — complete with Event ID 7045 correlation and a SHA-256 suitable for IOC distribution.",
     date: "2026-04-12",
   },
+  "live-investigation-powershell": {
+    title: "PowerShell Live Investigation: Triaging a Compromised Windows Host with Get-NetTCPConnection, Run-Key Hunting, and Compare-Object",
+    description:
+      "A hands-on SEC504 live-response walkthrough on Windows: pivoting from Get-Process with a TEMP-path filter to find calcache.exe (PID 1672), mapping its outbound beacon to 23.11.32.159:80 via Get-NetTCPConnection, eradicating HKCU Run-key persistence, and diffing services and scheduled tasks against a saved baseline with Compare-Object to surface a rogue Dynamics service and a Microsoft eDynamics scheduled task.",
+    date: "2026-05-21",
+  },
+  "rita-beacon-detection": {
+    title: "Network Beacon Detection with RITA: Tuning False Positives, Threat-Intel Feeds, and Unmasking a Google Analytics Typosquat",
+    description:
+      "A hands-on SEC504 threat-hunting workflow with RITA on the falsimentis Zeek dataset: triaging a 98.60% beacon to Canonical NTP as a false positive, tuning config.hjson with a CIDR safelist and a malwaresum threat-intel feed, then re-importing to surface three HIGH severity C2 beacons to 167.172.201.123 disguised as www1-google-analytics.com, with an awk pivot on access.log to enumerate all seven compromised internal hosts.",
+    date: "2026-05-27",
+  },
 };
 
 /**

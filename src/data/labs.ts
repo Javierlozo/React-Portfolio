@@ -2102,6 +2102,398 @@ export const LABS: CybersecurityLab[] = [
       { src: "/labs/linux-logging-130206.png", alt: "detected_events.json", caption: "T1505.003, syscall=59, exe=/usr/bin/dash" },
     ],
   },
+  {
+    id: 21,
+    courseSlug: "sec504",
+    slug: "live-investigation-powershell",
+    title: "Lab 1.1 - PowerShell Live Investigation",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Incident Response",
+    level: "SEC504",
+    date: "May 2026",
+    artifacts: "Sanitized PowerShell console screenshots from a compromised Windows lab host (Sec504 workstation)",
+    context:
+      "This lab demonstrates the SEC504 live-investigation workflow on a Windows host: use PowerShell to enumerate processes, network connections, and registry persistence; identify a suspicious binary (calcache.exe) running from %TEMP% with a Run-key entry; eradicate the persistence; and then compare current services, scheduled tasks, and local users against a saved baseline to surface attacker artifacts.",
+    summary:
+      "Used PowerShell as a live-response tool against a compromised Sec504 lab host: pivoted from Get-Process to Get-NetTCPConnection to map calcache.exe (PID 1672) running from %TEMP% and beaconing to 23.11.32.159:80, stopped the process, removed its HKCU Run-key persistence and the binary itself, then ran Compare-Object against baseline service/scheduled-task snapshots to surface a rogue 'Dynamics' service and 'Microsoft eDynamics' scheduled task.",
+    whyThisMatters:
+      "When a Windows host is suspected of compromise, the first 30 minutes matter. PowerShell gives a responder one console that covers process triage, network state, registry inspection, and baseline diffing without installing a single third-party tool. Every cmdlet in this lab is something an attacker can also see and use, which is exactly why blue-team fluency in it is non-negotiable.",
+    tldr: [
+      "Found calcache.exe (PID 1672) running from %TEMP% via Where-Object -Property Path -Like *temp*",
+      "Mapped its outbound connection to 23.11.32.159:80 with Get-NetTCPConnection",
+      "Removed the HKCU Run-key persistence, killed the process, deleted the binary, then used Compare-Object to confirm the rogue 'Dynamics' service and 'Microsoft eDynamics' scheduled task",
+    ],
+    skillsDemonstrated: [
+      "Live-response triage with PowerShell",
+      "Process and network connection mapping (Get-Process, Get-NetTCPConnection)",
+      "Registry persistence inspection (HKLM/HKCU Run keys)",
+      "Persistence eradication (Remove-ItemProperty, Remove-Item, Stop-Process)",
+      "Baseline diffing with Compare-Object",
+    ],
+    tools: ["PowerShell", "Get-Process", "Get-NetTCPConnection", "Compare-Object", "Registry triage"],
+    steps: [
+      "Run the lab setup script and baseline running processes: ./live-investigation-setup.ps1 then Get-Process",
+      "Inspect a known-good process for context: Get-Process lsass | Select-Object -Property *",
+      "Pivot to suspicious binaries via path filter: Get-Process | ... | Where-Object -Property Path -Like \"*temp*\"",
+      "Map active TCP connections to process IDs: Get-NetTCPConnection | Select-Object LocalAddress, LocalPort, State, OwningProcess",
+      "Confirm and stop the malicious process: Get-Process | ... | Where-Object -Property Id -eq 1672 | Stop-Process",
+      "Hunt for registry persistence under HKLM and HKCU CurrentVersion\\Run",
+      "Eradicate persistence: Remove-ItemProperty on the Run key and Remove-Item on the binary",
+      "Snapshot current services, scheduled tasks, and local users to files",
+      "Diff snapshots against a saved baseline with Compare-Object to find adversary artifacts",
+    ],
+    stepDetails: [
+      {
+        title: "Stage the lab and baseline processes",
+        description:
+          "Ran the SEC504-provided setup script to prime the host with a simulated compromise, then dropped straight into Get-Process. The baseline output is the responder's first situational-awareness pass: every running process, with handles, working set, CPU seconds, and PID, in one screen.",
+        command: "./live-investigation-setup.ps1\nGet-Process",
+        screenshot: "/labs/live-investigation-102749.png",
+      },
+      {
+        title: "Inspect a known-good process for shape",
+        description:
+          "Pulled the lsass process to anchor what a legitimate Windows process looks like: signed by Microsoft Corporation, path C:\\WINDOWS\\system32\\lsass.exe, FileVersion 10.0.19041.1586. Knowing the canonical shape of trusted processes is what lets you spot the outlier on the next pass.",
+        command: "Get-Process lsass | Select-Object -Property *",
+        commandBreakdown: "Select-Object -Property *: dump every property the process object exposes (Path, FileVersion, Company, ProductVersion, ...)",
+        screenshot: "/labs/live-investigation-103301.png",
+      },
+      {
+        title: "Narrow to Path, Name, Id",
+        description:
+          "Trimmed the projection to the three properties that matter for triage at scale: where it runs from, what it is called, and its PID. This is the projection used in every subsequent Where-Object filter.",
+        command: "Get-Process lsass | Select-Object -Property Path, Name, Id",
+        screenshot: "/labs/live-investigation-103423.png",
+      },
+      {
+        title: "Find processes running out of TEMP",
+        description:
+          "Filtered the projection by path with -Like \"*temp*\". One hit: calcache.exe, PID 1672, running from C:\\Users\\Sec504\\AppData\\Local\\Temp\\calcache.exe. Anything executing from a user-writable Temp directory deserves the next five minutes of your attention.",
+        command: "Get-Process | Select-Object -Property Path, Name, Id | Where-Object -Property Path -Like \"*temp*\"",
+        commandBreakdown: "Where-Object: filter pipeline objects by a predicate\n-Property Path: the property to test\n-Like \"*temp*\": case-insensitive wildcard match",
+        screenshot: "/labs/live-investigation-103828.png",
+      },
+      {
+        title: "Enumerate active TCP connections",
+        description:
+          "Get-NetTCPConnection lists every listening, bound, and established TCP socket on the box. The raw output is busy: many Listen rows from system services, plus the established sessions that actually matter for incident response.",
+        command: "Get-NetTCPConnection",
+        screenshot: "/labs/live-investigation-103934.png",
+      },
+      {
+        title: "Project the columns that map to OwningProcess",
+        description:
+          "Trimmed Get-NetTCPConnection to LocalAddress, LocalPort, State, OwningProcess. The Established rows are the lead: 192.168.182.132:1593 talking to 23.11.32.159:80 with OwningProcess 484, and 192.168.182.132:4444 listening under PID 1672 (calcache.exe). PID 1672 has a bound listener and an outbound to the same external IP, which is the canonical shape of a reverse-shell beacon.",
+        command: "Get-NetTCPConnection | Select-Object -Property LocalAddress, LocalPort, State, OwningProcess",
+        screenshot: "/labs/live-investigation-104118.png",
+      },
+      {
+        title: "Confirm PID 1672 maps to calcache.exe",
+        description:
+          "Joined the two leads by filtering Get-Process on Id -eq 1672. Confirmed: PID 1672 is calcache.exe, sitting in %TEMP%, with a network footprint visible above. That is enough to act.",
+        command: "Get-Process | Select-Object -Property Path, Name, Id | Where-Object -Property Id -eq 1672",
+        screenshot: "/labs/live-investigation-104503.png",
+      },
+      {
+        title: "Kill the malicious process",
+        description:
+          "Piped the same filter into Stop-Process to terminate calcache.exe. Pipelining the kill onto the filter is safer than typing the PID by hand, since the predicate guarantees you are stopping the right process even if PIDs have rolled.",
+        command: "Get-Process | Select-Object -Property Path, Name, Id | Where-Object -Property Id -eq 1672 | Stop-Process",
+        screenshot: "/labs/live-investigation-104553.png",
+      },
+      {
+        title: "Browse the HKCU registry hive",
+        description:
+          "Get-ChildItem HKCU: lists the top-level keys under HKEY_CURRENT_USER (AppEvents, Console, Environment, Software, ...). PowerShell drives the registry like a filesystem, which is what makes registry triage scriptable.",
+        command: "Get-ChildItem HKCU:",
+        screenshot: "/labs/live-investigation-104759.png",
+      },
+      {
+        title: "Hunt for Run-key persistence",
+        description:
+          "Read HKLM and HKCU CurrentVersion\\Run with Get-ItemProperty. HKLM looked clean (SecurityHealth, VMware User Process). HKCU contained the smoking gun: a Calcache value pointing to C:\\Users\\Sec504\\AppData\\Local\\Temp\\calcache.exe. Auto-run from a user-writable path is one of the most common persistence techniques and one of the easiest to spot once you know where to look.",
+        command: "Get-ItemProperty \"HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\"\nGet-ItemProperty \"HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\"\nGet-ItemProperty \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\"\nGet-ItemProperty \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\"",
+        screenshot: "/labs/live-investigation-105049.png",
+      },
+      {
+        title: "Eradicate the persistence and the binary",
+        description:
+          "Removed the Calcache value from HKCU Run, then deleted calcache.exe from %TEMP%. Removing the registry entry first matters: if you delete the binary first the entry still fires at next logon and the user gets a 'file not found' shell pop that tips off the attacker.",
+        command: "Remove-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\" -Name \"Calcache\"\nRemove-Item $env:temp\\calcache.exe",
+        screenshot: "/labs/live-investigation-105459.png",
+      },
+      {
+        title: "List the saved baseline",
+        description:
+          "The lab ships with a clean-state baseline under .\\baseline: services.txt, scheduledtasks.txt, localusers.txt. These are the 'before' snapshots that Compare-Object will diff against the current host.",
+        command: "Get-ChildItem baseline",
+        screenshot: "/labs/live-investigation-110358.png",
+      },
+      {
+        title: "Snapshot services to a file",
+        description:
+          "Captured the current service inventory with Get-Service | Select-Object -ExpandProperty Name | Out-File services.txt. -ExpandProperty unwraps the Name property into a flat string list, which is the shape Compare-Object expects.",
+        command: "Get-Service | Select-Object -ExpandProperty Name | Out-File services.txt",
+        commandBreakdown: "Select-Object -ExpandProperty Name: flatten objects to a list of name strings\nOut-File: write the pipeline to a text file",
+        screenshot: "/labs/live-investigation-110643.png",
+      },
+      {
+        title: "Snapshot scheduled tasks and local users",
+        description:
+          "Did the same flatten-and-write pass for Get-ScheduledTask (TaskName) and Get-LocalUser (Name). Three files now describe the current host: services.txt, scheduledtasks.txt, localusers.txt.",
+        command: "Get-ScheduledTask | Select-Object -ExpandProperty TaskName | Out-File scheduledtasks.txt\nGet-LocalUser | Select-Object -ExpandProperty Name | Out-File localusers.txt",
+        screenshot: "/labs/live-investigation-110941.png",
+      },
+      {
+        title: "Sanity-check the snapshot",
+        description:
+          "Get-Content -First 10 prints the first ten lines of services.txt. Visual sanity check before the diff, so you know the file actually captured service names and not, for example, a Format-Table header.",
+        command: "Get-Content .\\services.txt -First 10",
+        screenshot: "/labs/live-investigation-111020.png",
+      },
+      {
+        title: "Load baseline and current snapshots into variables",
+        description:
+          "Stored the current and baseline service lists in $servicesnow and $servicebaseline. Variables make the next Compare-Object call readable.",
+        command: "$servicesnow = Get-Content .\\services.txt\n$servicebaseline = Get-Content .\\baseline\\services.txt",
+        screenshot: "/labs/live-investigation-111140.png",
+      },
+      {
+        title: "Diff services against baseline",
+        description:
+          "Compare-Object surfaced one row: Dynamics, SideIndicator =>. The => arrow means 'present on the right side (current) but not on the left (baseline)'. A new service named Dynamics installed since the baseline was taken is exactly the kind of low-frequency, high-confidence signal a responder lives for.",
+        command: "Compare-Object $servicebaseline $servicesnow",
+        commandBreakdown: "Compare-Object: diff two object sets\nSideIndicator <=: only in reference (baseline)\nSideIndicator =>: only in difference (current)",
+        screenshot: "/labs/live-investigation-111230.png",
+      },
+      {
+        title: "Diff scheduled tasks against baseline",
+        description:
+          "Same pattern for Get-ScheduledTask: $schedulednow vs $Scheduledbaseline. Compare-Object returned 'Microsoft eDynamics' with SideIndicator =>. A rogue task named to look like a Microsoft component, paired with a rogue Dynamics service, is the persistence pattern operators use when they expect a defender to scan the names list and skim past anything that starts with 'Microsoft'.",
+        command: "$schedulednow = Get-Content .\\scheduledtasks.txt\n$Scheduledbaseline = Get-Content .\\baseline\\scheduledtasks.txt\nCompare-Object $Scheduledbaseline $schedulednow",
+        screenshot: "/labs/live-investigation-111723.png",
+      },
+    ],
+    outcome:
+      "Walked the full triage-to-eradication loop on a compromised Windows host with nothing but built-in PowerShell. Found calcache.exe running from %TEMP%, tied it to a beacon on 23.11.32.159:80, killed the process, removed its HKCU Run-key persistence and the binary, and confirmed two additional adversary artifacts (the Dynamics service and the Microsoft eDynamics scheduled task) by diffing against a baseline.",
+    nextStepsInProduction:
+      "Bake the baseline-and-diff pattern into a recurring job: snapshot services, scheduled tasks, local users, and Run-key contents on every endpoint nightly and store the artifacts centrally. Forward calcache.exe and its IOC set (filename, hash, parent path under %TEMP%, outbound to 23.11.32.159) into EDR allow/block lists and the SIEM watchlist. For containment, pair the PowerShell triage with Disable-NetAdapter or a network-isolation policy so the host can be quarantined without losing visibility for the responder.",
+    securityControlsRelevant: [
+      "Endpoint baselining (services, scheduled tasks, Run keys)",
+      "Application control / WDAC denying execution from user-writable Temp directories",
+      "PowerShell script-block logging and transcripts (Event IDs 4104, 4105)",
+      "EDR with auto-isolation on outbound-beacon detection",
+      "Privileged-account separation so a user-context Run key cannot escalate to LocalSystem",
+    ],
+    keyFindings: [
+      "calcache.exe (PID 1672) running out of C:\\Users\\Sec504\\AppData\\Local\\Temp",
+      "Outbound TCP from the host to 23.11.32.159:80 owned by PID 1672 / 484",
+      "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Calcache pointed at the Temp binary",
+      "Baseline diff revealed a rogue 'Dynamics' service",
+      "Baseline diff revealed a rogue 'Microsoft eDynamics' scheduled task",
+    ],
+    takeaway: [
+      "Where-Object -Property Path -Like \"*temp*\" is the single most underrated triage filter on Windows. The vast majority of commodity malware lives in %TEMP%, %APPDATA%\\Local\\Temp, or %APPDATA%\\Roaming because those paths are user-writable without elevation. If you run that one filter every time you sit down at a suspect host, you will catch a meaningful fraction of attacks in under thirty seconds.",
+      "The order of eradication matters more than people think. Remove the persistence registry value first, then kill the process, then delete the binary. If you reverse that order the Run-key still fires at next logon and creates a noisy 'file not found' shell that tips off the operator. The whole point of incident response is to keep the attacker from learning that you have learned about them.",
+      "Compare-Object against a saved baseline is the closest thing to a free EDR you have on a fresh Windows install. It will not catch fileless or in-memory threats, but for the persistence-via-service and persistence-via-scheduled-task patterns that still dominate commodity intrusions, a nightly snapshot plus a morning diff is the highest-signal cheap detection you can run.",
+    ],
+    screenshots: [
+      { src: "/labs/live-investigation-102749.png", alt: "Lab setup and Get-Process baseline", caption: "./live-investigation-setup.ps1 then Get-Process" },
+      { src: "/labs/live-investigation-103059.png", alt: "Inspect lsass", caption: "Get-Process lsass — anchor what a clean process looks like" },
+      { src: "/labs/live-investigation-103301.png", alt: "Lsass full property dump", caption: "Get-Process lsass | Select-Object -Property *" },
+      { src: "/labs/live-investigation-103423.png", alt: "Projection to Path, Name, Id", caption: "Get-Process lsass | Select-Object -Property Path, Name, Id" },
+      { src: "/labs/live-investigation-103656.png", alt: "Filter to explorer", caption: "Where-Object -Property Name -eq explorer" },
+      { src: "/labs/live-investigation-103828.png", alt: "Filter to TEMP paths", caption: "Where-Object -Property Path -Like \"*temp*\" surfaces calcache.exe (PID 1672)" },
+      { src: "/labs/live-investigation-103934.png", alt: "Get-NetTCPConnection", caption: "Raw TCP connection table" },
+      { src: "/labs/live-investigation-104118.png", alt: "Projected TCP connection table", caption: "Established 192.168.182.132 → 23.11.32.159:80 (OwningProcess 484); listener :4444 owned by PID 1672" },
+      { src: "/labs/live-investigation-104503.png", alt: "Confirm PID 1672", caption: "Get-Process | Where-Object -Property Id -eq 1672 → calcache.exe" },
+      { src: "/labs/live-investigation-104553.png", alt: "Stop-Process", caption: "Pipelined kill of PID 1672" },
+      { src: "/labs/live-investigation-104759.png", alt: "HKCU root keys", caption: "Get-ChildItem HKCU: — registry hives drive like a filesystem" },
+      { src: "/labs/live-investigation-105049.png", alt: "Run-key persistence", caption: "HKCU Run\\Calcache → %TEMP%\\calcache.exe" },
+      { src: "/labs/live-investigation-105459.png", alt: "Eradicate persistence", caption: "Remove-ItemProperty then Remove-Item — registry first, binary second" },
+      { src: "/labs/live-investigation-110358.png", alt: "Baseline files", caption: ".\\baseline contains services, scheduled tasks, and local user snapshots" },
+      { src: "/labs/live-investigation-110643.png", alt: "Snapshot services", caption: "Get-Service | Select-Object -ExpandProperty Name | Out-File services.txt" },
+      { src: "/labs/live-investigation-110941.png", alt: "Snapshot scheduled tasks and users", caption: "Out-File scheduledtasks.txt and localusers.txt" },
+      { src: "/labs/live-investigation-111020.png", alt: "Sanity-check services.txt", caption: "Get-Content -First 10" },
+      { src: "/labs/live-investigation-111140.png", alt: "Load snapshots into variables", caption: "$servicesnow and $servicebaseline" },
+      { src: "/labs/live-investigation-111230.png", alt: "Diff services", caption: "Compare-Object — rogue 'Dynamics' service flagged with SideIndicator =>" },
+      { src: "/labs/live-investigation-111452.png", alt: "Scheduled task enum", caption: "Get-ScheduledTask raw output" },
+      { src: "/labs/live-investigation-111723.png", alt: "Diff scheduled tasks", caption: "Compare-Object — rogue 'Microsoft eDynamics' scheduled task flagged" },
+    ],
+  },
+  {
+    id: 22,
+    courseSlug: "sec504",
+    slug: "rita-beacon-detection",
+    title: "Lab 1.2 - Network Beacon Detection with RITA",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Threat Hunting",
+    level: "SEC504",
+    date: "May 2026",
+    artifacts: "Sanitized RITA UI, Zeek log, and config.hjson screenshots from the SEC504 falsimentis dataset",
+    context:
+      "This lab demonstrates the SEC504 network-threat-hunting workflow with RITA (Real Intelligence Threat Analytics) by Active Countermeasures. Import a week of Zeek logs from the falsimentis dataset, triage RITA's beacon-scored output, tune false positives via the CIDR safelist, wire in a threat-intel feed, then re-import to surface real C2 traffic disguised as Google Analytics.",
+    summary:
+      "Imported a falsimentis Zeek dataset into RITA and triaged a HIGH severity 98.60% beacon to 91.189.89.198 (Canonical NTP, false positive). Added 91.189.89.0/24 to the CIDR safelist, wired the malwaresum threat-intel feed into config.hjson, and re-imported. The clean run surfaced three HIGH severity beacons from 172.16.42.2 / 172.16.42.3 / 172.16.42.108 to 167.172.201.123, all with Threat Intel hits. Tracing the proxied traffic in access.log revealed the C2 was disguised as www1-google-analytics.com with ORIGINAL_DST 167.172.201.123, and an awk pivot identified four internal hosts (172.16.42.103/105/107/109) calling the same fake-analytics endpoint.",
+    whyThisMatters:
+      "Modern adversaries blend C2 into legitimate-looking DNS names and ride low-rate beacons that human eyes miss. RITA's beacon score plus a tuned safelist plus a threat-intel feed is the open-source recipe for finding that traffic in a real Zeek pipeline. The skill is not running the tool — it is recognizing which 'high severity' findings are noise and which are the real thing, and knowing how to tune the pipeline to demote the noise without burying the signal.",
+    tldr: [
+      "Imported a week of falsimentis Zeek logs into RITA, triaged a 98.60% beacon to a Canonical NTP server as a false positive",
+      "Tuned config.hjson with a CIDR safelist and an external threat-intel feed (malwaresum), then re-imported the dataset",
+      "Surfaced three HIGH severity C2 beacons to 167.172.201.123 disguised as www1-google-analytics.com, and identified four compromised internal hosts via an awk pivot on access.log",
+    ],
+    skillsDemonstrated: [
+      "Zeek log triage (conn.log, dns.log, http.log, ssl.log)",
+      "Beacon detection with RITA",
+      "Threat-intel feed integration",
+      "False-positive tuning via CIDR safelist",
+      "Squid/Zeek access.log pivoting with grep and awk",
+    ],
+    tools: ["RITA", "Zeek", "ClickHouse", "MalwareSum", "awk", "grep"],
+    steps: [
+      "Stage the falsimentis Zeek dataset and list the log inventory",
+      "Import the logs into RITA: ./rita.sh import -l log/ ~/labs/falsimentis/",
+      "Open the RITA UI and triage HIGH severity beacons",
+      "Confirm or refute the top beacon with MalwareSum (IP reputation)",
+      "Edit config.hjson to add a CIDR safelist entry and an online threat-intel feed",
+      "Delete the dataset and re-import so the new config applies",
+      "Triage the cleaner result and inspect Threat Intel matches",
+      "Pivot to access.log to confirm DNS-spoofed C2 (www1-google-analytics.com → 167.172.201.123)",
+      "Enumerate all internal hosts touching the malicious destination with awk on access.log",
+    ],
+    stepDetails: [
+      {
+        title: "Stage the falsimentis dataset",
+        description:
+          "The SEC504 falsimentis dataset is a multi-day capture pre-converted to Zeek logs. Listed the logs directory to confirm the standard Zeek stack is present: conn.log, dns.log, http.log, ssl.log, files.log, x509.log, weird.log. Zeek's tab-separated format is what RITA expects on import.",
+        screenshot: "/labs/rita-beacon-114040.png",
+      },
+      {
+        title: "Import Zeek logs into RITA",
+        description:
+          "Ran ./rita.sh import -l log/ ~/labs/falsimentis/. RITA stood up its three containers (clickhouse, syslog-ng, rita-rita-1), ingested the logs, built the connection summary, ran beacon scoring, then ran HTTP, SSL, and DNS analytics. ClickHouse is the column store under the hood; the import is fast because it is bulk-loading into a columnar engine, not parsing on read.",
+        command: "./rita.sh import -l log/ ~/labs/falsimentis/",
+        commandBreakdown: "-l: tell RITA the input is Zeek log format\nlog/: subdirectory holding the logs\nfalsimentis: dataset name (becomes the database)",
+        screenshot: "/labs/rita-beacon-114253.png",
+      },
+      {
+        title: "Open the RITA UI and read the beacon column",
+        description:
+          "RITA's TUI ranks connections by severity. One HIGH severity row: 172.16.42.20 → 91.189.89.198 with a 98.60% beacon score, 3-second duration, 0 subdomains, prevalence 1/9 (11%). A high beacon score plus low prevalence is exactly the signature analysts are told to chase, but high score alone is not enough. The next step is to verify the destination.",
+        screenshot: "/labs/rita-beacon-114327.png",
+      },
+      {
+        title: "Confirm or refute on MalwareSum",
+        description:
+          "Looked up 91.189.89.198 on MalwareSum. The reputation report identified the IP as belonging to AS41231 Canonical Group Limited, network 91.189.88.0/21, range 91.189.88.0 – 91.189.95.255. Score 623 upvotes / 1 downvote, with comments confirming it is the Canonical NTP server. A 98.60% beacon to NTP is exactly the behavior NTP is supposed to exhibit, so this is a textbook false positive. The signal is real, but the verdict is benign.",
+        screenshot: "/labs/rita-beacon-114553.png",
+      },
+      {
+        title: "Cross-check with dns.log",
+        description:
+          "While in the logs directory, grepped dns.log for lolcats.org, another low-severity destination that surfaced in the RITA report. The query returned a single A-record lookup from 172.16.42.2 → 138.68.44.115, NOERROR, type A. Notable but not the priority lead — confirms RITA's prevalence column is sensible.",
+        command: "cd ~/labs/falsimentis/logs/\ngrep lolcats.org dns.log | head -1",
+        screenshot: "/labs/rita-beacon-120314.png",
+      },
+      {
+        title: "Tune config.hjson - safelist Canonical NTP",
+        description:
+          "Ran ./rita.sh view falsimentis to load the dataset, then opened config.hjson in gedit. The config ships with a CIDR safelist for common false-positive sources (Microsoft, Mozilla, AWS, Verizon CDN, etc.). Added \"91.189.89.198/24\" so future imports do not waste analyst time on the Canonical NTP traffic.",
+        command: "./rita.sh view falsimentis\ngedit config.hjson",
+        screenshot: "/labs/rita-beacon-120601.png",
+      },
+      {
+        title: "Confirm the safelist entry",
+        description:
+          "Highlighted the new \"91.189.89.198/24\" entry inside the // array of CIDRs block. CIDR scoping is intentional: covering the /24 prevents tomorrow's NTP traffic from a sibling Canonical IP from producing the same false positive.",
+        screenshot: "/labs/rita-beacon-120631.png",
+      },
+      {
+        title: "Wire in a threat-intel feed",
+        description:
+          "Set threat_intel.online_feeds to [\"http://malwaresum.sunsetisp.com/threatfeed\"]. Threat-intel feeds are how RITA marks a destination as 'known bad' without depending on the analyst's recall. The next import will tag matching destinations with the Threat Intel icon in the UI.",
+        screenshot: "/labs/rita-beacon-120817.png",
+      },
+      {
+        title: "Delete and re-import so the new config applies",
+        description:
+          "Ran ./rita.sh delete -ni falsimentis to drop the dataset, then re-imported with the same import command. Config changes apply at import time, not at view time, so the delete-and-reimport step is mandatory whenever the safelist or threat-intel block changes.",
+        command: "./rita.sh delete -ni falsimentis",
+        commandBreakdown: "-ni: non-interactive (do not prompt)",
+        screenshot: "/labs/rita-beacon-120908.png",
+      },
+      {
+        title: "Re-read the RITA UI after tuning",
+        description:
+          "The Canonical NTP entry is gone (safelisted). Three new HIGH severity rows appear: 172.16.42.108, 172.16.42.3, and 172.16.42.2 all beaconing to 167.172.201.123 with 0% beacon score (suggesting a long-lived session rather than periodic beacon), durations of 1h04m to 1h49m, prevalence 7/9 (78%), and the red Threat Intel marker matched against the malwaresum feed. 78% of monitored internal IPs talking to the same external destination, with three of them maintaining hour-plus sessions, is operator-level C2 traffic.",
+        screenshot: "/labs/rita-beacon-121030.png",
+      },
+      {
+        title: "Pivot to access.log - DNS-spoofed C2",
+        description:
+          "Greped access.log for www1-google-analytics.com (one of the destinations listed by RITA as Low severity in the same UI). One hit: 172.16.42.107 sent a POST to http://www1-google-analytics.com/collect, but the proxy logged ORIGINAL_DST/167.172.201.123. The hostname is a typosquat of www.google-analytics.com and the real destination is the same C2 server flagged HIGH severity by the threat-intel feed. The attacker proxied C2 through a fake-analytics name to blend in with normal web traffic.",
+        command: "grep www1-google-analytics.com access.log | head -1",
+        screenshot: "/labs/rita-beacon-121353.png",
+      },
+      {
+        title: "Read the full proxied request",
+        description:
+          "Expanded the same grep to show full request lines. Multiple POSTs to /collect from internal hosts, all proxied to ORIGINAL_DST 167.172.201.123, all with text/html response bodies. /collect is the legitimate Google Analytics measurement endpoint, which is what makes the cover convincing. The HTML response (instead of the expected gif or 204) is the tell.",
+        command: "grep www1-google-analytics.com access.log",
+        screenshot: "/labs/rita-beacon-121719.png",
+      },
+      {
+        title: "Enumerate every compromised internal host",
+        description:
+          "Used awk to pull column 3 (source IP) from every access.log row matching www1-google-analytics.com, then sort -u to dedupe. Four hosts surfaced: 172.16.42.103, 172.16.42.105, 172.16.42.107, 172.16.42.109. Combined with the three hosts already flagged by RITA (172.16.42.2, .3, .108) the scope is at least seven internal endpoints touching the same C2 destination. That is the containment list for the next phase of the response.",
+        command: "awk '/www1-google-analytics.com/ {print $3}' access.log | sort -u",
+        commandBreakdown: "/regex/: pattern to match against each line\n{print $3}: emit field 3 (source IP in Zeek/Squid access.log)\nsort -u: deduplicate",
+        screenshot: "/labs/rita-beacon-121851.png",
+      },
+    ],
+    outcome:
+      "Drove the full RITA tuning loop on a real Zeek capture: imported, triaged, refuted a high-score false positive against IP reputation, edited the CIDR safelist and threat-intel block in config.hjson, re-imported, and ended with three RITA-flagged plus four awk-pivoted internal hosts (seven total) confirmed to be communicating with 167.172.201.123, a C2 destination disguised behind a www1-google-analytics.com hostname.",
+    nextStepsInProduction:
+      "Schedule the RITA import job nightly on rolling Zeek logs and wire the resulting HIGH severity rows into the SIEM as an enrichment source, not a primary alert (RITA shines as a triage layer, not a paging layer). Maintain the CIDR safelist as code in version control so safelist drift is reviewable. Replace the lab's single online_feed with the org's actual threat-intel pipeline (MISP, OTX, commercial). For the immediate finding, isolate 172.16.42.2/3/103/105/107/108/109, pull EDR data on each, and block 167.172.201.123 plus the www1-google-analytics.com hostname at the proxy.",
+    securityControlsRelevant: [
+      "Zeek as the always-on protocol decoder for east-west and north-south traffic",
+      "RITA (or similar beacon-detection layer) as a triage overlay on top of Zeek",
+      "Curated CIDR safelist for known-benign high-frequency destinations",
+      "Threat-intel feed integration for known-malicious destinations",
+      "DNS filtering / proxy logging to catch typosquats like www1-google-analytics.com",
+      "Egress segmentation so workstation subnets cannot reach arbitrary external IPs",
+    ],
+    keyFindings: [
+      "RITA initial scan: 98.60% beacon score from 172.16.42.20 → 91.189.89.198 (refuted as Canonical NTP via MalwareSum)",
+      "Tuned config: added 91.189.89.198/24 to CIDR safelist; added malwaresum threat-intel feed",
+      "RITA post-tune: three HIGH severity beacons to 167.172.201.123 with Threat Intel hit, prevalence 7/9 internal hosts",
+      "C2 channel disguised as www1-google-analytics.com (typosquat), proxied to ORIGINAL_DST/167.172.201.123",
+      "Total compromised internal hosts identified: 172.16.42.2, .3, .103, .105, .107, .108, .109",
+    ],
+    takeaway: [
+      "Beacon score is a lead, not a verdict. The 98.60% score against the Canonical NTP server was a textbook false positive, and any team that pages on raw beacon score will burn out fast. RITA is at its best when it is part of a workflow that ends in MalwareSum / VirusTotal / your internal allow-list, not when it is the alert source itself.",
+      "The www1-google-analytics.com typosquat is the lesson of this lab. Operators have figured out that defenders skim hostnames for plausibility, so they pick names that survive a one-second glance. The defense is mechanical: proxy logs every host, you grep the proxy logs, the typosquat shows up because no legitimate Google Analytics traffic ever resolves through a www1-google-analytics.com endpoint. Detection by mechanical comparison beats detection by human recognition.",
+      "Tuning RITA's config.hjson is the most important thirty minutes of the workflow. Out of the box, a busy enterprise dataset produces hundreds of high-score rows that are all NTP, CDN, software-update, or telemetry traffic. The CIDR safelist plus a real threat-intel feed is what compresses that pile into the five rows an analyst actually wants to see. Without the tuning step the tool is unusable; with the tuning step it is one of the highest-signal pieces of open-source defensive tooling available.",
+    ],
+    screenshots: [
+      { src: "/labs/rita-beacon-113450.png", alt: "Zeek log listing", caption: "Initial look at ~/labs/falsimentis/logs/ Zeek output" },
+      { src: "/labs/rita-beacon-114040.png", alt: "Falsimentis log inventory", caption: "Standard Zeek stack: conn, dns, http, ssl, files, x509, weird" },
+      { src: "/labs/rita-beacon-114253.png", alt: "RITA import", caption: "./rita.sh import -l log/ ~/labs/falsimentis/" },
+      { src: "/labs/rita-beacon-114327.png", alt: "RITA UI initial scan", caption: "HIGH severity 172.16.42.20 → 91.189.89.198 (98.60% beacon)" },
+      { src: "/labs/rita-beacon-114553.png", alt: "MalwareSum lookup", caption: "91.189.89.198 → Canonical Group Limited NTP (false positive)" },
+      { src: "/labs/rita-beacon-120314.png", alt: "grep dns.log", caption: "Cross-check the lolcats.org row in dns.log" },
+      { src: "/labs/rita-beacon-120601.png", alt: "Open config.hjson", caption: "./rita.sh view falsimentis then gedit config.hjson" },
+      { src: "/labs/rita-beacon-120631.png", alt: "Safelist entry added", caption: "Added 91.189.89.198/24 to CIDR safelist" },
+      { src: "/labs/rita-beacon-120817.png", alt: "Threat-intel feed", caption: "threat_intel.online_feeds = [http://malwaresum.sunsetisp.com/threatfeed]" },
+      { src: "/labs/rita-beacon-120908.png", alt: "Delete dataset", caption: "./rita.sh delete -ni falsimentis before re-importing with new config" },
+      { src: "/labs/rita-beacon-121030.png", alt: "RITA post-tune", caption: "Three HIGH severity beacons to 167.172.201.123 with Threat Intel match" },
+      { src: "/labs/rita-beacon-121353.png", alt: "access.log pivot", caption: "POST /collect → ORIGINAL_DST 167.172.201.123 via www1-google-analytics.com" },
+      { src: "/labs/rita-beacon-121719.png", alt: "Full proxied requests", caption: "Multiple internal hosts POSTing /collect through the typosquat" },
+      { src: "/labs/rita-beacon-121851.png", alt: "awk pivot for compromised hosts", caption: "172.16.42.103/105/107/109 all touching the fake-analytics endpoint" },
+    ],
+  },
 ];
 
 export function getLabByCourseAndSlug(courseSlug: string, slug: string): CybersecurityLab | undefined {
