@@ -68,7 +68,7 @@ export const BLOG_METADATA: Record<string, { title: string; description: string;
   "web-app-exploitation": {
     title: "SQL Injection in a PHP Storefront: From LIKE-Clause Probing to Stacked Queries, then WAF Validation",
     description:
-      "A hands-on web app exploitation walkthrough: discovering a LIKE-clause SQL injection from a leaked stack trace, refining payloads to dump an entire Merchandise table, using stacked queries to enumerate databases and tables via SHOW statements, and then deploying a WAF to confirm the same payloads return HTTP 418 — a full vulnerability lifecycle demo.",
+      "A hands-on web app exploitation walkthrough: discovering a LIKE-clause SQL injection from a leaked stack trace, refining payloads to dump an entire Merchandise table, using stacked queries to enumerate databases and tables via SHOW statements, and then deploying a WAF to confirm the same payloads return HTTP 418, a full vulnerability lifecycle demo.",
     date: "2026-03-22",
   },
   "hashing-cryptographic-validation": {
@@ -86,7 +86,7 @@ export const BLOG_METADATA: Record<string, { title: string; description: string;
   "linux-logging-auditing": {
     title: "Linux Logging and Auditing: auditd, aureport, ausearch, and SIGMA Detection with Zircolite",
     description:
-      "A hands-on walkthrough of the Linux audit pipeline — Best-Practice auditd rules (recon, susp_activity, sssd), aureport --summary and --key triage, ausearch -k with -i for interpreted output, decoding a hex-encoded bash /dev/tcp reverse shell with xxd, and running Zircolite with a SIGMA ruleset to surface 177 Webshell Remote Command Execution events (MITRE T1505.003) from 41k raw audit events.",
+      "A hands-on walkthrough of the Linux audit pipeline: Best-Practice auditd rules (recon, susp_activity, sssd), aureport --summary and --key triage, ausearch -k with -i for interpreted output, decoding a hex-encoded bash /dev/tcp reverse shell with xxd, and running Zircolite with a SIGMA ruleset to surface 177 Webshell Remote Command Execution events (MITRE T1505.003) from 41k raw audit events.",
     date: "2026-04-01",
   },
   "linux-permissions": {
@@ -104,7 +104,7 @@ export const BLOG_METADATA: Record<string, { title: string; description: string;
   "powershell-speed-scale": {
     title: "PowerShell for Speed and Scale: Fleet-Wide Hunting with Invoke-Command, Event ID 7045, and Get-FileHash",
     description:
-      "A hands-on PowerShell workflow spanning local process/service enumeration through the object pipeline (Get-Process, Get-Service, Where-Object, Measure-Object, Out-GridView, Export-Csv), remote execution across three alpha-svr hosts with Invoke-Command, and a concrete hunt that surfaces a rogue BrokerSvc running broker.exe as LocalSystem — complete with Event ID 7045 correlation and a SHA-256 suitable for IOC distribution.",
+      "A hands-on PowerShell workflow spanning local process/service enumeration through the object pipeline (Get-Process, Get-Service, Where-Object, Measure-Object, Out-GridView, Export-Csv), remote execution across three alpha-svr hosts with Invoke-Command, and a concrete hunt that surfaces a rogue BrokerSvc running broker.exe as LocalSystem, complete with Event ID 7045 correlation and a SHA-256 suitable for IOC distribution.",
     date: "2026-04-12",
   },
   "live-investigation-powershell": {
@@ -118,6 +118,24 @@ export const BLOG_METADATA: Record<string, { title: string; description: string;
     description:
       "A hands-on SEC504 threat-hunting workflow with RITA on the falsimentis Zeek dataset: triaging a 98.60% beacon to Canonical NTP as a false positive, tuning config.hjson with a CIDR safelist and a malwaresum threat-intel feed, then re-importing to surface three HIGH severity C2 beacons to 167.172.201.123 disguised as www1-google-analytics.com, with an awk pivot on access.log to enumerate all seven compromised internal hosts.",
     date: "2026-05-27",
+  },
+  "malware-analysis-analyticsinstaller": {
+    title: "Malware Analysis with Strings, Regshot, and Process Monitor: Profiling AnalyticsInstaller.exe from Hash to Wiper Payload",
+    description:
+      "A hands-on SEC504 malware-triage walkthrough on Windows: hashing AnalyticsInstaller.exe with Get-FileHash, pulling IOCs with Sysinternals Strings (a www1-google-analytics.com typosquat C2, an HKCU Run key, an encoded PowerShell payload, and a destructive AnalyticsBackup.bat), then detonating it under Regshot and Process Monitor to confirm the 'Analytics Backup' scheduled-task persistence and the cmd.exe to powershell.exe -EncodedCommand execution chain.",
+    date: "2026-05-30",
+  },
+  "ai-assisted-incident-handling": {
+    title: "AI-Assisted Incident Handling: Deobfuscating Malware, Generating PowerShell Tooling, and Drafting an IR Playbook with a Self-Hosted gpt-4.1",
+    description:
+      "A hands-on SEC504 workflow using a self-hosted gpt-4.1 (OpenWebUI/Docker) as an incident-handling force-multiplier: deobfuscating a variable-fragmented malicious batch script and extracting its IOCs, generating a PowerShell baseline-collection tool for Compare-Object diffing, and drafting a MITRE ATT&CK-mapped incident-response playbook, all on a local model so malware and IOCs never leave the environment.",
+    date: "2026-05-31",
+  },
+  "nmap-network-discovery": {
+    title: "Network Discovery and Service Enumeration with Nmap: ARP Sweeps, Version Detection, and NSE Against an Exposed MongoDB",
+    description:
+      "A hands-on SEC504 Nmap reconnaissance walkthrough across a 172.30.0.0/24 lab subnet: contrasting unprivileged and privileged ARP host discovery, full-range TCP scanning and version detection that unmasks Dropbear SSH on a non-standard port, and NSE scripts that surface an unauthenticated MongoDB 5.0.27 and an SMB server (FILESTOR) not requiring message signing.",
+    date: "2026-06-03",
   },
 };
 

