@@ -38,7 +38,7 @@ const WORKING_ON = [
   "Working through SANS SEC504 toward GCIH. Building the labs into this site: live PowerShell investigation, RITA beacon detection, and Nmap discovery.",
   "PortSwigger BSCP prep. Web pentesting is a skill I keep sharp, not my identity.",
   "Building llm-audit. Five OWASP LLM Top 10 rules shipped in v0, more coming for the TS/JS ecosystem Semgrep's official AI pack does not cover.",
-  "AWS Security Specialty (SCS-C02) is on the roadmap for later in 2026. IAM least-privilege, CloudTrail detection, and Cognito hardening.",
+  "Studying for AWS Security Specialty (SCS-C02), target Sept 2026. IAM least-privilege, CloudTrail detection, and Cognito hardening against enumeration.",
 ];
 
 const CERT_STATUS: { name: string; status: string; date: string }[] = [
@@ -48,7 +48,8 @@ const CERT_STATUS: { name: string; status: string; date: string }[] = [
   { name: "GIAC GCIH (SEC504)", status: "In progress", date: "2026" },
   { name: "PortSwigger BSCP", status: "In progress", date: "Target Sept 2026" },
   { name: "TCM PWPA (Web Pentest)", status: "In progress", date: "2026" },
-  { name: "AWS Security Specialty (SCS-C02)", status: "Planned", date: "Later 2026" },
+  { name: "AWS Security Specialty (SCS-C02)", status: "In progress", date: "Target Sept 2026" },
+  { name: "AWS Solutions Architect Associate (SAA-C03)", status: "Planned", date: "Later" },
 ];
 
 export default function NowPage() {

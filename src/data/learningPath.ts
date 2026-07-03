@@ -20,7 +20,7 @@ export interface LearningPathData {
 }
 
 export const learningPath: LearningPathData = {
-  lastUpdated: "2026-05-11",
+  lastUpdated: "2026-07-03",
   staleAfterDays: 30,
   current: [
     {
@@ -45,19 +45,25 @@ export const learningPath: LearningPathData = {
       id: "portswigger",
       label: "PortSwigger Web Academy",
       status: "in-progress",
-      meta: "Apprentice level, working toward BSCP",
+      meta: "Working toward BSCP",
       progress: {
-        current: 10,
-        total: 61,
+        current: 26,
+        total: 52,
         unit: "Apprentice labs",
       },
     },
     {
       id: "pwpa",
-      label: "PWPA",
+      label: "TCM PWPA",
       status: "in-progress",
-      meta: "TCM Practical Bug Bounty course in progress",
+      meta: "Practical Web Pentest Associate",
+    },
+    {
+      id: "scs",
+      label: "AWS Security Specialty",
+      status: "in-progress",
+      meta: "SCS-C02, target Sept 2026",
     },
   ],
-  upcoming: ["AWS AI Practitioner", "PAPA", "AWS Solutions Architect Associate"],
+  upcoming: ["AWS Solutions Architect Associate (SAA-C03), bounty stack"],
 };

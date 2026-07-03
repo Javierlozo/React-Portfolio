@@ -103,6 +103,15 @@ export default function Contact() {
               LinkedIn
             </a>
           </p>
+          <p className="mt-4 text-base sm:text-lg max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
+            <a
+              href="mailto:luis.lozoya.tech@gmail.com"
+              className="font-normal text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors"
+            >
+              luis.lozoya.tech@gmail.com
+            </a>
+            . I reply within 24 hours to recruiters and hiring managers.
+          </p>
         </div>
 
         <form

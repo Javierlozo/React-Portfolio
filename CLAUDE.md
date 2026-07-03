@@ -36,12 +36,16 @@ Datadog, Cloudflare, etc.) to land on this site and immediately understand:
   differentiates. Link to labs, projects, GitHub, LinkedIn.
 - Projects: llm-audit first, always. Include real usage, screenshots,
   what it catches, install command.
-- Labs: organized by domain, not by SANS course number.
-  Domains I care about:
-  - Application Security
-  - Cloud Security (AWS)
-  - Network Forensics
-  - Incident Response
+- Labs: organized by content-honest domain based on what SANS actually taught.
+  Current taxonomy (4 tabs, balanced ~4-6 labs each):
+  - Network Security & Forensics (tcpdump, Wireshark, VPC Flow, Snort/Zeek, Nmap)
+  - Incident Response & Threat Hunting (GCIH labs when SEC504 lands)
+  - Endpoint & Platform Security (Linux, Windows security)
+  - Application & Data Security (Web app, DLP, crypto, passwords)
+
+  AppSec identity does NOT live in the Labs section. It lives in the llm-audit
+  featured section, the LLM Red Team Lab (in progress), and the AppSec Notes
+  section above Labs.
 - Certs: display GSEC, GFACT, SANS Foundations Alumni, BSCP in progress,
   SCS-C02 in progress
 - About: short bio, no fluff. Where I am, what I want, how to reach me.
@@ -107,3 +111,14 @@ the wording.
 Prefer static-first. Avoid adding JS-heavy interactive components unless
 they demonstrate a security concept (a live Semgrep playground would be
 worth the complexity, an animated hero would not).
+
+## Fit Check tool (interactive feature)
+The /ai-playground and Fit Check components use OpenAI via the AI SDK. Rules:
+- System prompts must resist injection. User-provided JD text is untrusted input.
+- Never let the AI write in first-person marketing voice about me. Third-person
+  analytical is fine. Analytical > enthusiastic.
+- Rate limit the endpoint (5 requests per minute per IP). This is an
+  AppSec portfolio; a rate-limit bypass is a resume bug.
+- No API keys in client bundles. Verify on every deploy.
+- If the LLM output contains phrases like "cutting-edge" or "passionate about",
+  the system prompt has drifted. Fix it.
