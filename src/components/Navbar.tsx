@@ -11,21 +11,22 @@ type NavLink = { label: string; id: string };
 
 const TOP_LINKS: NavLink[] = [
   { label: "About", id: "about" },
-  { label: "Experience", id: "experience" },
 ];
+const PROJECTS_LINK: NavLink = { label: "Projects", id: "llm-audit" };
 const LABS_LINK: NavLink = { label: "Labs", id: "security-labs" };
-const PORTFOLIO_LINK: NavLink = { label: "Portfolio", id: "portfolio" };
 const CREDENTIALS_LINK: NavLink = { label: "Credentials", id: "certifications" };
 const CTA_LINK: NavLink = { label: "Fit Check", id: "fit-check" };
 const CONTACT_LINK: NavLink = { label: "Contact", id: "contact" };
 
+// Core, always-visible nav. Secondary pages (Experience, Portfolio, Notes,
+// Blog, Now) live in the footer to keep the top bar scannable for recruiters.
 const ALL_LINKS: NavLink[] = [
   ...TOP_LINKS,
+  PROJECTS_LINK,
   LABS_LINK,
-  PORTFOLIO_LINK,
   CREDENTIALS_LINK,
-  CTA_LINK,
   CONTACT_LINK,
+  CTA_LINK,
 ];
 
 const linkBase =
@@ -63,7 +64,7 @@ export default function Navbar() {
   }, [isOpen]);
 
   useEffect(() => {
-    const sections = ["about", "experience", "security-labs", "certifications", "portfolio", "fit-check", "contact"];
+    const sections = ["about", "llm-audit", "experience", "security-labs", "certifications", "portfolio", "fit-check", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -138,6 +139,8 @@ export default function Navbar() {
             <SectionLink key={link.id} link={link} />
           ))}
 
+          <SectionLink link={PROJECTS_LINK} />
+
           {/* Labs — amber accent */}
           <a
             href={sectionHref(LABS_LINK.id)}
@@ -153,30 +156,7 @@ export default function Navbar() {
             )}
           </a>
 
-          <SectionLink link={PORTFOLIO_LINK} />
           <SectionLink link={CREDENTIALS_LINK} />
-
-          {/* Notes — separate page */}
-          <Link
-            href="/notes"
-            className={`${linkBase} ${
-              pathname.startsWith("/notes") ? linkActive : linkInactive
-            }`}
-          >
-            Notes
-            {pathname.startsWith("/notes") && <div className={underline} />}
-          </Link>
-
-          {/* Blog — separate page */}
-          <Link
-            href="/blog"
-            className={`${linkBase} ${
-              pathname.startsWith("/blog") ? linkActive : linkInactive
-            }`}
-          >
-            Blog
-            {pathname.startsWith("/blog") && <div className={underline} />}
-          </Link>
 
           {/* Fit Check — pill CTA */}
           <a
@@ -302,6 +282,20 @@ export default function Navbar() {
               })}
 
               <div className="my-2 mx-3 border-t border-gray-200 dark:border-gray-800" />
+              <a
+                href={sectionHref("experience")}
+                className="block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
+                onClick={toggleMenu}
+              >
+                Experience
+              </a>
+              <a
+                href={sectionHref("portfolio")}
+                className="block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
+                onClick={toggleMenu}
+              >
+                Portfolio
+              </a>
               <Link
                 href="/notes"
                 className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
@@ -323,6 +317,17 @@ export default function Navbar() {
                 onClick={toggleMenu}
               >
                 Blog
+              </Link>
+              <Link
+                href="/now"
+                className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
+                  pathname.startsWith("/now")
+                    ? "text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-800"
+                    : "text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
+                }`}
+                onClick={toggleMenu}
+              >
+                Now
               </Link>
             </div>
 

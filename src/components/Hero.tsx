@@ -106,7 +106,7 @@ export default function Hero() {
               }`}
               style={{ transitionDelay: delay(350) }}
             >
-              Built things in construction. Now I build software and break it.
+              Application Security Engineer
             </h2>
 
             <div
@@ -116,7 +116,11 @@ export default function Hero() {
               style={{ transitionDelay: delay(600) }}
             >
               <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-gray-600 dark:text-gray-300">
-                Five years writing React and Next.js on AWS, now focused on application security.
+                Five years shipping React and Next.js on AWS. Now I secure the systems I used to build. I ship{" "}
+                <span className="font-normal text-gray-900 dark:text-white">llm-audit</span>, an OWASP LLM Top 10 scanner on npm.
+                <span className="block mt-2 text-gray-500 dark:text-gray-400">
+                  From commercial construction in Spain to application security in Charleston, SC.
+                </span>
               </p>
             </div>
 
@@ -126,7 +130,7 @@ export default function Hero() {
               }`}
               style={{ transitionDelay: delay(850) }}
             >
-              GIAC GFACT + GSEC Certified {" · "} US Work Authorized
+              GIAC GSEC + GFACT {" · "} GCIH in progress {" · "} US Work Authorized
             </p>
 
             <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
@@ -149,7 +153,7 @@ export default function Hero() {
             <div className="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64">
               <Image
                 src={photo}
-                alt="Luis Javier Lozoya, Security-Focused Software Engineer"
+                alt="Luis Javier Lozoya, Application Security Engineer"
                 className="rounded-full object-cover border border-gray-200 dark:border-gray-700"
                 width={256}
                 height={256}

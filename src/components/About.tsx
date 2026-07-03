@@ -103,7 +103,11 @@ export default function About() {
             <span className="font-normal text-gray-900 dark:text-white">
               prompt-injection lab
             </span>
-            {" "}against a chatbot I built, testing how well the usual defenses hold up under realistic attack patterns. Findings live at /ai-playground.
+            {" "}against a chatbot I built, testing how well the usual defenses hold up under realistic attack patterns. Findings live at /ai-playground. That work fed into{" "}
+            <span className="font-normal text-gray-900 dark:text-white">
+              llm-audit
+            </span>
+            , an OWASP LLM Top 10 static analyzer I ship on npm for TypeScript and JavaScript codebases.
           </p>
 
           <p
@@ -141,7 +145,7 @@ export default function About() {
             <span className="font-normal text-gray-900 dark:text-white">
               GIAC GFACT and GSEC certifications
             </span>
-            . Next on the list is GIAC GCIH.
+            . GIAC GCIH (SEC504), PortSwigger BSCP, and TCM&apos;s web pentest cert (PWPA) are in progress. AWS Security Specialty is on the roadmap for later in 2026.
           </p>
           
           <p

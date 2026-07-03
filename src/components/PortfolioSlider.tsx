@@ -117,7 +117,7 @@ const PROJECTS: Project[] = [
     approach:
       "Built TalentAgent as a complete full-stack product: a Fit Check endpoint backed by OpenAI gpt-4o-mini, a job browser pulling Adzuna / RemoteOK / Arbeitnow with ghost-job detection, an AI portfolio agent that answers questions from an imported resume or GitHub profile, interview-prep generation, and a Chrome extension for checking fit directly on LinkedIn and Indeed. Supabase auth, per-user rate limiting, and Stripe billing scaffolding are wired in.",
     outcome:
-      "A complete full-stack LLM product with the frontend deployed on Vercel. The planned next iteration applies the OWASP LLM Top 10 hardening patterns from my llm-audit project — input delimiting, output validation, server-side score clamps — to the Fit Check endpoint.",
+      "A complete full-stack LLM product with the frontend deployed on Vercel. The planned next iteration applies the OWASP LLM Top 10 hardening patterns from my llm-audit project (input delimiting, output validation, server-side score clamps) to the Fit Check endpoint.",
     role: "Solo: design, full-stack development, LLM integration, Stripe, deployment.",
   },
   {

@@ -51,6 +51,27 @@ export default function Footer() {
             </div>
           </div>
 
+          <nav
+            aria-label="Secondary"
+            className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 text-sm text-gray-500 dark:text-gray-400"
+          >
+            <a href="/#experience" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+              Experience
+            </a>
+            <a href="/#portfolio" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+              Portfolio
+            </a>
+            <a href="/notes" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+              Notes
+            </a>
+            <a href="/blog" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+              Blog
+            </a>
+            <a href="/now" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+              Now
+            </a>
+          </nav>
+
           <div className="w-24 h-px mx-auto mb-8 bg-gray-300 dark:bg-gray-700"></div>
 
           <p className="text-sm tracking-wide text-gray-600 dark:text-gray-300">

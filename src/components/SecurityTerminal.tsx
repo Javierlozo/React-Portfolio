@@ -107,7 +107,7 @@ export default function SecurityTerminal() {
         <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
         <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
         <span className="ml-2 text-[10px] text-gray-400 tracking-wide">
-          ~/gsec-labs &mdash; zsh
+          ~/gsec-labs - zsh
         </span>
       </div>
 

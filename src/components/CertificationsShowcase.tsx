@@ -138,6 +138,36 @@ export default function CertificationsShowcase() {
             );
           })}
         </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
+          <span className="font-mono uppercase tracking-widest text-gray-500 dark:text-gray-400 mr-1">
+            In progress
+          </span>
+          {["GIAC GCIH (SEC504)", "PortSwigger BSCP", "TCM PWPA (Web Pentest)"].map((label) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 border-amber-300 text-amber-800 bg-amber-50 dark:border-amber-500/40 dark:text-amber-300 dark:bg-amber-500/10"
+            >
+              <span className="block h-1.5 w-1.5 rounded-full bg-amber-500" />
+              {label}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
+          <span className="font-mono uppercase tracking-widest text-gray-400 dark:text-gray-500 mr-1">
+            Planned
+          </span>
+          {["AWS Security Specialty (SCS-C02)"].map((label) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 border-gray-300 text-gray-600 bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800/50"
+            >
+              <span className="block h-1.5 w-1.5 rounded-full bg-gray-400" />
+              {label}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );
