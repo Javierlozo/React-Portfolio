@@ -19,7 +19,14 @@ import {
   faBug,
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { LABS, getLabPath } from "../data/labs";
+import {
+  LABS,
+  getLabPath,
+  getLabDomain,
+  LAB_DOMAINS,
+  LAB_DOMAIN_SHORT,
+  type LabDomain,
+} from "../data/labs";
 import { BLOG_METADATA } from "../data/blog";
 import RevealText from "./RevealText";
 import BorderDrawButton from "./BorderDrawButton";
@@ -38,6 +45,13 @@ const FOCUS_ICONS: Record<string, IconDefinition> = {
   "Intrusion Detection": faCrosshairs,
   "Windows Security": faDesktop,
   "Linux Security": faTerminal,
+};
+
+const DOMAIN_ICONS: Record<LabDomain, IconDefinition> = {
+  "Network Security & Forensics": faNetworkWired,
+  "Incident Response & Threat Hunting": faCrosshairs,
+  "Endpoint & Platform Security": faDesktop,
+  "Application & Data Security": faShieldHalved,
 };
 
 const labSkillTags = (() => {
@@ -129,23 +143,22 @@ const FEATURED_SLUG_ORDER = [
   "ids-snort3-zeek",
 ];
 
-type Course = "sec401" | "sec504";
-
-const COURSE_LABELS: Record<Course, string> = {
-  sec401: "SEC401",
-  sec504: "SEC504",
-};
-
 export default function CybersecurityLabs() {
-  const [activeCourse, setActiveCourse] = useState<Course>("sec401");
+  const allCompletedLabs = LABS.filter((l) => !l.comingSoon);
+
+  // Count labs per domain and keep only domains that actually have labs.
+  const domainCounts = LAB_DOMAINS.map((domain) => ({
+    domain,
+    count: allCompletedLabs.filter((l) => getLabDomain(l) === domain).length,
+  })).filter((d) => d.count > 0);
+
+  const [activeDomain, setActiveDomain] = useState<LabDomain>(
+    domainCounts[0]?.domain ?? LAB_DOMAINS[0]
+  );
   const [showAllLabs, setShowAllLabs] = useState(false);
 
-  const allCompletedLabs = LABS.filter((l) => !l.comingSoon);
-  const sec401Count = allCompletedLabs.filter((l) => l.courseSlug === "sec401").length;
-  const sec504Count = allCompletedLabs.filter((l) => l.courseSlug === "sec504").length;
-
   const completedLabs = allCompletedLabs
-    .filter((l) => l.courseSlug === activeCourse)
+    .filter((l) => getLabDomain(l) === activeDomain)
     .slice()
     .sort((a, b) => {
       const aIdx = FEATURED_SLUG_ORDER.indexOf(a.slug);
@@ -194,26 +207,26 @@ export default function CybersecurityLabs() {
           </div>
         </div>
 
-        <div className="flex justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
-          {(["sec401", "sec504"] as const).map((course) => {
-            const isActive = activeCourse === course;
-            const count = course === "sec401" ? sec401Count : sec504Count;
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
+          {domainCounts.map(({ domain, count }) => {
+            const isActive = activeDomain === domain;
             return (
               <button
-                key={course}
+                key={domain}
                 onClick={() => {
-                  setActiveCourse(course);
+                  setActiveDomain(domain);
                   setShowAllLabs(false);
                 }}
                 aria-pressed={isActive}
+                title={domain}
                 className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${
                   isActive
                     ? "bg-amber-600 text-white dark:bg-amber-500 dark:text-gray-900"
                     : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
                 }`}
               >
-                <FontAwesomeIcon icon={faFlask} className="text-xs" />
-                {COURSE_LABELS[course]}
+                <FontAwesomeIcon icon={DOMAIN_ICONS[domain]} className="text-xs" />
+                {LAB_DOMAIN_SHORT[domain]}
                 <span className={`text-xs ${isActive ? "opacity-80" : "opacity-50"}`}>
                   {count}
                 </span>
@@ -240,16 +253,14 @@ export default function CybersecurityLabs() {
           </div>
         )}
 
-        {activeCourse === "sec401" && (
-          <div className="mt-6 flex justify-center">
-            <Link
-              href="/labs/cheatsheet"
-              className="text-sm font-medium transition-colors text-amber-700 hover:text-amber-800 dark:text-amber-400/80 dark:hover:text-amber-300"
-            >
-              Also: SEC401 command cheatsheet →
-            </Link>
-          </div>
-        )}
+        <div className="mt-6 flex justify-center">
+          <Link
+            href="/labs/cheatsheet"
+            className="text-sm font-medium transition-colors text-amber-700 hover:text-amber-800 dark:text-amber-400/80 dark:hover:text-amber-300"
+          >
+            Also: SEC401 command cheatsheet →
+          </Link>
+        </div>
 
         <p className="text-center text-sm mt-10 text-gray-500 dark:text-gray-400">
           Labs are from SANS Cyber Academy.

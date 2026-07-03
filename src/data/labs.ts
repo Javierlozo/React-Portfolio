@@ -3000,3 +3000,52 @@ export function getLabByLegacySlug(legacySlug: string): CybersecurityLab | undef
 export function getLabBySlug(slug: string): CybersecurityLab | undefined {
   return LABS.find((l) => l.slug === slug || l.legacySlug === slug);
 }
+
+/**
+ * Portfolio domains for the labs section. Labs are grouped by domain
+ * (what the work demonstrates) rather than by SANS course number.
+ * Order here is the tab order on the home page.
+ */
+export type LabDomain =
+  | "Network Security & Forensics"
+  | "Incident Response & Threat Hunting"
+  | "Endpoint & Platform Security"
+  | "Application & Data Security";
+
+export const LAB_DOMAINS: LabDomain[] = [
+  "Network Security & Forensics",
+  "Incident Response & Threat Hunting",
+  "Endpoint & Platform Security",
+  "Application & Data Security",
+];
+
+/** Short tab labels so the pills stay scannable on small screens. */
+export const LAB_DOMAIN_SHORT: Record<LabDomain, string> = {
+  "Network Security & Forensics": "Network & Forensics",
+  "Incident Response & Threat Hunting": "IR & Threat Hunting",
+  "Endpoint & Platform Security": "Endpoint & Platform",
+  "Application & Data Security": "AppSec & Data",
+};
+
+const FOCUS_TO_DOMAIN: Record<string, LabDomain> = {
+  "Network Forensics": "Network Security & Forensics",
+  "Cloud Network Forensics": "Network Security & Forensics",
+  "Network Reconnaissance": "Network Security & Forensics",
+  "Network Security": "Network Security & Forensics",
+  "Intrusion Detection": "Network Security & Forensics",
+  "Incident Response": "Incident Response & Threat Hunting",
+  "Malware Analysis": "Incident Response & Threat Hunting",
+  "Threat Hunting": "Incident Response & Threat Hunting",
+  "AI for Security Operations": "Incident Response & Threat Hunting",
+  "Linux Security": "Endpoint & Platform Security",
+  "Windows Security": "Endpoint & Platform Security",
+  "Web Application Security": "Application & Data Security",
+  "Data Security & DLP": "Application & Data Security",
+  "Cryptography": "Application & Data Security",
+  "Password Management & Cryptography": "Application & Data Security",
+};
+
+/** Domain a lab belongs to, derived from its focus. Falls back to Network. */
+export function getLabDomain(lab: CybersecurityLab): LabDomain {
+  return (lab.focus && FOCUS_TO_DOMAIN[lab.focus]) || "Network Security & Forensics";
+}
