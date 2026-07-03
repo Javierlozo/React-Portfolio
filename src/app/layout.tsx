@@ -29,7 +29,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata = {
   title: {
-    default: "Luis Javier Lozoya | Security Engineer · AppSec & Cloud",
+    default: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
     template: "%s | Luis Javier Lozoya"
   },
   description: "GIAC GSEC + GFACT certified software engineer. 5+ years building and securing React, Next.js, and AWS apps. Open to AppSec, DevSecOps, and cloud security roles.",
@@ -68,7 +68,7 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Luis Javier Lozoya | Security Engineer · AppSec & Cloud",
+    title: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
     description: "GIAC GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
     url: 'https://www.luislozoya.com',
     siteName: 'Luis Javier Lozoya Portfolio',
@@ -78,7 +78,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Luis Javier Lozoya | Security Engineer · AppSec & Cloud",
+    title: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
     description: "GIAC GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
     creator: '@javierlozo',
   },
