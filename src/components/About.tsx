@@ -5,7 +5,7 @@ import { faTrophy, faGavel, faMicrophone } from "@fortawesome/free-solid-svg-ico
 import RevealText from "./RevealText";
 
 export default function About() {
-  const [visibleElements, setVisibleElements] = useState<Set<number>>(new Set([0, 1, 2, 3, 4])); // Start with all visible
+  const [visibleElements, setVisibleElements] = useState<Set<number>>(new Set([0, 1, 2, 3, 4, 5])); // Start with all visible
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const elementRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -167,18 +167,40 @@ export default function About() {
             .
           </p>
 
-          {/* Community */}
-          <div
+          <p
             ref={(el) => { elementRefs.current[4] = el; }}
             data-index="4"
-            className={`flex flex-wrap gap-2 sm:gap-3 transition-all ease-out ${
+            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
               prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } ${
+            } text-gray-600 dark:text-gray-300 ${
               visibleElements.has(4)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-3 sm:translate-y-6'
             }`}
-            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '400ms' }}
+            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '350ms' }}
+          >
+            I take a small number of contract engagements: LLM application security reviews, OWASP LLM Top 10 assessments, and AWS auth and IAM hardening. Email{" "}
+            <a
+              href="mailto:luis.lozoya.tech@gmail.com"
+              className="font-normal underline underline-offset-4 decoration-gray-300 hover:decoration-gray-600 text-gray-900 dark:text-white dark:decoration-gray-600 dark:hover:decoration-gray-300"
+            >
+              luis.lozoya.tech@gmail.com
+            </a>
+            .
+          </p>
+
+          {/* Community */}
+          <div
+            ref={(el) => { elementRefs.current[5] = el; }}
+            data-index="5"
+            className={`flex flex-wrap gap-2 sm:gap-3 transition-all ease-out ${
+              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
+            } ${
+              visibleElements.has(5)
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-3 sm:translate-y-6'
+            }`}
+            style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(5) ? '0ms' : '400ms' }}
           >
             {[
               { icon: faTrophy, label: "1st Place, HackOps 2024" },
