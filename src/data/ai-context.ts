@@ -52,8 +52,8 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 
 ## Cybersecurity Labs
 - Completed hands-on security labs with detailed technical write-ups published on portfolio
-- Lab 1.1: tcpdump Traffic Analysis: packet capture, .env probing detection, WordPress brute-force detection, DNS correlation
-- Lab 1.2: Wireshark Packet Analysis: 628K packet PCAP analysis, protocol hierarchy, successful WordPress login reconstruction
+- tcpdump Traffic Analysis: packet capture, .env probing detection, WordPress brute-force detection, DNS correlation
+- Wireshark Packet Analysis: 628K packet PCAP analysis, protocol hierarchy, successful WordPress login reconstruction
 - More labs in progress (AWS VPC Flow Logs, OWASP web app security)
 - Platforms: TryHackMe, HackTheBox
 

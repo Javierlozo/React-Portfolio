@@ -225,7 +225,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Initial PCAP inspection",
         description:
-          "Opened investigate.pcap in Wireshark (628,631 packets). The first packets show a TCP three-way handshake between 135.125.217.54 and 10.130.8.94, followed by an HTTP GET /.env returning 404 Not Found. Same reconnaissance probe identified in Lab 1.1 with tcpdump.",
+          "Opened investigate.pcap in Wireshark (628,631 packets). The first packets show a TCP three-way handshake between 135.125.217.54 and 10.130.8.94, followed by an HTTP GET /.env returning 404 Not Found. Same reconnaissance probe identified in the tcpdump analysis.",
         screenshot: "/labs/wireshark-093147.png",
       },
       {
@@ -321,7 +321,7 @@ export const LABS: CybersecurityLab[] = [
       "The protocol hierarchy breakdown (HTTP 22.6%, TLS 44.3%) tells an important story: more than half the HTTP traffic was unencrypted. In 2024+, any production environment with that ratio has a fundamental configuration problem. But I've seen this in real environments. Legacy internal apps, misconfigured load balancers, and health check endpoints that 'don't need HTTPS' create exactly this kind of exposure.",
     ],
     screenshots: [
-      { src: "/labs/wireshark-093147.png", alt: "Step 1: Initial PCAP inspection", caption: "TCP handshake + GET /.env → 404 (same probe as Lab 1.1)" },
+      { src: "/labs/wireshark-093147.png", alt: "Step 1: Initial PCAP inspection", caption: "TCP handshake + GET /.env → 404 (same probe seen in the tcpdump lab)" },
       { src: "/labs/wireshark-094707.png", alt: "Step 2: Protocol Hierarchy Statistics", caption: "TCP 88.2%, HTTP 22.6%, TLS 44.3%, DNS 1.1% across 628K packets" },
       { src: "/labs/wireshark-094854.png", alt: "Step 3: Conversation statistics", caption: "3.142.238.241 scanning port 80, hundreds of uniform 10-packet sessions" },
       { src: "/labs/wireshark-095035.png", alt: "Step 4: Endpoint statistics", caption: "Top talkers: 1.1.1.1, 3.5.129.171, mass 3.142.238.241 connections" },
@@ -431,7 +431,7 @@ export const LABS: CybersecurityLab[] = [
       {
         title: "Convert PCAP to NetFlow with nfpcapd",
         description:
-          "Used nfpcapd to convert the investigate.pcap from Lab 1.2 into NetFlow format, outputting to exported-netflow/ directory. This enables flow-level analysis of the same traffic using NetFlow tools.",
+          "Used nfpcapd to convert the investigate.pcap from the Wireshark lab into NetFlow format, outputting to exported-netflow/ directory. This enables flow-level analysis of the same traffic using NetFlow tools.",
         command: "nfpcapd -r /sec401/labs/1.2/investigate.pcap -w exported-netflow/",
         commandBreakdown: "-r: read PCAP file\n-w: write NetFlow output directory",
         screenshot: "/labs/vpc-flow-logs-121229.png",
