@@ -18,9 +18,15 @@ export interface CheatSection {
 export default function PrintableCheatsheet({
   sections,
   total,
+  title = "GSEC CyberLive Cheatsheet",
+  subtitle,
+  pdfName = "sec401-cheatsheet.pdf",
 }: {
   sections: CheatSection[];
   total: number;
+  title?: string;
+  subtitle?: string;
+  pdfName?: string;
 }) {
   const [search, setSearch] = useState("");
   const [busy, setBusy] = useState(false);
@@ -38,7 +44,7 @@ export default function PrintableCheatsheet({
         .from(contentRef.current)
         .set({
           margin: [0.35, 0.35, 0.35, 0.35],
-          filename: "sec401-cheatsheet.pdf",
+          filename: pdfName,
           image: { type: "jpeg", quality: 0.95 },
           html2canvas: { scale: 2, backgroundColor: "#ffffff", useCORS: true },
           jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
@@ -112,10 +118,10 @@ export default function PrintableCheatsheet({
           <div className="flex items-start justify-between mb-4 no-print">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                GSEC CyberLive Cheatsheet
+                {title}
               </h1>
               <p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
-                {filteredTotal} commands across {filtered.length} tool groups. Print landscape, 8.5pt. Drill each section until automatic.
+                {subtitle ?? `${filteredTotal} commands across ${filtered.length} tool groups. Print landscape, 8.5pt. Drill each section until automatic.`}
               </p>
             </div>
             <button
