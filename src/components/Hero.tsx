@@ -130,7 +130,7 @@ export default function Hero() {
               }`}
               style={{ transitionDelay: delay(850) }}
             >
-              GIAC GSEC + GFACT {" · "} GCIH + AWS Security Specialty in progress {" · "} US Work Authorized
+              GIAC GCIH + GSEC + GFACT {" · "} BSCP + AWS Security Specialty in progress {" · "} US Work Authorized
             </p>
 
             <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">

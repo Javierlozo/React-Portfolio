@@ -4,7 +4,7 @@ export default function StructuredData() {
     "@type": "Person",
     "name": "Luis Javier Lozoya",
     "jobTitle": "Security-Focused Software Engineer",
-    "description": "GIAC GSEC + GFACT certified software engineer with 5+ years building and securing production web apps with React, Next.js, and AWS. Focused on application security, DevSecOps, and cloud security.",
+    "description": "GIAC GCIH + GSEC + GFACT certified software engineer with 5+ years building and securing production web apps with React, Next.js, and AWS. Focused on application security, DevSecOps, and cloud security.",
     "url": "https://www.luislozoya.com",
     "image": "https://www.luislozoya.com/opengraph-image",
     "sameAs": [
@@ -94,6 +94,15 @@ export default function StructuredData() {
     "hasCredential": [
       {
         "@type": "EducationalOccupationalCredential",
+        "name": "GIAC Certified Incident Handler (GCIH)",
+        "credentialCategory": "Professional Certification",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "GIAC (Global Information Assurance Certification)"
+        }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
         "name": "GIAC Security Essentials (GSEC)",
         "credentialCategory": "Professional Certification",
         "recognizedBy": {
@@ -112,6 +121,7 @@ export default function StructuredData() {
       }
     ],
     "award": [
+      "GIAC GCIH Certification",
       "GIAC GSEC Certification",
       "GIAC GFACT Certification",
       "Coursera Full Stack Development Certificate",

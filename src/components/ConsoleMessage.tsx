@@ -13,7 +13,7 @@ export default function ConsoleMessage() {
     const mutedStyle = `color: ${muted}; font-size: 10px; font-style: italic;`;
 
     console.log(
-      "%cLuis Javier Lozoya · Security Engineer · GIAC GSEC + GFACT",
+      "%cLuis Javier Lozoya · Security Engineer · GIAC GCIH + GSEC + GFACT",
       titleStyle
     );
     console.log(

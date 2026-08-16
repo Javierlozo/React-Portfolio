@@ -4,6 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
+import gcih from "@/src/assets/certifications/GCIH.png";
 import gsec from "@/src/assets/certifications/GSEC.png";
 import gfact from "@/src/assets/certifications/GFACT.png";
 import coursera from "@/src/assets/certifications/Coursera.png";
@@ -18,6 +19,13 @@ interface Cert {
 }
 
 const CERTS: Cert[] = [
+  {
+    title: "GIAC GCIH",
+    issuer: "SANS Institute",
+    date: "Aug 2026",
+    image: gcih,
+    verifyLink: "https://www.credly.com/badges/b85c093f-9c9c-4ee1-84b7-d7c352517bce",
+  },
   {
     title: "GIAC GSEC",
     issuer: "SANS Institute",
@@ -143,7 +151,7 @@ export default function CertificationsShowcase() {
           <span className="font-mono uppercase tracking-widest text-gray-500 dark:text-gray-400 mr-1">
             In progress
           </span>
-          {["GIAC GCIH (SEC504)", "PortSwigger BSCP", "TCM PWPA (Web Pentest)", "AWS Security Specialty (SCS-C02)"].map((label) => (
+          {["PortSwigger BSCP", "TCM PWPA (Web Pentest)", "AWS Security Specialty (SCS-C02)"].map((label) => (
             <span
               key={label}
               className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 border-amber-300 text-amber-800 bg-amber-50 dark:border-amber-500/40 dark:text-amber-300 dark:bg-amber-500/10"

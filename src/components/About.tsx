@@ -143,9 +143,9 @@ export default function About() {
           >
             My security path started with the SANS Cyber Academy scholarship, which got me the{" "}
             <span className="font-normal text-gray-900 dark:text-white">
-              GIAC GFACT and GSEC certifications
+              GIAC GFACT, GSEC, and GCIH certifications
             </span>
-            . GIAC GCIH (SEC504), PortSwigger BSCP, and TCM&apos;s web pentest cert (PWPA) are in progress. AWS Security Specialty is on the roadmap for later in 2026.
+            . PortSwigger BSCP and TCM&apos;s web pentest cert (PWPA) are in progress. AWS Security Specialty is on the roadmap for later in 2026.
           </p>
           
           <p

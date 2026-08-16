@@ -38,8 +38,8 @@ export const learningPath: LearningPathData = {
     {
       id: "gcih",
       label: "GIAC GCIH",
-      status: "in-progress",
-      meta: "SANS SEC504, target Aug 2026",
+      status: "done",
+      meta: "SANS SEC504, passed Aug 2026",
     },
     {
       id: "portswigger",

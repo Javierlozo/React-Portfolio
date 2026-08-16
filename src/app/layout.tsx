@@ -32,7 +32,7 @@ export const metadata = {
     default: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
     template: "%s | Luis Javier Lozoya"
   },
-  description: "GIAC GSEC + GFACT certified software engineer. 5+ years building and securing React, Next.js, and AWS apps. Open to AppSec, DevSecOps, and cloud security roles.",
+  description: "GIAC GCIH + GSEC + GFACT certified software engineer. 5+ years building and securing React, Next.js, and AWS apps. Open to AppSec, DevSecOps, and cloud security roles.",
   keywords: [
     "Application Security Engineer",
     "AppSec Engineer",
@@ -42,6 +42,7 @@ export const metadata = {
     "Web Application Security",
     "Penetration Testing",
     "OWASP Top 10",
+    "GIAC GCIH",
     "GIAC GSEC",
     "GIAC GFACT",
     "AWS Security",
@@ -69,7 +70,7 @@ export const metadata = {
   },
   openGraph: {
     title: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
-    description: "GIAC GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
+    description: "GIAC GCIH + GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
     url: 'https://www.luislozoya.com',
     siteName: 'Luis Javier Lozoya Portfolio',
     locale: 'en_US',
@@ -79,7 +80,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
-    description: "GIAC GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
+    description: "GIAC GCIH + GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
     creator: '@javierlozo',
   },
   robots: {

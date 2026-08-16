@@ -8,7 +8,7 @@ Building production applications with React, Next.js, AWS, and Python. GIAC GFAC
 
 - Security lab writeups with real packet captures and analysis - [View Labs](https://www.luislozoya.com/#security-labs)
 - AI-powered portfolio with fit assessment and chat - [www.luislozoya.com](https://www.luislozoya.com)
-- Preparing for GCIH, AWS Security, and PWPA certifications
+- Preparing for BSCP, AWS Security Specialty, and PWPA certifications
 
 ## Stack
 

@@ -32,10 +32,10 @@ export const metadata: Metadata = {
 };
 
 // Update this page when the facts change. The date below is the last edit.
-const LAST_UPDATED = "July 2026";
+const LAST_UPDATED = "August 2026";
 
 const WORKING_ON = [
-  "Working through SANS SEC504 toward GCIH. Building the labs into this site: live PowerShell investigation, RITA beacon detection, and Nmap discovery.",
+  "Passed GIAC GCIH (SEC504) in August 2026. The labs are published here: live PowerShell investigation, RITA beacon detection, Hayabusa log triage, and Nmap discovery.",
   "PortSwigger BSCP prep. Web pentesting is a skill I keep sharp, not my identity.",
   "Building llm-audit. Five OWASP LLM Top 10 rules shipped in v0, more coming for the TS/JS ecosystem Semgrep's official AI pack does not cover.",
   "Studying for AWS Security Specialty (SCS-C02), target Sept 2026. IAM least-privilege, CloudTrail detection, and Cognito hardening against enumeration.",
@@ -45,7 +45,7 @@ const CERT_STATUS: { name: string; status: string; date: string }[] = [
   { name: "GIAC GSEC", status: "Passed", date: "March 2026" },
   { name: "GIAC GFACT", status: "Passed", date: "Jan 2026" },
   { name: "SANS Foundations Alumni", status: "Passed", date: "Dec 2025" },
-  { name: "GIAC GCIH (SEC504)", status: "In progress", date: "2026" },
+  { name: "GIAC GCIH (SEC504)", status: "Passed", date: "August 2026" },
   { name: "PortSwigger BSCP", status: "In progress", date: "Target Sept 2026" },
   { name: "TCM PWPA (Web Pentest)", status: "In progress", date: "2026" },
   { name: "AWS Security Specialty (SCS-C02)", status: "In progress", date: "Target Sept 2026" },
