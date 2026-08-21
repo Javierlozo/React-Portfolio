@@ -113,14 +113,14 @@ export default function PrintableCheatsheet({
         }
       `}</style>
 
-      <div className="cheat-root min-h-screen pt-24 pb-8 px-4 sm:px-6 bg-[#FAFAF9] dark:bg-[#0B1220]">
+      <div className="cheat-root min-h-screen pt-24 pb-8 px-4 sm:px-6 bg-surface">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-start justify-between mb-4 no-print">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold text-content">
                 {title}
               </h1>
-              <p className="text-sm mt-1 text-gray-500 dark:text-gray-400">
+              <p className="text-sm mt-1 text-content-subtle">
                 {subtitle ?? `${filteredTotal} commands across ${filtered.length} tool groups. Print landscape, 8.5pt. Drill each section until automatic.`}
               </p>
             </div>
@@ -139,7 +139,7 @@ export default function PrintableCheatsheet({
               placeholder="Search command, flag, purpose..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full max-w-sm px-3 py-2 rounded-lg text-sm border outline-none transition-colors bg-white border-gray-300 text-gray-900 placeholder-gray-400 focus:border-amber-400 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:border-amber-500/50"
+              className="w-full max-w-sm px-3 py-2 rounded-lg text-sm border outline-none transition-colors bg-surface-card border-gray-300 text-content placeholder-gray-400 focus:border-amber-400 dark:border-gray-700 dark:placeholder-gray-500 dark:focus:border-amber-500/50"
             />
           </div>
 

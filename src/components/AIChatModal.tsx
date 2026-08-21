@@ -170,26 +170,26 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="ai-chat-heading"
-        className="relative w-full h-[100dvh] sm:h-[600px] sm:max-w-lg sm:rounded-2xl border shadow-2xl flex flex-col overflow-hidden bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700"
+        className="relative w-full h-[100dvh] sm:h-[600px] sm:max-w-lg sm:rounded-2xl border shadow-2xl flex flex-col overflow-hidden bg-white border-divider dark:bg-gray-900"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white/95 dark:border-gray-700 dark:bg-gray-900/95">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-divider bg-white/95 dark:bg-gray-900/95">
           <div className="flex items-center gap-2">
             <FontAwesomeIcon icon={faBolt} className="w-5 h-5 text-green-700 dark:text-green-400" />
-            <h2 id="ai-chat-heading" className="text-sm font-semibold text-gray-900 dark:text-white">
+            <h2 id="ai-chat-heading" className="text-sm font-semibold text-content">
               Ask AI About Luis
             </h2>
           </div>
           <button
             onClick={onClose}
             aria-label="Close chat"
-            className="p-1.5 rounded-lg transition-colors hover:bg-gray-100 text-gray-500 hover:text-gray-900 dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white"
+            className="p-1.5 rounded-lg transition-colors hover:bg-gray-100 text-content-subtle hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-white"
           >
             <FontAwesomeIcon icon={faXmark} className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4" data-lenis-prevent>
           {messages.length === 0 && (
             <div className="space-y-4">
               <p className="text-sm text-center text-gray-500 dark:text-gray-300">
@@ -200,7 +200,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
                   <button
                     key={q}
                     onClick={() => sendMessage(q)}
-                    className="text-left text-sm px-3 py-2.5 rounded-lg border transition-colors cursor-pointer border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-600"
+                    className="text-left text-sm px-3 py-2.5 rounded-lg border transition-colors cursor-pointer border-divider text-content-muted hover:bg-gray-50 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-600"
                   >
                     {q}
                   </button>
@@ -243,7 +243,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
 
         <form
           onSubmit={handleSubmit}
-          className="px-4 py-3 border-t border-gray-200 bg-white/95 dark:border-gray-700 dark:bg-gray-900/95"
+          className="px-4 py-3 border-t border-divider bg-white/95 dark:bg-gray-900/95"
         >
           <div className="flex items-end gap-2">
             <textarea
@@ -253,7 +253,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
               onKeyDown={handleKeyDown}
               placeholder="Ask about Luis's experience..."
               rows={1}
-              className="flex-1 border rounded-xl px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-green-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:ring-green-500"
+              className="flex-1 border rounded-xl px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-divider text-content placeholder-gray-400 focus:ring-green-700 dark:bg-gray-800 dark:placeholder-gray-500 dark:focus:ring-green-500"
             />
             <button
               type="submit"

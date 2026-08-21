@@ -10,15 +10,15 @@ const socialLink =
 
 export default function Footer() {
   return (
-    <footer className="py-12 sm:py-14 md:py-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <footer className="py-12 sm:py-14 md:py-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         <div className="text-center">
           <div className="mb-10 sm:mb-12">
-            <h4 className="text-xl font-light tracking-wide mb-6 text-gray-900 dark:text-white">
+            <h4 className="text-xl font-light tracking-wide mb-6 text-content">
               Let&apos;s Connect
             </h4>
 
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-gray-600 dark:text-gray-300">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-content-muted">
               <BorderDrawButton as="a" href="/resume/Resume.pdf" download="Luis Javier Lozoya - Resume.pdf">
                 Download Resume
               </BorderDrawButton>
@@ -54,7 +54,7 @@ export default function Footer() {
 
           <nav
             aria-label="Secondary"
-            className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 text-sm text-gray-500 dark:text-gray-400"
+            className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-10 text-sm text-content-subtle"
           >
             <Link href="/#experience" className="hover:text-gray-900 dark:hover:text-white transition-colors">
               Experience
@@ -75,7 +75,7 @@ export default function Footer() {
 
           <div className="w-24 h-px mx-auto mb-8 bg-gray-300 dark:bg-gray-700"></div>
 
-          <p className="text-sm tracking-wide text-gray-600 dark:text-gray-300">
+          <p className="text-sm tracking-wide text-content-muted">
             © {new Date().getFullYear()} Luis Javier Lozoya. All rights reserved.
           </p>
         </div>

@@ -221,7 +221,7 @@ export default function ExperienceTimeline() {
                     : 'bg-white border-gray-400 dark:bg-gray-800 dark:border-gray-600'
                 }`}></div>
 
-                <div className="ml-0 sm:ml-14 md:ml-16 p-3 sm:p-5 md:p-8 rounded-2xl shadow-lg transition-shadow duration-300 hover:shadow-xl w-full max-w-5xl bg-white dark:bg-gray-800">
+                <div className="ml-0 sm:ml-14 md:ml-16 p-3 sm:p-5 md:p-8 rounded-2xl shadow-lg transition-shadow duration-300 hover:shadow-xl w-full max-w-5xl bg-surface-card">
                   {/* Header */}
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                     <div className="flex items-start gap-4">
@@ -240,7 +240,7 @@ export default function ExperienceTimeline() {
                           <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center bg-gray-200 dark:bg-gray-700">
                             <FontAwesomeIcon
                               icon={faBuilding}
-                              className="text-2xl text-gray-600 dark:text-gray-300"
+                              className="text-2xl text-content-muted"
                             />
                           </div>
                         )}
@@ -248,7 +248,7 @@ export default function ExperienceTimeline() {
 
                       <div className="flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                          <h3 className="text-lg sm:text-xl md:text-2xl font-light text-gray-900 dark:text-white">
+                          <h3 className="text-lg sm:text-xl md:text-2xl font-light text-content">
                             {exp.position}
                           </h3>
                           {exp.current && (
@@ -302,17 +302,17 @@ export default function ExperienceTimeline() {
                     </div>
                   </div>
 
-                  <p className="text-sm sm:text-base md:text-lg mb-6 leading-relaxed text-gray-600 dark:text-gray-300">
+                  <p className="text-sm sm:text-base md:text-lg mb-6 leading-relaxed text-content-muted">
                     {exp.description}
                   </p>
 
                   <div className="mb-6">
-                    <h4 className="text-base sm:text-lg font-light mb-3 text-gray-900 dark:text-white">
+                    <h4 className="text-base sm:text-lg font-light mb-3 text-content">
                       Key Achievements:
                     </h4>
                     <ul className="space-y-2">
                       {exp.achievements.map((achievement, idx) => (
-                        <li key={idx} className="flex items-start gap-2 sm:gap-3 text-gray-600 dark:text-gray-300">
+                        <li key={idx} className="flex items-start gap-2 sm:gap-3 text-content-muted">
                           <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0 bg-green-700 dark:bg-green-400"></div>
                           <span className="text-xs sm:text-sm">{achievement}</span>
                         </li>
@@ -321,7 +321,7 @@ export default function ExperienceTimeline() {
                   </div>
 
                   <div>
-                    <h4 className="text-base sm:text-lg font-light mb-3 text-gray-900 dark:text-white">
+                    <h4 className="text-base sm:text-lg font-light mb-3 text-content">
                       Technologies Used:
                     </h4>
                     <div className="flex flex-wrap gap-1.5 sm:gap-2">
@@ -354,12 +354,12 @@ export default function ExperienceTimeline() {
                       {expandedNarratives.has(exp.id) && (() => {
                         const narrative = experienceNarratives[exp.id];
                         return (
-                          <div className="mt-4 pt-4 border-t space-y-4 border-gray-200 dark:border-gray-700">
+                          <div className="mt-4 pt-4 border-t space-y-4 border-divider">
                             <div>
                               <h5 className="font-mono text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 The Situation
                               </h5>
-                              <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                              <p className="text-sm leading-relaxed text-content-muted">
                                 {narrative.situation}
                               </p>
                             </div>
@@ -369,7 +369,7 @@ export default function ExperienceTimeline() {
                               </h5>
                               <ul className="space-y-1.5">
                                 {narrative.actions.map((action, ai) => (
-                                  <li key={ai} className="text-sm leading-relaxed flex gap-2 text-gray-600 dark:text-gray-300">
+                                  <li key={ai} className="text-sm leading-relaxed flex gap-2 text-content-muted">
                                     <span className="mt-1 shrink-0 text-blue-500 dark:text-blue-400">&#8226;</span>
                                     {action}
                                   </li>
@@ -382,7 +382,7 @@ export default function ExperienceTimeline() {
                               </h5>
                               <ul className="space-y-1.5">
                                 {narrative.results.map((result, ri) => (
-                                  <li key={ri} className="text-sm leading-relaxed flex gap-2 text-gray-600 dark:text-gray-300">
+                                  <li key={ri} className="text-sm leading-relaxed flex gap-2 text-content-muted">
                                     <span className="text-emerald-500 mt-1 shrink-0">&#10003;</span>
                                     {result}
                                   </li>
@@ -393,7 +393,7 @@ export default function ExperienceTimeline() {
                               <h5 className="font-mono text-xs font-semibold uppercase tracking-wider mb-1.5 text-gray-500 dark:text-gray-300">
                                 Lessons Learned
                               </h5>
-                              <p className="text-sm leading-relaxed italic text-gray-600 dark:text-gray-300">
+                              <p className="text-sm leading-relaxed italic text-content-muted">
                                 &quot;{narrative.lessonsLearned}&quot;
                               </p>
                             </div>

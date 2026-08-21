@@ -100,17 +100,17 @@ function LabCard({ lab, index }: { lab: (typeof LABS)[number]; index: number }) 
         <div className="relative px-5 pt-5 pb-4 border-b border-gray-100 dark:border-gray-700/50">
           <FontAwesomeIcon
             icon={FOCUS_ICONS[lab.focus ?? ""] ?? faFlask}
-            className="absolute top-4 right-4 text-3xl opacity-10 text-gray-900 dark:text-white"
+            className="absolute top-4 right-4 text-3xl opacity-10 text-content"
           />
           <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-amber-700 dark:text-amber-400/80">
             {lab.focus ?? "Security"}
           </span>
-          <h3 className="font-medium mt-1 leading-snug text-gray-900 dark:text-white">
+          <h3 className="font-medium mt-1 leading-snug text-content">
             {lab.title}
           </h3>
         </div>
         <div className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
-          <p className="text-sm leading-relaxed mb-3 flex-1 text-gray-600 dark:text-gray-300">
+          <p className="text-sm leading-relaxed mb-3 flex-1 text-content-muted">
             {lab.summary}
           </p>
           <div className="flex flex-wrap gap-1.5 mb-4">
@@ -193,7 +193,7 @@ export default function CybersecurityLabs() {
           <RevealText
             as="p"
             delay={200}
-            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-5 text-gray-600 dark:text-gray-300"
+            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-5 text-content-muted"
           >
             Hands-on labs with real captures and full writeups.
           </RevealText>
@@ -201,7 +201,7 @@ export default function CybersecurityLabs() {
             {labSkillTags.map((skill) => (
               <span
                 key={skill}
-                className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-500 border border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700"
+                className="text-xs px-3 py-1 rounded-full bg-gray-100 text-content-subtle border border-divider dark:bg-gray-800"
               >
                 {skill}
               </span>
@@ -221,11 +221,7 @@ export default function CybersecurityLabs() {
                 }}
                 aria-pressed={isActive}
                 title={domain}
-                className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-amber-600 text-white dark:bg-amber-500 dark:text-gray-900"
-                    : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
-                }`}
+                className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${ isActive ? "bg-amber-600 text-white dark:bg-amber-500 dark:text-gray-900" : "bg-white text-content-muted border border-divider hover:border-gray-300 dark:bg-gray-800/50 dark:hover:border-gray-600" }`}
               >
                 <FontAwesomeIcon icon={DOMAIN_ICONS[domain]} className="text-xs" />
                 {LAB_DOMAIN_SHORT[domain]}
@@ -264,7 +260,7 @@ export default function CybersecurityLabs() {
           </Link>
         </div>
 
-        <p className="text-center text-sm mt-10 text-gray-500 dark:text-gray-400">
+        <p className="text-center text-sm mt-10 text-content-subtle">
           Labs are from SANS Cyber Academy.
         </p>
       </div>

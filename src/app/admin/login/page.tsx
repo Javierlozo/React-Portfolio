@@ -45,8 +45,8 @@ export default function AdminLogin() {
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50 dark:bg-gray-950">
       <div className="w-full max-w-sm">
         <div className="rounded-2xl p-8 shadow-xl border bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-800">
-          <h1 className="text-2xl font-bold mb-1 text-gray-900 dark:text-white">Admin</h1>
-          <p className="text-sm mb-6 text-gray-500 dark:text-gray-400">Sign in to view analytics</p>
+          <h1 className="text-2xl font-bold mb-1 text-content">Admin</h1>
+          <p className="text-sm mb-6 text-content-subtle">Sign in to view analytics</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

@@ -103,11 +103,11 @@ function RepoCard({ repo }: { repo: NotesRepo }) {
             >
               {badge.label}
             </span>
-            <span className="text-xs text-gray-600 dark:text-gray-300">
+            <span className="text-xs text-content-muted">
               {repo.cert}
             </span>
           </div>
-          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white leading-snug group-hover:text-amber-700 dark:group-hover:text-amber-300 transition-colors">
+          <h3 className="text-lg sm:text-xl font-semibold text-content leading-snug group-hover:text-amber-700 dark:group-hover:text-amber-300 transition-colors">
             {repo.name}
           </h3>
         </div>
@@ -127,7 +127,7 @@ function RepoCard({ repo }: { repo: NotesRepo }) {
             <Link
               key={section.slug}
               href={`${repoHref}#${section.slug}`}
-              className="relative z-10 px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700 border border-gray-200 hover:border-amber-400 hover:bg-amber-50 hover:text-amber-800 transition-colors dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:border-amber-500/50 dark:hover:bg-amber-500/5 dark:hover:text-amber-300"
+              className="relative z-10 px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-700 border border-divider hover:border-amber-400 hover:bg-amber-50 hover:text-amber-800 transition-colors dark:bg-gray-800 dark:text-gray-300 dark:hover:border-amber-500/50 dark:hover:bg-amber-500/5 dark:hover:text-amber-300"
             >
               {section.title}
             </Link>
@@ -147,7 +147,7 @@ function RepoCard({ repo }: { repo: NotesRepo }) {
           href={repo.repoUrl}
           target="_blank"
           rel="noreferrer noopener"
-          className="relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-white text-gray-700 border-gray-300 hover:border-amber-400 hover:text-amber-800 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:border-amber-500/50 dark:hover:text-amber-300"
+          className="relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-700 border-gray-300 hover:border-amber-400 hover:text-amber-800 dark:text-gray-300 dark:border-gray-700 dark:hover:border-amber-500/50 dark:hover:text-amber-300"
         >
           <FontAwesomeIcon icon={faGithub} />
           GitHub
@@ -161,7 +161,7 @@ export default function NotesPage() {
   const activeCount = NOTES_REPOS.filter((r) => r.status === "in-progress").length;
 
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         {/* Hero */}
         <header className="mb-12 sm:mb-16">
@@ -169,7 +169,7 @@ export default function NotesPage() {
             <FontAwesomeIcon icon={faBookOpen} className="mr-2" />
             Learning in public · {activeCount} active
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
             AppSec{" "}
             <span className="font-mono text-amber-600 dark:text-amber-400">
               Notes
@@ -177,7 +177,7 @@ export default function NotesPage() {
           </h1>
           <p className="text-lg sm:text-xl leading-relaxed mb-6 text-gray-700 dark:text-gray-300">
             Public notes from every security course I&apos;m working through.
-            <span className="block mt-1 text-gray-500 dark:text-gray-400">
+            <span className="block mt-1 text-content-subtle">
               One repo per course. Plain markdown, my own words, dated
               commits.
             </span>
@@ -186,7 +186,7 @@ export default function NotesPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/#security-labs"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-white text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
             >
               See hands-on labs
               <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
@@ -210,7 +210,7 @@ export default function NotesPage() {
             </p>
             <p>
               Lab writeups come from{" "}
-              <strong className="text-gray-900 dark:text-white">
+              <strong className="text-content">
                 authorized environments only
               </strong>
               : course labs, PortSwigger Academy, HackTheBox, my own homelab.
@@ -281,7 +281,7 @@ export default function NotesPage() {
               >
                 Security Labs
               </Link>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="text-content-subtle">
                 . Hands-on writeups from SANS Cyber Academy with real captures
                 and full methodology.
               </span>
@@ -293,7 +293,7 @@ export default function NotesPage() {
               >
                 llm-audit
               </Link>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="text-content-subtle">
                 . Open-source Semgrep rule pack for OWASP LLM Top 10 in
                 TypeScript.
               </span>
@@ -305,7 +305,7 @@ export default function NotesPage() {
               >
                 Blog
               </Link>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="text-content-subtle">
                 . Long-form posts on security tooling and what I&apos;ve
                 shipped.
               </span>

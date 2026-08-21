@@ -60,7 +60,7 @@ const components: Components = {
       .join("");
     if (text.startsWith("Lab:")) {
       return (
-        <h3 className="not-prose mt-12 mb-4 flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50/60 dark:border-amber-500/30 dark:bg-amber-500/5 px-4 py-3 text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="not-prose mt-12 mb-4 flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50/60 dark:border-amber-500/30 dark:bg-amber-500/5 px-4 py-3 text-base sm:text-lg font-semibold text-content">
           <span className="font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-amber-600 text-white shrink-0">
             Lab
           </span>
@@ -76,7 +76,7 @@ const components: Components = {
     </blockquote>
   ),
   table: ({ children }) => (
-    <div className="not-prose my-6 overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
+    <div className="not-prose my-6 overflow-x-auto rounded-xl border border-divider">
       <table className="min-w-full text-sm">{children}</table>
     </div>
   ),
@@ -84,7 +84,7 @@ const components: Components = {
     <thead className="bg-gray-50 dark:bg-gray-800/60">{children}</thead>
   ),
   th: ({ children }) => (
-    <th className="text-left font-semibold text-gray-900 dark:text-white px-4 py-2.5 border-b border-gray-200 dark:border-gray-700 first:pl-5 last:pr-5">
+    <th className="text-left font-semibold text-content px-4 py-2.5 border-b border-divider first:pl-5 last:pr-5">
       {children}
     </th>
   ),
@@ -117,7 +117,7 @@ const components: Components = {
           />
         </a>
         {title && (
-          <span className="mt-2.5 block text-center text-xs text-gray-500 dark:text-gray-400 italic">
+          <span className="mt-2.5 block text-center text-xs text-content-subtle italic">
             {title}
           </span>
         )}

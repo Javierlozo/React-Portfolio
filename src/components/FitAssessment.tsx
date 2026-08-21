@@ -136,16 +136,14 @@ export default function FitAssessment() {
         </div>
 
         <div
-          className={`rounded-2xl border p-5 sm:p-6 transition-all duration-500 delay-150 bg-white border-gray-200 shadow-sm dark:bg-gray-800/50 dark:border-gray-700 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`rounded-2xl border p-5 sm:p-6 transition-all duration-500 delay-150 bg-white border-divider shadow-sm dark:bg-gray-800/50 ${ visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8" }`}
         >
           <textarea
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}
             placeholder="Paste a job description here..."
             rows={4}
-            className="w-full border rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-green-700 dark:bg-gray-900/50 dark:border-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:ring-green-500"
+            className="w-full border rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-divider text-content placeholder-gray-400 focus:ring-green-700 dark:bg-gray-900/50 dark:placeholder-gray-500 dark:focus:ring-green-500"
           />
           <div className="flex items-center justify-between mt-3">
             <span className="text-[10px] text-gray-400 dark:text-gray-600">
@@ -175,9 +173,9 @@ export default function FitAssessment() {
 
         {result && (
           <div className="mt-8 space-y-6">
-            <div className="rounded-2xl border p-6 text-center bg-white border-gray-200 shadow-sm dark:bg-gray-800/50 dark:border-gray-700">
+            <div className="rounded-2xl border p-6 text-center bg-white border-divider shadow-sm dark:bg-gray-800/50">
               <ScoreRing score={result.score} />
-              <p className="mt-3 text-lg font-semibold text-gray-900 dark:text-white">
+              <p className="mt-3 text-lg font-semibold text-content">
                 {result.verdict}
               </p>
               <p className="mt-2 text-sm max-w-md mx-auto text-gray-600 dark:text-gray-400">
@@ -215,7 +213,7 @@ export default function FitAssessment() {
             </div>
 
             <div className={card}>
-              <h4 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">
+              <h4 className="text-sm font-semibold mb-2 text-content">
                 Recommendation
               </h4>
               <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">

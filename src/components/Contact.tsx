@@ -97,15 +97,15 @@ export default function Contact() {
               href="https://www.linkedin.com/in/luisjlozoya"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors font-light text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
+              className="transition-colors font-light text-content hover:text-gray-600 dark:hover:text-gray-300"
             >
               LinkedIn
             </a>
           </p>
-          <p className="mt-4 text-base sm:text-lg max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
+          <p className="mt-4 text-base sm:text-lg max-w-3xl mx-auto text-content-muted">
             <a
               href="mailto:luis.lozoya.tech@gmail.com"
-              className="font-normal text-gray-900 hover:text-gray-600 dark:text-white dark:hover:text-gray-300 transition-colors"
+              className="font-normal text-content hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               luis.lozoya.tech@gmail.com
             </a>
@@ -184,7 +184,7 @@ export default function Contact() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 sm:py-4 px-6 sm:px-8 text-xs sm:text-sm font-light tracking-widest uppercase border transition-colors duration-300 disabled:opacity-50 border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 dark:border-gray-600 dark:text-gray-300 dark:hover:border-white dark:hover:text-white"
+            className="w-full py-3 sm:py-4 px-6 sm:px-8 text-xs sm:text-sm font-light tracking-widest uppercase border transition-colors duration-300 disabled:opacity-50 border-gray-300 text-content-muted hover:border-gray-900 hover:text-gray-900 dark:border-gray-600 dark:hover:border-white dark:hover:text-white"
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </button>

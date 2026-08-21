@@ -30,7 +30,7 @@ export default class ErrorBoundary extends Component<Props, State> {
         this.props.fallback || (
           <div className="flex items-center justify-center min-h-[200px] p-8 text-center">
             <div>
-              <h2 className="text-lg font-light mb-2 text-gray-900 dark:text-white">
+              <h2 className="text-lg font-light mb-2 text-content">
                 Something went wrong
               </h2>
               <button

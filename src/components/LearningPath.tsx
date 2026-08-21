@@ -52,7 +52,7 @@ export default function LearningPath() {
         }`}
       >
         <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap mb-3 sm:mb-4">
-          <h2 className="text-[10px] sm:text-xs font-light tracking-[0.2em] uppercase text-gray-500 dark:text-gray-400">
+          <h2 className="text-[10px] sm:text-xs font-light tracking-[0.2em] uppercase text-content-subtle">
             Learning in flight
           </h2>
           <span className="text-[10px] sm:text-xs font-light text-gray-400 dark:text-gray-500">
@@ -86,7 +86,7 @@ export default function LearningPath() {
           </ul>
 
           <RowLabel>Up next</RowLabel>
-          <p className="text-xs sm:text-sm font-light text-gray-500 dark:text-gray-400">
+          <p className="text-xs sm:text-sm font-light text-content-subtle">
             {learningPath.upcoming.join(" · ")}
           </p>
         </div>
@@ -123,7 +123,7 @@ function Pill({
       <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full ${dotClass}`} />
       <span>{item.label}</span>
       {item.progress && (
-        <span className="text-gray-500 dark:text-gray-400 tabular-nums">
+        <span className="text-content-subtle tabular-nums">
           {item.progress.current}/{item.progress.total}
         </span>
       )}

@@ -185,7 +185,10 @@ export default function CommandPalette({ docs = [] }: { docs?: SearchDoc[] }) {
                 className="w-full bg-transparent outline-none text-sm placeholder:opacity-50 text-gray-900 dark:text-gray-100"
               />
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-200 dark:border-gray-800 overflow-x-auto">
+            <div
+              className="flex items-center gap-1.5 px-3 py-2 border-b border-gray-200 dark:border-gray-800 overflow-x-auto"
+              data-lenis-prevent
+            >
               {FILTERS.map((f) => (
                 <button
                   key={f.key}
@@ -202,7 +205,11 @@ export default function CommandPalette({ docs = [] }: { docs?: SearchDoc[] }) {
                 </button>
               ))}
             </div>
-            <ul className="max-h-[50vh] overflow-y-auto py-1" role="listbox">
+            <ul
+              className="max-h-[50vh] overflow-y-auto py-1"
+              role="listbox"
+              data-lenis-prevent
+            >
               {items.length === 0 && (
                 <li className="px-4 py-6 text-center text-sm opacity-60">No matches</li>
               )}

@@ -89,7 +89,6 @@ export const certTimeline: CertTimelineEntry[] = [
   { name: "GIAC GCIH (SEC504)", status: "Passed", date: "Aug 2026" },
   { name: "GIAC GSEC", status: "Passed", date: "Apr 2026" },
   { name: "GIAC GFACT", status: "Passed", date: "Jan 2026" },
-  { name: "SANS Foundations Alumni", status: "Passed", date: "Dec 2025" },
   { name: "AWS AI Practitioner (AIF-C01)", status: "In progress", date: "Target Sept 2026" },
   { name: "AWS Security Specialty (SCS-C02)", status: "In progress", date: "Target Oct 2026" },
   { name: "PortSwigger BSCP", status: "In progress", date: "Target Q4 2026" },

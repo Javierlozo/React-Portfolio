@@ -31,14 +31,14 @@ export default function LlmAuditFeature() {
   return (
     <section
       id="llm-audit"
-      className="py-20 sm:py-24 bg-[#FAFAF9] dark:bg-[#0B1220]"
+      className="py-20 sm:py-24 bg-surface"
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
           <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
           Flagship project · Open source · MIT
         </p>
-        <h2 className="text-3xl sm:text-4xl font-thin leading-tight tracking-tight mb-4 text-gray-900 dark:text-white">
+        <h2 className="text-3xl sm:text-4xl font-thin leading-tight tracking-tight mb-4 text-content">
           <span className="font-mono text-amber-600 dark:text-amber-400">
             llm-audit
           </span>
@@ -119,7 +119,7 @@ npx llm-audit demo           # all 5 rules vs bundled vulnerable fixtures`}</cod
             href={REPO_URL}
             target="_blank"
             rel="noreferrer noopener"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-white text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
           >
             <FontAwesomeIcon icon={faGithub} />
             GitHub
@@ -128,7 +128,7 @@ npx llm-audit demo           # all 5 rules vs bundled vulnerable fixtures`}</cod
             href={NPM_URL}
             target="_blank"
             rel="noreferrer noopener"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-white text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
           >
             <FontAwesomeIcon icon={faNpm} className="text-[#cb3837]" />
             npm

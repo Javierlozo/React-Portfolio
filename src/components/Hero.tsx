@@ -71,7 +71,7 @@ export default function Hero() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
           <div className="text-left space-y-6 sm:space-y-8 order-1">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight text-gray-900 dark:text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight text-content">
               <span
                 className={`inline-block transition-all ease-out ${dur} ${
                   visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 sm:-translate-x-8'
@@ -101,9 +101,7 @@ export default function Hero() {
             </h1>
 
             <h2
-              className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide transition-all ease-out ${dur} text-gray-600 dark:text-gray-300 ${
-                visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 sm:translate-y-4'
-              }`}
+              className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide transition-all ease-out ${dur} text-content-muted ${ visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 sm:translate-y-4' }`}
               style={{ transitionDelay: delay(350) }}
             >
               Application Security Engineer · AI/LLM Security · AWS
@@ -115,19 +113,17 @@ export default function Hero() {
               }`}
               style={{ transitionDelay: delay(600) }}
             >
-              <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-gray-600 dark:text-gray-300">
+              <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-content-muted">
                 Five years shipping React and Next.js on AWS. Now I secure AI applications and the cloud systems they run on. I ship{" "}
-                <span className="font-normal text-gray-900 dark:text-white">llm-audit</span>, an OWASP LLM Top 10 scanner on npm.{" "}
-                <span className="block mt-2 text-gray-500 dark:text-gray-400">
+                <span className="font-normal text-content">llm-audit</span>, an OWASP LLM Top 10 scanner on npm.{" "}
+                <span className="block mt-2 text-content-subtle">
                   From commercial construction in Spain to application security in Charleston, SC.
                 </span>
               </p>
             </div>
 
             <p
-              className={`text-xs sm:text-sm font-light tracking-wide transition-opacity ${dur} text-gray-500 dark:text-gray-400 ${
-                visible ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`text-xs sm:text-sm font-light tracking-wide transition-opacity ${dur} text-content-subtle ${ visible ? 'opacity-100' : 'opacity-0' }`}
               style={{ transitionDelay: delay(850) }}
             >
               GIAC GCIH + GSEC + GFACT {" · "} AWS AI Practitioner + Security Specialty in progress {" · "} US Work Authorized
@@ -154,7 +150,7 @@ export default function Hero() {
               <Image
                 src={photo}
                 alt="Luis Javier Lozoya, Application Security Engineer"
-                className="rounded-full object-cover border border-gray-200 dark:border-gray-700"
+                className="rounded-full object-cover border border-divider"
                 width={256}
                 height={256}
                 priority

@@ -16,19 +16,19 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
   const hasMore = posts.length > INITIAL_COUNT;
 
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <header className="mb-12 sm:mb-16">
           <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
             <FontAwesomeIcon icon={faPenNib} className="mr-2" />
             Writing · {posts.length} {posts.length === 1 ? "post" : "posts"}
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
             Blog
           </h1>
           <p className="text-lg sm:text-xl leading-relaxed mb-6 text-gray-700 dark:text-gray-300">
             Lab writeups and technical deep dives.
-            <span className="block mt-1 text-gray-500 dark:text-gray-400">
+            <span className="block mt-1 text-content-subtle">
               What I learned, written down so I&apos;ll remember it.
             </span>
           </p>
@@ -44,7 +44,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
               <Link
                 key={post.slug}
                 href={getBlogPostHref(post)}
-                className="group border rounded-xl overflow-hidden transition-colors duration-300 bg-white border-gray-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 dark:bg-gray-800/50 dark:border-gray-700 dark:hover:border-amber-500/50 dark:hover:shadow-amber-500/5"
+                className="group border rounded-xl overflow-hidden transition-colors duration-300 bg-white border-divider hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 dark:bg-gray-800/50 dark:hover:border-amber-500/50 dark:hover:shadow-amber-500/5"
               >
                 {thumb && (
                   <div className="relative aspect-[16/9] overflow-hidden">
@@ -69,10 +69,10 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
                       day: "numeric",
                     })}
                   </time>
-                  <h2 className="text-lg font-semibold mt-1.5 mb-2 leading-snug transition-colors text-gray-900 group-hover:text-amber-700 dark:text-white dark:group-hover:text-amber-400">
+                  <h2 className="text-lg font-semibold mt-1.5 mb-2 leading-snug transition-colors text-content group-hover:text-amber-700 dark:group-hover:text-amber-400">
                     {post.title}
                   </h2>
-                  <p className="text-sm leading-relaxed line-clamp-3 mb-4 text-gray-500 dark:text-gray-400">
+                  <p className="text-sm leading-relaxed line-clamp-3 mb-4 text-content-subtle">
                     {post.description}
                   </p>
                   <div className="flex flex-wrap gap-1.5">

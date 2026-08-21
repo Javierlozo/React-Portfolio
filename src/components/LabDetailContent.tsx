@@ -50,7 +50,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
   }, []);
 
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <article className="w-full">
           <Link
@@ -66,7 +66,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
                 {lab.course}
               </p>
             )}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight mb-4 text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight mb-4 text-content">
               {lab.title}
             </h1>
             {lab.role && (
@@ -82,16 +82,16 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
             </div>
             {(lab.focus || lab.level || lab.date || lab.artifacts) && (
               <div className="space-y-1 text-sm text-gray-500 dark:text-gray-300">
-                {lab.focus && <p><strong className="text-gray-600 dark:text-gray-300">Focus:</strong> {lab.focus}</p>}
-                {lab.level && <p><strong className="text-gray-600 dark:text-gray-300">Level:</strong> {lab.level}</p>}
-                {lab.date && <p><strong className="text-gray-600 dark:text-gray-300">Date:</strong> {lab.date}</p>}
-                {lab.artifacts && <p><strong className="text-gray-600 dark:text-gray-300">Artifacts:</strong> {lab.artifacts}</p>}
+                {lab.focus && <p><strong className="text-content-muted">Focus:</strong> {lab.focus}</p>}
+                {lab.level && <p><strong className="text-content-muted">Level:</strong> {lab.level}</p>}
+                {lab.date && <p><strong className="text-content-muted">Date:</strong> {lab.date}</p>}
+                {lab.artifacts && <p><strong className="text-content-muted">Artifacts:</strong> {lab.artifacts}</p>}
               </div>
             )}
           </header>
 
           {lab.tldr && lab.tldr.length > 0 && (
-            <div className="mb-10 p-4 sm:p-5 rounded-xl bg-white border border-gray-200 dark:bg-gray-800/80 dark:border-gray-700">
+            <div className="mb-10 p-4 sm:p-5 rounded-xl bg-white border border-divider dark:bg-gray-800/80">
               <h2 className="text-sm font-bold uppercase tracking-wider mb-3 text-amber-700 dark:text-amber-400">
                 TL;DR
               </h2>
@@ -124,7 +124,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
             </div>
           )}
 
-          <div className="mb-10 p-3 sm:p-4 rounded-lg text-sm bg-gray-100 text-gray-600 border border-gray-200 dark:bg-gray-800/60 dark:text-gray-300 dark:border-gray-700">
+          <div className="mb-10 p-3 sm:p-4 rounded-lg text-sm bg-gray-100 text-content-muted border border-divider dark:bg-gray-800/60">
             <p className="flex items-start gap-2">
               <FontAwesomeIcon icon={faShieldAlt} className="mt-0.5 shrink-0 text-amber-500/80" />
               <span>
@@ -181,7 +181,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
               <div className="space-y-6">
                 {lab.stepDetails.map((s, idx) => (
                   <div key={idx} className={`${card} p-4 sm:p-5 space-y-3`}>
-                    <h3 className="flex items-center gap-3 font-medium text-gray-900 dark:text-white">
+                    <h3 className="flex items-center gap-3 font-medium text-content">
                       <span className="inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold shrink-0 bg-amber-100 text-amber-700 border border-amber-200 dark:bg-amber-500/20 dark:text-amber-400 dark:border-amber-500/40">
                         {idx + 1}
                       </span>
@@ -344,14 +344,12 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
 
           {(prev || next) && (
             <nav
-              className={`mt-12 pt-8 border-t flex items-stretch gap-4 border-gray-200 dark:border-gray-700 ${
-                prev && next ? "justify-between" : next ? "justify-end" : "justify-start"
-              }`}
+              className={`mt-12 pt-8 border-t flex items-stretch gap-4 border-divider ${ prev && next ? "justify-between" : next ? "justify-end" : "justify-start" }`}
             >
               {prev && (
                 <Link
                   href={getLabPath(prev)}
-                  className="group flex flex-col gap-1 text-left max-w-[45%] text-gray-500 hover:text-amber-700 dark:text-gray-400 dark:hover:text-amber-400"
+                  className="group flex flex-col gap-1 text-left max-w-[45%] text-content-subtle hover:text-amber-700 dark:hover:text-amber-400"
                 >
                   <span className="text-xs uppercase tracking-wider font-medium flex items-center gap-1">
                     <FontAwesomeIcon icon={faArrowLeft} className="text-[10px]" /> Previous lab
@@ -364,7 +362,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
               {next && (
                 <Link
                   href={getLabPath(next)}
-                  className="group flex flex-col gap-1 text-right max-w-[45%] ml-auto text-gray-500 hover:text-amber-700 dark:text-gray-400 dark:hover:text-amber-400"
+                  className="group flex flex-col gap-1 text-right max-w-[45%] ml-auto text-content-subtle hover:text-amber-700 dark:hover:text-amber-400"
                 >
                   <span className="text-xs uppercase tracking-wider font-medium flex items-center gap-1 justify-end">
                     Next lab <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />

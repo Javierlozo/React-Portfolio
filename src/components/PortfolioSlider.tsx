@@ -5,6 +5,7 @@ import Section from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCode, faShieldHalved, faBriefcase } from "@fortawesome/free-solid-svg-icons";
+import { faNpm } from "@fortawesome/free-brands-svg-icons";
 
 import lessUSA from "@/src/assets/pictures/Less1.png";
 import querri from "@/src/assets/pictures/querri1.png";
@@ -55,6 +56,8 @@ interface Project {
   image: StaticImageData;
   liveLink?: string;
   codeLink?: string;
+  /** Package registry link, shown when the project ships as a package. */
+  npmLink?: string;
   featured?: boolean;
   problem?: string;
   approach?: string;
@@ -77,6 +80,7 @@ const PROJECTS: Project[] = [
     image: llmAudit,
     liveLink: "/llm-audit",
     codeLink: "https://github.com/Javierlozo/llm-audit",
+    npmLink: "https://www.npmjs.com/package/llm-audit",
     featured: true,
     problem:
       "AI coding assistants reproduce a small, predictable set of security failures in LLM-integrated code: untrusted input flowing into the LLM `system` role, model output piped into `eval` or `dangerouslySetInnerHTML`, hardcoded API keys, JSON.parse on raw model output. Existing OSS SAST tooling (Semgrep `p/ai-best-practices`, agent-audit) is Python-only. The TypeScript and JavaScript ecosystem (Vercel AI SDK, Next.js Server Actions, OpenAI / Anthropic JS SDKs) was uncovered.",
@@ -281,7 +285,7 @@ export default function PortfolioSlider() {
           <h2 className={`${headingRuleClass} mb-4`}>
             Portfolio
           </h2>
-          <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
+          <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto text-content-muted">
             Selected work, organized by focus.
           </p>
         </div>
@@ -290,11 +294,7 @@ export default function PortfolioSlider() {
           <button
             onClick={() => setActiveTab("security")}
             aria-pressed={activeTab === "security"}
-            className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeTab === "security"
-                ? "bg-green-700 text-white dark:bg-green-500 dark:text-gray-900"
-                : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
-            }`}
+            className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${ activeTab === "security" ? "bg-green-700 text-white dark:bg-green-500 dark:text-gray-900" : "bg-white text-content-muted border border-divider hover:border-gray-300 dark:bg-gray-800/50 dark:hover:border-gray-600" }`}
           >
             <FontAwesomeIcon icon={faShieldHalved} className="text-xs" />
             Security
@@ -305,11 +305,7 @@ export default function PortfolioSlider() {
           <button
             onClick={() => setActiveTab("other")}
             aria-pressed={activeTab === "other"}
-            className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeTab === "other"
-                ? "bg-green-700 text-white dark:bg-green-500 dark:text-gray-900"
-                : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
-            }`}
+            className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-colors ${ activeTab === "other" ? "bg-green-700 text-white dark:bg-green-500 dark:text-gray-900" : "bg-white text-content-muted border border-divider hover:border-gray-300 dark:bg-gray-800/50 dark:hover:border-gray-600" }`}
           >
             <FontAwesomeIcon icon={faBriefcase} className="text-xs" />
             Full-Stack
@@ -326,7 +322,7 @@ export default function PortfolioSlider() {
           {filtered.map((project, i) => (
             <div
               key={project.id}
-              className="p-4 sm:p-6 rounded-2xl shadow-lg transition-all duration-700 ease-out hover:shadow-xl bg-white dark:bg-gray-800"
+              className="p-4 sm:p-6 rounded-2xl shadow-lg transition-all duration-700 ease-out hover:shadow-xl bg-surface-card"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(28px)",
@@ -352,7 +348,7 @@ export default function PortfolioSlider() {
               </div>
 
               <div className="space-y-3 sm:space-y-4">
-                <h4 className="text-base sm:text-lg font-light text-gray-900 dark:text-white">
+                <h4 className="text-base sm:text-lg font-light text-content">
                   {project.title}
                 </h4>
 
@@ -362,7 +358,7 @@ export default function PortfolioSlider() {
                   </p>
                 )}
 
-                <p className="text-xs sm:text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                <p className="text-xs sm:text-sm leading-relaxed text-content-muted">
                   {project.description}
                 </p>
 
@@ -373,7 +369,7 @@ export default function PortfolioSlider() {
                         <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">
                           Problem
                         </span>
-                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">
+                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-content-muted">
                           {project.problem}
                         </p>
                       </div>
@@ -383,7 +379,7 @@ export default function PortfolioSlider() {
                         <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">
                           Approach
                         </span>
-                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">
+                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-content-muted">
                           {project.approach}
                         </p>
                       </div>
@@ -393,7 +389,7 @@ export default function PortfolioSlider() {
                         <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">
                           Solution
                         </span>
-                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">
+                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-content-muted">
                           {project.solution}
                         </p>
                       </div>
@@ -403,7 +399,7 @@ export default function PortfolioSlider() {
                         <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">
                           Outcome
                         </span>
-                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">
+                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-content-muted">
                           {project.outcome}
                         </p>
                       </div>
@@ -413,7 +409,7 @@ export default function PortfolioSlider() {
                         <span className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">
                           Impact
                         </span>
-                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-gray-600 dark:text-gray-300">
+                        <p className="text-xs sm:text-sm leading-relaxed mt-1 text-content-muted">
                           {project.impact}
                         </p>
                       </div>
@@ -426,7 +422,7 @@ export default function PortfolioSlider() {
                     {project.techStack.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                        className="px-2 py-1 text-xs rounded-full bg-gray-100 text-content-muted dark:bg-gray-700"
                       >
                         {tech}
                       </span>
@@ -440,10 +436,21 @@ export default function PortfolioSlider() {
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:text-gray-200"
+                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} />
                       <span>View Live</span>
+                    </a>
+                  )}
+                  {project.npmLink && (
+                    <a
+                      href={project.npmLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
+                    >
+                      <FontAwesomeIcon icon={faNpm} />
+                      <span>View on npm</span>
                     </a>
                   )}
                   {project.codeLink && (
@@ -451,7 +458,7 @@ export default function PortfolioSlider() {
                       href={project.codeLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:text-gray-200"
+                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
                     >
                       <FontAwesomeIcon icon={faCode} />
                       <span>View Code</span>

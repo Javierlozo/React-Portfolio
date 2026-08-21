@@ -12,7 +12,7 @@ export default function NotesTeaser() {
   return (
     <section
       id="appsec-notes"
-      className="py-12 sm:py-16 bg-[#FAFAF9] dark:bg-[#0B1220]"
+      className="py-12 sm:py-16 bg-surface"
     >
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <div className="rounded-2xl border border-gray-200 dark:border-gray-700/70 bg-white dark:bg-gray-800/40 p-6 sm:p-8 md:p-10">
@@ -24,7 +24,7 @@ export default function NotesTeaser() {
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest mb-1.5 text-amber-700 dark:text-amber-400">
                 Learning in public
               </p>
-              <h2 className="text-2xl sm:text-3xl font-thin leading-tight text-gray-900 dark:text-white">
+              <h2 className="text-2xl sm:text-3xl font-thin leading-tight text-content">
                 AppSec Notes
               </h2>
             </div>
@@ -40,7 +40,7 @@ export default function NotesTeaser() {
             {activeRepos.map((repo) => (
               <div
                 key={repo.slug}
-                className="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-3 flex items-center gap-3"
+                className="rounded-lg border border-divider bg-gray-50 dark:bg-gray-800/60 p-3 flex items-center gap-3"
               >
                 <Image
                   src={repo.logoUrl}
@@ -50,10 +50,10 @@ export default function NotesTeaser() {
                   className="shrink-0 w-14 h-14 rounded-md object-contain"
                 />
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                  <p className="text-sm font-medium text-content truncate">
                     {repo.name}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                  <p className="text-xs text-content-subtle truncate">
                     {repo.cert}
                   </p>
                 </div>

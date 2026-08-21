@@ -251,7 +251,7 @@ export default function Navbar() {
               <div
                 role="menu"
                 aria-label={label}
-                className="rounded-2xl border shadow-xl shadow-gray-900/5 overflow-hidden p-1.5 bg-white/95 backdrop-blur border-gray-200 dark:bg-gray-900/95 dark:border-gray-700 dark:shadow-black/40"
+                className="rounded-2xl border shadow-xl shadow-gray-900/5 overflow-hidden p-1.5 bg-white/95 backdrop-blur border-divider dark:bg-gray-900/95 dark:shadow-black/40"
               >
                 {items.map((item, i) => {
                   const active = isItemActive(item);
@@ -294,7 +294,7 @@ export default function Navbar() {
                           {item.label}
                         </span>
                         {item.note && (
-                          <span className="block mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                          <span className="block mt-0.5 text-xs text-content-subtle">
                             {item.note}
                           </span>
                         )}
@@ -393,7 +393,7 @@ export default function Navbar() {
         {/* Search */}
         <button
           onClick={openSearch}
-          className="hidden sm:inline-flex items-center gap-2 h-9 px-3 border shrink-0 transition-colors duration-300 border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900 dark:border-gray-700 dark:text-gray-400 dark:hover:border-white dark:hover:text-white"
+          className="hidden sm:inline-flex items-center gap-2 h-9 px-3 border shrink-0 transition-colors duration-300 border-divider text-content-subtle hover:border-gray-900 hover:text-gray-900 dark:hover:border-white dark:hover:text-white"
           aria-label="Search labs, writing, and notes"
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} className="w-3.5 h-3.5" />
@@ -406,7 +406,7 @@ export default function Navbar() {
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 border shrink-0 transition-colors duration-300 hover:scale-105 border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900 dark:border-gray-700 dark:text-gray-400 dark:hover:border-white dark:hover:text-white"
+          className="flex items-center justify-center w-10 h-10 sm:w-9 sm:h-9 border shrink-0 transition-colors duration-300 hover:scale-105 border-divider text-content-subtle hover:border-gray-900 hover:text-gray-900 dark:hover:border-white dark:hover:text-white"
           aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
           aria-pressed={theme === "dark"}
         >
@@ -421,9 +421,9 @@ export default function Navbar() {
           aria-expanded={isOpen}
         >
           {isOpen ? (
-            <FontAwesomeIcon icon={faXmark} className="w-7 h-7 transition-colors duration-300 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" />
+            <FontAwesomeIcon icon={faXmark} className="w-7 h-7 transition-colors duration-300 text-content-muted hover:text-gray-900 dark:hover:text-white" />
           ) : hamburgerImageError ? (
-            <FontAwesomeIcon icon={faBars} className="w-7 h-7 transition-colors duration-300 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" />
+            <FontAwesomeIcon icon={faBars} className="w-7 h-7 transition-colors duration-300 text-content-muted hover:text-gray-900 dark:hover:text-white" />
           ) : (
             <Image
               src="/hamburger.png"
@@ -454,13 +454,13 @@ export default function Navbar() {
           >
             <div className="p-6 border-b bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-800">
               <div className="flex items-center justify-between">
-                <span className="text-lg font-light tracking-wide text-gray-900 dark:text-white">
+                <span className="text-lg font-light tracking-wide text-content">
                   Menu
                 </span>
                 <div className="flex items-center gap-4">
                   <button
                     onClick={toggleTheme}
-                    className="w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-300 hover:scale-110 border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 dark:border-gray-600 dark:text-gray-300 dark:hover:border-white dark:hover:text-white"
+                    className="w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-300 hover:scale-110 border-gray-300 text-content-muted hover:border-gray-900 hover:text-gray-900 dark:border-gray-600 dark:hover:border-white dark:hover:text-white"
                     aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
                     aria-pressed={theme === "dark"}
                   >
@@ -468,7 +468,7 @@ export default function Navbar() {
                   </button>
                   <button
                     onClick={toggleMenu}
-                    className="w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-300 hover:scale-110 border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 dark:border-gray-600 dark:text-gray-300 dark:hover:border-white dark:hover:text-white"
+                    className="w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-300 hover:scale-110 border-gray-300 text-content-muted hover:border-gray-900 hover:text-gray-900 dark:border-gray-600 dark:hover:border-white dark:hover:text-white"
                     aria-label="Close menu"
                   >
                     <span className="text-lg">×</span>
@@ -479,12 +479,13 @@ export default function Navbar() {
 
             <div
               className="p-4 overflow-y-auto bg-white dark:bg-gray-900"
+              data-lenis-prevent
               style={{ maxHeight: "calc(100vh - 200px)" }}
             >
               <button
                 type="button"
                 onClick={openSearch}
-                className="flex w-full items-center gap-3 py-3 px-3 mb-2 rounded-lg border text-sm font-medium transition-colors border-gray-200 text-gray-500 active:bg-gray-100 dark:border-gray-800 dark:text-gray-400 dark:active:bg-gray-800"
+                className="flex w-full items-center gap-3 py-3 px-3 mb-2 rounded-lg border text-sm font-medium transition-colors border-gray-200 text-content-subtle active:bg-gray-100 dark:border-gray-800 dark:active:bg-gray-800"
               >
                 <FontAwesomeIcon icon={faMagnifyingGlass} className="w-3.5 h-3.5" />
                 Search labs, writing, notes

@@ -97,7 +97,7 @@ export default async function NotePage({ params }: Props) {
   const { prev, next } = getAdjacent(repo, section, slug);
 
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         <article>
           <Link
@@ -113,10 +113,10 @@ export default async function NotePage({ params }: Props) {
               {r?.shortName}
               {s ? ` · ${s.title}` : ""}
             </p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin leading-tight tracking-tight mb-4 text-gray-900 dark:text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin leading-tight tracking-tight mb-4 text-content">
               {note.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-content-subtle">
               <span>{minutes} min read</span>
               {note.topic && (
                 <>
@@ -186,12 +186,12 @@ export default async function NotePage({ params }: Props) {
                 {prev ? (
                   <Link
                     href={`/notes/${repo}/${section}/${prev.slug}`}
-                    className="group rounded-xl p-4 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/40 hover:border-amber-400 dark:hover:border-amber-500/50 hover:shadow-sm transition-colors"
+                    className="group rounded-xl p-4 border border-divider bg-white dark:bg-gray-800/40 hover:border-amber-400 dark:hover:border-amber-500/50 hover:shadow-sm transition-colors"
                   >
-                    <p className="flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wide mb-1.5 text-gray-500 dark:text-gray-400 group-hover:text-amber-700 dark:group-hover:text-amber-400">
+                    <p className="flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-wide mb-1.5 text-content-subtle group-hover:text-amber-700 dark:group-hover:text-amber-400">
                       <FontAwesomeIcon icon={faArrowLeft} /> Previous
                     </p>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2">
+                    <p className="text-sm font-semibold text-content line-clamp-2">
                       {prev.title}
                     </p>
                   </Link>
@@ -201,12 +201,12 @@ export default async function NotePage({ params }: Props) {
                 {next ? (
                   <Link
                     href={`/notes/${repo}/${section}/${next.slug}`}
-                    className="group rounded-xl p-4 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/40 hover:border-amber-400 dark:hover:border-amber-500/50 hover:shadow-sm transition-colors text-right"
+                    className="group rounded-xl p-4 border border-divider bg-white dark:bg-gray-800/40 hover:border-amber-400 dark:hover:border-amber-500/50 hover:shadow-sm transition-colors text-right"
                   >
-                    <p className="flex items-center justify-end gap-2 font-mono text-[10px] font-semibold uppercase tracking-wide mb-1.5 text-gray-500 dark:text-gray-400 group-hover:text-amber-700 dark:group-hover:text-amber-400">
+                    <p className="flex items-center justify-end gap-2 font-mono text-[10px] font-semibold uppercase tracking-wide mb-1.5 text-content-subtle group-hover:text-amber-700 dark:group-hover:text-amber-400">
                       Next <FontAwesomeIcon icon={faArrowRight} />
                     </p>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2">
+                    <p className="text-sm font-semibold text-content line-clamp-2">
                       {next.title}
                     </p>
                   </Link>

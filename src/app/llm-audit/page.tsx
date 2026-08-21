@@ -85,7 +85,7 @@ function CodeWindow({
 
 export default function LlmAuditPage() {
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         {/* Hero */}
         <header className="mb-12 sm:mb-16">
@@ -93,14 +93,14 @@ export default function LlmAuditPage() {
             <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
             Open source · MIT · v0.0.10
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
             <span className="font-mono text-amber-600 dark:text-amber-400">
               llm-audit
             </span>
           </h1>
           <p className="text-lg sm:text-xl leading-relaxed mb-6 text-gray-700 dark:text-gray-300">
             Static analysis for TypeScript and JavaScript LLM applications.
-            <span className="block mt-1 text-gray-500 dark:text-gray-400">
+            <span className="block mt-1 text-content-subtle">
               OWASP LLM Top 10 at commit time. A complement to Semgrep&apos;s
               <code className="mx-1.5 px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">
                 p/ai-best-practices
@@ -130,7 +130,7 @@ export default function LlmAuditPage() {
 npx llm-audit demo           # all 5 rules vs bundled vulnerable fixtures`}</code>
             </pre>
           </div>
-          <p className="text-sm mt-2 text-gray-500 dark:text-gray-400">
+          <p className="text-sm mt-2 text-content-subtle">
             No install in your repo, no config file, no flags. Real findings on
             real intentionally-vulnerable code so you can see what the rules
             catch before deciding to adopt.
@@ -170,14 +170,14 @@ npx llm-audit scan           # run on your own code`}</code>
               href={NPM_URL}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-white text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
             >
               <FontAwesomeIcon icon={faNpm} className="text-[#cb3837]" />
               npm
             </a>
             <Link
               href={BLOG_URL}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-white text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
             >
               Blog post: how I built it
               <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
@@ -269,7 +269,7 @@ npx llm-audit scan           # run on your own code`}</code>
                       </span>
                     ))}
                   </div>
-                  <h3 className="font-mono text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="font-mono text-base sm:text-lg font-semibold text-content mb-2">
                     {rule.id}
                   </h3>
                   <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -299,7 +299,7 @@ npx llm-audit scan           # run on your own code`}</code>
                       {rule.whyAiWritesIt}
                     </p>
                   </div>
-                  <div className="rounded-lg p-4 bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700">
+                  <div className="rounded-lg p-4 bg-gray-50 dark:bg-gray-800/60 border border-divider">
                     <p className="font-mono text-[10px] font-semibold uppercase tracking-wider mb-1.5 text-gray-600 dark:text-gray-400">
                       Fix
                     </p>
@@ -398,7 +398,7 @@ npx llm-audit init`}</code>
             see the README for the snippet.
           </p>
 
-          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+          <p className="text-base leading-relaxed text-content-subtle">
             The JSON envelope is a stable contract (<code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">schemaVersion: 1</code>),
             so agents can rely on the field names without breaking on a
             future release.
@@ -462,7 +462,7 @@ npx llm-audit init`}</code>
               >
                 Building llm-audit
               </Link>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="text-content-subtle">
                 . The announcement post, including how it found a real LLM02
                 bug in this very portfolio.
               </span>
@@ -476,7 +476,7 @@ npx llm-audit init`}</code>
               >
                 Competitive landscape
               </a>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="text-content-subtle">
                 . Empirical comparison vs Semgrep&apos;s p/ai-best-practices
                 and other OSS / commercial options.
               </span>
@@ -490,7 +490,7 @@ npx llm-audit init`}</code>
               >
                 AI failure modes
               </a>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="text-content-subtle">
                 . Long-form rationale for why AI assistants reproduce each of
                 these patterns.
               </span>
@@ -504,7 +504,7 @@ npx llm-audit init`}</code>
               >
                 Self-audit
               </a>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="text-content-subtle">
                 . The project&apos;s own security review, with findings and
                 fixes shipped in 0.0.2.
               </span>

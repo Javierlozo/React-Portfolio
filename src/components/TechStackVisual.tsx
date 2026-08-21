@@ -127,10 +127,10 @@ export default function TechStackVisual() {
       container={false}>
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight text-content border-divider">
             Tech Stack
           </h2>
-          <p className="text-sm sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
+          <p className="text-sm sm:text-lg md:text-xl max-w-3xl mx-auto text-content-muted">
             Technologies I reach for every day, and the broader toolkit I bring to projects.
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function TechStackVisual() {
               >
                 <FontAwesomeIcon
                   icon={item.icon}
-                  className="text-base sm:text-lg shrink-0 text-gray-900 dark:text-white"
+                  className="text-base sm:text-lg shrink-0 text-content"
                 />
                 <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100">
                   {item.name}
@@ -163,7 +163,7 @@ export default function TechStackVisual() {
         </div>
 
         <div ref={secondaryRef}>
-          <h3 className="font-mono text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-gray-500 dark:text-gray-400">
+          <h3 className="font-mono text-xs sm:text-sm font-semibold uppercase tracking-widest mb-4 sm:mb-6 text-content-subtle">
             Also Work With
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
@@ -177,14 +177,14 @@ export default function TechStackVisual() {
                   transitionDelay: `${gi * 100}ms`,
                 }}
               >
-                <h4 className="font-mono text-xs font-semibold uppercase tracking-wide mb-2.5 pb-2 border-b text-gray-500 border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                <h4 className="font-mono text-xs font-semibold uppercase tracking-wide mb-2.5 pb-2 border-b text-content-subtle border-divider">
                   {group.label}
                 </h4>
                 <ul className="flex flex-wrap gap-1.5 sm:gap-2" role="list">
                   {group.items.map((item) => (
                     <li key={item.name}>
                       <span
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700/70 dark:text-gray-300 dark:hover:bg-gray-600"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-colors bg-gray-100 text-content-muted hover:bg-gray-200 dark:bg-gray-700/70 dark:hover:bg-gray-600"
                         title={item.name}
                       >
                         <FontAwesomeIcon icon={item.icon} className="text-[10px] opacity-60 shrink-0" />

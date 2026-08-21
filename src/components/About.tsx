@@ -92,20 +92,14 @@ export default function About() {
           <p 
             ref={(el) => { elementRefs.current[0] = el; }}
             data-index="0"
-            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
-              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } text-gray-600 dark:text-gray-300 ${
-              visibleElements.has(0)
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-3 sm:translate-y-6'
-            }`}
+            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
           >
             These days, most of my work mixes web development with LLM features. Right now I&apos;m running a{" "}
-            <span className="font-normal text-gray-900 dark:text-white">
+            <span className="font-normal text-content">
               prompt-injection lab
             </span>
             {" "}against a chatbot I built, testing how well the usual defenses hold up under realistic attack patterns. Findings live at /ai-playground. That work fed into{" "}
-            <span className="font-normal text-gray-900 dark:text-white">
+            <span className="font-normal text-content">
               llm-audit
             </span>
             , an OWASP LLM Top 10 static analyzer I ship on npm for TypeScript and JavaScript codebases.
@@ -114,17 +108,11 @@ export default function About() {
           <p
             ref={(el) => { elementRefs.current[1] = el; }}
             data-index="1"
-            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
-              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } text-gray-600 dark:text-gray-300 ${
-              visibleElements.has(1)
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-3 sm:translate-y-6'
-            }`}
+            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(1) ? '0ms' : '50ms' }}
           >
             By day I&apos;m at{" "}
-            <span className="font-normal text-gray-900 dark:text-white">
+            <span className="font-normal text-content">
               GDNA
             </span>
             , building cloud-native apps on AWS. The interesting parts sit on the boundary between feature development and security: input validation, auth flows, S3 policies, secrets handling, and figuring out where things break when no one&apos;s watching.
@@ -133,17 +121,11 @@ export default function About() {
           <p
             ref={(el) => { elementRefs.current[2] = el; }}
             data-index="2"
-            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
-              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } text-gray-600 dark:text-gray-300 ${
-              visibleElements.has(2)
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-3 sm:translate-y-6'
-            }`}
+            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(2) ? '0ms' : '200ms' }}
           >
             My security path started with the SANS Cyber Academy scholarship, which got me the{" "}
-            <span className="font-normal text-gray-900 dark:text-white">
+            <span className="font-normal text-content">
               GIAC GFACT, GSEC, and GCIH certifications
             </span>
             . AWS AI Practitioner and AWS Security Specialty are scheduled for September and October 2026, PortSwigger BSCP after that. The focus from here is AI and LLM security plus cloud security engineering.
@@ -152,17 +134,11 @@ export default function About() {
           <p
             ref={(el) => { elementRefs.current[3] = el; }}
             data-index="3"
-            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
-              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } text-gray-600 dark:text-gray-300 ${
-              visibleElements.has(3)
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-3 sm:translate-y-6'
-            }`}
+            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
             Before software: I&apos;m from Spain, six years in commercial construction (structural detailing, CAD, project management). Studied architectural engineering at{" "}
-            <span className="font-normal text-gray-900 dark:text-white">
+            <span className="font-normal text-content">
               IE University
             </span>
             .
@@ -171,19 +147,13 @@ export default function About() {
           <p
             ref={(el) => { elementRefs.current[4] = el; }}
             data-index="4"
-            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${
-              prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700'
-            } text-gray-600 dark:text-gray-300 ${
-              visibleElements.has(4)
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-3 sm:translate-y-6'
-            }`}
+            className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '350ms' }}
           >
             I take a small number of contract engagements: LLM application security reviews, OWASP LLM Top 10 assessments, and AWS auth and IAM hardening. Email{" "}
             <a
               href="mailto:luis.lozoya.tech@gmail.com"
-              className="font-normal underline underline-offset-4 decoration-gray-300 hover:decoration-gray-600 text-gray-900 dark:text-white dark:decoration-gray-600 dark:hover:decoration-gray-300"
+              className="font-normal underline underline-offset-4 decoration-gray-300 hover:decoration-gray-600 text-content dark:decoration-gray-600 dark:hover:decoration-gray-300"
             >
               luis.lozoya.tech@gmail.com
             </a>

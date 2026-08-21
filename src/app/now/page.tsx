@@ -45,13 +45,13 @@ const WORKING_ON = [
 
 export default function NowPage() {
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
           <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
           Updated {LAST_UPDATED}
         </p>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-gray-900 dark:text-white">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
           Now
         </h1>
         <p className="text-lg sm:text-xl leading-relaxed mb-12 text-gray-700 dark:text-gray-300">
@@ -111,7 +111,7 @@ export default function NowPage() {
                         {c.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                    <td className="px-4 py-3 text-right text-content-subtle whitespace-nowrap">
                       {c.date}
                     </td>
                   </tr>
@@ -143,7 +143,7 @@ export default function NowPage() {
             href="https://github.com/Javierlozo"
             target="_blank"
             rel="noreferrer noopener"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-white text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
           >
             <FontAwesomeIcon icon={faGithub} />
             GitHub

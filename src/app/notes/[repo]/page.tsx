@@ -74,7 +74,7 @@ export default async function RepoPage({ params }: Props) {
   const badge = STATUS_BADGE[r.status];
 
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <Link
           href="/notes"
@@ -99,11 +99,11 @@ export default async function RepoPage({ params }: Props) {
                 >
                   {badge.label}
                 </span>
-                <span className="text-xs text-gray-600 dark:text-gray-300">
+                <span className="text-xs text-content-muted">
                   {r.cert}
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight text-gray-900 dark:text-white">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight text-content">
                 {r.name}
               </h1>
             </div>
@@ -124,7 +124,7 @@ export default async function RepoPage({ params }: Props) {
               {r.repoName}
               <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
             </a>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs text-content-subtle">
               {totalNotes} {totalNotes === 1 ? "note" : "notes"} ·{" "}
               {sections.length} sections
             </span>
@@ -138,7 +138,7 @@ export default async function RepoPage({ params }: Props) {
               <li key={section.slug}>
                 <a
                   href={`#${section.slug}`}
-                  className="font-medium text-gray-600 dark:text-gray-300 hover:text-amber-700 dark:hover:text-amber-300 whitespace-nowrap"
+                  className="font-medium text-content-muted hover:text-amber-700 dark:hover:text-amber-300 whitespace-nowrap"
                 >
                   {section.title}
                   {section.notes.length > 0 && (
@@ -160,14 +160,14 @@ export default async function RepoPage({ params }: Props) {
               className="scroll-mt-32"
             >
               <div className="flex items-baseline justify-between gap-4 mb-5 pb-3 border-b border-gray-200 dark:border-gray-700/70">
-                <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-xl sm:text-2xl font-semibold text-content">
                   {section.title}
                 </h2>
                 <a
                   href={`${r.repoUrl}/tree/main/${section.slug}`}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="hidden sm:inline-flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-amber-700 dark:hover:text-amber-300 shrink-0"
+                  className="hidden sm:inline-flex items-center gap-1.5 text-xs text-content-subtle hover:text-amber-700 dark:hover:text-amber-300 shrink-0"
                 >
                   <FontAwesomeIcon icon={faGithub} />
                   Folder on GitHub
@@ -175,7 +175,7 @@ export default async function RepoPage({ params }: Props) {
               </div>
 
               {section.notes.length === 0 ? (
-                <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                <p className="text-sm text-content-subtle italic">
                   No notes yet. Coming up as I work through this section.
                 </p>
               ) : (
@@ -192,7 +192,7 @@ export default async function RepoPage({ params }: Props) {
                             className="text-xs"
                           />
                         </div>
-                        <span className="flex-1 text-sm sm:text-base font-medium text-gray-900 dark:text-white">
+                        <span className="flex-1 text-sm sm:text-base font-medium text-content">
                           {note.title}
                         </span>
                         {note.labsTotal !== undefined && (

@@ -6,9 +6,9 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function LabNotFound() {
   return (
-    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-3xl">
-        <h1 className="text-xl sm:text-2xl font-medium text-gray-900 dark:text-white">
+        <h1 className="text-xl sm:text-2xl font-medium text-content">
           Lab not found
         </h1>
         <Link

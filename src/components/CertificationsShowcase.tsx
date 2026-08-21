@@ -115,10 +115,10 @@ export default function CertificationsShowcase() {
                   />
                 </div>
                 <div className="p-3 sm:p-4 flex-1 flex flex-col">
-                  <h3 className="text-sm sm:text-base font-medium text-gray-900 dark:text-white">
+                  <h3 className="text-sm sm:text-base font-medium text-content">
                     {cert.title}
                   </h3>
-                  <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="mt-1 text-xs text-content-subtle">
                     {cert.issuer} · {cert.date}
                   </div>
                   {cert.verifyLink && (
@@ -147,7 +147,7 @@ export default function CertificationsShowcase() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
-          <span className="font-mono uppercase tracking-widest text-gray-500 dark:text-gray-400 mr-1">
+          <span className="font-mono uppercase tracking-widest text-content-subtle mr-1">
             In progress
           </span>
           {certsByStatus("In progress").map(({ name: label }) => (

@@ -17,10 +17,12 @@ module.exports = {
         surface: {
           DEFAULT: 'var(--bg)',
           elevated: 'var(--bg-elev)',
+          card: 'var(--card)',
         },
         content: {
-          DEFAULT: 'var(--fg)',
-          muted: 'var(--fg-muted)',
+          DEFAULT: 'var(--text-primary)',
+          muted: 'var(--text-muted)',
+          subtle: 'var(--text-subtle)',
         },
         accent: {
           DEFAULT: 'var(--accent)',
