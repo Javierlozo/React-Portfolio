@@ -47,8 +47,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const s = findSection(repo, section);
   const url = `https://www.luislozoya.com/notes/${repo}/${section}/${slug}`;
   return {
-    title: `${note.title}${r ? ` — ${r.shortName}` : ""}`,
-    description: `${note.title}${s ? ` (${s.title})` : ""} — public study notes by Luis Javier Lozoya.`,
+    title: `${note.title}${r ? `. ${r.shortName}` : ""}`,
+    description: `${note.title}${s ? ` (${s.title})` : ""}. Public study notes by Luis Javier Lozoya.`,
     alternates: { canonical: url },
     openGraph: {
       title: note.title,

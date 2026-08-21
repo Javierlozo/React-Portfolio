@@ -3,8 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark, faSun, faMoon, faChevronDown, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark, faSun, faMoon, faChevronDown, faMagnifyingGlass, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
 import { OPEN_EVENT } from "./CommandPalette";
 
@@ -138,16 +139,36 @@ export default function Navbar() {
 
   const NavDropdown = ({ label, items }: { label: string; items: NavItem[] }) => {
     const [open, setOpen] = useState(false);
+    const [cursor, setCursor] = useState(-1);
     const wrapRef = useRef<HTMLDivElement>(null);
+    const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+    const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const groupActive = items.some(isItemActive);
+
+    const close = () => {
+      setOpen(false);
+      setCursor(-1);
+    };
+
+    // Small delay so brushing past the menu does not flash the panel open.
+    const scheduleOpen = () => {
+      if (openTimer.current) clearTimeout(openTimer.current);
+      openTimer.current = setTimeout(() => setOpen(true), 120);
+    };
+    const cancelOpen = () => {
+      if (openTimer.current) clearTimeout(openTimer.current);
+      openTimer.current = null;
+    };
+
+    useEffect(() => () => cancelOpen(), []);
 
     useEffect(() => {
       if (!open) return;
       const onDown = (e: MouseEvent) => {
-        if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+        if (!wrapRef.current?.contains(e.target as Node)) close();
       };
       const onEsc = (e: KeyboardEvent) => {
-        if (e.key === "Escape") setOpen(false);
+        if (e.key === "Escape") close();
       };
       document.addEventListener("mousedown", onDown);
       document.addEventListener("keydown", onEsc);
@@ -157,16 +178,53 @@ export default function Navbar() {
       };
     }, [open]);
 
+    useEffect(() => {
+      if (open && cursor >= 0) itemRefs.current[cursor]?.focus();
+    }, [open, cursor]);
+
+    const move = (delta: number) => {
+      setOpen(true);
+      setCursor((c) => {
+        const next = c + delta;
+        if (next < 0) return items.length - 1;
+        if (next >= items.length) return 0;
+        return next;
+      });
+    };
+
+    const onKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        move(1);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        move(-1);
+      } else if (e.key === "Home" && open) {
+        e.preventDefault();
+        setCursor(0);
+      } else if (e.key === "End" && open) {
+        e.preventDefault();
+        setCursor(items.length - 1);
+      }
+    };
+
     return (
       <div
         ref={wrapRef}
         className="relative"
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
+        onMouseEnter={scheduleOpen}
+        onMouseLeave={() => {
+          cancelOpen();
+          close();
+        }}
+        onKeyDown={onKeyDown}
       >
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            cancelOpen();
+            setOpen((v) => !v);
+          }}
           aria-expanded={open}
           aria-haspopup="true"
           className={`${linkBase} inline-flex items-center gap-1.5 ${
@@ -181,57 +239,82 @@ export default function Navbar() {
           {groupActive && <div className={underline} />}
         </button>
 
-        {open && (
-          <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-64">
-            <div className="rounded-xl border shadow-lg overflow-hidden bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-              {items.map((item) => {
-                const active = isItemActive(item);
-                const content = (
-                  <>
-                    <span
-                      className={`block text-sm font-medium ${
-                        active
-                          ? "text-gray-900 dark:text-white"
-                          : "text-gray-700 dark:text-gray-200"
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-72"
+            >
+              <div
+                role="menu"
+                aria-label={label}
+                className="rounded-2xl border shadow-xl shadow-gray-900/5 overflow-hidden p-1.5 bg-white/95 backdrop-blur border-gray-200 dark:bg-gray-900/95 dark:border-gray-700 dark:shadow-black/40"
+              >
+                {items.map((item, i) => {
+                  const active = isItemActive(item);
+                  const focused = cursor === i;
+                  return (
+                    <a
+                      key={item.label}
+                      ref={(el) => {
+                        itemRefs.current[i] = el;
+                      }}
+                      role="menuitem"
+                      href={itemHref(item)}
+                      onClick={close}
+                      onMouseEnter={() => setCursor(i)}
+                      className={`group relative flex items-center gap-3 rounded-xl pl-3 pr-2.5 py-2.5 outline-none transition-colors duration-150 ${
+                        active || focused
+                          ? "bg-gray-100 dark:bg-gray-800"
+                          : "hover:bg-gray-50 dark:hover:bg-gray-800/60"
                       }`}
                     >
-                      {item.label}
-                    </span>
-                    {item.note && (
-                      <span className="block mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-                        {item.note}
+                      {/* Accent rail: solid when the item is the current page */}
+                      <span
+                        aria-hidden
+                        className={`absolute left-0 top-1/2 -translate-y-1/2 w-0.5 rounded-full bg-amber-500 transition-all duration-150 ${
+                          active
+                            ? "h-7 opacity-100"
+                            : focused
+                            ? "h-5 opacity-70"
+                            : "h-0 opacity-0"
+                        }`}
+                      />
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className={`block text-sm font-medium transition-transform duration-150 ${
+                            active || focused
+                              ? "translate-x-0.5 text-gray-900 dark:text-white"
+                              : "text-gray-700 dark:text-gray-200"
+                          }`}
+                        >
+                          {item.label}
+                        </span>
+                        {item.note && (
+                          <span className="block mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                            {item.note}
+                          </span>
+                        )}
                       </span>
-                    )}
-                  </>
-                );
-                const cls = `block px-4 py-2.5 transition-colors duration-150 ${
-                  active
-                    ? "bg-gray-100 dark:bg-gray-800"
-                    : "hover:bg-gray-50 dark:hover:bg-gray-800/60"
-                }`;
-                return item.href ? (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={cls}
-                    onClick={() => setOpen(false)}
-                  >
-                    {content}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.label}
-                    href={itemHref(item)}
-                    className={cls}
-                    onClick={() => setOpen(false)}
-                  >
-                    {content}
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        )}
+                      <FontAwesomeIcon
+                        icon={faArrowRightLong}
+                        aria-hidden
+                        className={`w-3 h-3 shrink-0 text-gray-400 transition-all duration-150 ${
+                          active || focused
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 -translate-x-1"
+                        }`}
+                      />
+                    </a>
+                  );
+                })}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   };

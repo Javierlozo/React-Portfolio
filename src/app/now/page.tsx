@@ -9,7 +9,7 @@ import {
 } from "../llm-audit/icons";
 
 export const metadata: Metadata = {
-  title: "Now — What I'm working on",
+  title: "Now. What I'm working on",
   description:
     "What Luis Javier Lozoya is working on right now. AWS Security Specialty (SCS-C02) and BSCP in progress, llm-audit development, and open to Application Security Engineer roles.",
   keywords: [

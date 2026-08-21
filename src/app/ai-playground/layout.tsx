@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "LLM Red Team Lab",
     description:
-      "Prompt injection research across Claude, GPT, and Gemini — OWASP LLM Top 10, MITRE ATLAS, reproducible evidence.",
+      "Prompt injection research across Claude, GPT, and Gemini. OWASP LLM Top 10, MITRE ATLAS, reproducible evidence.",
     type: "article",
   },
   alternates: { canonical: "https://www.luislozoya.com/ai-playground" },

@@ -11,7 +11,7 @@ import {
 import { NOTES_REPOS, NOTES_ROADMAP, type NotesRepo } from "../../data/notes";
 
 export const metadata: Metadata = {
-  title: "AppSec Notes — Learning in Public",
+  title: "AppSec Notes. Learning in Public",
   description:
     "Public study notes from every security course I'm working through. TCM Practical Bug Bounty, PortSwigger Web Security Academy, and more. Plain markdown, my own words, dated commits.",
   keywords: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://www.luislozoya.com/notes" },
   openGraph: {
-    title: "AppSec Notes — Learning in Public",
+    title: "AppSec Notes. Learning in Public",
     description:
       "Public notes from the security courses I'm studying. TCM PBB, PortSwigger Academy, and more.",
     url: "https://www.luislozoya.com/notes",

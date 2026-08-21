@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const r = findRepo(repo);
   if (!r) return { title: "Repo not found" };
   return {
-    title: `${r.name} — Notes`,
+    title: `${r.name}. Notes`,
     description: r.blurb,
     alternates: { canonical: `https://www.luislozoya.com/notes/${repo}` },
   };

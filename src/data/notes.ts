@@ -23,7 +23,7 @@ export const NOTES_REPOS: NotesRepo[] = [
     slug: "tcm-pbb",
     name: "TCM Practical Bug Bounty (PBB)",
     shortName: "TCM PBB",
-    cert: "Practical Web Pentest Associate (PWPA) prep",
+    cert: "Web pentest practice. PWPA exam planned.",
     status: "in-progress",
     blurb:
       "TCM Security's practical web pentest course. Methodology, hands-on labs, full attack chains. I'm currently in the reconnaissance section.",
@@ -63,8 +63,8 @@ export const NOTES_REPOS: NotesRepo[] = [
 ];
 
 export const NOTES_ROADMAP: { label: string; status: "in-progress" | "next" | "later" }[] = [
-  { label: "TCM Practical Bug Bounty (PBB) — course in progress", status: "in-progress" },
-  { label: "PortSwigger Web Academy — Apprentice level, in progress", status: "in-progress" },
+  { label: "TCM Practical Bug Bounty (PBB), course in progress", status: "in-progress" },
+  { label: "PortSwigger Web Academy, Apprentice level, in progress", status: "in-progress" },
   { label: "TCM PWPA exam", status: "later" },
   { label: "PortSwigger BSCP exam", status: "next" },
   { label: "OffSec OSWE", status: "later" },
