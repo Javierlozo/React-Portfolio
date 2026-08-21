@@ -29,7 +29,7 @@ Admin endpoints exist but aren't gated. `/admin` works for anyone who knows the 
 
 - Disclosed in `robots.txt`
 - Found by brute-forcing common paths with a wordlist
-- Obfuscated to a hard-to-guess URL (`/admin-panel-yb556`) but leaked in client-side JS that conditionally renders the admin link based on a role flag — the script runs for everyone
+- Obfuscated to a hard-to-guess URL (`/admin-panel-yb556`) but leaked in client-side JS that conditionally renders the admin link based on a role flag: the script runs for everyone
 
 ### Parameter-based access control
 

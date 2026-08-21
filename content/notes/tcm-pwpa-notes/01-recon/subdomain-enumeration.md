@@ -86,7 +86,7 @@ cat azena2.txt | sort -u > azenafinal.txt
 
 `azenafinal.txt` is the working list.
 
-## httprobe — which ones are alive?
+## httprobe: which ones are alive?
 
 A subdomain that resolves isn't necessarily serving anything. `httprobe` reads a list, hits each one over HTTP and HTTPS, and prints back the ones that respond.
 
@@ -96,9 +96,9 @@ cat azenafinal.txt | grep azena.com | sort -u | httprobe -prefer-https | grep ht
 
 `-prefer-https` makes it try HTTPS first and skip the HTTP version if HTTPS already answers. The trailing `grep https` keeps only the HTTPS hits in the final file.
 
-## gowitness — screenshot the live ones
+## gowitness: screenshot the live ones
 
-When the alive list gets long, eyeballing every subdomain in a browser takes forever. `gowitness` takes a list of URLs and screenshots each one. Quick visual triage — login portals, default pages, broken stuff, interesting admin panels all jump out at a glance.
+When the alive list gets long, eyeballing every subdomain in a browser takes forever. `gowitness` takes a list of URLs and screenshots each one. Quick visual triage. Login portals, default pages, broken stuff, interesting admin panels all jump out at a glance.
 
 ```
 gowitness file -f azenaalive.txt -P azenapics/ --no-http

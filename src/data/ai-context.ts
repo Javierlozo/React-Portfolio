@@ -12,7 +12,7 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 
 ## Professional Experience
 
-### GDNA (Software Engineer Contract, Apr 2024–Present)
+### GDNA (Software Engineer Contract, Apr 2024-Present)
 - Started translating Figma designs into React/Next.js code, now owns full application architecture
 - Architecting serverless AWS solutions: API Gateway, Lambda, S3, RDS (PostgreSQL), Cognito, IAM, Secrets Manager, Amplify
 - Designing APIs, front-end architecture, and database schemas
@@ -21,18 +21,18 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 - Running weekly client meetings to demo progress and gather feedback, plus internal team syncs
 - Stack: AWS (API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify), React, TypeScript, Next.js, PostgreSQL, Supabase
 
-### Querri (Software Engineer Contract, Aug 2023–Apr 2024)
+### Querri (Software Engineer Contract, Aug 2023-Apr 2024)
 - Built a client-facing project using Svelte and FusionAuth
 - Modified and maintained Querri's HubSpot website with custom code throughout the contract
 - Built custom HubSpot CMS modules and templates
 - Stack: Svelte, HubSpot CMS, JavaScript, FusionAuth, AWS
 
-### Upstate Nutrition (Software Engineer Contract, Jul–Aug 2023)
+### Upstate Nutrition (Software Engineer Contract, Jul-Aug 2023)
 - Short-term contract to rebuild the Shopify storefront
 - The engagement ended before completion
 - Stack: Shopify, Liquid, JavaScript, CSS
 
-### Interloop (Software Engineer, Jul 2021–Jun 2023)
+### Interloop (Software Engineer, Jul 2021-Jun 2023)
 - Promoted from Software Engineer I to II based on performance
 - Built custom Chrome extensions integrated with CRM tools using RESTful APIs and OAuth 2.0
 - Developed and maintained full-stack features using Angular, NestJs, MongoDB, and Azure Cosmos DB

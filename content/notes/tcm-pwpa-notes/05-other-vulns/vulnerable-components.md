@@ -14,10 +14,10 @@ Bugs in libraries I didn't write. They reach me through transitive deps in any p
 
 **Detect:**
 
-- `npm audit --production` (Node — only runtime deps)
+- `npm audit --production` (Node: only runtime deps)
 - `pip-audit` (Python), `bundler-audit` (Ruby), `composer audit` (PHP)
-- GitHub Dependabot — free on public repos, auto-scans + auto-PRs
-- `osv-scanner` (Google) — cross-ecosystem
+- GitHub Dependabot: free on public repos, auto-scans + auto-PRs
+- `osv-scanner` (Google): cross-ecosystem
 - Look for exposed lockfiles: `package-lock.json`, `Gemfile.lock`, `composer.lock`, `go.sum`
 
 **Fix:**
@@ -39,10 +39,10 @@ My code doesn't have to be wrong. The bug just has to live anywhere in the depen
 
 While I was building this very notes site, GitHub's Dependabot flagged 4 CVEs on my portfolio repo:
 
-- `fast-uri` — path traversal via percent-encoded dot segments (high)
-- `hono` — `bodyLimit()` bypass on chunked / unknown-length requests (moderate)
-- `ip-address` — XSS in `Address6` HTML-emitting methods (moderate)
-- `hono/jsx` — unvalidated JSX tag names allow HTML injection (moderate)
+- `fast-uri`: path traversal via percent-encoded dot segments (high)
+- `hono`: `bodyLimit()` bypass on chunked / unknown-length requests (moderate)
+- `ip-address`: XSS in `Address6` HTML-emitting methods (moderate)
+- `hono/jsx`: unvalidated JSX tag names allow HTML injection (moderate)
 
 I didn't install any of these directly. They got pulled in transitively:
 
@@ -73,15 +73,15 @@ npm outdated               # see what's behind, even without CVEs
 
 GitHub side:
 
-- Dependabot alerts — free on public repos, auto-scans
-- Dependabot security updates — bot opens PRs with the bumped version
-- GitHub Advisory Database — central place to look up a CVE
+- Dependabot alerts: free on public repos, auto-scans
+- Dependabot security updates: bot opens PRs with the bumped version
+- GitHub Advisory Database: central place to look up a CVE
 
 Other tools worth knowing:
 
-- `osv-scanner` (Google) — cross-ecosystem
-- `snyk test` — commercial, more thorough
-- OWASP Dependency-Check — for Java / Maven heavy stacks
+- `osv-scanner` (Google): cross-ecosystem
+- `snyk test`: commercial, more thorough
+- OWASP Dependency-Check: for Java / Maven heavy stacks
 
 On a pentest, I look for lockfiles or manifests directly:
 
@@ -121,7 +121,7 @@ If the parent package is abandoned:
 
 On the target side:
 
-- Old jQuery / Bootstrap / other public-CDN libs — version often visible in the page source or filename
+- Old jQuery / Bootstrap / other public-CDN libs: version often visible in the page source or filename
 - Lockfiles or `package.json` accidentally exposed under `/assets/`, `/.git/`, `/uploads/`, etc.
 - HTTP response headers that leak versions: `X-Powered-By: Express 4.16.x`, `Server: nginx/1.14.2`
 - Server banners and tech fingerprints from earlier recon (see [fingerprinting](../01-recon/fingerprinting-web-technologies.md))

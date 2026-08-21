@@ -175,7 +175,7 @@ export default function PrintableCheatsheet({
                         )}
                       </td>
                       <td className="cheat-flags py-1.5 px-2 font-mono text-[11px] whitespace-pre-wrap text-gray-600 dark:text-gray-400">
-                        {row.flags || "—"}
+                        {row.flags || "-"}
                       </td>
                     </tr>
                   ))}

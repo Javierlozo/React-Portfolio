@@ -69,9 +69,9 @@ Apps that block strings like `127.0.0.1` or `localhost`:
 
 Apps that only allow URLs containing a specific domain:
 
-- **Embedded credentials:** `https://expected-host:anything@evil-host` — parsers may treat `expected-host` as the user portion and route to `evil-host`.
-- **URL fragment:** `https://evil-host#expected-host` — request goes to `evil-host`; everything after `#` is parser-discarded.
-- **DNS hierarchy:** `https://expected-host.evil-host` — `expected-host` is a subdomain of the attacker's zone; substring check passes, request goes to attacker.
+- **Embedded credentials:** `https://expected-host:anything@evil-host`. Parsers may treat `expected-host` as the user portion and route to `evil-host`.
+- **URL fragment:** `https://evil-host#expected-host`. Request goes to `evil-host`; everything after `#` is parser-discarded.
+- **DNS hierarchy:** `https://expected-host.evil-host`. `expected-host` is a subdomain of the attacker's zone; substring check passes, request goes to attacker.
 - **URL encoding:** encode `@`, `#`, `.` to confuse the parsing logic. Double-encode if the server decodes recursively.
 - **Combine multiple techniques** when one alone doesn't pass.
 
@@ -92,7 +92,7 @@ The app makes the back-end request, but the response isn't returned to me. I can
 
 Harder to exploit but still valuable. Detection via out-of-band tooling: point the SSRF at a Burp Collaborator URL, watch for an inbound DNS or HTTP hit. Confirms the server is making the outbound request.
 
-Impact can still be severe — blind SSRF has reached full RCE on internal services.
+Impact can still be severe. Blind SSRF has reached full RCE on internal services.
 
 ## Finding hidden attack surface
 
@@ -104,7 +104,7 @@ The app constructs the full URL server-side, with my input as just one piece (th
 
 ### URLs inside data formats
 
-Specifications like XML allow URL references. The parser fetches them. **XXE injection** is the canonical example — XML external entities pulling in `file:///etc/passwd` or `http://internal/`.
+Specifications like XML allow URL references. The parser fetches them. **XXE injection** is the canonical example. XML external entities pulling in `file:///etc/passwd` or `http://internal/`.
 
 JSON APIs sometimes accept `$ref` pointers, GraphQL has fragment imports, YAML supports anchors with custom tags. All worth probing.
 
@@ -126,7 +126,7 @@ What I look for first:
 
 - Any param that takes a URL: `?url=`, `?image=`, `?webhook=`, `?callback=`, `?redirect=`, `?fetch=`.
 - File import / "load from URL" features.
-- PDF generators, screenshot generators, link previews — they all fetch URLs server-side.
+- PDF generators, screenshot generators, link previews: they all fetch URLs server-side.
 - Webhook configuration UIs.
 - Any field where the server makes an outbound HTTP call on my behalf.
 

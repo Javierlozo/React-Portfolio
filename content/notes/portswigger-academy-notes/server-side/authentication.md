@@ -13,7 +13,7 @@ Verifying who someone is. Authentication mechanisms rely on one or more of three
 
 - **Knowledge** (something you know): passwords, PINs, security questions.
 - **Possession** (something you have): physical tokens, phones, hardware keys.
-- **Inherence** (something you are): biometrics — fingerprint, face, voice.
+- **Inherence** (something you are): biometrics. Fingerprint, face, voice.
 
 Single-factor systems use one. MFA combines two or more.
 

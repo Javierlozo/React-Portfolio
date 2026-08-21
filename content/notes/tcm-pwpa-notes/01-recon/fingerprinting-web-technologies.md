@@ -39,11 +39,11 @@ curl -I https://target.tld
 
 What I'm reading off the response:
 
-- `Server:` — `Apache/2.4.41`, `nginx/1.18`, etc.
-- `X-Powered-By:` — `PHP/7.4`, `Express`, `ASP.NET`
-- `Content-Length:` — big number usually means a CMS or a fat page
-- Security headers (or what's missing — see below)
-- `Set-Cookie:` — cookie names like `PHPSESSID`, `JSESSIONID`, `ASP.NET_SessionId` give the backend away even when nothing else does
+- `Server:`. `Apache/2.4.41`, `nginx/1.18`, etc.
+- `X-Powered-By:`. `PHP/7.4`, `Express`, `ASP.NET`
+- `Content-Length:`. Big number usually means a CMS or a fat page
+- Security headers (or what's missing: see below)
+- `Set-Cookie:`. Cookie names like `PHPSESSID`, `JSESSIONID`, `ASP.NET_SessionId` give the backend away even when nothing else does
 
 Add `-L` to follow redirects:
 

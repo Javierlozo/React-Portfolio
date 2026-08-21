@@ -23,8 +23,8 @@ export interface GatewayCallOutput {
  * the gateway automatically when `model` is a provider-prefixed string.
  *
  * Auth resolves in this order (AI SDK default):
- *   1. AI_GATEWAY_API_KEY  — static key, simpler for local scripts
- *   2. VERCEL_OIDC_TOKEN   — auto-injected on Vercel and by `vercel env pull`;
+ *   1. AI_GATEWAY_API_KEY: static key, simpler for local scripts
+ *   2. VERCEL_OIDC_TOKEN: auto-injected on Vercel and by `vercel env pull`;
  *                             preferred in CI and production (rotates, no manual key management)
  *
  * The wrapper enforces a per-call timeout so a hung provider cannot stall

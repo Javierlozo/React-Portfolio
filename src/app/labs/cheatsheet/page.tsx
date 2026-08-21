@@ -170,7 +170,7 @@ const APPENDIX: CheatSection[] = [
       { command: "4648", purpose: "Logon using explicit credentials", flags: "runas / lateral movement indicator", labSlug: "", labTitle: "" },
       { command: "4672", purpose: "Special privileges assigned", flags: "Fired at admin-equivalent logon (SeDebug, SeTcb, etc.)", labSlug: "", labTitle: "" },
       { command: "4688", purpose: "Process creation", flags: "Requires command-line auditing GPO to include CommandLine field", labSlug: "", labTitle: "" },
-      { command: "4697", purpose: "Service installed (Security log)", flags: "Companion to System log 7045 — use both for service-install hunting", labSlug: "", labTitle: "" },
+      { command: "4697", purpose: "Service installed (Security log)", flags: "Companion to System log 7045. Use both for service-install hunting", labSlug: "", labTitle: "" },
       { command: "4720 / 4722 / 4724 / 4725", purpose: "User account created / enabled / pwd reset / disabled", flags: "Account lifecycle auditing", labSlug: "", labTitle: "" },
       { command: "4728 / 4732 / 4756", purpose: "Member added to global / local / universal security group", flags: "Privilege escalation indicator", labSlug: "", labTitle: "" },
       { command: "4740", purpose: "Account locked out", flags: "CallerComputerName field shows lockout source", labSlug: "", labTitle: "" },
@@ -180,7 +180,7 @@ const APPENDIX: CheatSection[] = [
   {
     name: "Windows System Event IDs",
     rows: [
-      { command: "7045", purpose: "Service installed (SCM)", flags: "Always review on suspicious hosts — pairs with 4697", labSlug: "", labTitle: "" },
+      { command: "7045", purpose: "Service installed (SCM)", flags: "Always review on suspicious hosts. Pairs with 4697", labSlug: "", labTitle: "" },
       { command: "7036", purpose: "Service entered Running / Stopped state", flags: "Useful for timelining service starts", labSlug: "", labTitle: "" },
       { command: "6005 / 6006 / 6008", purpose: "Event log started / stopped cleanly / unexpected shutdown", flags: "Boot / reboot timeline", labSlug: "", labTitle: "" },
     ],
@@ -232,7 +232,7 @@ const APPENDIX: CheatSection[] = [
       { command: "tcp.flags.syn == 1 && tcp.flags.ack == 0", purpose: "SYN without ACK (scan)", flags: "tcp.flags.reset == 1 for RSTs", labSlug: "", labTitle: "" },
       { command: "dns.qry.name contains \"evil\"", purpose: "DNS queries matching substring", flags: "dns.flags.response == 1 for responses only", labSlug: "", labTitle: "" },
       { command: "tcp.stream eq 3", purpose: "One TCP stream", flags: "Right-click packet → Follow → TCP Stream to find stream number", labSlug: "", labTitle: "" },
-      { command: "frame contains \"password\"", purpose: "Any frame whose bytes contain string", flags: "Slower than field filters — use for ad-hoc hunts", labSlug: "", labTitle: "" },
+      { command: "frame contains \"password\"", purpose: "Any frame whose bytes contain string", flags: "Slower than field filters. Use for ad-hoc hunts", labSlug: "", labTitle: "" },
     ],
   },
   {
@@ -240,7 +240,7 @@ const APPENDIX: CheatSection[] = [
     rows: [
       { command: "/var/log/auth.log", purpose: "sudo, sshd, su (Debian / Ubuntu)", flags: "RHEL/CentOS uses /var/log/secure", labSlug: "", labTitle: "" },
       { command: "/var/log/syslog  |  /var/log/messages", purpose: "General system messages", flags: "Debian vs RHEL naming", labSlug: "", labTitle: "" },
-      { command: "/var/log/wtmp  /var/log/btmp  /var/log/lastlog", purpose: "Login history (good / failed / per-user last)", flags: "Binary files — read with last / lastb / lastlog commands", labSlug: "", labTitle: "" },
+      { command: "/var/log/wtmp  /var/log/btmp  /var/log/lastlog", purpose: "Login history (good / failed / per-user last)", flags: "Binary files. Read with last / lastb / lastlog commands", labSlug: "", labTitle: "" },
       { command: "last -F   |   lastb", purpose: "Successful / failed login history", flags: "-F: full timestamps\nlastb needs root", labSlug: "", labTitle: "" },
       { command: "journalctl -u sshd --since \"1 hour ago\"", purpose: "systemd unit logs in a time window", flags: "-u: unit\n-p err..alert\n_PID=1234 match\n--since / --until: relative or ISO time", labSlug: "", labTitle: "" },
       { command: "grep -E \"Failed|Invalid\" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq -c | sort -rn", purpose: "Top source IPs of failed SSH logins", flags: "Classic brute-force triage one-liner", labSlug: "", labTitle: "" },

@@ -356,7 +356,7 @@ export default function Navbar() {
 
           <NavDropdown label="Work" items={WORK_ITEMS} />
 
-          {/* Labs — amber accent */}
+          {/* Labs, amber accent */}
           <a
             href={sectionHref(LABS_LINK.id)}
             className={`${linkBase} ${
@@ -375,7 +375,7 @@ export default function Navbar() {
 
           <SectionLink link={CREDENTIALS_LINK} />
 
-          {/* Fit Check — pill CTA */}
+          {/* Fit Check, pill CTA */}
           <a
             href={sectionHref(CTA_LINK.id)}
             className={`relative px-3 py-1 text-sm font-medium tracking-wide uppercase whitespace-nowrap rounded-full border transition-colors duration-300 ${

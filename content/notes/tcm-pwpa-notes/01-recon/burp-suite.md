@@ -34,7 +34,7 @@ What I actually use it for:
 - Finding hidden endpoints. Sometimes JS files reference API paths I didn't click on. They still end up here.
 - Spotting parameters worth fuzzing. The column view shows status code, length, MIME type at a glance.
 
-The screenshot below shows what a typical site map looks like after a few minutes of browsing — hosts down the left, requests in the middle, request/response on the bottom.
+The screenshot below shows what a typical site map looks like after a few minutes of browsing. Hosts down the left, requests in the middle, request/response on the bottom.
 
 ## Repeater
 

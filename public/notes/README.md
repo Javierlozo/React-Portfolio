@@ -2,8 +2,8 @@
 
 Drop sanitized screenshots into the matching repo folder:
 
-- `portswigger-academy-notes/` — Burp Suite labs, PortSwigger Academy
-- `tcm-pwpa-notes/` — TCM PWPA labs
+- `portswigger-academy-notes/`: Burp Suite labs, PortSwigger Academy
+- `tcm-pwpa-notes/`: TCM PWPA labs
 
 Naming: `<note-slug>-<short-id>.png` (e.g. `authentication-burp-repeater.png`,
 `path-traversal-payload-fired.png`). Match the markdown filename in

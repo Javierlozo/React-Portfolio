@@ -1,20 +1,20 @@
 # React-Portfolio
 
-Personal portfolio site for **Luis Javier Lozoya** — a security-focused software engineer in Charleston, SC. Live at **[luislozoya.com](https://www.luislozoya.com)**.
+Personal portfolio site for **Luis Javier Lozoya**. A security-focused software engineer in Charleston, SC. Live at **[luislozoya.com](https://www.luislozoya.com)**.
 
 More than a portfolio page: it's a Next.js app with an AI assistant, a job-fit analyzer, an LLM red-team playground, security lab write-ups, and synced study notes.
 
 ## Features
 
-- **Portfolio** — Hero, about, experience timeline, tech stack, certifications, project slider, and contact.
-- **Ask AI about Luis** — A chat assistant (`/api/chat`) grounded in a hand-written context file about Luis's experience, so visitors can ask questions and get honest, specific answers.
-- **Fit Assessment** — Paste a job description and get a fit score against Luis's profile (`/api/fit-assessment`).
-- **AI Playground** (`/ai-playground`) — An LLM red-team test rig that runs OWASP LLM Top 10 attacks (instruction override, PII exfiltration, prompt extraction) against models via the Vercel AI Gateway.
-- **Cybersecurity Labs** (`/labs`) — Hands-on lab write-ups (tcpdump, Wireshark) with steps, command breakdowns, screenshots, printable views, and cheatsheets.
-- **Notes** (`/notes`) — Study notes synced from other GitHub repos (PortSwigger Academy, TCM PWPA) via `scripts/sync-notes.mjs`.
-- **Blog** (`/blog`) — MDX-based blog.
-- **llm-audit landing** (`/llm-audit`) — Page for the [`llm-audit`](https://github.com/Javierlozo/llm-audit) Semgrep rule pack.
-- **Admin dashboard** (`/admin`) — Page-view analytics and tracking, behind a login.
+- **Portfolio**: Hero, about, experience timeline, tech stack, certifications, project slider, and contact.
+- **Ask AI about Luis**: A chat assistant (`/api/chat`) grounded in a hand-written context file about Luis's experience, so visitors can ask questions and get honest, specific answers.
+- **Fit Assessment**: Paste a job description and get a fit score against Luis's profile (`/api/fit-assessment`).
+- **AI Playground** (`/ai-playground`): An LLM red-team test rig that runs OWASP LLM Top 10 attacks (instruction override, PII exfiltration, prompt extraction) against models via the Vercel AI Gateway.
+- **Cybersecurity Labs** (`/labs`): Hands-on lab write-ups (tcpdump, Wireshark) with steps, command breakdowns, screenshots, printable views, and cheatsheets.
+- **Notes** (`/notes`): Study notes synced from other GitHub repos (PortSwigger Academy, TCM PWPA) via `scripts/sync-notes.mjs`.
+- **Blog** (`/blog`): MDX-based blog.
+- **llm-audit landing** (`/llm-audit`): Page for the [`llm-audit`](https://github.com/Javierlozo/llm-audit) Semgrep rule pack.
+- **Admin dashboard** (`/admin`): Page-view analytics and tracking, behind a login.
 
 ## Tech Stack
 

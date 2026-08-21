@@ -157,7 +157,7 @@ async function main() {
   }
 
   console.log(`\nDone. ${toRun.length - errors} ok, ${errors} errors. Results: ${RESULTS_PATH}`);
-  console.log("Verdicts set to 'blocked' as placeholder — classify manually before publishing.");
+  console.log("Verdicts set to 'blocked' as placeholder, classify manually before publishing.");
 }
 
 main().catch((err) => {

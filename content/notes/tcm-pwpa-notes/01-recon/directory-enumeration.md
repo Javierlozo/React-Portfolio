@@ -16,11 +16,11 @@ Something the course made a point of: focus on the methodology, not the tool. To
 
 ## Status codes I care about
 
-- `200` — page exists and returns content
-- `301` / `302` — redirect, often to a login or to the real path
-- `401` / `403` — auth required, but the path itself is real (interesting)
-- `404` — doesn't exist
-- `500` — server error, sometimes leaks stack traces
+- `200`: page exists and returns content
+- `301` / `302`: redirect, often to a login or to the real path
+- `401` / `403`: auth required, but the path itself is real (interesting)
+- `404`: doesn't exist
+- `500`: server error, sometimes leaks stack traces
 
 200s are the obvious wins. 403s tell me a path is real but I'm locked out, which is usually the first thing I want to dig into.
 
@@ -36,13 +36,13 @@ I pick a wordlist, label it (`:FUZZ`), then drop `FUZZ` into the URL where each 
 
 Flags I actually use:
 
-- `-recursion` — once it finds a directory, brute force inside it too
-- `-recursion-depth N` — cap how deep it goes
-- `-fc 404` — filter out 404s from the output
-- `-fc 403,404` — multiple codes at once
-- `-mc 200,301` — match only these codes (whitelist)
-- `-t N` — threads (more = faster but louder)
-- `-e .php,.html,.bak` — try each word with these extensions tacked on
+- `-recursion`: once it finds a directory, brute force inside it too
+- `-recursion-depth N`: cap how deep it goes
+- `-fc 404`: filter out 404s from the output
+- `-fc 403,404`: multiple codes at once
+- `-mc 200,301`: match only these codes (whitelist)
+- `-t N`: threads (more = faster but louder)
+- `-e .php,.html,.bak`: try each word with these extensions tacked on
 
 Quick rule for filter vs match: `-fc` removes the noise, `-mc` only shows what I want. I use `-mc` when I know what I'm hunting and `-fc` when I'm just exploring.
 
@@ -86,9 +86,9 @@ The result tree updates live. Easier to spot a branch worth looking at than read
 
 Where they live on Kali:
 
-- `/usr/share/wordlists/dirb/` — common, big, small, plus some categorized lists
-- `/usr/share/wordlists/dirbuster/` — directory-list-2.3-small / medium / large
-- `/usr/share/seclists/Discovery/Web-Content/` — SecLists, the one I reach for most
+- `/usr/share/wordlists/dirb/`: common, big, small, plus some categorized lists
+- `/usr/share/wordlists/dirbuster/`: directory-list-2.3-small / medium / large
+- `/usr/share/seclists/Discovery/Web-Content/`: SecLists, the one I reach for most
 
 How I pick:
 

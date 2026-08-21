@@ -189,7 +189,7 @@ a:hover {
     scroll-margin-top: 80px;
   }
 
-  /* Tap highlight off — we use focus-visible rings */
+  /* Tap highlight off. We use focus-visible rings */
   a, button, [role="button"] {
     -webkit-tap-highlight-color: transparent;
   }
