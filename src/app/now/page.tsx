@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buttonPrimary, buttonSecondary } from "../../components/ui/button";
 import { containerShell } from "../../components/ui/Section";
 import { certTimeline } from "../../data/learningPath";
 import Link from "next/link";
@@ -135,7 +136,7 @@ export default function NowPage() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/llm-audit"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100 dark:hover:bg-white"
+            className={buttonPrimary}
           >
             See llm-audit
             <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
@@ -144,7 +145,7 @@ export default function NowPage() {
             href="https://github.com/Javierlozo"
             target="_blank"
             rel="noreferrer noopener"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+            className={buttonSecondary}
           >
             <FontAwesomeIcon icon={faGithub} />
             GitHub

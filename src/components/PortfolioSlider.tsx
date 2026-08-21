@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { buttonSecondary } from "./ui/button";
 import { containerShell } from "./ui/Section";
 import { headingRuleClass } from "./ui/SectionHeading";
 import Section from "./ui/Section";
@@ -436,7 +437,7 @@ export default function PortfolioSlider() {
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
+                      className={buttonSecondary}
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} fixedWidth />
                       <span>View Live</span>
@@ -447,7 +448,7 @@ export default function PortfolioSlider() {
                       href={project.npmLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
+                      className={buttonSecondary}
                     >
                       <FontAwesomeIcon icon={faCube} fixedWidth />
                       <span>View on npm</span>
@@ -458,7 +459,7 @@ export default function PortfolioSlider() {
                       href={project.codeLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
+                      className={buttonSecondary}
                     >
                       <FontAwesomeIcon icon={faCode} fixedWidth />
                       <span>View Code</span>
