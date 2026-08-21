@@ -1,32 +1,47 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faXmark, faSun, faMoon, faChevronDown, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
+import { OPEN_EVENT } from "./CommandPalette";
 
 type NavLink = { label: string; id: string };
+type NavItem = { label: string; id?: string; href?: string; note?: string };
 
 const TOP_LINKS: NavLink[] = [
   { label: "About", id: "about" },
 ];
-const PROJECTS_LINK: NavLink = { label: "Projects", id: "llm-audit" };
 const LABS_LINK: NavLink = { label: "Labs", id: "security-labs" };
 const CREDENTIALS_LINK: NavLink = { label: "Credentials", id: "certifications" };
 const CTA_LINK: NavLink = { label: "Fit Check", id: "fit-check" };
 const CONTACT_LINK: NavLink = { label: "Contact", id: "contact" };
 
-// Core, always-visible nav. Secondary pages (Experience, Portfolio, Notes,
-// Blog, Now) live in the footer to keep the top bar scannable for recruiters.
-const ALL_LINKS: NavLink[] = [
+// llm-audit leads Work: it is the flagship and the first thing a hiring
+// manager should see. Section anchor, not /llm-audit, for the richer layout.
+const WORK_ITEMS: NavItem[] = [
+  { label: "llm-audit", id: "llm-audit", note: "OWASP LLM Top 10 scanner" },
+  { label: "LLM Red Team Lab", href: "/ai-playground", note: "Prompt injection research" },
+  { label: "Other projects", id: "portfolio", note: "Shipped web work" },
+  { label: "Experience", id: "experience", note: "Where I have worked" },
+];
+
+// Mobile mirrors the desktop grouping: flat primary links, then Work and
+// Writing as labeled groups.
+const MOBILE_PRIMARY: NavLink[] = [
   ...TOP_LINKS,
-  PROJECTS_LINK,
   LABS_LINK,
   CREDENTIALS_LINK,
-  CONTACT_LINK,
   CTA_LINK,
+  CONTACT_LINK,
+];
+
+const WRITING_ITEMS: NavItem[] = [
+  { label: "AppSec Notes", href: "/notes", note: "Course and cert notes" },
+  { label: "Blog", href: "/blog", note: "Writeups and findings" },
+  { label: "Now", href: "/now", note: "What I am working on" },
 ];
 
 const linkBase =
@@ -45,6 +60,18 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const toggleMenu = () => setIsOpen((v) => !v);
+
+  const openSearch = () => {
+    setIsOpen(false);
+    window.dispatchEvent(new Event(OPEN_EVENT));
+  };
+
+  // Mac shows ⌘K, everything else Ctrl K. Resolved after mount so the server
+  // and client markup match.
+  const [isMac, setIsMac] = useState(false);
+  useEffect(() => {
+    setIsMac(/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent));
+  }, []);
 
   const handleLogoClick = (e: React.MouseEvent) => {
     if (pathname === "/") {
@@ -104,6 +131,111 @@ export default function Navbar() {
     );
   };
 
+  const itemHref = (item: NavItem) => (item.href ? item.href : sectionHref(item.id!));
+
+  const isItemActive = (item: NavItem) =>
+    item.href ? pathname.startsWith(item.href) : activeSection === item.id;
+
+  const NavDropdown = ({ label, items }: { label: string; items: NavItem[] }) => {
+    const [open, setOpen] = useState(false);
+    const wrapRef = useRef<HTMLDivElement>(null);
+    const groupActive = items.some(isItemActive);
+
+    useEffect(() => {
+      if (!open) return;
+      const onDown = (e: MouseEvent) => {
+        if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
+      };
+      const onEsc = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setOpen(false);
+      };
+      document.addEventListener("mousedown", onDown);
+      document.addEventListener("keydown", onEsc);
+      return () => {
+        document.removeEventListener("mousedown", onDown);
+        document.removeEventListener("keydown", onEsc);
+      };
+    }, [open]);
+
+    return (
+      <div
+        ref={wrapRef}
+        className="relative"
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-haspopup="true"
+          className={`${linkBase} inline-flex items-center gap-1.5 ${
+            groupActive ? linkActive : linkInactive
+          }`}
+        >
+          {label}
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className={`w-2.5 h-2.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          />
+          {groupActive && <div className={underline} />}
+        </button>
+
+        {open && (
+          <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-64">
+            <div className="rounded-xl border shadow-lg overflow-hidden bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+              {items.map((item) => {
+                const active = isItemActive(item);
+                const content = (
+                  <>
+                    <span
+                      className={`block text-sm font-medium ${
+                        active
+                          ? "text-gray-900 dark:text-white"
+                          : "text-gray-700 dark:text-gray-200"
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                    {item.note && (
+                      <span className="block mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                        {item.note}
+                      </span>
+                    )}
+                  </>
+                );
+                const cls = `block px-4 py-2.5 transition-colors duration-150 ${
+                  active
+                    ? "bg-gray-100 dark:bg-gray-800"
+                    : "hover:bg-gray-50 dark:hover:bg-gray-800/60"
+                }`;
+                return item.href ? (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={cls}
+                    onClick={() => setOpen(false)}
+                  >
+                    {content}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={itemHref(item)}
+                    className={cls}
+                    onClick={() => setOpen(false)}
+                  >
+                    {content}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <nav
       id="main-navbar"
@@ -139,7 +271,7 @@ export default function Navbar() {
             <SectionLink key={link.id} link={link} />
           ))}
 
-          <SectionLink link={PROJECTS_LINK} />
+          <NavDropdown label="Work" items={WORK_ITEMS} />
 
           {/* Labs — amber accent */}
           <a
@@ -155,6 +287,8 @@ export default function Navbar() {
               <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-px bg-amber-500" />
             )}
           </a>
+
+          <NavDropdown label="Writing" items={WRITING_ITEMS} />
 
           <SectionLink link={CREDENTIALS_LINK} />
 
@@ -172,6 +306,19 @@ export default function Navbar() {
 
           <SectionLink link={CONTACT_LINK} />
         </div>
+
+        {/* Search */}
+        <button
+          onClick={openSearch}
+          className="hidden sm:inline-flex items-center gap-2 h-9 px-3 border shrink-0 transition-colors duration-300 border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900 dark:border-gray-700 dark:text-gray-400 dark:hover:border-white dark:hover:text-white"
+          aria-label="Search labs, writing, and notes"
+        >
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="w-3.5 h-3.5" />
+          <span className="hidden lg:inline text-xs font-medium tracking-wide">Search</span>
+          <span className="hidden lg:inline font-mono text-[10px] opacity-60">
+            {isMac ? "⌘K" : "Ctrl K"}
+          </span>
+        </button>
 
         {/* Theme Toggle */}
         <button
@@ -251,7 +398,16 @@ export default function Navbar() {
               className="p-4 overflow-y-auto bg-white dark:bg-gray-900"
               style={{ maxHeight: "calc(100vh - 200px)" }}
             >
-              {ALL_LINKS.map((link, index) => {
+              <button
+                type="button"
+                onClick={openSearch}
+                className="flex w-full items-center gap-3 py-3 px-3 mb-2 rounded-lg border text-sm font-medium transition-colors border-gray-200 text-gray-500 active:bg-gray-100 dark:border-gray-800 dark:text-gray-400 dark:active:bg-gray-800"
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className="w-3.5 h-3.5" />
+                Search labs, writing, notes
+              </button>
+
+              {MOBILE_PRIMARY.map((link) => {
                 const isActive = activeSection === link.id;
                 const isLabs = link.id === "security-labs";
                 const isFitCheck = link.id === "fit-check";
@@ -274,61 +430,45 @@ export default function Navbar() {
                     href={sectionHref(link.id)}
                     className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${colorClass}`}
                     onClick={toggleMenu}
-                    style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {link.label}
                   </a>
                 );
               })}
 
-              <div className="my-2 mx-3 border-t border-gray-200 dark:border-gray-800" />
-              <a
-                href={sectionHref("experience")}
-                className="block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
-                onClick={toggleMenu}
-              >
-                Experience
-              </a>
-              <a
-                href={sectionHref("portfolio")}
-                className="block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
-                onClick={toggleMenu}
-              >
-                Portfolio
-              </a>
-              <Link
-                href="/notes"
-                className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
-                  pathname.startsWith("/notes")
-                    ? "text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-800"
-                    : "text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
-                }`}
-                onClick={toggleMenu}
-              >
-                Notes
-              </Link>
-              <Link
-                href="/blog"
-                className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
-                  pathname.startsWith("/blog")
-                    ? "text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-800"
-                    : "text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
-                }`}
-                onClick={toggleMenu}
-              >
-                Blog
-              </Link>
-              <Link
-                href="/now"
-                className={`block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
-                  pathname.startsWith("/now")
-                    ? "text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-800"
-                    : "text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
-                }`}
-                onClick={toggleMenu}
-              >
-                Now
-              </Link>
+              {[
+                { heading: "Work", items: WORK_ITEMS },
+                { heading: "Writing", items: WRITING_ITEMS },
+              ].map((group) => (
+                <div key={group.heading}>
+                  <div className="my-2 mx-3 border-t border-gray-200 dark:border-gray-800" />
+                  <div className="px-3 pt-1 pb-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                    {group.heading}
+                  </div>
+                  {group.items.map((item) => {
+                    const active = isItemActive(item);
+                    const cls = `block transition-all duration-200 py-3 px-3 text-sm font-medium rounded-lg mb-0.5 active:scale-95 active:opacity-80 ${
+                      active
+                        ? "text-gray-900 bg-gray-100 dark:text-white dark:bg-gray-800"
+                        : "text-gray-700 active:bg-gray-100 dark:text-gray-300 dark:active:bg-gray-800"
+                    }`;
+                    return item.href ? (
+                      <Link key={item.label} href={item.href} className={cls} onClick={toggleMenu}>
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <a
+                        key={item.label}
+                        href={sectionHref(item.id!)}
+                        className={cls}
+                        onClick={toggleMenu}
+                      >
+                        {item.label}
+                      </a>
+                    );
+                  })}
+                </div>
+              ))}
             </div>
 
             <div className="p-6 border-t bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-800">
