@@ -49,16 +49,21 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const stream = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: LUIS_SYSTEM_PROMPT },
-        ...trimmedMessages,
-      ],
-      stream: true,
-      max_tokens: 1000,
-      temperature: 0.7,
-    });
+    // Forward the request's abort signal so a disconnect stops generation
+    // instead of billing tokens nobody will read.
+    const stream = await openai.chat.completions.create(
+      {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: LUIS_SYSTEM_PROMPT },
+          ...trimmedMessages,
+        ],
+        stream: true,
+        max_tokens: 1000,
+        temperature: 0.7,
+      },
+      { signal: req.signal }
+    );
 
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
