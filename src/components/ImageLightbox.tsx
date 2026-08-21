@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -48,11 +49,17 @@ export default function ImageLightbox({ src, alt, caption, isOpen, onClose }: Im
         className="flex flex-col items-center max-w-[95vw] max-h-[95vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={src}
-          alt={alt ?? "Zoomed image"}
-          className="max-w-full max-h-[85vh] w-auto h-auto object-contain rounded-lg"
-        />
+        {/* Screenshots vary in intrinsic size, so fill inside a
+            viewport-sized box and let object-contain letterbox them. */}
+        <div className="relative w-[95vw] h-[85vh]">
+          <Image
+            src={src}
+            alt={alt ?? "Zoomed image"}
+            fill
+            sizes="95vw"
+            className="object-contain rounded-lg"
+          />
+        </div>
         {caption && (
           <p className="mt-3 text-sm text-center text-gray-300">
             {caption}
