@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buttonPrimary, buttonSecondary } from "../../components/ui/button";
 import { containerShell } from "../../components/ui/Section";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -161,7 +162,7 @@ npx llm-audit scan           # run on your own code`}</code>
               href={REPO_URL}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100 dark:hover:bg-white"
+              className={buttonPrimary}
             >
               <FontAwesomeIcon icon={faGithub} />
               GitHub
@@ -171,14 +172,14 @@ npx llm-audit scan           # run on your own code`}</code>
               href={NPM_URL}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+              className={buttonSecondary}
             >
               <FontAwesomeIcon icon={faNpm} className="text-[#cb3837]" />
               npm
             </a>
             <Link
               href={BLOG_URL}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+              className={buttonSecondary}
             >
               Blog post: how I built it
               <FontAwesomeIcon icon={faArrowRight} className="text-xs" />

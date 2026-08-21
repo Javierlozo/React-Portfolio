@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { buttonPrimary } from "./ui/button";
 import { containerShell } from "./ui/Section";
 import Link from "next/link";
 import Image from "next/image";
@@ -65,7 +66,7 @@ export default function NotesTeaser() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/notes"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100 dark:hover:bg-white"
+              className={buttonPrimary}
             >
               Browse all notes
               <FontAwesomeIcon icon={faArrowRight} className="text-xs" />

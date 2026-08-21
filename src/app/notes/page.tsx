@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buttonPrimary, buttonSecondary } from "../../components/ui/button";
 import { containerShell } from "../../components/ui/Section";
 import Link from "next/link";
 import Image from "next/image";
@@ -139,7 +140,7 @@ function RepoCard({ repo }: { repo: NotesRepo }) {
       <div className="relative flex flex-wrap gap-3 items-center">
         <Link
           href={repoHref}
-          className="relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100 dark:hover:bg-white"
+          className={`relative z-10 ${buttonPrimary}`}
         >
           Read notes
           <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
@@ -148,7 +149,7 @@ function RepoCard({ repo }: { repo: NotesRepo }) {
           href={repo.repoUrl}
           target="_blank"
           rel="noreferrer noopener"
-          className="relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-700 border-gray-300 hover:border-amber-400 hover:text-amber-800 dark:text-gray-300 dark:border-gray-700 dark:hover:border-amber-500/50 dark:hover:text-amber-300"
+          className={`relative z-10 ${buttonSecondary}`}
         >
           <FontAwesomeIcon icon={faGithub} />
           GitHub
@@ -187,7 +188,7 @@ export default function NotesPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/#security-labs"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-surface-card text-gray-900 border-gray-300 hover:border-amber-400 hover:bg-amber-50 dark:text-gray-100 dark:border-gray-700 dark:hover:border-amber-500/50"
+              className={buttonSecondary}
             >
               See hands-on labs
               <FontAwesomeIcon icon={faArrowRight} className="text-xs" />

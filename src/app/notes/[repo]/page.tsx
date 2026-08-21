@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buttonPrimary } from "../../../components/ui/button";
 import { containerShell } from "../../../components/ui/Section";
 import Link from "next/link";
 import Image from "next/image";
@@ -119,7 +120,7 @@ export default async function RepoPage({ params }: Props) {
               href={r.repoUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors bg-gray-900 text-white border-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100 dark:hover:bg-white"
+              className={buttonPrimary}
             >
               <FontAwesomeIcon icon={faGithub} />
               {r.repoName}
