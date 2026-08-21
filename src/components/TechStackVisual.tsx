@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
+import Section from "./ui/Section";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReact,
@@ -120,11 +121,10 @@ export default function TechStackVisual() {
   const { ref: secondaryRef, visible: secondaryVisible } = useReveal(0.1);
 
   return (
-    <section
+    <Section
       id="skills"
       aria-label="Tech stack overview"
-      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
-    >
+      container={false}>
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2 className="text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
@@ -198,6 +198,6 @@ export default function TechStackVisual() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

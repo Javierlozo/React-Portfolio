@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { headingRuleClass } from "./ui/SectionHeading";
+import Section from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt, faCode, faShieldHalved, faBriefcase } from "@fortawesome/free-solid-svg-icons";
@@ -271,13 +273,12 @@ export default function PortfolioSlider() {
   const otherCount = PROJECTS.filter((p) => p.category === "other").length;
 
   return (
-    <section
+    <Section
       id="portfolio"
-      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
-    >
+      container={false}>
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
         <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-4 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
+          <h2 className={`${headingRuleClass} mb-4`}>
             Portfolio
           </h2>
           <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
@@ -462,6 +463,6 @@ export default function PortfolioSlider() {
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

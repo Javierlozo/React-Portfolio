@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { sectionShell } from "./ui/Section";
+import { headingRuleClass } from "./ui/SectionHeading";
 
 interface FitResult {
   score: number;
@@ -113,7 +115,7 @@ export default function FitAssessment() {
     <section
       id="fit-check"
       ref={sectionRef}
-      className="py-12 sm:py-16 md:py-20 w-full bg-[#FAFAF9] dark:bg-[#0B1220]"
+      className={`${sectionShell} w-full`}
     >
       <div className="w-full px-4 sm:px-6 md:px-8 max-w-3xl mx-auto">
         <div
@@ -124,7 +126,7 @@ export default function FitAssessment() {
           <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-green-700 dark:text-green-400">
             Fit Check
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-4 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
+          <h2 className={`${headingRuleClass} mb-4`}>
             Would Luis be a good fit?
           </h2>
           <p className="text-base sm:text-lg max-w-lg mx-auto text-gray-600 dark:text-gray-400">

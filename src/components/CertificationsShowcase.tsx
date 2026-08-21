@@ -1,5 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
+import SectionHeading from "./ui/SectionHeading";
+import Section from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
@@ -85,16 +87,11 @@ export default function CertificationsShowcase() {
   const { ref, visible } = useReveal();
 
   return (
-    <section
+    <Section
       id="certifications"
-      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
-    >
+      container={false}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-3 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
-            Certifications
-          </h2>
-        </div>
+        <SectionHeading title="Certifications" margin="mb-10" />
 
         <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {CERTS.map((cert, i) => {
@@ -179,6 +176,6 @@ export default function CertificationsShowcase() {
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

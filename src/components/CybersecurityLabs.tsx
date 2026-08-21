@@ -1,5 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
+import { headingClass } from "./ui/SectionHeading";
+import Section from "./ui/Section";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -174,14 +176,14 @@ export default function CybersecurityLabs() {
   const hasMoreLabs = completedLabs.length > FEATURED_COUNT;
 
   return (
-    <section id="security-labs" className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <Section id="security-labs" container={false}>
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4">
             <div className="p-2 rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400">
               <FontAwesomeIcon icon={faFlask} className="text-xl" />
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin text-gray-900 dark:text-white">
+            <h2 className={headingClass}>
               Security Labs
             </h2>
             <span className="font-mono text-xs sm:text-sm font-semibold tabular-nums px-3 py-1 rounded-full whitespace-nowrap bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20">
@@ -266,6 +268,6 @@ export default function CybersecurityLabs() {
           Labs are from SANS Cyber Academy.
         </p>
       </div>
-    </section>
+    </Section>
   );
 }

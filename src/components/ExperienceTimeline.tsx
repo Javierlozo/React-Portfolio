@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import SectionHeading from "./ui/SectionHeading";
+import Section from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe, faChevronDown, faChevronUp, faBolt } from "@fortawesome/free-solid-svg-icons";
@@ -174,16 +176,11 @@ export default function ExperienceTimeline() {
   ];
 
   return (
-    <section id="experience" className="py-12 sm:py-16 md:py-20 w-full bg-[#FAFAF9] dark:bg-[#0B1220]">
+    <Section id="experience" container={false} className="w-full">
       <div className="w-full px-4 sm:px-6 md:px-8 max-w-6xl mx-auto">
-        <div className="text-center mb-10 sm:mb-12 md:mb-16 relative z-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
-            Experience
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
-            5+ years across startups, agencies, and independent consulting
-          </p>
-        </div>
+        <SectionHeading title="Experience" className="relative z-10">
+          5+ years across startups, agencies, and independent consulting
+        </SectionHeading>
 
         <div className="relative" ref={timelineRef}>
           <div className="absolute left-2 sm:left-6 md:left-8 top-0 bottom-0 w-0.5 block bg-gray-300 dark:bg-gray-700">
@@ -411,6 +408,6 @@ export default function ExperienceTimeline() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

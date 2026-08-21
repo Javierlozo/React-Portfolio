@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { headerWrapClass, headingRuleClass, ledeClass } from "./ui/SectionHeading";
+import Section from "./ui/Section";
 import emailjs from "emailjs-com";
 
 interface FormData {
@@ -83,16 +85,13 @@ export default function Contact() {
   };
 
   return (
-    <section
+    <Section
       id="contact"
-      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
-    >
+      container={false}>
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
-        <div className="text-center mb-10 sm:mb-12 md:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700">
-            Contact
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300">
+        <div className={headerWrapClass}>
+          <h2 className={`${headingRuleClass} mb-6 sm:mb-8`}>Contact</h2>
+          <p className={ledeClass}>
             Let&apos;s discuss your next project. Reach out via the form below or connect on{" "}
             <a
               href="https://www.linkedin.com/in/luisjlozoya"
@@ -191,6 +190,6 @@ export default function Contact() {
           </button>
         </form>
       </div>
-    </section>
+    </Section>
   );
 }

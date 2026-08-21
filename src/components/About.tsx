@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { headerWrapClass, headingRuleClass, ledeClass } from "./ui/SectionHeading";
+import Section from "./ui/Section";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy, faGavel, faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import RevealText from "./RevealText";
@@ -64,23 +66,22 @@ export default function About() {
   }, []);
   
   return (
-    <section
+    <Section
       id="about"
-      className="py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]"
-    >
+      container={false}>
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         {/* Minimalist Section Header */}
-        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+        <div className={headerWrapClass}>
           <RevealText
             as="h2"
-            className="text-2xl sm:text-3xl md:text-4xl font-thin mb-6 sm:mb-8 pb-2 border-b w-fit mx-auto text-gray-900 border-gray-200 dark:text-white dark:border-gray-700"
+            className={`${headingRuleClass} mb-6 sm:mb-8`}
           >
             About
           </RevealText>
           <RevealText
             as="p"
             delay={200}
-            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-300"
+            className={ledeClass}
           >
             Current work, then the path that got me here.
           </RevealText>
@@ -219,6 +220,6 @@ export default function About() {
 
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

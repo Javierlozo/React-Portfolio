@@ -25,12 +25,20 @@ module.exports = {
         accent: {
           DEFAULT: 'var(--accent)',
           soft: 'var(--accent-soft)',
+          warm: 'var(--accent-warm)',
+          'warm-soft': 'var(--accent-warm-soft)',
+          'warm-border': 'var(--accent-warm-border)',
         },
         divider: 'var(--border)',
         link: {
           DEFAULT: 'var(--link)',
           hover: 'var(--link-hover)',
         },
+      },
+      maxWidth: {
+        measure: 'var(--measure-narrow)',
+        'measure-wide': 'var(--measure-wide)',
+        'measure-page': 'var(--measure-page)',
       },
       zIndex: {
         nav: '100',
