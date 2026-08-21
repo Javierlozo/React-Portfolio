@@ -4,6 +4,8 @@ import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
+import { certsByStatus } from "@/src/data/learningPath";
+
 import gcih from "@/src/assets/certifications/GCIH.png";
 import gsec from "@/src/assets/certifications/GSEC.png";
 import gfact from "@/src/assets/certifications/GFACT.png";
@@ -151,7 +153,7 @@ export default function CertificationsShowcase() {
           <span className="font-mono uppercase tracking-widest text-gray-500 dark:text-gray-400 mr-1">
             In progress
           </span>
-          {["PortSwigger BSCP", "TCM PWPA (Web Pentest)", "AWS Security Specialty (SCS-C02)"].map((label) => (
+          {certsByStatus("In progress").map(({ name: label }) => (
             <span
               key={label}
               className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 border-amber-300 text-amber-800 bg-amber-50 dark:border-amber-500/40 dark:text-amber-300 dark:bg-amber-500/10"
@@ -166,7 +168,7 @@ export default function CertificationsShowcase() {
           <span className="font-mono uppercase tracking-widest text-gray-400 dark:text-gray-500 mr-1">
             Planned
           </span>
-          {["AWS Solutions Architect Associate (SAA-C03)"].map((label) => (
+          {certsByStatus("Planned").map(({ name: label }) => (
             <span
               key={label}
               className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 border-gray-300 text-gray-600 bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800/50"

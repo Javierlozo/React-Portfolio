@@ -145,7 +145,7 @@ export default function About() {
             <span className="font-normal text-gray-900 dark:text-white">
               GIAC GFACT, GSEC, and GCIH certifications
             </span>
-            . PortSwigger BSCP and TCM&apos;s web pentest cert (PWPA) are in progress. AWS Security Specialty is on the roadmap for later in 2026.
+            . AWS AI Practitioner and AWS Security Specialty are scheduled for September and October 2026, PortSwigger BSCP after that. The focus from here is AI and LLM security plus cloud security engineering.
           </p>
           
           <p

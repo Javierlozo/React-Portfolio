@@ -49,7 +49,8 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 - GIAC GFACT - Foundational Cybersecurity Technologies (2026)
 - Purdue University System Administration Certificate (2023)
 - CAPM (Certified Associate in Project Management, 2014)
-- In progress: PortSwigger BSCP, TCM PWPA, AWS Security Specialty (SCS-C02)
+- In progress: AWS AI Practitioner (AIF-C01, Sept 2026), AWS Security Specialty (SCS-C02, Oct 2026), PortSwigger BSCP (Q4 2026)
+- Planned: TryHackMe AI Security (AI1), HackTheBox AI Red Teamer path, TCM PWPA (Web Pentest)
 
 ## Cybersecurity Labs
 - Completed hands-on security labs with detailed technical write-ups published on portfolio

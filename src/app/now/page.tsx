@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { certTimeline } from "../../data/learningPath";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -38,24 +39,14 @@ const WORKING_ON = [
   "Passed GIAC GCIH (SEC504) in August 2026. The labs are published here: live PowerShell investigation, RITA beacon detection, Hayabusa log triage, and Nmap discovery.",
   "PortSwigger BSCP prep. Web pentesting is a skill I keep sharp, not my identity.",
   "Building llm-audit. Five OWASP LLM Top 10 rules shipped in v0, more coming for the TS/JS ecosystem Semgrep's official AI pack does not cover.",
-  "Studying for AWS Security Specialty (SCS-C02), target Sept 2026. IAM least-privilege, CloudTrail detection, and Cognito hardening against enumeration.",
+  "Studying for AWS AI Practitioner (AIF-C01, Sept 2026) and AWS Security Specialty (SCS-C02, Oct 2026). IAM least-privilege, CloudTrail detection, and Cognito hardening against enumeration.",
 ];
 
-const CERT_STATUS: { name: string; status: string; date: string }[] = [
-  { name: "GIAC GSEC", status: "Passed", date: "March 2026" },
-  { name: "GIAC GFACT", status: "Passed", date: "Jan 2026" },
-  { name: "SANS Foundations Alumni", status: "Passed", date: "Dec 2025" },
-  { name: "GIAC GCIH (SEC504)", status: "Passed", date: "August 2026" },
-  { name: "PortSwigger BSCP", status: "In progress", date: "Target Sept 2026" },
-  { name: "TCM PWPA (Web Pentest)", status: "In progress", date: "2026" },
-  { name: "AWS Security Specialty (SCS-C02)", status: "In progress", date: "Target Sept 2026" },
-  { name: "AWS Solutions Architect Associate (SAA-C03)", status: "Planned", date: "Later" },
-];
 
 export default function NowPage() {
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-[#FAFAF9] dark:bg-[#0B1220]">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-3xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
         <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
           <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
           Updated {LAST_UPDATED}
@@ -95,7 +86,7 @@ export default function NowPage() {
           <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
             <table className="w-full text-sm sm:text-base">
               <tbody>
-                {CERT_STATUS.map((c, i) => (
+                {certTimeline.map((c, i) => (
                   <tr
                     key={c.name}
                     className={
