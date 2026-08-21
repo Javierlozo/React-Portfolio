@@ -17,7 +17,7 @@ import { LLM_AUDIT_RULES } from "../data/llm-audit-rules";
 const REPO_URL = "https://github.com/Javierlozo/llm-audit";
 const NPM_URL = "https://www.npmjs.com/package/llm-audit";
 
-// Three of the five v0 rules, picked for the home page because they read
+// Three of the eight rules, picked for the home page because they read
 // fastest at a glance. Full set lives on /llm-audit.
 const FEATURED_IDS = [
   "untrusted-input-in-system-prompt",
@@ -70,7 +70,7 @@ export default function LlmAuditFeature() {
           </div>
           <pre className="m-0 overflow-x-auto p-4 text-[13px] leading-relaxed text-gray-100 font-mono">
             <code>{`npm i -D llm-audit
-npx llm-audit demo           # all 5 rules vs bundled vulnerable fixtures`}</code>
+npx llm-audit demo           # all 8 rules vs bundled vulnerable fixtures`}</code>
           </pre>
         </div>
 
@@ -114,7 +114,7 @@ npx llm-audit demo           # all 5 rules vs bundled vulnerable fixtures`}</cod
             href="/llm-audit"
             className={buttonPrimary}
           >
-            All 5 rules and how it works
+            All 8 rules and how it works
             <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
           </Link>
           <a

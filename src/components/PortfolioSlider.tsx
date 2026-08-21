@@ -86,10 +86,10 @@ const PROJECTS: Project[] = [
     problem:
       "AI coding assistants reproduce a small, predictable set of security failures in LLM-integrated code: untrusted input flowing into the LLM `system` role, model output piped into `eval` or `dangerouslySetInnerHTML`, hardcoded API keys, JSON.parse on raw model output. Existing OSS SAST tooling (Semgrep `p/ai-best-practices`, agent-audit) is Python-only. The TypeScript and JavaScript ecosystem (Vercel AI SDK, Next.js Server Actions, OpenAI / Anthropic JS SDKs) was uncovered.",
     approach:
-      "Built a focused Semgrep rule pack mapped explicitly to OWASP LLM Top 10, distributed via npm with a thin CLI that wires up a husky pre-commit hook and a GitHub Action workflow. Five rules in v0, each with vulnerable + safe fixtures, exercised by a test runner. Released under MIT.",
+      "Built a focused Semgrep rule pack mapped explicitly to OWASP LLM Top 10, distributed via npm with a thin CLI that wires up a husky pre-commit hook and a GitHub Action workflow. Eight rules covering LLM01, LLM02, LLM06 and LLM08, each with vulnerable + safe fixtures, exercised by a test runner. Released under MIT.",
     outcome:
-      "Live on npm at version 0.0.2 with a self-audit and full documentation. Caught a real LLM02 (Insecure Output Handling) bug in this very portfolio's recruiter-fit endpoint and shipped the fix in the same session.",
-    role: "Solo build: rules, CLI, fixtures, distribution, docs, self-audit. v1 plan adds 7 more rules.",
+      "Live on npm at 0.1.0: eight rules, 30 vulnerable matches, zero false positives on the safe fixtures. Caught a real LLM02 (Insecure Output Handling) bug in this portfolio's recruiter-fit endpoint. Dogfooding the LLM01 rule against the same codebase then exposed a false-positive class, which shipped as sanitizers for hand-rolled validation.",
+    role: "Solo build: rules, CLI, fixtures, distribution, docs, self-audit. Four more rules planned for v1.",
   },
   {
     id: 20,
