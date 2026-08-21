@@ -88,7 +88,7 @@ const PROJECTS: Project[] = [
     approach:
       "Built a focused Semgrep rule pack mapped explicitly to OWASP LLM Top 10, distributed via npm with a thin CLI that wires up a husky pre-commit hook and a GitHub Action workflow. Eight rules covering LLM01, LLM02, LLM06 and LLM08, each with vulnerable + safe fixtures, exercised by a test runner. Released under MIT.",
     outcome:
-      "Live on npm at 0.1.0: eight rules, 30 vulnerable matches, zero false positives on the safe fixtures. Caught a real LLM02 (Insecure Output Handling) bug in this portfolio's recruiter-fit endpoint. Dogfooding the LLM01 rule against the same codebase then exposed a false-positive class, which shipped as sanitizers for hand-rolled validation.",
+      "Live on npm at 0.1.1: eight rules, 30 vulnerable matches, zero false positives on the safe fixtures. Caught a real LLM02 (Insecure Output Handling) bug in this portfolio's recruiter-fit endpoint. Dogfooding the LLM01 rule against the same codebase then exposed a false-positive class, which shipped as sanitizers for hand-rolled validation.",
     role: "Solo build: rules, CLI, fixtures, distribution, docs, self-audit. Four more rules planned for v1.",
   },
   {
