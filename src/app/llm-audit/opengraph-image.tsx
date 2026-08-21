@@ -53,7 +53,7 @@ export default async function LlmAuditOGImage() {
               background: "#fbbf24",
             }}
           />
-          Open source · MIT · v0.1.1
+          Open source · MIT · v0.2.0
         </div>
 
         <div

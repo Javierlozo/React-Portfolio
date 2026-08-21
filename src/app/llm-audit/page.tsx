@@ -129,7 +129,7 @@ export default function LlmAuditPage() {
             </div>
             <pre className="m-0 overflow-x-auto p-4 text-[13px] leading-relaxed text-gray-100 font-mono">
               <code>{`brew install semgrep         # one-time
-npx llm-audit demo           # all 8 rules vs bundled vulnerable fixtures`}</code>
+npx llm-audit demo           # all 12 rules vs bundled vulnerable fixtures`}</code>
             </pre>
           </div>
           <p className="text-sm mt-2 text-content-subtle">
@@ -209,7 +209,7 @@ npx llm-audit scan           # run on your own code`}</code>
             </p>
             <p>
               <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">llm-audit</code>{" "}
-              fills that niche. Eight rules, mapped explicitly to OWASP
+              fills that niche. Twelve rules, mapped explicitly to OWASP
               LLM Top 10, distributed as a Semgrep pack with a thin npm CLI
               on top. Runs at pre-commit and in CI.
             </p>
@@ -329,7 +329,7 @@ npx llm-audit scan           # run on your own code`}</code>
                 <code>npx llm-audit demo</code>
               </pre>
               <p className="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                Runs all 8 rules against the bundled vulnerable fixtures. No
+                Runs all 12 rules against the bundled vulnerable fixtures. No
                 project setup, no config. Requires Semgrep on PATH.
               </p>
             </div>
