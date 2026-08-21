@@ -14,7 +14,7 @@ export async function generateMetadata({
   const lab = getLabByCourseAndSlug(course, slug);
 
   if (!lab || lab.comingSoon) {
-    return { title: "Lab Not Found" };
+    return { title: "Lab Not Found", robots: { index: false, follow: false } };
   }
 
   const title = lab.title;
@@ -32,6 +32,7 @@ export async function generateMetadata({
     title,
     description,
     keywords,
+    alternates: { canonical: `https://www.luislozoya.com${getLabPath(lab)}` },
     openGraph: {
       title,
       description,

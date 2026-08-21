@@ -11,6 +11,7 @@ import PageTracker from "../components/PageTracker";
 import SiteChrome from "../components/SiteChrome";
 import SmoothScroll from "../components/SmoothScroll";
 import CommandPalette from "../components/CommandPalette";
+import { getSearchIndex } from "../lib/search-index";
 import { ReactNode } from "react";
 import { headers } from "next/headers";
 
@@ -32,20 +33,31 @@ export const metadata = {
     default: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
     template: "%s | Luis Javier Lozoya"
   },
-  description: "GIAC GCIH + GSEC + GFACT certified software engineer. 5+ years building and securing React, Next.js, and AWS apps. Open to AppSec, DevSecOps, and cloud security roles.",
+  description: "Application Security Engineer in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
   keywords: [
     "Application Security Engineer",
     "AppSec Engineer",
     "Security Engineer",
     "DevSecOps Engineer",
     "Cloud Security Engineer",
+    "LLM Security",
+    "AI Security",
+    "AI Security Engineer",
+    "OWASP LLM Top 10",
+    "Prompt Injection",
+    "Semgrep rules",
+    "Static Analysis",
     "Web Application Security",
+    "Web Application Penetration Testing",
     "Penetration Testing",
     "OWASP Top 10",
     "GIAC GCIH",
     "GIAC GSEC",
     "GIAC GFACT",
     "AWS Security",
+    "AWS Cognito security",
+    "AWS IAM",
+    "AWS Lambda security",
     "AWS Engineer",
     "Full Stack Engineer",
     "Software Engineer",
@@ -70,7 +82,7 @@ export const metadata = {
   },
   openGraph: {
     title: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
-    description: "GIAC GCIH + GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
+    description: "Application Security Engineer in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
     url: 'https://www.luislozoya.com',
     siteName: 'Luis Javier Lozoya Portfolio',
     locale: 'en_US',
@@ -80,7 +92,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Luis Javier Lozoya | Application Security Engineer · AppSec & Cloud",
-    description: "GIAC GCIH + GSEC + GFACT certified. 5+ years building and securing production web apps with React, Next.js, and AWS. Based in Charleston, SC. Open to AppSec, DevSecOps, and cloud security roles.",
+    description: "Application Security Engineer in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
     creator: '@javierlozo',
   },
   robots: {
@@ -175,7 +187,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           </SiteChrome>
           <PageTracker />
           <SmoothScroll />
-          <CommandPalette />
+          <CommandPalette docs={getSearchIndex()} />
         </ThemeProvider>
       </body>
     </html>

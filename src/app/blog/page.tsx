@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     "security labs",
     "PCAP analysis",
   ],
+  alternates: { canonical: "https://www.luislozoya.com/blog" },
   openGraph: {
     title: "Blog - Security Labs & Technical Writeups",
     description:

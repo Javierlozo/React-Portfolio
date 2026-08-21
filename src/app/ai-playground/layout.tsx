@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "LLM Red Team Lab | Luis Javier Lozoya",
+  title: "LLM Red Team Lab",
   description:
     "A reproducible red-team study of prompt-injection attacks against production LLMs. ~30 attacks mapped to OWASP LLM Top 10 and MITRE ATLAS, tested across six frontier and budget-tier models via Vercel AI Gateway. Includes working defensive mitigations.",
   keywords: [
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
       "Prompt injection research across Claude, GPT, and Gemini — OWASP LLM Top 10, MITRE ATLAS, reproducible evidence.",
     type: "article",
   },
+  alternates: { canonical: "https://www.luislozoya.com/ai-playground" },
   robots: { index: true, follow: true },
 };
 
