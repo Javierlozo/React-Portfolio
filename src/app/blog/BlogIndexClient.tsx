@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { containerShell } from "../../components/ui/Section";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +18,7 @@ export default function BlogIndexClient({ posts }: { posts: BlogPost[] }) {
 
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+      <div className={containerShell("feature")}>
         <header className="mb-12 sm:mb-16">
           <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
             <FontAwesomeIcon icon={faPenNib} className="mr-2" />

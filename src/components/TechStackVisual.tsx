@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import Section from "./ui/Section";
+import Section, { containerShell } from "./ui/Section";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faReact,
@@ -125,7 +125,7 @@ export default function TechStackVisual() {
       id="skills"
       aria-label="Tech stack overview"
       container={false}>
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
+      <div className={containerShell("grid")}>
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h2 className="text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight text-content border-divider">
             Tech Stack

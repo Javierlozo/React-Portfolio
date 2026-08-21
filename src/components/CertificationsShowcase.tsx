@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import SectionHeading from "./ui/SectionHeading";
-import Section from "./ui/Section";
+import Section, { containerShell } from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
@@ -90,7 +90,7 @@ export default function CertificationsShowcase() {
     <Section
       id="certifications"
       container={false}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+      <div className={containerShell("grid")}>
         <SectionHeading title="Certifications" margin="mb-10" />
 
         <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">

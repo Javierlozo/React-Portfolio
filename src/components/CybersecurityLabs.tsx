@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
+import { containerShell } from "./ui/Section";
 import { headingClass } from "./ui/SectionHeading";
 import Section from "./ui/Section";
 import Link from "next/link";
@@ -177,7 +178,7 @@ export default function CybersecurityLabs() {
 
   return (
     <Section id="security-labs" container={false}>
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+      <div className={containerShell("grid")}>
         <div className="text-center mb-10 sm:mb-12 md:mb-16">
           <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4">
             <div className="p-2 rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400">

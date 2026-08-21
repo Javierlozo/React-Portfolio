@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { containerShell } from "./ui/Section";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedinIn, faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -11,7 +12,7 @@ const socialLink =
 export default function Footer() {
   return (
     <footer className="py-12 sm:py-14 md:py-16 bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+      <div className={containerShell("prose")}>
         <div className="text-center">
           <div className="mb-10 sm:mb-12">
             <h4 className="text-xl font-light tracking-wide mb-6 text-content">

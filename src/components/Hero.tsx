@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { containerShell } from "./ui/Section";
 import Image from "next/image";
 import photo from "@/src/assets/pictures/Photo-127.jpg";
 import BorderDrawButton from "./BorderDrawButton";
@@ -62,7 +63,7 @@ export default function Hero() {
       id="hero"
     >
       <div
-        className="px-4 sm:px-6 md:px-8 max-w-6xl mx-auto pt-20 sm:pt-24 md:pt-20 lg:pt-16 pb-12 sm:pb-0"
+        className={`${containerShell("grid")} pt-20 sm:pt-24 md:pt-20 lg:pt-16 pb-12 sm:pb-0`}
         style={{
           opacity: Math.max(0, heroOpacity),
           transform: `translateY(${heroTranslateY}px)`,

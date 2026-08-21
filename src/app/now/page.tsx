@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { containerShell } from "../../components/ui/Section";
 import { certTimeline } from "../../data/learningPath";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -46,7 +47,7 @@ const WORKING_ON = [
 export default function NowPage() {
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+      <div className={containerShell("feature")}>
         <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
           <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
           Updated {LAST_UPDATED}

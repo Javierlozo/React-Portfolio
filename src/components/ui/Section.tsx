@@ -10,21 +10,21 @@ export const sectionShell = "py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B12
 
 /** Container widths, named by intent rather than by number. */
 export const CONTAINER_WIDTH = {
-  /** Long-form prose. */
+  /** Tight column, forms and single-purpose panels. */
   narrow: "max-w-3xl",
-  /** Default reading column for text sections. */
-  default: "max-w-4xl",
-  /** Index and landing layouts. */
-  wide: "max-w-5xl",
-  /** Card grids. */
+  /** Body copy. The default for text-led sections. */
+  prose: "max-w-4xl",
+  /** Feature blocks with code, cards or media alongside text. */
+  feature: "max-w-5xl",
+  /** Card and tile grids. */
   grid: "max-w-6xl",
-  /** Card grids that want the full page measure. */
+  /** Full-bleed layouts that want the whole page measure. */
   page: "max-w-7xl",
 } as const;
 
 export type ContainerWidth = keyof typeof CONTAINER_WIDTH;
 
-export const containerShell = (width: ContainerWidth = "default") =>
+export const containerShell = (width: ContainerWidth = "prose") =>
   `container mx-auto px-4 sm:px-6 md:px-8 ${CONTAINER_WIDTH[width]}`;
 
 interface SectionProps {
@@ -41,7 +41,7 @@ interface SectionProps {
 
 export default function Section({
   id,
-  width = "default",
+  width = "prose",
   className = "",
   containerClassName = "",
   container = true,

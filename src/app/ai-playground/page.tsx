@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CONTAINER_WIDTH } from "../../components/ui/Section";
 import { ATTACKS } from "@/src/data/attacks";
 import { MODELS } from "@/src/data/models";
 import { OWASP_CATEGORY_NAMES } from "@/src/data/attacks/types";
@@ -8,7 +9,7 @@ export default function AiPlaygroundPage() {
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100">
-      <section className="mx-auto max-w-5xl px-6 pt-24 pb-12 sm:pt-32">
+      <section className={`mx-auto ${CONTAINER_WIDTH.feature} px-6 pt-24 pb-12 sm:pt-32`}>
         <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-400/80">
           / ai-playground &mdash; llm red team lab
         </div>

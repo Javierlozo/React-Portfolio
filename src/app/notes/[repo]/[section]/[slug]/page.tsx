@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { containerShell } from "../../../../../components/ui/Section";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -98,7 +99,7 @@ export default async function NotePage({ params }: Props) {
 
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+      <div className={containerShell("prose")}>
         <article>
           <Link
             href={`/notes/${repo}#${section}`}

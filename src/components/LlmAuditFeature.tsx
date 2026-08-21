@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { containerShell } from "./ui/Section";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -33,7 +34,7 @@ export default function LlmAuditFeature() {
       id="llm-audit"
       className="py-20 sm:py-24 bg-surface"
     >
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+      <div className={containerShell("feature")}>
         <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
           <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
           Flagship project · Open source · MIT

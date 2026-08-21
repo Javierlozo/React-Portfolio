@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { containerShell } from "./ui/Section";
 import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,7 +52,7 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
 
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16 bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+      <div className={containerShell("feature")}>
         <article className="w-full">
           <Link
             href="/#security-labs"

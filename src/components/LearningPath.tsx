@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { CONTAINER_WIDTH } from "./ui/Section";
 import { learningPath, type LearningItem } from "@/src/data/learningPath";
 
 function formatLastUpdated(iso: string): string {
@@ -47,7 +48,7 @@ export default function LearningPath() {
       className="px-4 sm:px-6 md:px-8"
     >
       <div
-        className={`max-w-4xl mx-auto border-y border-gray-200 dark:border-gray-800 py-6 sm:py-8 transition-all ease-out ${dur} ${
+        className={`${CONTAINER_WIDTH.prose} mx-auto border-y border-gray-200 dark:border-gray-800 py-6 sm:py-8 transition-all ease-out ${dur} ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         }`}
       >

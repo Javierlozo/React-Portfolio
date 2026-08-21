@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { containerShell } from "../../../components/ui/Section";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -75,7 +76,7 @@ export default async function RepoPage({ params }: Props) {
 
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+      <div className={containerShell("feature")}>
         <Link
           href="/notes"
           className="inline-flex items-center gap-2 text-sm font-medium mb-8 text-amber-700 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-300"

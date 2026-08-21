@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { containerShell } from "./ui/Section";
 import { headingRuleClass } from "./ui/SectionHeading";
 import Section from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
@@ -279,7 +280,7 @@ export default function PortfolioSlider() {
     <Section
       id="portfolio"
       container={false}>
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+      <div className={containerShell("grid")}>
         <div className="text-center mb-8 sm:mb-10">
           <h2 className={`${headingRuleClass} mb-4`}>
             Portfolio

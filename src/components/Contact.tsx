@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { containerShell } from "./ui/Section";
 import { headerWrapClass, headingRuleClass, ledeClass } from "./ui/SectionHeading";
 import Section from "./ui/Section";
 import emailjs from "emailjs-com";
@@ -88,7 +89,7 @@ export default function Contact() {
     <Section
       id="contact"
       container={false}>
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
+      <div className={containerShell("prose")}>
         <div className={headerWrapClass}>
           <h2 className={`${headingRuleClass} mb-6 sm:mb-8`}>Contact</h2>
           <p className={ledeClass}>

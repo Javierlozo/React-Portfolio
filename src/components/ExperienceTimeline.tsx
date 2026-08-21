@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import SectionHeading from "./ui/SectionHeading";
-import Section from "./ui/Section";
+import Section, { containerShell } from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faCalendarAlt, faExternalLinkAlt, faBuilding, faGlobe, faChevronDown, faChevronUp, faBolt } from "@fortawesome/free-solid-svg-icons";
@@ -177,7 +177,7 @@ export default function ExperienceTimeline() {
 
   return (
     <Section id="experience" container={false} className="w-full">
-      <div className="w-full px-4 sm:px-6 md:px-8 max-w-6xl mx-auto">
+      <div className={containerShell("grid")}>
         <SectionHeading title="Experience" className="relative z-10">
           5+ years across startups, agencies, and independent consulting
         </SectionHeading>

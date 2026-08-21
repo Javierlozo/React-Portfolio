@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { containerShell } from "./ui/Section";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +15,7 @@ export default function NotesTeaser() {
       id="appsec-notes"
       className="py-12 sm:py-16 bg-surface"
     >
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl">
+      <div className={containerShell("feature")}>
         <div className="rounded-2xl border border-gray-200 dark:border-gray-700/70 bg-white dark:bg-gray-800/40 p-6 sm:p-8 md:p-10">
           <div className="flex items-start gap-4 mb-5">
             <div className="p-2.5 rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400 shrink-0">
