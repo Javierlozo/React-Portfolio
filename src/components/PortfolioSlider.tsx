@@ -4,8 +4,7 @@ import { headingRuleClass } from "./ui/SectionHeading";
 import Section from "./ui/Section";
 import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt, faCode, faShieldHalved, faBriefcase } from "@fortawesome/free-solid-svg-icons";
-import { faNpm } from "@fortawesome/free-brands-svg-icons";
+import { faExternalLinkAlt, faCode, faCube, faShieldHalved, faBriefcase } from "@fortawesome/free-solid-svg-icons";
 
 import lessUSA from "@/src/assets/pictures/Less1.png";
 import querri from "@/src/assets/pictures/querri1.png";
@@ -438,7 +437,7 @@ export default function PortfolioSlider() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
                     >
-                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                      <FontAwesomeIcon icon={faExternalLinkAlt} fixedWidth />
                       <span>View Live</span>
                     </a>
                   )}
@@ -449,7 +448,7 @@ export default function PortfolioSlider() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
                     >
-                      <FontAwesomeIcon icon={faNpm} />
+                      <FontAwesomeIcon icon={faCube} fixedWidth />
                       <span>View on npm</span>
                     </a>
                   )}
@@ -460,7 +459,7 @@ export default function PortfolioSlider() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-colors duration-300 border border-gray-300 text-content-muted hover:border-gray-400 hover:text-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-200"
                     >
-                      <FontAwesomeIcon icon={faCode} />
+                      <FontAwesomeIcon icon={faCode} fixedWidth />
                       <span>View Code</span>
                     </a>
                   )}
