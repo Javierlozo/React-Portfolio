@@ -407,47 +407,41 @@ npx llm-audit init`}</code>
           </p>
         </section>
 
-        {/* Roadmap */}
+        {/* Status */}
         <section className="mb-14">
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-4 text-amber-700 dark:text-amber-400">
-            v1 roadmap
+            v1 shipped
           </h2>
           <div className="rounded-xl bg-white border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700/80 p-5 sm:p-6">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-              Seven more rules planned, each mapped to an OWASP LLM Top 10
-              entry, with vulnerable + safe fixtures and rationale documented
-              in the repo.
+              The v1 rule set is complete: twelve rules, each mapped to an OWASP
+              LLM Top 10 entry, each with a vulnerable fixture that must fire and
+              a safe fixture that must stay silent. The suite runs on every push
+              and before every publish, and llm-audit scans its own source with
+              its own rules on the way through CI.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 dark:text-gray-300">
               <li className="flex gap-2">
-                <span className="text-amber-500 shrink-0">·</span> Tool-call
-                handler without an allowlist (LLM08)
+                <span className="text-amber-500 shrink-0">·</span> 12 rules
+                across LLM01, LLM02, LLM06, LLM07, LLM08, LLM10
               </li>
               <li className="flex gap-2">
-                <span className="text-amber-500 shrink-0">·</span> Untrusted
-                retrieval context in the system role (LLM01)
+                <span className="text-amber-500 shrink-0">·</span> 0 false
+                positives on the safe fixtures
               </li>
               <li className="flex gap-2">
-                <span className="text-amber-500 shrink-0">·</span> System
-                prompt leakage in client bundles (LLM07)
+                <span className="text-amber-500 shrink-0">·</span> Human, JSON
+                envelope, and SARIF 2.1.0 output
               </li>
               <li className="flex gap-2">
-                <span className="text-amber-500 shrink-0">·</span> Sensitive
-                context (env, PII) inlined into prompts (LLM06)
-              </li>
-              <li className="flex gap-2">
-                <span className="text-amber-500 shrink-0">·</span> Model
-                output rendered as markdown without sanitization (LLM09)
-              </li>
-              <li className="flex gap-2">
-                <span className="text-amber-500 shrink-0">·</span> LLM route
-                handler without zod / valibot validation
-              </li>
-              <li className="flex gap-2">
-                <span className="text-amber-500 shrink-0">·</span> Streaming
-                response without abort handling
+                <span className="text-amber-500 shrink-0">·</span> Published
+                with build provenance via OIDC
               </li>
             </ul>
+            <p className="text-sm text-content-subtle leading-relaxed mt-4">
+              What comes next is driven by what the rules miss in real code.
+              A missed pattern is worth an issue — it becomes a fixture.
+            </p>
           </div>
         </section>
 
