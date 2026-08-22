@@ -85,6 +85,61 @@ function CodeWindow({
   );
 }
 
+{/* The boundary every rule defends: untrusted input on the left, privileged
+    surfaces on the right, nothing crossing without validation. */}
+function BoundaryFigure() {
+  const UNTRUSTED = ["request.json()", "retrieved docs", "model output"];
+  const PRIVILEGED = ["system role", "eval · innerHTML", "tool dispatch"];
+
+  return (
+    <figure className="my-8 rounded-xl border border-gray-200 bg-white p-5 sm:p-7 dark:border-gray-700/80 dark:bg-gray-800/50">
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 sm:gap-x-6">
+        <div className="text-right">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-content-subtle mb-3">
+            Untrusted
+          </p>
+          <ul className="space-y-2.5">
+            {UNTRUSTED.map((item) => (
+              <li
+                key={item}
+                className="font-mono text-[11px] sm:text-sm text-gray-700 dark:text-gray-300"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex flex-col items-center self-stretch pt-7">
+          <span className="sr-only">stopped at the authority boundary</span>
+          <div className="h-full w-1 rounded-full bg-amber-500" aria-hidden />
+        </div>
+
+        <div>
+          <p className="font-mono text-[10px] uppercase tracking-widest text-content-subtle mb-3">
+            Privileged
+          </p>
+          <ul className="space-y-2.5">
+            {PRIVILEGED.map((item) => (
+              <li
+                key={item}
+                className="font-mono text-[11px] sm:text-sm text-gray-700 dark:text-gray-300"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <figcaption className="mt-5 border-t border-gray-200 pt-4 text-sm text-content-subtle dark:border-gray-700/70">
+        Every rule is a version of one idea: untrusted text must not arrive with
+        privileged authority. Twelve rules, each with a vulnerable fixture that
+        must fire and a safe fixture that must stay silent.
+      </figcaption>
+    </figure>
+  );
+}
+
 export default function LlmAuditPage() {
   return (
     <div className="min-h-screen pt-20 sm:pt-24 pb-16 bg-surface">
@@ -93,7 +148,7 @@ export default function LlmAuditPage() {
         <header className="mb-12 sm:mb-16">
           <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
             <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
-            Open source · MIT · v0.0.10
+            Open source · MIT · v0.3.0
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
             <span className="font-mono text-amber-600 dark:text-amber-400">
@@ -110,6 +165,8 @@ export default function LlmAuditPage() {
               for the TS/JS ecosystem the upstream pack does not cover.
             </span>
           </p>
+
+          <BoundaryFigure />
 
           {/* Quick demo */}
           <div className="overflow-hidden rounded-xl border border-amber-300 bg-gray-950 shadow-md dark:border-amber-500/40">
