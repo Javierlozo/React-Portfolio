@@ -148,7 +148,7 @@ export default function LlmAuditPage() {
         <header className="mb-12 sm:mb-16">
           <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
             <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
-            Open source · MIT · v0.3.0
+            Open source · MIT · v0.4.0
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
             <span className="font-mono text-amber-600 dark:text-amber-400">
@@ -464,6 +464,46 @@ npx llm-audit init`}</code>
           </p>
         </section>
 
+        {/* Report */}
+        <section className="mb-14">
+          <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-4 text-amber-700 dark:text-amber-400">
+            A report you can hand to someone else
+          </h2>
+
+          <pre className="m-0 mb-5 overflow-x-auto p-4 text-sm leading-relaxed text-gray-100 font-mono bg-gray-950 rounded-lg">
+            <code>npx llm-audit scan --html report.html src</code>
+          </pre>
+
+          <div className="space-y-4 text-base leading-relaxed text-gray-700 dark:text-gray-300">
+            <p>
+              One self-contained HTML file — no scripts, no network, no
+              external assets — that opens from disk, prints cleanly, and
+              survives being attached to a pull request or kept as a CI
+              artifact. Findings are grouped under the rule that explains
+              them, and each rule carries what it catches, why an AI assistant
+              tends to write the pattern, and how to fix it.
+            </p>
+            <p>
+              The last part is the one that is hard to fake. Every rule in the
+              pack ships a <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">safe.*</code>{" "}
+              fixture that the test suite asserts produces zero findings on
+              every commit. The report shows that fixture as the worked
+              example of the fix — so the remedy in the document is a fix that
+              is checked, not a fix that is asserted.
+            </p>
+            <p className="text-content-subtle">
+              The same material is one command away in the terminal with{" "}
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">npx llm-audit rules &lt;rule-id&gt;</code>.
+              A run can be narrowed with{" "}
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">--rule</code> or{" "}
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">--severity</code>, and{" "}
+              <code className="px-1 py-0.5 rounded bg-amber-50 text-amber-800 dark:bg-amber-500/10 dark:text-amber-300 text-[0.875em]">--fail-on</code>{" "}
+              separates what gets reported from what fails the build — which is
+              what lets a repo with an existing backlog adopt the gate at all.
+            </p>
+          </div>
+        </section>
+
         {/* Status */}
         <section className="mb-14">
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-4 text-amber-700 dark:text-amber-400">
@@ -488,7 +528,7 @@ npx llm-audit init`}</code>
               </li>
               <li className="flex gap-2">
                 <span className="text-amber-500 shrink-0">·</span> Human, JSON
-                envelope, and SARIF 2.1.0 output
+                envelope, SARIF 2.1.0, and standalone HTML report
               </li>
               <li className="flex gap-2">
                 <span className="text-amber-500 shrink-0">·</span> Published
