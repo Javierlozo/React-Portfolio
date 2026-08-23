@@ -1,0 +1,29 @@
+name: llm-audit
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      # Pinned to SHA per https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions
+      # Update with: gh api repos/<owner>/<repo>/releases/latest --jq .target_commitish
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
+        with:
+          node-version: 22
+      - name: install semgrep
+        run: pipx install semgrep
+      - name: install deps
+        run: npm ci
+      # `npx` resolves the latest published llm-audit at workflow run time
+      # unless `llm-audit` is in your devDependencies. To pin to a reviewed
+      # version, run `npm i -D llm-audit` or use `npx llm-audit@<version>`.
+      - name: run llm-audit
+        run: npx llm-audit scan
