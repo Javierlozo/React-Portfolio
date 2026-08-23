@@ -148,7 +148,7 @@ export default function LlmAuditPage() {
         <header className="mb-12 sm:mb-16">
           <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
             <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
-            Open source · MIT · v0.4.0
+            Open source · MIT · v0.4.2
           </p>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
             <span className="font-mono text-amber-600 dark:text-amber-400">
