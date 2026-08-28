@@ -506,8 +506,15 @@ npx llm-audit init`}</code>
 
         {/* Status */}
         <section className="mb-14">
+          {/* The rule set, not the release.
+              This said "v1 shipped" while the badge at the top of this same
+              page reads v0.6.2 and npm agrees with the badge. The rule set
+              reaching its v1 shape is a real thing to claim; a shipped v1 is
+              not, and the readers of this page are the ones who check the
+              registry. If 1.0.0 is published, this heading becomes true and
+              can go back. */}
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-4 text-amber-700 dark:text-amber-400">
-            v1 shipped
+            v1 rule set complete
           </h2>
           <div className="rounded-xl bg-white border border-gray-200 dark:bg-gray-800/50 dark:border-gray-700/80 p-5 sm:p-6">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4">

@@ -58,6 +58,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
+    // Low priority, but listed: a privacy page nothing points at from the
+    // index is one a reader has to already know about.
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
     ...NOTES_REPOS.map((r) => ({
       url: `${baseUrl}/notes/${r.repoName}`,
       lastModified: new Date(),

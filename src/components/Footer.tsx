@@ -72,6 +72,13 @@ export default function Footer() {
             <Link href="/now" className="hover:text-gray-900 dark:hover:text-white transition-colors">
               Now
             </Link>
+            {/* The site keeps its own analytics, so the page saying what is
+                in them is owed rather than decorative, even now that the
+                answer is "no cookies, no IP". The footer is where a reader
+                looks for it. */}
+            <Link href="/privacy" className="hover:text-gray-900 dark:hover:text-white transition-colors">
+              Privacy
+            </Link>
           </nav>
 
           <div className="w-24 h-px mx-auto mb-8 bg-gray-300 dark:bg-gray-700"></div>

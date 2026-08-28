@@ -9,22 +9,6 @@ const ALLOWED_ORIGINS = [
   "https://luislozoya.com",
 ];
 
-function isValidPublicIp(ip: string): boolean {
-  if (ip === "unknown" || ip === "::1") return false;
-  // Private IPv4 ranges
-  if (
-    ip.startsWith("10.") ||
-    ip.startsWith("127.") ||
-    ip.startsWith("169.254.") ||
-    ip.startsWith("192.168.")
-  ) return false;
-  const match = ip.match(/^172\.(\d+)\./);
-  if (match && parseInt(match[1]) >= 16 && parseInt(match[1]) <= 31) return false;
-  // Accept valid IPv4 or IPv6
-  if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) return true;
-  if (ip.includes(":")) return true; // IPv6
-  return false;
-}
 
 function parseUserAgent(ua: string) {
   let browser = "Unknown";
@@ -49,22 +33,6 @@ function parseUserAgent(ua: string) {
   return { browser, os, device_type };
 }
 
-async function lookupIp(ip: string): Promise<{ isp: string | null; org: string | null }> {
-  if (!isValidPublicIp(ip)) return { isp: null, org: null };
-  try {
-    const res = await fetch(`https://ip-api.com/json/${ip}?fields=isp,org`, {
-      signal: AbortSignal.timeout(3000),
-    });
-    if (!res.ok) return { isp: null, org: null };
-    const data = await res.json();
-    return {
-      isp: data.isp || null,
-      org: data.org || null,
-    };
-  } catch {
-    return { isp: null, org: null };
-  }
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -73,6 +41,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false }, { status: 403 });
     }
 
+    // Read, never stored. `getIp` feeds the rate limiter and the owner-IP
+    // exclusion below, both of which happen in memory and end with the
+    // request. No column holds it any more.
     const ip = getIp(request);
 
     // Skip tracking for owner IPs (comma-separated in env var)
@@ -129,31 +100,23 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get("user-agent")?.slice(0, 500) || "";
     const { browser, os, device_type } = parseUserAgent(userAgent);
 
+    // Country only, off the edge header, which never touches an IP here.
+    //
+    // City and region came out with the IP address and the ISP lookup. A
+    // country tells me whether anything is being read outside the US, which is
+    // the question this was built to answer; a city and an ISP name identify a
+    // person, and nothing here was reading them.
     const country = request.headers.get("x-vercel-ip-country") || null;
-    const city = request.headers.get("x-vercel-ip-city") || null;
-    const region = request.headers.get("x-vercel-ip-country-region") || null;
 
-    let isp: string | null = null;
-    let org: string | null = null;
-    if (eventType === "page_view") {
-      const lookup = await lookupIp(ip);
-      isp = lookup.isp;
-      org = lookup.org;
-    }
-
-    // Skip cloud provider / monitoring traffic
-    const orgLower = (org || isp || "").toLowerCase();
-    if (/amazon|aws|google cloud|microsoft azure|digitalocean|vercel|cloudflare|hetzner/i.test(orgLower)) {
-      return NextResponse.json({ ok: true });
-    }
+    // The cloud-provider filter went with the ISP lookup that fed it. The
+    // user-agent bot check above already catches crawlers, monitoring probes
+    // and headless browsers, which is most of what that filter was for.
 
     const { error } = await supabase.from("page_views").insert({
       path,
       referrer: sanitizeString(body.referrer, 2000),
       user_agent: userAgent || null,
       country,
-      city,
-      region,
       browser,
       os,
       device_type,
@@ -161,10 +124,10 @@ export async function POST(request: NextRequest) {
       utm_source: sanitizeString(body.utm_source, 200),
       utm_medium: sanitizeString(body.utm_medium, 200),
       utm_campaign: sanitizeString(body.utm_campaign, 200),
+      // Ephemeral: a per-page-load id from the browser, held in memory and
+      // never written to a cookie, so a page view and its session_end can find
+      // each other and nothing else can be joined to either.
       visitor_id: sanitizeString(body.visitor_id, 100),
-      ip_address: isValidPublicIp(ip) ? ip : null,
-      isp,
-      org,
       language: sanitizeString(body.language, 20),
       timezone: sanitizeString(body.timezone, 100),
       event_type: eventType,
