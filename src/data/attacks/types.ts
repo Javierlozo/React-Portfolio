@@ -13,14 +13,14 @@ export type OwaspLLMCategory =
 export const OWASP_CATEGORY_NAMES: Record<OwaspLLMCategory, string> = {
   LLM01: "Prompt Injection",
   LLM02: "Sensitive Information Disclosure",
-  LLM03: "Supply Chain",
-  LLM04: "Data and Model Poisoning",
-  LLM05: "Improper Output Handling",
-  LLM06: "Excessive Agency",
-  LLM07: "System Prompt Leakage",
-  LLM08: "Vector and Embedding Weaknesses",
-  LLM09: "Misinformation",
-  LLM10: "Unbounded Consumption",
+  LLM03: "Excessive Agency",
+  LLM04: "Supply Chain",
+  LLM05: "Data and Model Poisoning",
+  LLM06: "Unbounded Consumption",
+  LLM07: "Misinformation",
+  LLM08: "Hidden Context Exposure",
+  LLM09: "Vector and Embedding Weaknesses",
+  LLM10: "Improper Output Handling",
 };
 
 export type AttackTechnique =

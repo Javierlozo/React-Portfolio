@@ -89,7 +89,7 @@ export async function safe(req: any) {
   },
   {
     id: "llm-output-insecure-handling",
-    owasp: "LLM02: Insecure Output Handling",
+    owasp: "LLM10: Improper Output Handling",
     cwe: ["CWE-79", "CWE-94", "CWE-78"],
     severity: "ERROR",
     oneLine:
@@ -120,7 +120,7 @@ export async function safe(el: HTMLElement) {
   },
   {
     id: "model-output-parsed-without-schema",
-    owasp: "LLM02: Insecure Output Handling",
+    owasp: "LLM10: Improper Output Handling",
     cwe: ["CWE-20"],
     severity: "WARNING",
     oneLine:
@@ -156,7 +156,7 @@ export async function safe() {
   },
   {
     id: "hardcoded-llm-api-key",
-    owasp: "LLM06: Sensitive Information Disclosure",
+    owasp: "LLM02: Sensitive Information Disclosure",
     cwe: ["CWE-798"],
     severity: "ERROR",
     oneLine:
@@ -182,7 +182,7 @@ export const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });`,
   },
   {
     id: "tool-call-dispatch-without-allowlist",
-    owasp: "LLM08: Excessive Agency",
+    owasp: "LLM03: Excessive Agency",
     cwe: ["CWE-470", "CWE-77"],
     severity: "ERROR",
     oneLine:
@@ -212,7 +212,7 @@ for (const call of response.toolCalls) {
   },
   {
     id: "secrets-in-prompt-context",
-    owasp: "LLM06: Sensitive Information Disclosure",
+    owasp: "LLM02: Sensitive Information Disclosure",
     cwe: ["CWE-200", "CWE-532"],
     severity: "ERROR",
     oneLine:
@@ -265,7 +265,7 @@ export async function POST(request: Request) {
   },
   {
     id: "system-prompt-leakage-in-client-bundle",
-    owasp: "LLM07: System Prompt Leakage",
+    owasp: "LLM08: Hidden Context Exposure",
     cwe: ["CWE-200", "CWE-540"],
     severity: "ERROR",
     oneLine:
@@ -316,7 +316,7 @@ await generateText({
   },
   {
     id: "model-output-rendered-as-markdown-without-sanitization",
-    owasp: "LLM02: Insecure Output Handling",
+    owasp: "LLM10: Improper Output Handling",
     cwe: ["CWE-79", "CWE-80"],
     severity: "ERROR",
     oneLine:
@@ -339,7 +339,7 @@ import rehypeSanitize from "rehype-sanitize";
   },
   {
     id: "streaming-response-without-abort-handling",
-    owasp: "LLM10: Unbounded Consumption",
+    owasp: "LLM06: Unbounded Consumption",
     cwe: ["CWE-400", "CWE-770"],
     severity: "WARNING",
     oneLine:

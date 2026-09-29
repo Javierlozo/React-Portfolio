@@ -111,7 +111,7 @@ export default async function LlmAuditOGImage() {
               flexWrap: "wrap",
             }}
           >
-            {["LLM01", "LLM02", "LLM06", "Semgrep", "TypeScript", "Next.js"].map(
+            {["LLM01", "LLM02", "LLM10", "Semgrep", "TypeScript", "Next.js"].map(
               (tag) => (
                 <div
                   key={tag}

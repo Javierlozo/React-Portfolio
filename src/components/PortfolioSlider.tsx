@@ -88,7 +88,7 @@ const PROJECTS: Project[] = [
     approach:
       "Built a focused Semgrep rule pack mapped explicitly to OWASP LLM Top 10, distributed via npm with a thin CLI that wires up a husky pre-commit hook and a GitHub Action workflow. Twelve rules, each with vulnerable + safe fixtures, exercised by a test runner. Releases publish from CI over OIDC trusted publishing with SLSA provenance and no long-lived tokens. Released under MIT.",
     outcome:
-      "Live on npm: the full v1 rule set, twelve rules across LLM01, LLM02, LLM06, LLM07, LLM08 and LLM10, with 37 vulnerable matches and zero false positives on the safe fixtures. Caught a real LLM02 (Insecure Output Handling) bug in this portfolio's recruiter-fit endpoint. Dogfooding the LLM01 rule against the same codebase then exposed a false-positive class, which shipped as sanitizers for hand-rolled validation.",
+      "Live on npm: the full v1 rule set, twelve rules across LLM01, LLM02, LLM03, LLM06, LLM08 and LLM10, with 37 vulnerable matches and zero false positives on the safe fixtures. Caught a real LLM10 (Improper Output Handling) bug in this portfolio's recruiter-fit endpoint. Dogfooding the LLM01 rule against the same codebase then exposed a false-positive class, which shipped as sanitizers for hand-rolled validation.",
     role: "Solo build: rules, CLI, fixtures, distribution, docs, self-audit, release pipeline.",
   },
   {
@@ -96,7 +96,7 @@ const PROJECTS: Project[] = [
     category: "security",
     title: "LLM Red Team Lab: Prompt-Injection Research (2026, in progress)",
     description:
-      "Reproducible red-team study of prompt-injection techniques mapped to OWASP LLM Top 10 and MITRE ATLAS, tested across frontier and budget-tier models via Vercel AI Gateway. Three attacks seeded so far, across LLM01, LLM02, and LLM07.",
+      "Reproducible red-team study of prompt-injection techniques mapped to OWASP LLM Top 10 and MITRE ATLAS, tested across frontier and budget-tier models via Vercel AI Gateway. Three attacks seeded so far, across LLM01, LLM02, and LLM08.",
     techStack: ["OWASP LLM Top 10", "MITRE ATLAS", "Vercel AI Gateway", "Next.js", "TypeScript"],
     image: aiPlayground,
     liveLink: "/ai-playground",
@@ -106,7 +106,7 @@ const PROJECTS: Project[] = [
     approach:
       "Catalog prompt-injection techniques mapped to OWASP LLM Top 10 and MITRE ATLAS. Run each attack across frontier and budget-tier models via Vercel AI Gateway. Pin model IDs and commit prompts to source so every result is reproducible. Each attack ships paired with a defensive mitigation.",
     outcome:
-      "Live at /ai-playground with three seeded attacks: instruction override (LLM01), PII exfiltration via storytelling (LLM02), and system prompt extraction via summary (LLM07). Next: the attack vs. model vs. mitigation matrix, transcripts, and a live sandbox.",
+      "Live at /ai-playground with three seeded attacks: instruction override (LLM01), PII exfiltration via storytelling (LLM02), and system prompt extraction via summary (LLM08). Next: the attack vs. model vs. mitigation matrix, transcripts, and a live sandbox.",
     role: "Solo security research: attack design, evaluation harness, mitigation patterns, writeups",
   },
   {

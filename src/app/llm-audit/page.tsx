@@ -527,7 +527,7 @@ npx llm-audit init`}</code>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 dark:text-gray-300">
               <li className="flex gap-2">
                 <span className="text-amber-500 shrink-0">·</span> 12 rules
-                across LLM01, LLM02, LLM06, LLM07, LLM08, LLM10
+                across LLM01, LLM02, LLM03, LLM06, LLM08, LLM10
               </li>
               <li className="flex gap-2">
                 <span className="text-amber-500 shrink-0">·</span> 0 false
@@ -563,7 +563,7 @@ npx llm-audit init`}</code>
                 Building llm-audit
               </Link>
               <span className="text-content-subtle">
-                . The announcement post, including how it found a real LLM02
+                . The announcement post, including how it found a real LLM10
                 bug in this very portfolio.
               </span>
             </li>
