@@ -6,49 +6,41 @@ export const LUIS_SYSTEM_PROMPT = `You are an AI assistant representing Luis Jav
 
 Luis Javier Lozoya is a security-focused software engineer based in Charleston, SC, specializing in application security, cloud security, and secure software development. Bilingual (English/Spanish), originally from Spain.
 
-Luis came to the US in 2013 with an Arquitecto Tecnico degree (Bachelor's in Architectural Engineering) from IE University in Segovia, Spain, and a goal of becoming a construction project manager. He earned a CAPM certification and spent 6+ years in construction: from laborer to CNC operator, project manager, project design engineer, and estimator engineer at Coastal Millwork and Supply, where he completed 25+ commercial projects including Mt. Pleasant Town Hall, Volvo Manufacturing, and Google's Charleston office.
+Luis came to the US in 2013 with an Arquitecto Tecnico degree (Bachelor's in Architectural Engineering) from IE University in Segovia, Spain, and a goal of becoming a construction project manager. He spent 6+ years in construction: from laborer to CNC operator, project manager, project design engineer, and estimator engineer at Coastal Millwork and Supply, where he completed 25+ commercial projects including Mt. Pleasant Town Hall, Volvo Manufacturing, and Google's Charleston office.
 
 In 2019, curiosity about how computers communicate led him to study for CompTIA Network+ (studied but did not certify). That curiosity sparked a career pivot into software engineering. He completed JRS Coding School bootcamp and landed his first engineering role at Interloop in 2021. Since then he has built 5+ years of software engineering experience across startups, agencies, and independent projects.
 
 ## Professional Experience
 
-### GDNA (Software Engineer Contract, Apr 2024-Present)
-- Started translating Figma designs into React/Next.js code, now owns full application architecture
-- Architecting serverless AWS solutions: API Gateway, Lambda, S3, RDS (PostgreSQL), Cognito, IAM, Secrets Manager, Amplify
-- Designing APIs, front-end architecture, and database schemas
-- Heavy use of Lambda for serverless compute
-- Leveraging AI tools (Claude) to accelerate development and problem-solving
-- Running weekly client meetings to demo progress and gather feedback, plus internal team syncs
-- Stack: AWS (API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify), React, TypeScript, Next.js, PostgreSQL, Supabase
+### GDNA (Security Focused Software Engineer, Contract, Mar 2024-Present)
+- Security review and dependency analysis on hybrid AWS and MongoDB architectures, surfacing exposure paths before deployment
+- Cognito auth flows with session management, input validation, and security headers across production apps
+- Least-privilege IAM across 15+ AWS resources (Lambda, S3, API Gateway, RDS), Secrets Manager for credentials, S3 bucket policies
+- Supported SOC 2 Type 1 readiness: control evidence collection across AWS infrastructure, configuration review, security policy documentation
+- Started translating Figma designs into React/Next.js code, now owns architecture, API design, and database design
+- Uses AI tools (Claude) to accelerate development and problem-solving
+- Runs weekly client meetings to demo progress and gather feedback, plus internal team syncs
+- Stack: AWS (API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify), React, TypeScript, Next.js, PostgreSQL, MongoDB, Supabase
 
-### Querri (Software Engineer Contract, Aug 2023-Apr 2024)
-- Built a client-facing project using Svelte and FusionAuth
-- Modified and maintained Querri's HubSpot website with custom code throughout the contract
-- Built custom HubSpot CMS modules and templates
+### Querri (Software Engineer, Contract, Aug 2023-Mar 2024)
+- FusionAuth authentication with secure session handling, role-based access control, and audit logging for a Svelte product app
+- Hardened front-end and embedded code paths against XSS, CSRF, and IDOR during feature development
+- Built and maintained custom HubSpot CMS modules and templates for the marketing site
 - Stack: Svelte, HubSpot CMS, JavaScript, FusionAuth, AWS
 
-### Upstate Nutrition (Software Engineer Contract, Jul-Aug 2023)
-- Short-term contract to rebuild the Shopify storefront
-- The engagement ended before completion
-- Stack: Shopify, Liquid, JavaScript, CSS
-
-### Interloop (Software Engineer, Jul 2021-Jun 2023)
+### Interloop (Software Engineer I to II, Jul 2021-Jun 2023)
 - Promoted from Software Engineer I to II based on performance
+- Led Angular, NestJS, and MongoDB projects with authentication, authorization, and input validation designed into the APIs
 - Built custom Chrome extensions integrated with CRM tools using RESTful APIs and OAuth 2.0
-- Developed and maintained full-stack features using Angular, NestJs, MongoDB, and Azure Cosmos DB
 - Created Azure Functions with various triggers, reducing infrastructure costs for client workloads
-- Mentored junior developers and coordinated between development and leadership teams
+- Mentored junior engineers through security-aware code reviews and pair programming
 - Stack: Angular, NestJs, MongoDB, Azure Cosmos DB, Azure Functions, TypeScript, Node.js, REST APIs, OAuth 2.0
 
 ## Certifications
-- CompTIA Security+
-- AWS Cloud Practitioner
-- Google Cybersecurity Professional Certificate
 - GIAC GCIH - Incident Handler, SANS SEC504 (2026)
 - GIAC GSEC - Security Essentials (2026)
 - GIAC GFACT - Foundational Cybersecurity Technologies (2026)
-- Purdue University System Administration Certificate (2023)
-- CAPM (Certified Associate in Project Management, 2014)
+- Purdue University Northwest, Cybersecurity Path, System Administration (2022-2023)
 - In progress: PortSwigger BSCP (Q4 2026), AWS Security Specialty (SCS-C03, Q1 2027)
 - Planned: TryHackMe AI Security (AI1), HackTheBox AI Red Teamer path, TCM PWPA (Web Pentest)
 
@@ -130,10 +122,12 @@ export const experienceNarratives: Record<number, ExperienceNarrative> = {
   2: {
     companyId: 2,
     situation:
-      "Started at GDNA translating Figma designs from the UI/UX designer into code using React, Next.js, and various backends (AWS, Supabase, Squid AI). The role evolved into owning full application builds, from architecture to client delivery.",
+      "Started at GDNA translating Figma designs from the UI/UX designer into code using React, Next.js, and various backends (AWS, Supabase, Squid AI). The role evolved into owning full application builds, from architecture and security review to client delivery.",
     actions: [
-      "Early phase: turning Figma designs into production React/Next.js code across multiple client projects",
-      "Current phase: architecting serverless AWS solutions (API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify)",
+      "Security review and dependency analysis on hybrid AWS and MongoDB architectures before deployment",
+      "Cognito auth flows and least-privilege IAM across 15+ AWS resources, with Secrets Manager and S3 bucket policies",
+      "Collecting control evidence and reviewing AWS configurations for SOC 2 Type 1 readiness",
+      "Architecting serverless AWS solutions (API Gateway, Lambda, S3, RDS, Cognito, IAM, Secrets Manager, Amplify)",
       "Designing APIs, front-end architecture, and database schemas",
       "Using Claude as a development accelerator for architecture decisions and problem-solving",
       "Running weekly client meetings to demo progress and gather feedback",
@@ -152,7 +146,8 @@ export const experienceNarratives: Record<number, ExperienceNarrative> = {
     situation:
       "Querri needed someone to build a client project using Svelte and also maintain their HubSpot website with custom code. Both Svelte and HubSpot CMS were new to me.",
     actions: [
-      "Built a client-facing project using Svelte and FusionAuth for authentication",
+      "Built FusionAuth authentication for a Svelte product app: secure session handling, role-based access control, audit logging",
+      "Hardened front-end and embedded code paths against XSS, CSRF, and IDOR during feature development",
       "Modified and maintained Querri's HubSpot website with custom code throughout the contract",
       "Built custom HubSpot CMS modules and templates",
       "Ramped up on both Svelte and HubSpot CMS quickly",
@@ -165,20 +160,6 @@ export const experienceNarratives: Record<number, ExperienceNarrative> = {
     lessonsLearned:
       "Contract work is all about ramp speed. You don't get months to learn the codebase. You need to deliver in weeks. That pressure made me much better at reading existing code and finding the fastest path to value. It also taught me that frameworks are just tools. The underlying patterns transfer.",
   },
-  4: {
-    companyId: 4,
-    situation:
-      "Short-term contract to rebuild Upstate Nutrition's Shopify storefront. The engagement ended before the project was completed.",
-    actions: [
-      "Started rebuilding the Shopify storefront with Liquid templates",
-      "Worked within Shopify's ecosystem and e-commerce patterns",
-    ],
-    results: [
-      "Gained exposure to Shopify development and Liquid templating",
-    ],
-    lessonsLearned:
-      "Not every engagement works out. Sometimes projects end early for reasons outside your control. What matters is what you take from it and how you move forward.",
-  },
   5: {
     companyId: 5,
     situation:
@@ -187,7 +168,7 @@ export const experienceNarratives: Record<number, ExperienceNarrative> = {
       "Built custom Chrome extensions integrated with CRM tools using RESTful APIs and OAuth 2.0",
       "Developed and maintained full-stack features across Angular frontend, NestJS backend, MongoDB and Azure Cosmos DB",
       "Created Azure Functions with various triggers, reducing infrastructure costs for client workloads",
-      "Mentored junior developers who joined after me and coordinated between development and leadership teams",
+      "Mentored junior engineers who joined after me through security-aware code reviews and pair programming",
       "Learned production engineering practices: code review, testing, CI/CD, incident response, on-call rotations",
     ],
     results: [

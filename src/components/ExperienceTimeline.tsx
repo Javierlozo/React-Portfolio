@@ -10,7 +10,6 @@ import { experienceNarratives } from "../data/ai-context";
 // Import company logos
 import querriLogo from "@/src/assets/pictures/querri.png";
 import interloopLogo from "@/src/assets/pictures/interloop.jpeg";
-import upstateLogo from "@/src/assets/pictures/upstate.jpg";
 import gdnaLogo from "@/src/assets/pictures/gdna.ico";
 
 interface Experience {
@@ -105,16 +104,18 @@ export default function ExperienceTimeline() {
     {
       id: 2,
       company: "GDNA",
-      position: "Software Engineer (Contract)",
+      position: "Security Focused Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
       duration: "Mar 2024 to Present",
-      description: "Started translating Figma designs into React/Next.js code. Evolved into owning full application architecture, API design, and database design on AWS.",
+      description: "Security review, auth, and IAM for serverless client apps on AWS. Joined translating Figma designs into React/Next.js. Now owns architecture, API design, and database design.",
       achievements: [
-        "Architecting serverless AWS apps: Cognito-backed auth flows, scoped IAM per Lambda, Secrets Manager for credentials, S3 bucket policies, RDS, API Gateway, Amplify",
-        "Designing APIs, database schemas, and front-end architecture for client applications",
-        "Running weekly client meetings to demo progress and incorporate feedback"
+        "Security review and dependency analysis on hybrid AWS and MongoDB architectures, surfacing exposure paths before deployment",
+        "Cognito auth flows with session management, input validation, and security headers across production apps",
+        "Least-privilege IAM across 15+ AWS resources (Lambda, S3, API Gateway, RDS): a scoped role per function, Secrets Manager for credentials, S3 bucket policies",
+        "SOC 2 Type 1 readiness: collected control evidence across AWS infrastructure, reviewed configurations, contributed to security policy docs",
+        "Architecture, API, and database design for client apps, demoed to clients weekly"
       ],
-      technologies: ["AWS API Gateway", "Lambda", "S3", "RDS", "Cognito", "IAM", "Secrets Manager", "Amplify", "React", "TypeScript", "Next.js", "PostgreSQL"],
+      technologies: ["AWS API Gateway", "Lambda", "S3", "RDS", "Cognito", "IAM", "Secrets Manager", "Amplify", "React", "TypeScript", "Next.js", "PostgreSQL", "MongoDB"],
       companyUrl: "https://gdna.io/",
       current: true,
       logo: gdnaLogo,
@@ -125,12 +126,12 @@ export default function ExperienceTimeline() {
       company: "Querri",
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
-      duration: "Aug 2023 to Apr 2024",
-      description: "Built a client project using Svelte and maintained Querri's HubSpot website with custom code modifications throughout the contract.",
+      duration: "Aug 2023 to Mar 2024",
+      description: "Auth and access control for a Svelte product app, plus Querri's HubSpot marketing site.",
       achievements: [
-        "Built a client-facing project using Svelte and FusionAuth",
-        "Modified and maintained Querri's HubSpot website with custom code",
-        "Built custom HubSpot CMS modules and templates"
+        "FusionAuth authentication with secure session handling, role-based access control, and audit logging for a Svelte product app",
+        "Hardened front-end and embedded code paths against XSS, CSRF, and IDOR during feature development",
+        "Built and maintained custom HubSpot CMS modules and templates for the marketing site"
       ],
       technologies: ["Svelte", "HubSpot CMS", "HTML", "CSS", "JavaScript", "FusionAuth", "AWS"],
       companyUrl: "https://querri.com/",
@@ -139,33 +140,17 @@ export default function ExperienceTimeline() {
       industry: "Data Analytics & Business Intelligence"
     },
     {
-      id: 4,
-      company: "Upstate Nutrition",
-      position: "Software Engineer (Contract)",
-      location: "Remote",
-      duration: "Jul 2023 to Aug 2023",
-      description: "Short-term contract to rebuild the company's Shopify storefront. The engagement ended before completion.",
-      achievements: [
-        "Started rebuilding the Shopify storefront with Liquid templates",
-        "Gained experience with Shopify's ecosystem and e-commerce development"
-      ],
-      technologies: ["Shopify", "Liquid", "JavaScript", "CSS", "SEO", "Analytics"],
-      current: false,
-      logo: upstateLogo,
-      industry: "E-commerce & Wellness"
-    },
-    {
       id: 5,
       company: "Interloop",
-      position: "Software Engineer",
+      position: "Software Engineer I → II",
       location: "Charleston, SC",
       duration: "Jul 2021 to Jun 2023",
-      description: "First engineering role after JRS Coding School bootcamp. Promoted from Software Engineer I to II. Full-stack development on Angular/NestJs stack with Azure cloud services.",
+      description: "First engineering role after JRS Coding School bootcamp. Promoted from Software Engineer I to II. Full-stack development on Angular/NestJs with Azure cloud services.",
       achievements: [
+        "Led Angular, NestJs, and MongoDB projects with authentication, authorization, and input validation designed into the APIs",
         "Built custom Chrome extensions integrated with CRM tools using RESTful APIs and OAuth 2.0",
-        "Developed and maintained full-stack features using Angular, NestJs, MongoDB, and Azure Cosmos DB",
         "Created Azure Functions with various triggers, reducing infrastructure costs for client workloads",
-        "Mentored junior developers and coordinated between development and leadership teams"
+        "Mentored junior engineers through security-aware code reviews and pair programming"
       ],
       technologies: ["Angular", "NestJs", "MongoDB", "Azure Cosmos DB", "Azure Functions", "TypeScript", "Node.js", "REST APIs", "OAuth2.0"],
       companyUrl: "https://www.interloopdata.com/",
