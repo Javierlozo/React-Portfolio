@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { CONTAINER_WIDTH } from "../../components/ui/Section";
 import { ATTACKS } from "@/src/data/attacks";
 import { MODELS } from "@/src/data/models";
@@ -31,7 +30,7 @@ export default function AiPlaygroundPage() {
           <Stat label="attacks" value={ATTACKS.length} />
           <Stat label="owasp categories" value={`${categoryCoverage} / 10`} />
           <Stat label="models evaluated" value={MODELS.length} />
-          <Stat label="status" value="week 1 / scaffold" accent />
+          <Stat label="status" value="in progress" accent />
         </dl>
 
         <div className="mt-12 rounded border border-gray-800 bg-gray-900/60 p-6 font-mono text-xs text-gray-400">
@@ -44,8 +43,7 @@ export default function AiPlaygroundPage() {
           </div>
           <p className="mt-3 text-gray-400">
             Seed attacks cover {categoryCoverage} of 10 OWASP categories. The matrix UI,
-            filters, slide-over transcripts, and the live sandbox land in weeks 2-4.
-            Full scope: <Link href="/docs/strategy/llm-redteam-brief.md" className="text-emerald-400 hover:underline">llm-redteam-brief</Link>.
+            filters, slide-over transcripts, and the live sandbox are next.
           </p>
         </div>
 

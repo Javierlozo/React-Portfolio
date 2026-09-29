@@ -96,7 +96,7 @@ const PROJECTS: Project[] = [
     category: "security",
     title: "LLM Red Team Lab: Prompt-Injection Research (2026, in progress)",
     description:
-      "Reproducible red-team study of prompt-injection techniques mapped to OWASP LLM Top 10 and MITRE ATLAS, tested across frontier and budget-tier models via Vercel AI Gateway. Week 1 of 4 in flight; matrix UI, filters, transcripts, and a live sandbox land in weeks 2-4.",
+      "Reproducible red-team study of prompt-injection techniques mapped to OWASP LLM Top 10 and MITRE ATLAS, tested across frontier and budget-tier models via Vercel AI Gateway. Three attacks seeded so far, across LLM01, LLM02, and LLM07.",
     techStack: ["OWASP LLM Top 10", "MITRE ATLAS", "Vercel AI Gateway", "Next.js", "TypeScript"],
     image: aiPlayground,
     liveLink: "/ai-playground",
@@ -106,7 +106,7 @@ const PROJECTS: Project[] = [
     approach:
       "Catalog prompt-injection techniques mapped to OWASP LLM Top 10 and MITRE ATLAS. Run each attack across frontier and budget-tier models via Vercel AI Gateway. Pin model IDs and commit prompts to source so every result is reproducible. Each attack ships paired with a defensive mitigation.",
     outcome:
-      "Week 1 scaffold live at /ai-playground with seeded attacks across multiple OWASP categories. Weeks 2-4 add the matrix UI, filters, slide-over transcripts, and a live sandbox.",
+      "Live at /ai-playground with three seeded attacks: instruction override (LLM01), PII exfiltration via storytelling (LLM02), and system prompt extraction via summary (LLM07). Next: the attack vs. model vs. mitigation matrix, transcripts, and a live sandbox.",
     role: "Solo security research: attack design, evaluation harness, mitigation patterns, writeups",
   },
   {
