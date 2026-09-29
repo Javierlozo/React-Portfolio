@@ -40,7 +40,7 @@ const LAST_UPDATED = "August 2026";
 const WORKING_ON = [
   "Passed GIAC GCIH (SEC504) in August 2026. The labs are published here: live PowerShell investigation, RITA beacon detection, Hayabusa log triage, and Nmap discovery.",
   "PortSwigger BSCP prep. Web pentesting is a skill I keep sharp, not my identity.",
-  "Building llm-audit. Five OWASP LLM Top 10 rules shipped in v0, more coming for the TS/JS ecosystem Semgrep's official AI pack does not cover.",
+  "Building llm-audit. Twelve OWASP LLM Top 10 rules shipped, more coming for the TS/JS ecosystem Semgrep's official AI pack does not cover.",
   "Studying for AWS Security Specialty (SCS-C03, target Q1 2027). IAM least-privilege, CloudTrail detection, and Cognito hardening against enumeration.",
 ];
 

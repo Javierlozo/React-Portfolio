@@ -276,7 +276,7 @@ npx llm-audit scan           # run on your own code`}</code>
         {/* Rules */}
         <section className="mb-14">
           <h2 className="font-mono text-sm font-semibold uppercase tracking-wide mb-2 text-amber-700 dark:text-amber-400">
-            Rules in v0
+            Rules
           </h2>
           <p className="text-sm sm:text-base mb-8 text-gray-600 dark:text-gray-400">
             Each rule below shows the shape it catches and the canonical fix.

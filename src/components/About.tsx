@@ -129,7 +129,7 @@ export default function About() {
             <span className="font-normal text-content">
               GIAC GFACT, GSEC, and GCIH certifications
             </span>
-            . PortSwigger BSCP is next, targeting Q4 2026, then AWS Security Specialty (SCS-C03) in Q1 2027. The focus from here is AI and LLM security plus cloud security engineering.
+            . PortSwigger BSCP is in progress, targeting Q4 2026, then AWS Security Specialty (SCS-C03) in Q1 2027. The focus from here is AI and LLM security plus cloud security engineering.
           </p>
           
           <p
