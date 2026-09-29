@@ -127,7 +127,7 @@ export default function Hero() {
               className={`text-xs sm:text-sm font-light tracking-wide transition-opacity ${dur} text-content-subtle ${ visible ? 'opacity-100' : 'opacity-0' }`}
               style={{ transitionDelay: delay(850) }}
             >
-              GIAC GCIH + GSEC + GFACT {" · "} AWS Security Specialty in progress {" · "} US Work Authorized
+              GIAC GCIH + GSEC + GFACT {" · "} HackOps 2024 1st Place {" · "} HarborHack 2025 Speaker {" · "} US Work Authorized
             </p>
 
             <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">

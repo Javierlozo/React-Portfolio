@@ -19,6 +19,7 @@ import {
   faImages,
 } from "@fortawesome/free-solid-svg-icons";
 import ImageLightbox from "./ImageLightbox";
+import AuthorBar from "./AuthorBar";
 import type { CybersecurityLab } from "../data/labs";
 import { LABS, getLabPath } from "../data/labs";
 
@@ -375,6 +376,8 @@ export default function LabDetailContent({ lab }: { lab: CybersecurityLab }) {
               )}
             </nav>
           )}
+
+          <AuthorBar />
         </article>
 
         <ImageLightbox

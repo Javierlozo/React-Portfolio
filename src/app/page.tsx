@@ -22,11 +22,11 @@ export default function Home() {
       <LlmAuditFeature />
       <LearningPath />
       <About />
-      <CybersecurityLabs />
-      <NotesTeaser />
       <ExperienceTimeline />
       <CertificationsShowcase />
       <PortfolioSlider />
+      <CybersecurityLabs />
+      <NotesTeaser />
       <FitAssessment />
       <Contact />
     </div>

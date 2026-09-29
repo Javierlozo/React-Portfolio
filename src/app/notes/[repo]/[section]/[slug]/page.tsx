@@ -16,6 +16,7 @@ import {
 } from "../../../../../lib/notes-mdx";
 import { NOTES_REPOS } from "../../../../../data/notes";
 import NoteMarkdown from "../../../../../components/NoteMarkdown";
+import AuthorBar from "../../../../../components/AuthorBar";
 
 interface Params {
   repo: string;
@@ -180,6 +181,8 @@ export default async function NotePage({ params }: Props) {
           )}
 
           <NoteMarkdown body={note.body} />
+
+          <AuthorBar />
 
           {(prev || next) && (
             <nav className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700/70">
