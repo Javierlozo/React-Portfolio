@@ -129,7 +129,7 @@ export default function About() {
             <span className="font-normal text-content">
               GIAC GFACT, GSEC, and GCIH certifications
             </span>
-            . AWS AI Practitioner and AWS Security Specialty are scheduled for September and October 2026, PortSwigger BSCP after that. The focus from here is AI and LLM security plus cloud security engineering.
+            . PortSwigger BSCP is next, targeting Q4 2026, then AWS Security Specialty (SCS-C03) in Q1 2027. The focus from here is AI and LLM security plus cloud security engineering.
           </p>
           
           <p

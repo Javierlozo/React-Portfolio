@@ -253,7 +253,7 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
               onKeyDown={handleKeyDown}
               placeholder="Ask about Luis's experience..."
               rows={1}
-              className="flex-1 border rounded-xl px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-divider text-content placeholder-gray-400 focus:ring-green-700 dark:bg-gray-800 dark:placeholder-gray-500 dark:focus:ring-green-500"
+              className="flex-1 border rounded-xl px-3 py-2.5 text-base sm:text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-divider text-content placeholder-gray-400 focus:ring-green-700 dark:bg-gray-800 dark:placeholder-gray-500 dark:focus:ring-green-500"
             />
             <button
               type="submit"

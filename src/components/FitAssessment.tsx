@@ -143,7 +143,7 @@ export default function FitAssessment() {
             onChange={(e) => setJobDescription(e.target.value)}
             placeholder="Paste a job description here..."
             rows={4}
-            className="w-full border rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-divider text-content placeholder-gray-400 focus:ring-green-700 dark:bg-gray-900/50 dark:placeholder-gray-500 dark:focus:ring-green-500"
+            className="w-full border rounded-xl px-4 py-3 text-base sm:text-sm resize-none focus:outline-none focus:ring-2 focus:border-transparent bg-gray-50 border-divider text-content placeholder-gray-400 focus:ring-green-700 dark:bg-gray-900/50 dark:placeholder-gray-500 dark:focus:ring-green-500"
           />
           <div className="flex items-center justify-between mt-3">
             <span className="text-[10px] text-gray-400 dark:text-gray-600">

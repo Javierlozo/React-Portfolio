@@ -14,13 +14,6 @@ function formatLastUpdated(iso: string): string {
   });
 }
 
-function isStale(iso: string, staleAfterDays: number): boolean {
-  const updated = new Date(iso + "T00:00:00Z").getTime();
-  const now = Date.now();
-  const days = (now - updated) / (1000 * 60 * 60 * 24);
-  return days > staleAfterDays;
-}
-
 export default function LearningPath() {
   const [mounted, setMounted] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -36,7 +29,6 @@ export default function LearningPath() {
 
   const visible = mounted || prefersReducedMotion;
   const dur = prefersReducedMotion ? "duration-0" : "duration-500";
-  const stale = isStale(learningPath.lastUpdated, learningPath.staleAfterDays);
 
   const earned = learningPath.current.filter((i) => i.status === "done");
   const inProgress = learningPath.current.filter((i) => i.status === "in-progress");
@@ -57,13 +49,7 @@ export default function LearningPath() {
             Learning in flight
           </h2>
           <span className="text-[10px] sm:text-xs font-light text-gray-400 dark:text-gray-500">
-            {stale ? (
-              <span className="text-amber-600 dark:text-amber-400">
-                · Updated {formatLastUpdated(learningPath.lastUpdated)} (stale)
-              </span>
-            ) : (
-              <>· Updated {formatLastUpdated(learningPath.lastUpdated)}</>
-            )}
+            · Updated {formatLastUpdated(learningPath.lastUpdated)}
           </span>
         </div>
 

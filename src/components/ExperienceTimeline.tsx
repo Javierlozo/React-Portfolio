@@ -107,7 +107,7 @@ export default function ExperienceTimeline() {
       company: "GDNA",
       position: "Software Engineer (Contract)",
       location: "Mount Pleasant, SC",
-      duration: "Apr 2024 to Present",
+      duration: "Mar 2024 to Present",
       description: "Started translating Figma designs into React/Next.js code. Evolved into owning full application architecture, API design, and database design on AWS.",
       achievements: [
         "Architecting serverless AWS apps: Cognito-backed auth flows, scoped IAM per Lambda, Secrets Manager for credentials, S3 bucket policies, RDS, API Gateway, Amplify",

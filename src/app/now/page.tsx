@@ -13,11 +13,11 @@ import {
 export const metadata: Metadata = {
   title: "Now. What I'm working on",
   description:
-    "What Luis Javier Lozoya is working on right now. AWS Security Specialty (SCS-C02) and BSCP in progress, llm-audit development, and open to Application Security Engineer roles.",
+    "What Luis Javier Lozoya is working on right now. AWS Security Specialty (SCS-C03) and BSCP in progress, llm-audit development, and open to Application Security Engineer roles.",
   keywords: [
     "Application Security Engineer",
     "AWS Security Specialty",
-    "SCS-C02",
+    "SCS-C03",
     "BSCP",
     "llm-audit",
     "AI security",
@@ -41,7 +41,7 @@ const WORKING_ON = [
   "Passed GIAC GCIH (SEC504) in August 2026. The labs are published here: live PowerShell investigation, RITA beacon detection, Hayabusa log triage, and Nmap discovery.",
   "PortSwigger BSCP prep. Web pentesting is a skill I keep sharp, not my identity.",
   "Building llm-audit. Five OWASP LLM Top 10 rules shipped in v0, more coming for the TS/JS ecosystem Semgrep's official AI pack does not cover.",
-  "Studying for AWS AI Practitioner (AIF-C01, Sept 2026) and AWS Security Specialty (SCS-C02, Oct 2026). IAM least-privilege, CloudTrail detection, and Cognito hardening against enumeration.",
+  "Studying for AWS Security Specialty (SCS-C03, target Q1 2027). IAM least-privilege, CloudTrail detection, and Cognito hardening against enumeration.",
 ];
 
 
