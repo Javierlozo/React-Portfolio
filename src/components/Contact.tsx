@@ -93,7 +93,7 @@ export default function Contact() {
         <div className={headerWrapClass}>
           <h2 className={`${headingRuleClass} mb-6 sm:mb-8`}>Contact</h2>
           <p className={ledeClass}>
-            Let&apos;s discuss your next project. Reach out via the form below or connect on{" "}
+            Hiring for AppSec or AI Security? Let&apos;s talk. Reach out via the form below or connect on{" "}
             <a
               href="https://www.linkedin.com/in/luisjlozoya"
               target="_blank"

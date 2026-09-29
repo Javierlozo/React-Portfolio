@@ -115,10 +115,10 @@ export default function Hero() {
               style={{ transitionDelay: delay(600) }}
             >
               <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-content-muted">
-                Five years shipping React and Next.js on AWS. Now I secure AI applications and the cloud systems they run on. I ship{" "}
-                <span className="font-normal text-content">llm-audit</span>, an OWASP LLM Top 10 scanner on npm.{" "}
+                I secure AI applications and the AWS systems they run on. I ship{" "}
+                <span className="font-normal text-content">llm-audit</span>, an OWASP LLM Top 10 scanner on npm. Five years of production React and Next.js is why I know where the bugs hide.{" "}
                 <span className="block mt-2 text-content-subtle">
-                  From commercial construction in Spain to application security in Charleston, SC.
+                  Charleston, SC. Open to remote US roles.
                 </span>
               </p>
             </div>

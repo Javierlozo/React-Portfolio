@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 export const metadata = {
-  title: "Admin Dashboard",
+  title: "Sign in",
   robots: { index: false, follow: false },
 };
 

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faSun, faMoon, faChevronDown, faMagnifyingGlass, faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { useTheme } from "../contexts/ThemeContext";
 import { OPEN_EVENT } from "./CommandPalette";
 
@@ -402,6 +403,23 @@ export default function Navbar() {
             {isMac ? "⌘K" : "Ctrl K"}
           </span>
         </button>
+
+        {/* Profiles */}
+        {[
+          { href: "https://github.com/Javierlozo", icon: faGithub, label: "GitHub profile" },
+          { href: "https://www.linkedin.com/in/luisjlozoya/", icon: faLinkedinIn, label: "LinkedIn profile" },
+        ].map(({ href, icon, label }) => (
+          <a
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            className="hidden sm:flex items-center justify-center w-9 h-9 border shrink-0 transition-colors duration-300 border-divider text-content-subtle hover:border-gray-900 hover:text-gray-900 dark:hover:border-white dark:hover:text-white"
+          >
+            <FontAwesomeIcon icon={icon} className="w-4 h-4" />
+          </a>
+        ))}
 
         {/* Theme Toggle */}
         <button
