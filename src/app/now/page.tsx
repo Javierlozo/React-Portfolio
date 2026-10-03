@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 // Update this page when the facts change. The date below is the last edit.
-const LAST_UPDATED = "August 2026";
+const LAST_UPDATED = "October 2026";
 
 const WORKING_ON = [
   "Passed GIAC GCIH (SEC504) in August 2026. The labs are published here: live PowerShell investigation, RITA beacon detection, Hayabusa log triage, and Nmap discovery.",
@@ -128,7 +128,7 @@ export default function NowPage() {
             Open to
           </h2>
           <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-            Application Security, Product Security, and AI Security roles.
+            Senior Application Security, Senior Product Security, and AI Security roles.
             Remote. I reply within 24 hours to recruiters and hiring managers.
           </p>
         </section>

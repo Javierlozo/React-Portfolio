@@ -611,6 +611,22 @@ npx llm-audit init`}</code>
             </li>
           </ul>
         </section>
+
+        <section className="mt-12 border-t border-gray-200 dark:border-gray-700/70 pt-8">
+          <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+            A scanner only catches the patterns it knows. If you want a person
+            to review your own app, I do fixed scope reviews through{" "}
+            <a
+              href="https://www.iberiatechsolutions.com/services"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-amber-700 dark:text-amber-400 underline underline-offset-2 hover:text-amber-800 dark:hover:text-amber-300"
+            >
+              IberiaTech Solutions
+            </a>
+            .
+          </p>
+        </section>
       </div>
     </div>
   );
