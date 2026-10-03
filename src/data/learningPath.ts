@@ -28,7 +28,7 @@ export interface LearningPathData {
 }
 
 export const learningPath: LearningPathData = {
-  lastUpdated: "2026-08-21",
+  lastUpdated: "2026-10-03",
   staleAfterDays: 30,
   current: [
     {
@@ -53,10 +53,10 @@ export const learningPath: LearningPathData = {
       id: "portswigger",
       label: "PortSwigger Web Academy",
       status: "in-progress",
-      meta: "Working toward BSCP, target Q4 2026",
+      meta: "BSCP exam Dec 19, 2026",
       progress: {
-        current: 26,
-        total: 52,
+        current: 10,
+        total: 61,
         unit: "Apprentice labs",
       },
     },

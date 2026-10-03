@@ -95,7 +95,7 @@ export default function About() {
             data-index="0"
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
           >
-            These days, most of my work mixes web development with LLM features. Right now I&apos;m running a{" "}
+            These days, most of my work lives where shipping software meets breaking it. Right now I&apos;m running a{" "}
             <span className="font-normal text-content">
               prompt-injection lab
             </span>
@@ -116,7 +116,7 @@ export default function About() {
             <span className="font-normal text-content">
               GDNA
             </span>
-            , building cloud-native apps on AWS. The interesting parts sit on the boundary between feature development and security: input validation, auth flows, S3 policies, secrets handling, and figuring out where things break when no one&apos;s watching.
+            , doing security review, auth, and IAM for serverless apps on AWS. The interesting parts sit on the boundary between feature development and security: input validation, auth flows, S3 policies, secrets handling, and figuring out where things break when no one&apos;s watching.
           </p>
 
           <p
