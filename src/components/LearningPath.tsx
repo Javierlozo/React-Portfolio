@@ -108,10 +108,10 @@ function Pill({
       className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-light text-gray-700 dark:text-gray-300"
     >
       <span aria-hidden="true" className={`w-1.5 h-1.5 rounded-full ${dotClass}`} />
-      <span>{item.label}</span>
+      <span>{item.label}{item.progress && ":"}</span>
       {item.progress && (
         <span className="text-content-subtle tabular-nums">
-          {item.progress.current}/{item.progress.total}
+          {item.progress.current}/{item.progress.total} {item.progress.unit}
         </span>
       )}
     </span>
