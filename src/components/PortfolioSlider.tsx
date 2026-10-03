@@ -62,7 +62,7 @@ interface Project {
   featured?: boolean;
   problem?: string;
   approach?: string;
-  outcome?: string;
+  outcome?: React.ReactNode;
   role?: string;
   solution?: string;
   impact?: string;
@@ -158,8 +158,20 @@ const PROJECTS: Project[] = [
       "Two painters in Gijón, Spain (Juan Mieres and Rafael Lozoya) had a strong following at home but no presence in the US. They needed a bilingual gallery site that carried their voice for American buyers and routed inquiries reliably.",
     approach:
       "Custom i18n with /en and /es route segments and middleware locale detection (cookie, IP geo, Accept-Language). Dictionary-based content, localized titles, dimensions shown in inches for English and centimeters for Spanish. Contact form posts to a Nodemailer + Gmail SMTP route. Deployed on Vercel.",
-    outcome:
-      "Live bilingual gallery at tinta.gallery showing 8 originals priced $300-$450. Operates as a DBA under IberiaTech Solutions LLC.",
+    outcome: (
+      <>
+        Live bilingual gallery at tinta.gallery showing 8 originals priced $300-$450. Operates as a DBA under{" "}
+        <a
+          href="https://www.iberiatechsolutions.com/services"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-4"
+        >
+          IberiaTech Solutions LLC
+        </a>
+        .
+      </>
+    ),
     role: "Solo build: concept, design, full-stack development, deployment",
   },
   {
@@ -226,7 +238,7 @@ const PROJECTS: Project[] = [
       "Solo consultancy out of Charleston, SC. Websites, online stores, and the occasional piece of software nobody else will sell off the shelf. Built in English and Spanish. Recent client: Tinta Gallery.",
     techStack: ["Next.js 14", "React 18", "TypeScript", "Tailwind CSS", "Framer Motion"],
     image: iberiatech,
-    liveLink: "https://www.iberiatechsolutions.com/",
+    liveLink: "https://www.iberiatechsolutions.com/services",
     codeLink: "https://github.com/IberiaTech-Solutions/iberiatech",
     problem:
       "Small and mid-size clients (especially Spanish-speaking owners) get pushed into template-heavy agency builds with rotating account managers. They need bilingual sites that actually convert and a direct line to the person building them.",

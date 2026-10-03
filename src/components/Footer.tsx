@@ -72,6 +72,14 @@ export default function Footer() {
             <Link href="/now" className="hover:text-gray-900 dark:hover:text-white transition-colors">
               Now
             </Link>
+            <a
+              href="https://www.iberiatechsolutions.com/services"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              IberiaTech Solutions
+            </a>
             {/* The site keeps its own analytics, so the page saying what is
                 in them is owed rather than decorative, even now that the
                 answer is "no cookies, no IP". The footer is where a reader

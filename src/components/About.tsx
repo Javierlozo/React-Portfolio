@@ -151,7 +151,16 @@ export default function About() {
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '350ms' }}
           >
-            I&apos;m looking for a full-time Senior Application Security or AI Security Engineer role, remote US or Charleston. I also take a small number of contract engagements: LLM application security reviews, OWASP LLM Top 10 assessments, and AWS auth and IAM hardening. Email{" "}
+            I&apos;m looking for a full-time Senior Application Security or AI Security Engineer role, remote US or Charleston. I also take a small number of contract engagements through my consultancy,{" "}
+            <a
+              href="https://www.iberiatechsolutions.com/services"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-normal underline underline-offset-4 decoration-gray-300 hover:decoration-gray-600 text-content dark:decoration-gray-600 dark:hover:decoration-gray-300"
+            >
+              IberiaTech Solutions
+            </a>
+            : fixed scope security reviews for AI built apps. You vibe coded the MVP. I make sure it is safe to ship. Email{" "}
             <a
               href="mailto:luis.lozoya.tech@gmail.com"
               className="font-normal underline underline-offset-4 decoration-gray-300 hover:decoration-gray-600 text-content dark:decoration-gray-600 dark:hover:decoration-gray-300"
