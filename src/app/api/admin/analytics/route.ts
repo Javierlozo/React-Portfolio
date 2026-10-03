@@ -66,11 +66,7 @@ export async function GET(request: NextRequest) {
     id: r.id,
     time: r.created_at,
     path: r.path,
-    ip_address: r.ip_address,
-    city: r.city,
-    region: r.region,
     country: r.country,
-    org: r.org || r.isp,
     browser: r.browser,
     os: r.os,
     device_type: r.device_type,
@@ -79,28 +75,6 @@ export async function GET(request: NextRequest) {
     visitor_id: r.visitor_id?.slice(0, 8),
     language: r.language,
   }));
-
-  const withOrg = views.filter((r) => r.org || r.isp);
-  const orgMap: Record<string, number> = {};
-  for (const r of withOrg) {
-    const name = r.org || r.isp || "Unknown";
-    orgMap[name] = (orgMap[name] || 0) + 1;
-  }
-  const topOrgs = Object.entries(orgMap)
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 15);
-
-  const withCity = views.filter((r) => r.city);
-  const cityMap: Record<string, number> = {};
-  for (const r of withCity) {
-    const label = r.region ? `${r.city}, ${r.region}` : r.city!;
-    cityMap[label] = (cityMap[label] || 0) + 1;
-  }
-  const topCities = Object.entries(cityMap)
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 10);
 
   const breakpoints = views
     .filter((r) => r.screen_width)
@@ -161,8 +135,6 @@ export async function GET(request: NextRequest) {
     devices: countBy(views, "device_type"),
     operatingSystems: countBy(views, "os").slice(0, 8),
     countries: countBy(views, "country").slice(0, 10),
-    topCities,
-    topOrgs,
     screenBreakpoints,
     topReferrers,
     utmSources,

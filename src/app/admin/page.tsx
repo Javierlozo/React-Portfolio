@@ -26,11 +26,7 @@ interface RecentVisitor {
   id: string;
   time: string;
   path: string;
-  ip_address: string | null;
-  city: string | null;
-  region: string | null;
   country: string | null;
-  org: string | null;
   browser: string;
   os: string;
   device_type: string;
@@ -53,8 +49,6 @@ interface Analytics {
   devices: { name: string; count: number }[];
   operatingSystems: { name: string; count: number }[];
   countries: { name: string; count: number }[];
-  topCities: { name: string; count: number }[];
-  topOrgs: { name: string; count: number }[];
   screenBreakpoints: { name: string; count: number }[];
   topReferrers: { name: string; count: number }[];
   utmSources: { name: string; count: number }[];
@@ -178,9 +172,7 @@ function RecentVisitorsTable({ visitors, onDelete }: { visitors: RecentVisitor[]
           <thead>
             <tr className={`text-left border-b ${s.border} ${s.subtitle}`}>
               <th className="pb-2 pr-4 font-medium">When</th>
-              <th className="pb-2 pr-4 font-medium">IP</th>
-              <th className="pb-2 pr-4 font-medium">Location</th>
-              <th className="pb-2 pr-4 font-medium">Organization</th>
+              <th className="pb-2 pr-4 font-medium">Country</th>
               <th className="pb-2 pr-4 font-medium">Page</th>
               <th className="pb-2 pr-4 font-medium">Source</th>
               <th className="pb-2 pr-4 font-medium">Device</th>
@@ -194,14 +186,8 @@ function RecentVisitorsTable({ visitors, onDelete }: { visitors: RecentVisitor[]
                 <td className={`py-2.5 pr-4 whitespace-nowrap ${s.subtitle}`}>
                   {timeAgo(v.time)}
                 </td>
-                <td className={`py-2.5 pr-4 whitespace-nowrap font-mono text-xs ${s.mono}`}>
-                  {v.ip_address || <span className={s.placeholder}>-</span>}
-                </td>
                 <td className="py-2.5 pr-4 whitespace-nowrap">
-                  {[v.city, v.region, v.country].filter(Boolean).join(", ") || "Unknown"}
-                </td>
-                <td className="py-2.5 pr-4 whitespace-nowrap max-w-[200px] truncate">
-                  {v.org || <span className={s.placeholder}>-</span>}
+                  {v.country || "Unknown"}
                 </td>
                 <td className="py-2.5 pr-4 whitespace-nowrap font-mono text-xs text-blue-500 max-w-[150px] truncate">
                   {v.path}
@@ -426,11 +412,6 @@ export default function AdminDashboard() {
               </PieChart>
             </ResponsiveContainer>
           </ChartCard>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-6">
-          <TableCard title="Top Organizations / ISPs" data={data.topOrgs} />
-          <TableCard title="Top Cities" data={data.topCities} />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">

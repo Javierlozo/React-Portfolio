@@ -168,6 +168,11 @@ export default function FitAssessment() {
             </button>
           </div>
 
+          <p className="mt-3 text-[10px] text-gray-400 dark:text-gray-600">
+            Sent to OpenAI to generate the assessment. Not stored here. Do not paste anything confidential.{" "}
+            <a href="/privacy" className="underline underline-offset-2">Privacy</a>
+          </p>
+
           {error && <p className="mt-3 text-sm text-rose-600 dark:text-rose-400">{error}</p>}
         </div>
 

@@ -13,9 +13,9 @@ function buildCsp(nonce: string, isDev: boolean): string {
   return [
     `default-src 'self'`,
     `script-src ${scriptSrc}`,
-    `style-src 'self' 'unsafe-inline' fonts.googleapis.com`,
-    `img-src 'self' data: blob: *.githubusercontent.com img.shields.io`,
-    `font-src 'self' fonts.gstatic.com`,
+    `style-src 'self' 'unsafe-inline'`,
+    `img-src 'self' data: blob: *.githubusercontent.com`,
+    `font-src 'self'`,
     `connect-src 'self' api.emailjs.com *.supabase.co`,
     `frame-ancestors 'none'`,
     `base-uri 'self'`,

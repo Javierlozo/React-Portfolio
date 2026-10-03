@@ -265,6 +265,8 @@ export default function AIChatModal({ onClose }: { onClose: () => void }) {
           </div>
           <p className="text-[10px] mt-1.5 text-center text-gray-400 dark:text-gray-600">
             Powered by AI. Responses based on Luis&apos;s actual experience.
+            {" "}Messages are sent to OpenAI to generate a reply and are not stored here.{" "}
+            <a href="/privacy" className="underline underline-offset-2">Privacy</a>
           </p>
         </form>
       </div>

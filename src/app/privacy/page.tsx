@@ -5,7 +5,7 @@ import { containerShell } from "../../components/ui/Section";
 export const metadata: Metadata = {
   title: "Privacy",
   description:
-    "What this site records about your visit, including the analytics cookie and the IP lookup, who it is shared with, and how to have it removed.",
+    "What this site records about your visit, who it is shared with, and how to have it removed.",
   alternates: { canonical: "https://www.luislozoya.com/privacy" },
   robots: { index: true, follow: true },
 };
@@ -75,6 +75,11 @@ const SECTIONS: Section[] = [
           can find each other. It cannot join two pages, and it certainly
           cannot join two visits.
         </p>
+        <p>
+          The light or dark theme you pick is saved in your browser&apos;s
+          local storage under <code>theme</code>, so the site remembers it. It
+          never leaves your browser.
+        </p>
       </>
     ),
   },
@@ -98,6 +103,9 @@ const SECTIONS: Section[] = [
           States, and only I can read it. It exists so I can tell whether
           anything here is being read, which is the whole reason it was built,
           and it turns out that question never needed a name attached to it.
+        </p>
+        <p>
+          Rows are kept for 12 months. A nightly job deletes anything older.
         </p>
         <p>
           Your IP address is read while the request is being served, to rate
@@ -125,8 +133,20 @@ const SECTIONS: Section[] = [
           website. Mine included.
         </p>
         <p>
+          <strong>EmailJS</strong> delivers the contact form. When you press
+          send, your browser posts your name, email address and message to
+          EmailJS, which also sees your IP address as part of that request.
+          EmailJS forwards the message to my Gmail inbox, where it is kept like
+          any other email. Nothing is sent until you press the button.
+        </p>
+        <p>
           <strong>Vercel</strong> hosts the site and, like any web host, sees
           requests as they are served.
+        </p>
+        <p>
+          Nothing else loads from a third party. Fonts and images are served
+          from this domain, and outside links only reach their site when you
+          click them.
         </p>
       </>
     ),
@@ -135,10 +155,12 @@ const SECTIONS: Section[] = [
     title: "What is not collected",
     body: (
       <p>
-        No account, because there is nothing to sign in to. No contact form, so
-        no name or email unless you choose to send one. No advertising network,
-        no Google Analytics, no social pixels, no fingerprinting, and nothing
-        recording what you type as you type it.
+        No account, because there is nothing to sign in to. No name or email
+        unless you send one through the contact form. No advertising network,
+        no Google Analytics, no social pixels, no fingerprinting, no session
+        recording, and nothing recording what you type as you type it. The
+        site is not directed at children under 13 and does not knowingly
+        collect anything from them.
       </p>
     ),
   },
@@ -149,17 +171,26 @@ const SECTIONS: Section[] = [
         <p>
           If you are in the EU or the UK, the GDPR gives you the right to see
           what is held about you, to have it corrected, and to have it deleted.
+          The page view counter runs on legitimate interest (Article 6(1)(f)):
+          knowing whether the site is read, with nothing that identifies you.
+          A contact form message is processed so I can reply to it.
         </p>
         <p>
-          <strong>There is nothing here to find.</strong> Since no cookie is
-          set, no IP is stored and no identifier survives a page load, no row
-          in that table can be traced back to you, by me or by anyone with the
+          The site does not respond to Do Not Track signals differently,
+          because there is no cross-site tracking for the signal to turn off.
+        </p>
+        <p>
+          <strong>For analytics, there is nothing here to find.</strong> Since
+          no cookie is set, no IP is stored and no identifier survives a page
+          load, no row in that table can be traced back to you, by me or by anyone with the
           database in front of them. That is the point of having removed them:
           a request I cannot fulfil because the data does not exist is a better
           answer than a process for handling one.
         </p>
         <p>
-          If you want to ask anyway, or you think something here is wrong,
+          A contact form message is different: it is an email with your name
+          on it, and I will delete it if you ask. If you want to ask anything
+          else, or you think something here is wrong,
           email{" "}
           <a href="mailto:luis.lozoya.tech@gmail.com">
             luis.lozoya.tech@gmail.com
@@ -219,7 +250,7 @@ export default function PrivacyPage() {
         </div>
 
         <p className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-500">
-          Last updated 28 August 2026.{" "}
+          Last updated 3 October 2026.{" "}
           <Link href="/" className="underline underline-offset-4">
             Back to the site
           </Link>
