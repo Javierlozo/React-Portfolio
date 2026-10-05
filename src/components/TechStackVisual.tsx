@@ -127,7 +127,7 @@ export default function TechStackVisual() {
       container={false}>
       <div className={containerShell("grid")}>
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-thin mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight text-content border-divider">
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-semibold mb-4 sm:mb-8 pb-2 border-b w-fit mx-auto leading-tight text-content border-divider">
             Tech Stack
           </h2>
           <p className="text-sm sm:text-lg md:text-xl max-w-3xl mx-auto text-content-muted">

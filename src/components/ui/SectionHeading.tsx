@@ -11,7 +11,7 @@ import React from "react";
  */
 
 export const headingClass =
-  "text-2xl sm:text-3xl md:text-4xl font-thin text-gray-900 dark:text-white";
+  "font-display text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 dark:text-white";
 
 /** Heading plus the thin rule underneath it. */
 export const headingRuleClass = `${headingClass} pb-2 border-b w-fit mx-auto border-gray-200 dark:border-gray-700`;

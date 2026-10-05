@@ -26,7 +26,7 @@ export default function NotesTeaser() {
               <p className="font-mono text-[10px] font-semibold uppercase tracking-widest mb-1.5 text-amber-700 dark:text-amber-400">
                 Learning in public
               </p>
-              <h2 className="text-2xl sm:text-3xl font-thin leading-tight text-content">
+              <h2 className="text-2xl sm:text-3xl font-semibold leading-tight text-content">
                 AppSec Notes
               </h2>
             </div>

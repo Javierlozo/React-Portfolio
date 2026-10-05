@@ -105,7 +105,7 @@ export default async function RepoPage({ params }: Props) {
                   {r.cert}
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight text-content">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-content">
                 {r.name}
               </h1>
             </div>

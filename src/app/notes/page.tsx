@@ -171,7 +171,7 @@ export default function NotesPage() {
             <FontAwesomeIcon icon={faBookOpen} className="mr-2" />
             Learning in public · {activeCount} active
           </p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight mb-5 text-content">
             AppSec{" "}
             <span className="font-mono text-amber-600 dark:text-amber-400">
               Notes

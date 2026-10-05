@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ThemeProvider } from "../contexts/ThemeContext";
@@ -26,6 +26,13 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
   weight: ["400", "500", "600"],
   variable: "--font-mono",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
 });
 
 export const metadata = {
@@ -163,7 +170,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans min-h-screen transition-colors duration-300`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable} font-sans min-h-screen transition-colors duration-300`}>
         <StructuredData />
         <ConsoleMessage />
         <ThemeProvider>

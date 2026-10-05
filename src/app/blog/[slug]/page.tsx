@@ -192,7 +192,7 @@ export default async function BlogPostPage({ params }: Props): Promise<JSX.Eleme
             <p className="text-sm font-medium mb-1 text-amber-700 dark:text-amber-400/80">
               Writing
             </p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin tracking-tight leading-tight mb-4 text-content">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight leading-tight mb-4 text-content">
               {post.title}
             </h1>
             {post.description && (

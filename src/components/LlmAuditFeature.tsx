@@ -40,7 +40,7 @@ export default function LlmAuditFeature() {
           <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
           Flagship project · Open source · MIT
         </p>
-        <h2 className="text-3xl sm:text-4xl font-thin leading-tight tracking-tight mb-4 text-content">
+        <h2 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-4 text-content">
           <span className="font-mono text-amber-600 dark:text-amber-400">
             llm-audit
           </span>
@@ -71,6 +71,38 @@ export default function LlmAuditFeature() {
           <pre className="m-0 overflow-x-auto p-4 text-[13px] leading-relaxed text-gray-100 font-mono">
             <code>{`npm i -D llm-audit
 npx llm-audit demo           # all 12 rules vs bundled vulnerable fixtures`}</code>
+          </pre>
+        </div>
+
+        {/* Real output */}
+        <div className="mt-6 overflow-hidden rounded-xl border border-gray-300 bg-gray-950 shadow-md dark:border-gray-700 max-w-2xl">
+          <div className="flex items-center justify-between px-4 py-2.5 bg-gray-900 border-b border-gray-700">
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon
+                icon={faTerminal}
+                className="text-gray-400 text-xs"
+              />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-gray-300">
+                npx llm-audit demo
+              </span>
+            </div>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-gray-500">
+              output
+            </span>
+          </div>
+          <pre className="m-0 overflow-x-auto p-4 text-[11px] sm:text-[12px] leading-relaxed text-gray-100 font-mono">
+            <code>{`test/fixtures/llm-output-insecure-handling/vulnerable.tsx  6 findings
+
+  ✗ error   llm-output-insecure-handling  LLM10  line 18
+      LLM model output is flowing into a dangerous sink (eval /
+      new Function / child_process / dangerouslySetInnerHTML).
+
+     17 │   // ruleid: llm-output-insecure-handling
+     18 │   return eval(r.choices[0].message.content as string);
+     19 │ }
+     ...
+────────────────────────────────────────────────────────────
+42 findings  31 error · 11 warning  in 12 files · 12 of 12 rules fired`}</code>
           </pre>
         </div>
 

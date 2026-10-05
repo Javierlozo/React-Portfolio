@@ -26,7 +26,7 @@ export default function BorderDrawButton({
   target,
   rel,
 }: BorderDrawButtonProps) {
-  const baseClass = `relative group px-5 sm:px-8 py-2.5 sm:py-3 text-xs font-light tracking-widest uppercase overflow-hidden inline-flex items-center justify-center gap-2 min-h-[44px] ${className}`;
+  const baseClass = `relative group px-5 sm:px-8 py-2.5 sm:py-3 text-sm font-medium tracking-wide overflow-hidden inline-flex items-center justify-center gap-2 min-h-[44px] ${className}`;
 
   const inner = (
     <>

@@ -115,7 +115,7 @@ export default async function NotePage({ params }: Props) {
               {r?.shortName}
               {s ? ` · ${s.title}` : ""}
             </p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-thin leading-tight tracking-tight mb-4 text-content">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight tracking-tight mb-4 text-content">
               {note.title}
             </h1>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-content-subtle">

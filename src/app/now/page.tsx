@@ -53,7 +53,7 @@ export default function NowPage() {
           <FontAwesomeIcon icon={faShieldHalved} className="mr-2" />
           Updated {LAST_UPDATED}
         </p>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-thin leading-tight tracking-tight mb-5 text-content">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight mb-5 text-content">
           Now
         </h1>
         <p className="text-lg sm:text-xl leading-relaxed mb-12 text-gray-700 dark:text-gray-300">

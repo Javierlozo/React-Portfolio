@@ -72,7 +72,7 @@ export default function Hero() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
           <div className="text-left space-y-6 sm:space-y-8 order-1">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-thin tracking-tight text-content">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-content">
               <span
                 className={`inline-block transition-all ease-out ${dur} ${
                   visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 sm:-translate-x-8'
@@ -102,7 +102,7 @@ export default function Hero() {
             </h1>
 
             <h2
-              className={`text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-wide transition-all ease-out ${dur} text-content-muted ${ visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 sm:translate-y-4' }`}
+              className={`font-display text-base sm:text-lg md:text-xl lg:text-2xl font-medium tracking-wide transition-all ease-out ${dur} text-content-muted ${ visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 sm:translate-y-4' }`}
               style={{ transitionDelay: delay(350) }}
             >
               Senior Application Security Engineer · AI/LLM Security · AWS
@@ -114,7 +114,7 @@ export default function Hero() {
               }`}
               style={{ transitionDelay: delay(600) }}
             >
-              <p className="text-sm sm:text-base md:text-lg font-light leading-relaxed text-content-muted">
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-content-muted">
                 I secure AI applications and the AWS systems they run on. I ship{" "}
                 <span className="font-normal text-content">llm-audit</span>, an OWASP LLM Top 10 scanner on npm. Five years of production React and Next.js is why I know where the bugs hide.{" "}
                 <span className="block mt-2 text-content-subtle">
@@ -133,9 +133,9 @@ export default function Hero() {
             <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
               <button
                 onClick={scrollToPortfolio}
-                className="px-5 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-light tracking-widest uppercase transition-colors duration-300 bg-gray-900 text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
+                className="px-5 sm:px-8 py-2.5 sm:py-3 text-sm font-medium tracking-wide transition-colors duration-300 bg-gray-900 text-white hover:bg-gray-700 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200"
               >
-                View Security Work
+                View security work
               </button>
               <BorderDrawButton as="a" href="/resume/Resume.pdf" download="Luis Javier Lozoya - Resume.pdf">
                 Resume
