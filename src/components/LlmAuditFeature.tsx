@@ -18,7 +18,7 @@ const REPO_URL = "https://github.com/Javierlozo/llm-audit";
 const NPM_URL = "https://www.npmjs.com/package/llm-audit";
 
 // Three of the twelve rules, picked for the home page because they read
-// fastest at a glance. Full set lives on /llm-audit.
+// fastest at a glance. The full set lives on the llm-audit site.
 const FEATURED_IDS = [
   "untrusted-input-in-system-prompt",
   "llm-output-insecure-handling",
@@ -143,10 +143,10 @@ npx llm-audit demo           # all 12 rules vs bundled vulnerable fixtures`}</co
         {/* CTAs */}
         <div className="flex flex-wrap gap-3 mt-8">
           <Link
-            href="/llm-audit"
+            href="https://llm-audit.luislozoya.com"
             className={buttonPrimary}
           >
-            All 12 rules and how it works
+            Website, all 12 rules, and the lessons
             <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
           </Link>
           <a

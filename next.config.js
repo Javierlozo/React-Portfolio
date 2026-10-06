@@ -16,6 +16,8 @@ const nextConfig = {
       { source: '/blog/wireshark-packet-analysis', destination: '/labs/sec401/wireshark-packet-analysis', permanent: true },
       { source: '/blog/vpc-flow-logs', destination: '/labs/sec401/vpc-flow-logs', permanent: true },
       { source: '/blog/password-auditing', destination: '/labs/sec401/password-auditing', permanent: true },
+      // llm-audit has its own site now. Old links, bookmarks, and search results land there.
+      { source: '/llm-audit', destination: 'https://llm-audit.luislozoya.com', permanent: true },
     ];
   },
   async headers() {
