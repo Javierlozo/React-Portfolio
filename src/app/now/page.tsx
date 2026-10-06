@@ -135,7 +135,7 @@ export default function NowPage() {
 
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/llm-audit"
+            href="https://llm-audit.luislozoya.com"
             className={buttonPrimary}
           >
             See llm-audit

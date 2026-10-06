@@ -6,7 +6,7 @@ import photo from "@/src/assets/pictures/Photo-127.jpg";
 // from search, so this is where they learn who wrote them.
 const LINKS = [
   { label: "Portfolio", href: "/" },
-  { label: "llm-audit", href: "/llm-audit" },
+  { label: "llm-audit", href: "https://llm-audit.luislozoya.com" },
   { label: "Resume", href: "/resume/Resume.pdf", download: "Luis Javier Lozoya - Resume.pdf" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/luisjlozoya/", external: true },
 ];

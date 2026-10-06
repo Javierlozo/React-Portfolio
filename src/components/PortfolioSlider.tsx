@@ -79,7 +79,7 @@ const PROJECTS: Project[] = [
       "OWASP LLM Top 10 at commit time. A Semgrep rule pack and npm CLI for catching the security failure modes AI coding assistants quietly introduce in TS/JS LLM applications. Live on npm.",
     techStack: ["Semgrep", "TypeScript", "Node.js", "OWASP LLM Top 10", "npm", "GitHub Actions"],
     image: llmAudit,
-    liveLink: "/llm-audit",
+    liveLink: "https://llm-audit.luislozoya.com",
     codeLink: "https://github.com/Javierlozo/llm-audit",
     npmLink: "https://www.npmjs.com/package/llm-audit",
     featured: true,

@@ -290,7 +290,7 @@ export default function NotesPage() {
             </li>
             <li>
               <Link
-                href="/llm-audit"
+                href="https://llm-audit.luislozoya.com"
                 className="text-amber-700 dark:text-amber-400 underline underline-offset-2 hover:text-amber-800 dark:hover:text-amber-300"
               >
                 llm-audit
