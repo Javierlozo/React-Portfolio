@@ -11,7 +11,9 @@ import { useTheme } from "../contexts/ThemeContext";
 import { OPEN_EVENT } from "./CommandPalette";
 
 type NavLink = { label: string; id: string };
-type NavItem = { label: string; id?: string; href?: string; note?: string };
+// `section` marks a page-link item that also stands for a home-page section,
+// so the group lights up while that section is on screen.
+type NavItem = { label: string; id?: string; href?: string; note?: string; section?: string };
 
 const TOP_LINKS: NavLink[] = [
   { label: "About", id: "about" },
@@ -22,26 +24,26 @@ const CTA_LINK: NavLink = { label: "Fit Check", id: "fit-check" };
 const CONTACT_LINK: NavLink = { label: "Contact", id: "contact" };
 
 // llm-audit leads Work: it is the flagship and the first thing a hiring
-// manager should see. Section anchor, not /llm-audit, for the richer layout.
+// manager should see. The section items follow the home page's order.
 const WORK_ITEMS: NavItem[] = [
   { label: "llm-audit", id: "llm-audit", note: "OWASP LLM Top 10 scanner" },
-  { label: "LLM Red Team Lab", href: "/ai-playground", note: "Prompt injection research" },
   { label: "Other projects", id: "portfolio", note: "Shipped web work" },
   { label: "Experience", id: "experience", note: "Where I have worked" },
+  { label: "LLM Red Team Lab", href: "/ai-playground", note: "Prompt injection research" },
 ];
 
 // Mobile mirrors the desktop grouping: flat primary links, then Work and
 // Writing as labeled groups.
 const MOBILE_PRIMARY: NavLink[] = [
   ...TOP_LINKS,
-  LABS_LINK,
   CREDENTIALS_LINK,
+  LABS_LINK,
   CTA_LINK,
   CONTACT_LINK,
 ];
 
 const WRITING_ITEMS: NavItem[] = [
-  { label: "AppSec Notes", href: "/notes", note: "Course and cert notes" },
+  { label: "AppSec Notes", href: "/notes", note: "Course and cert notes", section: "appsec-notes" },
   { label: "Blog", href: "/blog", note: "Writeups and findings" },
   { label: "Now", href: "/now", note: "What I am working on" },
 ];
@@ -93,11 +95,14 @@ export default function Navbar() {
   }, [isOpen]);
 
   useEffect(() => {
-    const sections = ["about", "llm-audit", "experience", "security-labs", "certifications", "portfolio", "fit-check", "contact"];
+    // Every home-page section, in page order. A section with no link of its
+    // own lights up the link it belongs under, so the underline never drops.
+    const sections = ["llm-audit", "portfolio", "experience", "about", "certifications", "learning-path", "security-labs", "appsec-notes", "fit-check", "contact"];
+    const belongsTo: Record<string, string> = { "learning-path": "certifications" };
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          if (entry.isIntersecting) setActiveSection(belongsTo[entry.target.id] ?? entry.target.id);
         });
       },
       { root: null, rootMargin: "-20% 0px -70% 0px", threshold: 0 }
@@ -136,7 +141,9 @@ export default function Navbar() {
   const itemHref = (item: NavItem) => (item.href ? item.href : sectionHref(item.id!));
 
   const isItemActive = (item: NavItem) =>
-    item.href ? pathname.startsWith(item.href) : activeSection === item.id;
+    item.href
+      ? pathname.startsWith(item.href) || (item.section !== undefined && activeSection === item.section)
+      : activeSection === item.id;
 
   const NavDropdown = ({ label, items }: { label: string; items: NavItem[] }) => {
     const [open, setOpen] = useState(false);
@@ -351,11 +358,14 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden xl:flex justify-center items-center flex-grow gap-1 min-w-0">
+          {/* Same order as the home page, left to right. */}
+          <NavDropdown label="Work" items={WORK_ITEMS} />
+
           {TOP_LINKS.map((link) => (
             <SectionLink key={link.id} link={link} />
           ))}
 
-          <NavDropdown label="Work" items={WORK_ITEMS} />
+          <SectionLink link={CREDENTIALS_LINK} />
 
           {/* Labs, amber accent */}
           <a
@@ -373,8 +383,6 @@ export default function Navbar() {
           </a>
 
           <NavDropdown label="Writing" items={WRITING_ITEMS} />
-
-          <SectionLink link={CREDENTIALS_LINK} />
 
           {/* Fit Check, pill CTA */}
           <a

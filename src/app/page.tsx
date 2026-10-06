@@ -19,12 +19,15 @@ export default function Home() {
   return (
     <div className="relative min-h-screen">
       <Hero />
+      {/* Same order as the navbar, left to right: Work, About, Credentials,
+          Labs, Writing, Fit Check, Contact. Keep them in step, so the active
+          link moves steadily right as you scroll. */}
       <LlmAuditFeature />
-      <LearningPath />
-      <About />
-      <ExperienceTimeline />
-      <CertificationsShowcase />
       <PortfolioSlider />
+      <ExperienceTimeline />
+      <About />
+      <CertificationsShowcase />
+      <LearningPath />
       <CybersecurityLabs />
       <NotesTeaser />
       <FitAssessment />
