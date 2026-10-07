@@ -6,7 +6,7 @@ import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
-import { certsByStatus } from "@/src/data/learningPath";
+import { certsByStatus, learningPath } from "@/src/data/learningPath";
 
 import gcih from "@/src/assets/certifications/GCIH.png";
 import gsec from "@/src/assets/certifications/GSEC.png";
@@ -58,6 +58,15 @@ const CERTS: Cert[] = [
   },
 ];
 
+function formatLastUpdated(iso: string): string {
+  return new Date(iso + "T00:00:00Z").toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -91,7 +100,7 @@ export default function CertificationsShowcase() {
       id="certifications"
       container={false}>
       <div className={containerShell("grid")}>
-        <SectionHeading title="Certifications" margin="mb-10" />
+        <SectionHeading title="Credentials" margin="mb-10" />
 
         <div ref={ref} className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {CERTS.map((cert, i) => {
@@ -150,13 +159,19 @@ export default function CertificationsShowcase() {
           <span className="font-mono uppercase tracking-widest text-content-subtle mr-1">
             In progress
           </span>
-          {certsByStatus("In progress").map(({ name: label }) => (
+          {learningPath.inProgress.map(({ id, label, meta, progress }) => (
             <span
-              key={label}
+              key={id}
+              title={meta}
               className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 border-amber-300 text-amber-800 bg-amber-50 dark:border-amber-500/40 dark:text-amber-300 dark:bg-amber-500/10"
             >
               <span className="block h-1.5 w-1.5 rounded-full bg-amber-500" />
               {label}
+              {progress && (
+                <span className="tabular-nums opacity-75">
+                  {progress.current}/{progress.total} {progress.unit}
+                </span>
+              )}
             </span>
           ))}
         </div>
@@ -175,6 +190,10 @@ export default function CertificationsShowcase() {
             </span>
           ))}
         </div>
+
+        <p className="mt-6 text-center text-xs text-content-subtle">
+          Updated {formatLastUpdated(learningPath.lastUpdated)}
+        </p>
       </div>
     </Section>
   );

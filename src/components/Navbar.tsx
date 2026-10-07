@@ -95,14 +95,13 @@ export default function Navbar() {
   }, [isOpen]);
 
   useEffect(() => {
-    // Every home-page section, in page order. A section with no link of its
-    // own lights up the link it belongs under, so the underline never drops.
-    const sections = ["llm-audit", "portfolio", "experience", "about", "certifications", "learning-path", "security-labs", "appsec-notes", "fit-check", "contact"];
-    const belongsTo: Record<string, string> = { "learning-path": "certifications" };
+    // Every home-page section, in page order. appsec-notes sits inside
+    // security-labs, so it takes over once you scroll down to it.
+    const sections = ["llm-audit", "portfolio", "experience", "about", "certifications", "security-labs", "appsec-notes", "fit-check", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(belongsTo[entry.target.id] ?? entry.target.id);
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
         });
       },
       { root: null, rootMargin: "-20% 0px -70% 0px", threshold: 0 }
