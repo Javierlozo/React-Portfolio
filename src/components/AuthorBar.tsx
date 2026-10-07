@@ -28,7 +28,7 @@ export default function AuthorBar() {
       <div className="space-y-2">
         <p className="text-sm font-medium text-content">Luis Javier Lozoya</p>
         <p className="text-sm leading-relaxed text-content-muted">
-          Application Security Engineer in Charleston, SC. I build llm-audit, an OWASP LLM Top 10
+          Software engineer focused on application and AI/LLM security, in Charleston, SC. I build llm-audit, an OWASP LLM Top 10
           scanner for TypeScript and JavaScript. Open to full-time Senior AppSec and AI Security
           roles, remote US.
         </p>

@@ -3,8 +3,8 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Luis Javier Lozoya",
-    "jobTitle": "Application Security Engineer",
-    "description": "Application Security Engineer in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
+    "jobTitle": "Software Engineer, Application Security",
+    "description": "Software engineer focused on application and AI/LLM security in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
     "url": "https://www.luislozoya.com",
     "image": "https://www.luislozoya.com/opengraph-image",
     "sameAs": [

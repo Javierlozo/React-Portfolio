@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Luis Javier Lozoya - Security Engineer, AppSec and Cloud";
+export const alt = "Luis Javier Lozoya - Software Engineer, Application Security, AI/LLM Security";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -55,7 +55,7 @@ export default function OGImage() {
               lineHeight: 1.4,
             }}
           >
-            Security Engineer · AppSec · Cloud · AI
+            Software Engineer · AppSec · AI/LLM Security
           </div>
           <div
             style={{

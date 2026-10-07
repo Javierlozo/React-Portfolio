@@ -57,8 +57,9 @@ export default function NowPage() {
           Now
         </h1>
         <p className="text-lg sm:text-xl leading-relaxed mb-12 text-gray-700 dark:text-gray-300">
-          What I&apos;m working on this month. Application Security Engineer
-          in Charleston, SC, with 5+ years of software engineering behind me.
+          What I&apos;m working on this month. Software engineer focused on
+          application and AI/LLM security, in Charleston, SC, with 5+ years of
+          building production software behind me.
         </p>
 
         <section className="mb-12">

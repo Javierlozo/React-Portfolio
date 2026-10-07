@@ -143,7 +143,7 @@ export default async function BlogOGImage({
             <div style={{ color: "#cbd5e1", fontWeight: 600 }}>
               Luis Javier Lozoya
             </div>
-            <div>Security Engineer · AppSec · Cloud · AI</div>
+            <div>Software Engineer · AppSec · AI/LLM Security</div>
           </div>
           <div
             style={{

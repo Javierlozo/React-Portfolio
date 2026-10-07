@@ -40,7 +40,7 @@ export const metadata = {
     default: "Luis Javier Lozoya | Software Engineer · Application Security · AI/LLM Security",
     template: "%s | Luis Javier Lozoya"
   },
-  description: "Application Security Engineer in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
+  description: "Software engineer focused on application and AI/LLM security in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
   keywords: [
     "Application Security Engineer",
     "AppSec Engineer",
@@ -89,7 +89,7 @@ export const metadata = {
   },
   openGraph: {
     title: "Luis Javier Lozoya | Software Engineer · Application Security · AI/LLM Security",
-    description: "Application Security Engineer in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
+    description: "Software engineer focused on application and AI/LLM security in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
     url: 'https://www.luislozoya.com',
     siteName: 'Luis Javier Lozoya Portfolio',
     locale: 'en_US',
@@ -99,7 +99,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Luis Javier Lozoya | Software Engineer · Application Security · AI/LLM Security",
-    description: "Application Security Engineer in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
+    description: "Software engineer focused on application and AI/LLM security in Charleston, SC. GIAC GCIH + GSEC + GFACT certified. I ship llm-audit, an OWASP LLM Top 10 static analyzer for TypeScript and JavaScript, and secure React, Next.js, and AWS applications.",
     creator: '@javierlozo',
   },
   robots: {
