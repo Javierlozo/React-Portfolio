@@ -296,7 +296,7 @@ export default function CybersecurityLabs() {
                   />
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-content truncate">{repo.name}</p>
-                    <p className="text-xs text-content-subtle truncate">{repo.cert}</p>
+                    <p className="text-xs text-content-subtle">{repo.cert}</p>
                   </div>
                 </li>
               ))}
