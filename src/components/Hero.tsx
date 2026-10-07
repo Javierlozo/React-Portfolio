@@ -105,7 +105,7 @@ export default function Hero() {
               className={`font-display text-base sm:text-lg md:text-xl lg:text-2xl font-medium tracking-wide transition-all ease-out ${dur} text-content-muted ${ visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 sm:translate-y-4' }`}
               style={{ transitionDelay: delay(350) }}
             >
-              Senior Application Security Engineer · AI/LLM Security · AWS
+              Software Engineer · Application Security · AI/LLM Security
             </h2>
 
             <div
@@ -150,7 +150,7 @@ export default function Hero() {
             <div className="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64">
               <Image
                 src={photo}
-                alt="Luis Javier Lozoya, Senior Application Security Engineer, AI/LLM Security, AWS"
+                alt="Luis Javier Lozoya, Software Engineer, Application Security, AI/LLM Security"
                 className="rounded-full object-cover border border-divider"
                 width={256}
                 height={256}
