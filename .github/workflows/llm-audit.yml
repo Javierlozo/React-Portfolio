@@ -15,13 +15,7 @@ jobs:
       # Pinned to SHA per https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions
       # Update with: gh api repos/<owner>/<repo>/releases/latest --jq .target_commitish
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
-        with:
-          node-version: 22
-      - name: install semgrep
-        run: pipx install semgrep
-      # No `npm ci` here on purpose. This is a static scan of source files, so
-      # it never needs this app's dependency tree, and installing it would make
-      # the job fail for reasons that have nothing to do with security.
-      - name: run llm-audit
-        run: npx --yes llm-audit@0.6.2 scan
+      # The llm-audit action runs the CLI from this pinned commit and installs
+      # Semgrep. No `npm ci`: a static scan never needs this app's dependency
+      # tree, and installing it would fail the job for non-security reasons.
+      - uses: Javierlozo/llm-audit@28bc3190b565e64f312ca38a254df29112beeaf3  # v0.11.0

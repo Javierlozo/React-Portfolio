@@ -13,7 +13,7 @@ More than a portfolio page: it's a Next.js app with an AI assistant, a job-fit a
 - **Cybersecurity Labs** (`/labs`): Hands-on lab write-ups (tcpdump, Wireshark) with steps, command breakdowns, screenshots, printable views, and cheatsheets.
 - **Notes** (`/notes`): Study notes synced from other GitHub repos (PortSwigger Academy, TCM PWPA) via `scripts/sync-notes.mjs`.
 - **Blog** (`/blog`): MDX-based blog.
-- **llm-audit landing** (`/llm-audit`): Page for the [`llm-audit`](https://github.com/Javierlozo/llm-audit) Semgrep rule pack.
+- **llm-audit** (`/llm-audit`): Redirects to [llm-audit.luislozoya.com](https://llm-audit.luislozoya.com), the site for the [`llm-audit`](https://github.com/Javierlozo/llm-audit) Semgrep rule pack.
 - **Admin dashboard** (`/admin`): Page-view analytics and tracking, behind a login.
 
 ## Tech Stack
