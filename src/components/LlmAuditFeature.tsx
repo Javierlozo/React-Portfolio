@@ -7,27 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShieldHalved,
   faTerminal,
-  faCircleXmark,
   faArrowRight,
   faGithub,
   faNpm,
 } from "../app/llm-audit/icons";
-import { LLM_AUDIT_RULES } from "../data/llm-audit-rules";
 
 const REPO_URL = "https://github.com/Javierlozo/llm-audit";
 const NPM_URL = "https://www.npmjs.com/package/llm-audit";
-
-// Three of the twelve rules, picked for the home page because they read
-// fastest at a glance. The full set lives on the llm-audit site.
-const FEATURED_IDS = [
-  "untrusted-input-in-system-prompt",
-  "llm-output-insecure-handling",
-  "model-output-parsed-without-schema",
-];
-
-const featured = FEATURED_IDS.map((id) =>
-  LLM_AUDIT_RULES.find((r) => r.id === id)
-).filter((r): r is (typeof LLM_AUDIT_RULES)[number] => Boolean(r));
 
 export default function LlmAuditFeature() {
   return (
@@ -104,40 +90,6 @@ npx llm-audit demo           # all 12 rules vs bundled vulnerable fixtures`}</co
 ────────────────────────────────────────────────────────────
 42 findings  31 error · 11 warning  in 12 files · 12 of 12 rules fired`}</code>
           </pre>
-        </div>
-
-        {/* What it catches */}
-        <h3 className="font-mono text-sm font-semibold uppercase tracking-wide mt-12 mb-6 text-amber-700 dark:text-amber-400">
-          What it catches
-        </h3>
-        <div className="grid gap-5 md:grid-cols-3">
-          {featured.map((rule) => (
-            <div
-              key={rule.id}
-              className="flex flex-col rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900/40 overflow-hidden"
-            >
-              <div className="px-4 pt-4 pb-3">
-                <p className="font-mono text-[11px] font-semibold uppercase tracking-widest text-amber-700 dark:text-amber-400 mb-2">
-                  {rule.owasp}
-                </p>
-                <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-                  {rule.oneLine}
-                </p>
-              </div>
-              <div className="mt-auto border-t border-gray-100 dark:border-gray-800 bg-gray-950">
-                <div className="flex items-center gap-1.5 px-4 py-2 border-b border-gray-800 font-mono text-[10px] uppercase tracking-widest text-red-300">
-                  <FontAwesomeIcon
-                    icon={faCircleXmark}
-                    className="text-red-400"
-                  />
-                  vulnerable
-                </div>
-                <pre className="m-0 overflow-x-auto p-3 text-[11px] leading-relaxed text-gray-100 font-mono">
-                  <code>{rule.vulnerable}</code>
-                </pre>
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* CTAs */}

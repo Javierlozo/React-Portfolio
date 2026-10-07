@@ -1,9 +1,6 @@
-export type LearningStatus = "done" | "in-progress";
-
 export interface LearningItem {
   id: string;
   label: string;
-  status: LearningStatus;
   meta?: string;
   progress?: {
     current: number;
@@ -22,37 +19,16 @@ export interface CertTimelineEntry {
 
 export interface LearningPathData {
   lastUpdated: string;
-  staleAfterDays: number;
-  current: LearningItem[];
-  upcoming: string[];
+  /** Work in flight, with finer detail than certTimeline (lab counts, exam dates). */
+  inProgress: LearningItem[];
 }
 
 export const learningPath: LearningPathData = {
   lastUpdated: "2026-10-03",
-  staleAfterDays: 30,
-  current: [
-    {
-      id: "gfact",
-      label: "GIAC GFACT",
-      status: "done",
-      meta: "Foundational Cybersecurity",
-    },
-    {
-      id: "gsec",
-      label: "GIAC GSEC",
-      status: "done",
-      meta: "passed Apr 2026",
-    },
-    {
-      id: "gcih",
-      label: "GIAC GCIH",
-      status: "done",
-      meta: "SANS SEC504, passed Aug 2026",
-    },
+  inProgress: [
     {
       id: "portswigger",
       label: "PortSwigger Web Academy",
-      status: "in-progress",
       meta: "BSCP exam Dec 19, 2026",
       progress: {
         current: 10,
@@ -63,20 +39,14 @@ export const learningPath: LearningPathData = {
     {
       id: "scs",
       label: "AWS Security Specialty",
-      status: "in-progress",
       meta: "SCS-C03, target Q1 2027",
     },
-  ],
-  upcoming: [
-    "TryHackMe AI Security (AI1)",
-    "HackTheBox AI Red Teamer path",
-    "TCM PWPA (Web Pentest)",
   ],
 };
 
 /**
  * Single source of truth for cert status across the site. The /now table, the
- * Certifications "In progress" and "Planned" pills, and any future surface all
+ * Credentials "Planned" pills, and any future surface all
  * read from here so they cannot drift apart.
  */
 export const certTimeline: CertTimelineEntry[] = [

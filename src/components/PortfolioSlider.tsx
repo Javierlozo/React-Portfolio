@@ -18,7 +18,6 @@ import web3 from "@/src/assets/pictures/langchain.png";
 import shopEssentialshub from "@/src/assets/pictures/shopessentials.png";
 import talentagent from "@/src/assets/pictures/TalentAgent.png";
 import tinta from "@/src/assets/pictures/tinta.png";
-import llmAudit from "@/src/assets/pictures/llm.png";
 import aiPlayground from "@/src/assets/pictures/llm2.png";
 
 function useReveal(threshold = 0.1) {
@@ -71,26 +70,6 @@ interface Project {
 
 const PROJECTS: Project[] = [
   // ===== Security =====
-  {
-    id: 19,
-    category: "security",
-    title: "llm-audit: Static Analysis for TypeScript LLM Apps (2026)",
-    description:
-      "OWASP LLM Top 10 at commit time. A Semgrep rule pack and npm CLI for catching the security failure modes AI coding assistants quietly introduce in TS/JS LLM applications. Live on npm.",
-    techStack: ["Semgrep", "TypeScript", "Node.js", "OWASP LLM Top 10", "npm", "GitHub Actions"],
-    image: llmAudit,
-    liveLink: "https://llm-audit.luislozoya.com",
-    codeLink: "https://github.com/Javierlozo/llm-audit",
-    npmLink: "https://www.npmjs.com/package/llm-audit",
-    featured: true,
-    problem:
-      "AI coding assistants reproduce a small, predictable set of security failures in LLM-integrated code: untrusted input flowing into the LLM `system` role, model output piped into `eval` or `dangerouslySetInnerHTML`, hardcoded API keys, JSON.parse on raw model output. Existing OSS SAST tooling (Semgrep `p/ai-best-practices`, agent-audit) is Python-only. The TypeScript and JavaScript ecosystem (Vercel AI SDK, Next.js Server Actions, OpenAI / Anthropic JS SDKs) was uncovered.",
-    approach:
-      "Built a focused Semgrep rule pack mapped explicitly to OWASP LLM Top 10, distributed via npm with a thin CLI that wires up a husky pre-commit hook and a GitHub Action workflow. Twelve rules, each with vulnerable + safe fixtures, exercised by a test runner. Releases publish from CI over OIDC trusted publishing with SLSA provenance and no long-lived tokens. Released under MIT.",
-    outcome:
-      "Live on npm: the full v1 rule set, twelve rules across LLM01, LLM02, LLM03, LLM06, LLM08 and LLM10, with 37 vulnerable matches and zero false positives on the safe fixtures. Caught a real LLM10 (Improper Output Handling) bug in this portfolio's recruiter-fit endpoint. Dogfooding the LLM01 rule against the same codebase then exposed a false-positive class, which shipped as sanitizers for hand-rolled validation.",
-    role: "Solo build: rules, CLI, fixtures, distribution, docs, self-audit, release pipeline.",
-  },
   {
     id: 20,
     category: "security",

@@ -4,6 +4,7 @@ import { containerShell } from "./ui/Section";
 import { headingClass } from "./ui/SectionHeading";
 import Section from "./ui/Section";
 import Link from "next/link";
+import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFlask,
@@ -20,6 +21,7 @@ import {
   faDesktop,
   faTerminal,
   faBug,
+  faBookOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -31,6 +33,7 @@ import {
   type LabDomain,
 } from "../data/labs";
 import { BLOG_METADATA } from "../data/blog";
+import { NOTES_REPOS } from "../data/notes";
 import RevealText from "./RevealText";
 import BorderDrawButton from "./BorderDrawButton";
 
@@ -148,6 +151,7 @@ const FEATURED_SLUG_ORDER = [
 
 export default function CybersecurityLabs() {
   const allCompletedLabs = LABS.filter((l) => !l.comingSoon);
+  const activeNotes = NOTES_REPOS.filter((r) => r.status === "in-progress");
 
   // Count labs per domain and keep only domains that actually have labs.
   const domainCounts = LAB_DOMAINS.map((domain) => ({
@@ -264,6 +268,48 @@ export default function CybersecurityLabs() {
         <p className="text-center text-sm mt-10 text-content-subtle">
           Labs are from SANS Cyber Academy.
         </p>
+
+        {/* Course notes: the other half of learning in public. */}
+        <div
+          id="appsec-notes"
+          className="mt-12 rounded-2xl border border-gray-200 dark:border-gray-700/70 bg-white dark:bg-gray-800/40 p-5 sm:p-6"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <div className="flex items-start gap-3 sm:w-64 shrink-0">
+              <FontAwesomeIcon icon={faBookOpen} className="mt-1 text-amber-700 dark:text-amber-400" />
+              <div>
+                <h3 className="font-semibold text-content">AppSec Notes</h3>
+                <p className="text-sm text-content-subtle">
+                  Public notes from every security course I take, in my own words.
+                </p>
+              </div>
+            </div>
+            <ul className="flex flex-1 flex-wrap gap-3">
+              {activeNotes.map((repo) => (
+                <li key={repo.slug} className="flex items-center gap-2.5 min-w-0">
+                  <Image
+                    src={repo.logoUrl}
+                    alt={`${repo.name} badge`}
+                    width={36}
+                    height={36}
+                    className="shrink-0 w-9 h-9 rounded-md object-contain"
+                  />
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-content truncate">{repo.name}</p>
+                    <p className="text-xs text-content-subtle truncate">{repo.cert}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/notes"
+              className="inline-flex items-center gap-1.5 text-sm font-medium whitespace-nowrap text-amber-700 hover:text-amber-800 dark:text-amber-400/80 dark:hover:text-amber-300"
+            >
+              Browse all notes
+              <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+            </Link>
+          </div>
+        </div>
       </div>
     </Section>
   );
