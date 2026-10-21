@@ -129,7 +129,7 @@ export default function About() {
             <span className="font-normal text-content">
               GIAC GFACT, GSEC, and GCIH certifications
             </span>
-            . PortSwigger BSCP is in progress, targeting Q4 2026, then AWS Security Specialty (SCS-C03) in Q1 2027. The focus from here is AI and LLM security plus cloud security engineering.
+            . PortSwigger BSCP exam is set for January 2027, then AWS Security Specialty (SCS-C03) right after. The focus from here is AI and LLM security plus cloud security engineering.
           </p>
           
           <p
@@ -151,7 +151,7 @@ export default function About() {
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(4) ? '0ms' : '350ms' }}
           >
-            I&apos;m looking for a full-time Senior Application Security or AI Security Engineer role, remote US or Charleston. I also take a small number of contract engagements through my consultancy,{" "}
+            I am looking for a full time Application Security or AI Security Engineer role, mid level or senior, remote in the US or based in Charleston. I also take a small number of contract engagements through my consultancy,{" "}
             <a
               href="https://www.iberiatechsolutions.com/services"
               target="_blank"

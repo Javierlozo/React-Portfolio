@@ -53,7 +53,7 @@ interface Project {
   title: string;
   description: string;
   techStack: string[];
-  image: StaticImageData;
+  image?: StaticImageData;
   liveLink?: string;
   codeLink?: string;
   /** Package registry link, shown when the project ships as a package. */
@@ -87,6 +87,14 @@ const PROJECTS: Project[] = [
     outcome:
       "Live at /ai-playground with three seeded attacks: instruction override (LLM01), PII exfiltration via storytelling (LLM02), and system prompt extraction via summary (LLM08). Next: the attack vs. model vs. mitigation matrix, transcripts, and a live sandbox.",
     role: "Solo security research: attack design, evaluation harness, mitigation patterns, writeups",
+  },
+  {
+    id: 21,
+    category: "security",
+    title: "Gray Swan Arena: Agent Security Break",
+    description:
+      "Competed in Gray Swan Arena agent security challenges against live AI agents. Earned a Global Unique Break by getting a car sales agent to agree to sell a sports car for one dollar. The break came from enumerating the agent tools and feeding it structured records, not from persuasion. Full writeup in progress.",
+    techStack: ["AI Agents", "Prompt Injection", "Red Teaming", "OWASP LLM Top 10"],
   },
   {
     id: 14,
@@ -321,23 +329,25 @@ export default function PortfolioSlider() {
                 transitionDelay: `${i * 80}ms`,
               }}
             >
-              <div
-                className={`mb-4 sm:mb-5 md:mb-6 overflow-hidden rounded-lg ${
-                  project.fullImage ? "" : "h-36 sm:h-40 md:h-48"
-                }`}
-              >
-                <Image
-                  src={project.image}
-                  alt={`${project.title} project screenshot`}
-                  width={1600}
-                  height={900}
-                  className={
-                    project.fullImage
-                      ? "w-full h-auto"
-                      : "w-full h-full object-cover object-top"
-                  }
-                />
-              </div>
+              {project.image && (
+                <div
+                  className={`mb-4 sm:mb-5 md:mb-6 overflow-hidden rounded-lg ${
+                    project.fullImage ? "" : "h-36 sm:h-40 md:h-48"
+                  }`}
+                >
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} project screenshot`}
+                    width={1600}
+                    height={900}
+                    className={
+                      project.fullImage
+                        ? "w-full h-auto"
+                        : "w-full h-full object-cover object-top"
+                    }
+                  />
+                </div>
+              )}
 
               <div className="space-y-3 sm:space-y-4">
                 <h4 className="text-base sm:text-lg font-light text-content">

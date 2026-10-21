@@ -6,7 +6,7 @@ import Image, { StaticImageData } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 
-import { certsByStatus, learningPath } from "@/src/data/learningPath";
+import { learningPath } from "@/src/data/learningPath";
 
 import gcih from "@/src/assets/certifications/GCIH.png";
 import gsec from "@/src/assets/certifications/GSEC.png";
@@ -172,21 +172,6 @@ export default function CertificationsShowcase() {
                   {progress.current}/{progress.total} {progress.unit}
                 </span>
               )}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
-          <span className="font-mono uppercase tracking-widest text-gray-400 dark:text-gray-500 mr-1">
-            Planned
-          </span>
-          {certsByStatus("Planned").map(({ name: label }) => (
-            <span
-              key={label}
-              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 border-gray-300 text-gray-600 bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800/50"
-            >
-              <span className="block h-1.5 w-1.5 rounded-full bg-gray-400" />
-              {label}
             </span>
           ))}
         </div>
