@@ -29,7 +29,7 @@ export const learningPath: LearningPathData = {
     {
       id: "portswigger",
       label: "PortSwigger Web Academy",
-      meta: "BSCP exam Dec 19, 2026",
+      meta: "BSCP exam January 2027",
       progress: {
         current: 10,
         total: 61,
@@ -54,7 +54,7 @@ export const certTimeline: CertTimelineEntry[] = [
   { name: "GIAC GSEC", status: "Passed", date: "Apr 2026" },
   { name: "GIAC GFACT", status: "Passed", date: "Jan 2026" },
   { name: "AWS Security Specialty (SCS-C03)", status: "In progress", date: "Target Q1 2027" },
-  { name: "PortSwigger BSCP", status: "In progress", date: "Target Q4 2026" },
+  { name: "PortSwigger BSCP", status: "In progress", date: "Jan 2027" },
   { name: "TryHackMe AI Security (AI1)", status: "Planned", date: "Late 2026" },
   { name: "HackTheBox AI Red Teamer path", status: "Planned", date: "2027" },
   { name: "TCM PWPA (Web Pentest)", status: "Planned", date: "2027" },

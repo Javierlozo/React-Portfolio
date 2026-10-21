@@ -41,8 +41,7 @@ In 2019, curiosity about how computers communicate led him to study for CompTIA 
 - GIAC GSEC - Security Essentials (2026)
 - GIAC GFACT - Foundational Cybersecurity Technologies (2026)
 - Purdue University Northwest, Cybersecurity Path, System Administration (2022-2023)
-- In progress: PortSwigger BSCP (Q4 2026), AWS Security Specialty (SCS-C03, Q1 2027)
-- Planned: TryHackMe AI Security (AI1), HackTheBox AI Red Teamer path, TCM PWPA (Web Pentest)
+- In progress: PortSwigger BSCP (exam January 2027), AWS Security Specialty (SCS-C03, right after BSCP)
 
 ## Cybersecurity Labs
 - Completed hands-on security labs with detailed technical write-ups published on portfolio
