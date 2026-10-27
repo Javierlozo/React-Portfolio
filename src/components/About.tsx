@@ -138,7 +138,7 @@ export default function About() {
             className={`text-sm sm:text-base md:text-lg leading-relaxed transition-all ease-out ${ prefersReducedMotion ? 'duration-0' : 'duration-500 sm:duration-700' } text-content-muted ${ visibleElements.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 sm:translate-y-6' }`}
             style={{ transitionDelay: prefersReducedMotion || !visibleElements.has(3) ? '0ms' : '300ms' }}
           >
-            Before software: I&apos;m from Spain, six years in commercial construction (structural detailing, CAD, project management). Studied architectural engineering at{" "}
+            Before software: I&apos;m from Spain, six years in commercial construction at Coastal Millwork and Supply, from CNC operator to design and estimating engineer on 25+ commercial projects, including Mt. Pleasant Town Hall and Google&apos;s Charleston office. Studied architectural engineering at{" "}
             <span className="font-normal text-content">
               IE University
             </span>

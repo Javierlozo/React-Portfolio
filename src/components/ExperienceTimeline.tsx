@@ -161,7 +161,7 @@ export default function ExperienceTimeline() {
   ];
 
   return (
-    <Section id="experience" container={false} className="w-full">
+    <Section id="experience" tone="alt" container={false} className="w-full">
       <div className={containerShell("grid")}>
         <SectionHeading title="Experience" className="relative z-10">
           5+ years across startups, agencies, and independent consulting

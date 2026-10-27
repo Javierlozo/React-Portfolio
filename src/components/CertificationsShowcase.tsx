@@ -98,6 +98,7 @@ export default function CertificationsShowcase() {
   return (
     <Section
       id="certifications"
+      tone="alt"
       container={false}>
       <div className={containerShell("grid")}>
         <SectionHeading title="Credentials" margin="mb-10" />
@@ -156,7 +157,7 @@ export default function CertificationsShowcase() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
-          <span className="font-mono uppercase tracking-widest text-content-subtle mr-1">
+          <span className="font-mono uppercase tracking-widest text-content-muted mr-1">
             In progress
           </span>
           {learningPath.inProgress.map(({ id, label, meta, progress }) => (
@@ -176,7 +177,7 @@ export default function CertificationsShowcase() {
           ))}
         </div>
 
-        <p className="mt-6 text-center text-xs text-content-subtle">
+        <p className="mt-6 text-center text-xs text-content-muted">
           Updated {formatLastUpdated(learningPath.lastUpdated)}
         </p>
       </div>

@@ -6,7 +6,25 @@ import React from "react";
  * be made in eight places. Change it here instead.
  */
 
-export const sectionShell = "py-12 sm:py-16 md:py-20 bg-[#FAFAF9] dark:bg-[#0B1220]";
+const SECTION_PAD = "py-12 sm:py-16 md:py-20";
+
+/**
+ * Background tones. Alternating them marks where one section ends and the
+ * next begins. `inverted` is dark in both themes: the `dark` class flips the
+ * Tailwind dark: variants and the CSS tokens (see globals.css) inside it.
+ */
+export const SECTION_TONE = {
+  base: "bg-[#FAFAF9] dark:bg-[#0B1220]",
+  alt: "bg-stone-100 border-y border-stone-200 dark:bg-[#131C2E] dark:border-white/5",
+  inverted: "dark bg-[#05080F] border-t border-amber-500/40 text-[var(--fg)]",
+} as const;
+
+export type SectionTone = keyof typeof SECTION_TONE;
+
+export const sectionClass = (tone: SectionTone = "base") =>
+  `${SECTION_PAD} ${SECTION_TONE[tone]}`;
+
+export const sectionShell = sectionClass();
 
 /** Container widths, named by intent rather than by number. */
 export const CONTAINER_WIDTH = {
@@ -30,6 +48,7 @@ export const containerShell = (width: ContainerWidth = "prose") =>
 interface SectionProps {
   id?: string;
   width?: ContainerWidth;
+  tone?: SectionTone;
   /** Extra classes on the <section> itself. */
   className?: string;
   /** Extra classes on the inner container. */
@@ -42,13 +61,14 @@ interface SectionProps {
 export default function Section({
   id,
   width = "prose",
+  tone = "base",
   className = "",
   containerClassName = "",
   container = true,
   children,
 }: SectionProps) {
   return (
-    <section id={id} className={`${sectionShell} ${className}`.trim()}>
+    <section id={id} className={`${sectionClass(tone)} ${className}`.trim()}>
       {container ? (
         <div className={`${containerShell(width)} ${containerClassName}`.trim()}>
           {children}

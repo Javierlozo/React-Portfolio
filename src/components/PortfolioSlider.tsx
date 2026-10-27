@@ -19,6 +19,7 @@ import shopEssentialshub from "@/src/assets/pictures/shopessentials.png";
 import talentagent from "@/src/assets/pictures/TalentAgent.png";
 import tinta from "@/src/assets/pictures/tinta.png";
 import aiPlayground from "@/src/assets/pictures/llm2.png";
+import grayswan from "@/src/assets/pictures/grayswan.png";
 
 function useReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
@@ -55,6 +56,8 @@ interface Project {
   techStack: string[];
   image?: StaticImageData;
   liveLink?: string;
+  /** Button text for liveLink when it is not a live site. */
+  liveLabel?: string;
   codeLink?: string;
   /** Package registry link, shown when the project ships as a package. */
   npmLink?: string;
@@ -95,6 +98,16 @@ const PROJECTS: Project[] = [
     description:
       "Competed in Gray Swan Arena agent security challenges against live AI agents. Earned a Global Unique Break by getting a car sales agent to agree to sell a sports car for one dollar. The break came from enumerating the agent tools and feeding it structured records, not from persuasion. Full writeup in progress.",
     techStack: ["AI Agents", "Prompt Injection", "Red Teaming", "OWASP LLM Top 10"],
+    image: grayswan,
+    liveLink: "https://app.grayswan.ai/arena/user/6aa956c03b4989c11d4469c5",
+    liveLabel: "Arena Profile",
+    problem:
+      "Agents with tool access act on the data they are given. Their guardrails are mostly tuned to resist persuasion, not to question structured input. That gap maps to LLM01 Prompt Injection and LLM06 Excessive Agency.",
+    approach:
+      "Enumerated the agent's tools first, then fed it structured records instead of trying to talk it into anything.",
+    outcome:
+      "A live car sales agent agreed to sell a sports car for one dollar. One Global Unique Break across 34 Arena submissions, listed on my public Arena profile. Full writeup in progress.",
+    role: "Solo: recon, attack design, execution.",
   },
   {
     id: 14,
@@ -441,7 +454,7 @@ export default function PortfolioSlider() {
                       className={buttonSecondary}
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} fixedWidth />
-                      <span>View Live</span>
+                      <span>{project.liveLabel ?? "View Live"}</span>
                     </a>
                   )}
                   {project.npmLink && (

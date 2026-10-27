@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { sectionShell, containerShell } from "./ui/Section";
+import { sectionClass, containerShell } from "./ui/Section";
 import { headingRuleClass } from "./ui/SectionHeading";
 
 interface FitResult {
@@ -115,7 +115,7 @@ export default function FitAssessment() {
     <section
       id="fit-check"
       ref={sectionRef}
-      className={`${sectionShell} w-full`}
+      className={`${sectionClass("alt")} w-full`}
     >
       <div className={containerShell("prose")}>
         <div

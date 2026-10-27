@@ -4,7 +4,9 @@
 
 /* ---------- Design tokens (terminal-forward palette) ---------- */
 
-:root {
+:root,
+/* Sections forced dark inside light mode (Section tone="inverted"). */
+.dark {
   --bg: #0B1220;
   --bg-elev: #0F172A;
   --fg: #E5E7EB;

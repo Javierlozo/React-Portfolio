@@ -1,8 +1,11 @@
 "use client";
 import React from "react";
 import { buttonPrimary, buttonSecondary } from "./ui/button";
-import { containerShell } from "./ui/Section";
+import { containerShell, SECTION_TONE } from "./ui/Section";
 import Link from "next/link";
+import Image from "next/image";
+import learnShot from "@/src/assets/pictures/llm-audit-learn.png";
+import LlmAuditTerminalDemo from "./LlmAuditTerminalDemo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShieldHalved,
@@ -19,7 +22,7 @@ export default function LlmAuditFeature() {
   return (
     <section
       id="llm-audit"
-      className="py-20 sm:py-24 bg-surface"
+      className={`py-20 sm:py-24 ${SECTION_TONE.inverted}`}
     >
       <div className={containerShell("feature")}>
         <p className="font-mono text-xs font-semibold uppercase tracking-widest mb-3 text-amber-700 dark:text-amber-400">
@@ -50,7 +53,7 @@ export default function LlmAuditFeature() {
                 install
               </span>
             </div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-gray-500">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-gray-400">
               shell
             </span>
           </div>
@@ -61,35 +64,28 @@ npx llm-audit demo           # all 12 rules vs bundled vulnerable fixtures`}</co
         </div>
 
         {/* Real output */}
-        <div className="mt-6 overflow-hidden rounded-xl border border-gray-300 bg-gray-950 shadow-md dark:border-gray-700 max-w-2xl">
-          <div className="flex items-center justify-between px-4 py-2.5 bg-gray-900 border-b border-gray-700">
-            <div className="flex items-center gap-2">
-              <FontAwesomeIcon
-                icon={faTerminal}
-                className="text-gray-400 text-xs"
-              />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-gray-300">
-                npx llm-audit demo
-              </span>
-            </div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-gray-500">
-              output
-            </span>
-          </div>
-          <pre className="m-0 overflow-x-auto p-4 text-[11px] sm:text-[12px] leading-relaxed text-gray-100 font-mono">
-            <code>{`test/fixtures/llm-output-insecure-handling/vulnerable.tsx  6 findings
+        <LlmAuditTerminalDemo />
 
-  ✗ error   llm-output-insecure-handling  LLM10  line 18
-      LLM model output is flowing into a dangerous sink (eval /
-      new Function / child_process / dangerouslySetInnerHTML).
-
-     17 │   // ruleid: llm-output-insecure-handling
-     18 │   return eval(r.choices[0].message.content as string);
-     19 │ }
-     ...
-────────────────────────────────────────────────────────────
-42 findings  31 error · 11 warning  in 12 files · 12 of 12 rules fired`}</code>
-          </pre>
+        {/* Lessons */}
+        <div className="mt-12 max-w-3xl">
+          <h3 className="text-xl sm:text-2xl font-semibold mb-3 text-content">
+            It also teaches the fix.
+          </h3>
+          <p className="text-base sm:text-lg leading-relaxed mb-6 text-gray-700 dark:text-gray-300">
+            <code className="font-mono text-amber-600 dark:text-amber-400">
+              npx llm-audit learn
+            </code>{" "}
+            turns a scan into one lesson per mistake, built from your own code:
+            every flagged line, how the attack works, and a fix prompt for your
+            AI tool that already lists each place to change. It is a static
+            page. Nothing leaves your browser.
+          </p>
+          <Image
+            src={learnShot}
+            alt="The llm-audit lessons page for a scan of a sample support bot: 7 mistakes in 9 places, a numbered list of lessons, and lesson 1, Your system prompt ships to the browser, with the flagged lines in ChatBox.tsx highlighted"
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="w-full h-auto rounded-xl border border-gray-700 shadow-md"
+          />
         </div>
 
         {/* CTAs */}
